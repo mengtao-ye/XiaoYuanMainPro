@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-16"?>
+<AssetBundleConfigData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ABList Path="Assets/Resources/Prefabs/UI/TipsUI/CommonTipsUI/CommonTipsUI.prefab" ABName="commontipsui" AssetName="CommonTipsUI" CRC="1376441440" />
+  <ABList Path="Assets/HotDll/Android/HotBase.dll.bytes" ABName="hotbase" AssetName="HotBase.dll" CRC="2462921688" />
+  <ABList Path="Assets/HotDll/Android/mscorlib.dll.bytes" ABName="hotbase" AssetName="mscorlib.dll" CRC="4294383255" />
+  <ABList Path="Assets/HotDll/Android/System.Core.dll.bytes" ABName="hotbase" AssetName="System.Core.dll" CRC="746494015" />
+  <ABList Path="Assets/HotDll/Android/System.dll.bytes" ABName="hotbase" AssetName="System.dll" CRC="1823858116" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Log/MidLogUI.prefab" ABName="midlogui" AssetName="MidLogUI" CRC="568562610" />
+</AssetBundleConfigData>
