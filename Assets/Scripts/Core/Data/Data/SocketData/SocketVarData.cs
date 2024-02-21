@@ -25,10 +25,10 @@
         /// <summary>
         /// udp服务端口号
         /// </summary>
-        public const int UdpServerPort = 54321;
+        public const int UdpServerPort = 50000;
         /// <summary>
         /// tcp服务端口号
         /// </summary>
-        public const int TcpServerPort = 54322;
+        public const int TcpServerPort = 50001;
     }
 }

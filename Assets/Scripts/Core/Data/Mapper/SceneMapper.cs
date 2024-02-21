@@ -6,7 +6,7 @@ namespace Game
     {
         protected override void Config()
         {
-           
+            AddScene(new LoginScene());
         }
         /// <summary>
         /// 注册场景

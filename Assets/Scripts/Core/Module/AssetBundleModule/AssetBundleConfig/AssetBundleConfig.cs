@@ -10,17 +10,29 @@ namespace Game
         /// 存放所有需要打Asset Bundle包的Prefab的资源目录
         /// </summary>
         public List<string> mAllPrefabDir = new List<string>();
+        
 
         /// <summary>
         /// 存放所有需要打Asset Bundle包的资源目录
         /// </summary>
         public List<AssetBundleFileDir> mAllFileDir = new List<AssetBundleFileDir>();
+        /// <summary>
+        /// 原生文件目录
+        /// </summary>
+        public List<OriginalFileDir> mOriginalFileDir = new List<OriginalFileDir>();
 
 
         [System.Serializable]
         public struct AssetBundleFileDir
         {
             public string ABName;//Asset Bundle名字
+            public string Describute;//Asset Bundle的描述
+            public string Path;// AssetBundle文件的目录地址
+        }
+
+        [System.Serializable]
+        public struct OriginalFileDir
+        {
             public string Describute;//Asset Bundle的描述
             public string Path;// AssetBundle文件的目录地址
         }

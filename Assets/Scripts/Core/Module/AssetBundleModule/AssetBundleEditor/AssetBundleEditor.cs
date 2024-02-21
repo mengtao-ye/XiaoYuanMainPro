@@ -93,6 +93,8 @@ namespace Game
                     mAllPrefabDependenceDict.Add(fileName, allDependenceList);
                 }
             }
+
+            
             EditorUtility.ClearProgressBar();
             //设置文件的AB包名
             foreach (var item in mAllFileDict)

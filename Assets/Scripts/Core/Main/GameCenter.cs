@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
 using YFramework;
-using static YFramework.Utility;
 
 namespace Game
 {
@@ -14,7 +13,6 @@ namespace Game
         #region Field
         public Center center { get; private set; } = null;
         private UdpModule mUdpModule;
-        private XiaoYuanTCPSocketManager mTcpSocket;
         private XiaoYuanSceneManager mSceneManager;
         public CommonManager commonManager { get; private set; }
         private BridgeManager mBridgeManager;
@@ -28,58 +26,35 @@ namespace Game
         public ProcessController processController { get { return mProcessController; } }
         #endregion
         #region Init
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        private static void Init()
-        {
-            if (!mRun) return;
-            UnityEngine.Debug.Log("开始运行YFramework");
-            GameObject yCenter = new GameObject("YFramework");
-            yCenter.AddComponent<GameCenter>();
-            DontDestroyOnLoad(yCenter);
-            yCenter.hideFlags = HideFlags.HideAndDontSave;
-        }
+     
         /// <summary>
         /// 最先执行的方法
         /// </summary>
         private void InitData()
         {
             Instance = this;
-            #region  设置屏幕旋转
-            Screen.autorotateToLandscapeLeft = true;
-            Screen.autorotateToLandscapeRight = true;
-            Screen.autorotateToPortrait = false;
-            Screen.autorotateToPortraitUpsideDown = false;
-            #endregion
-            #region UnityEditorSetting
-#if UNITY_EDITOR
-            Application.targetFrameRate = 500;//设置最高帧率
-#else
-            Application.targetFrameRate = 60;//设置最高帧率
-#endif
-            #endregion
+            YFrameworkHelper.Instance = new XiaoYuanYFrameworkHelper();
         }
         private void Awake()
         {
+              if (!mRun) return;
             InitData();
             mProcessController = new ProcessController();
-
             center = new Center(new UnityDebug(), new MyResources());
             mSceneManager = new XiaoYuanSceneManager(center, new SceneMapper());
             mUdpModule = new UdpModule(center);
-            mTcpSocket = new XiaoYuanTCPSocketManager(center, new TcpHandleMapper());
             commonManager = new CommonManager(center);
             mLiveManager = new LiveManager(center);
             mBridgeManager = new BridgeManager(center);
             mHttpManager = new HttpManager(center);
 
             ConfigSceneManager();
-            center.AddGame(mSceneManager);
             center.AddGame(mUdpModule);
-            center.AddGame(mTcpSocket);
             center.AddGame(commonManager);
             center.AddGame(mLiveManager);
             center.AddGame(mBridgeManager);
             center.AddGame(mHttpManager);
+            center.AddGame(mSceneManager);
 
             center.Awake();
         }
@@ -307,10 +282,10 @@ namespace Game
         /// </summary>
         /// <param name="actionCode"></param>
         /// <param name="data"></param>
-        public void TcpSend(short actionCode, byte[] data)
-        {
-            mTcpSocket.TcpSend(actionCode, data);
-        }
+        //public void TcpSend(short actionCode, byte[] data)
+        //{
+        //    mTcpSocket.TcpSend(actionCode, data);
+        //}
         #endregion
         #region LiveManager
         public ILive AddUpdate(float freshTime, Action callBack)

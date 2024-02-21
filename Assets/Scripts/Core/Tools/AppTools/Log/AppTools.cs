@@ -27,6 +27,7 @@
         /// <param name="msg"></param>
         public static void LogError<T>(T msg)
         {
+            YFramework.Log.LogError(msg);
             GameCenter.Instance.LogError(msg);
         }
     }

@@ -10,7 +10,7 @@ namespace Game
         }
         public override void Awake()
         {
-            LoadScene( UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+            ChangeScene( UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
         }
     }
 }

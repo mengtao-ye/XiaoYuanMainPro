@@ -91,7 +91,7 @@ namespace Game
                 mTempDict.Add(1, BitConverter.GetBytes(bigData.index));//index
                 mTempDict.Add(2, isReceive .ToBytes());//IsReceive
                 mTempDict.Add(3, BitConverter.GetBytes(udpCode));//UdpCode
-                AppTools.UdpSend( SubServerType.Center,(short)UdpCode.ClientBigDataResponse,mTempDict.ToBytes());
+                AppTools.UdpSend( SubServerType.Center,(short)MainUdpCode.ClientBigDataResponse,mTempDict.ToBytes());
             }
         }
         /// <summary>

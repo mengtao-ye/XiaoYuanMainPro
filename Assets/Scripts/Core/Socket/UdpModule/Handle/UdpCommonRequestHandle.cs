@@ -8,7 +8,7 @@ namespace Game
         protected override short mRequestCode => (short)UdpRequestCode.Common;
         protected override void ComfigActionCode()
         {
-            Add((short)UdpCode.ServerBigDataResponse, ServerBigDataResponse);
+            Add((short)MainUdpCode.ServerBigDataResponse, ServerBigDataResponse);
         }
         /// <summary>
         /// 接收到大数据下标
