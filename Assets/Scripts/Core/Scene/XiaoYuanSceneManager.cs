@@ -2,7 +2,7 @@
 
 namespace Game
 {
-    public class XiaoYuanSceneManager  : SceneManager
+    public class XiaoYuanSceneManager : SceneManager
     {
         public XiaoYuanSceneManager(Center center, IMap<string, IScene> map) : base(center, map)
         {
@@ -10,7 +10,9 @@ namespace Game
         }
         public override void Awake()
         {
-            ChangeScene( UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+#if UNITY_EDITOR
+            ChangeScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name); 
+#endif
         }
     }
 }

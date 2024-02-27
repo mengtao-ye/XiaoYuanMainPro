@@ -28,7 +28,6 @@ namespace Game
             if (mTimer > mTime) 
             {
                 mTimer = 0;
-                
                 AppTools.UdpSend( SubServerType.Center,(short) MainUdpCode.GetBaseServerPoint, new byte[] {(byte)SubServerType.Login });
             }
             if (IsGetData)

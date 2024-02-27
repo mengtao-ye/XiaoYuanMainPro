@@ -14,9 +14,12 @@ namespace Game
         private float mTime = 1;
         private int mHeartBeatCount;
         public SubServerType subServerType { get; private set; }
-        public XiaoYuanUDPScoketManager(Center center, IMap<short, IUdpRequestHandle> map,SubServerType subServerType) : base(center, map)
+        private string mName;
+        public XiaoYuanUDPScoketManager(Center center, IMap<short, IUdpRequestHandle> map,SubServerType subServerType,string name) : base(center, map)
         {
            this. subServerType = subServerType;
+            mName = name;
+            if (mName == null) mName = "默认Udp服务器";
         }
         /// <summary>
         /// 启动
@@ -37,10 +40,10 @@ namespace Game
             catch (System.Exception e)
             {
                 isRun = false;
-                Debug.LogError("启动UDP失败:" + e.Message);
+                Debug.LogError(mName + "启动UDP失败:" + e.Message);
                 return;
             }
-            Debug.Log("UDP服务器启动成功！");
+            Debug.Log(mName+"UDP服务器启动成功！");
         }
         /// <summary>
         /// 重新连接

@@ -10,7 +10,7 @@ namespace Game
         /// <summary>
         /// AssetBundle资源打包路径
         /// </summary>
-        public static string ASSETBUNDLE_PATH_EDITOR = Application.dataPath + "/../AssetBundle/" + EditorUserBuildSettings.activeBuildTarget.ToString();
+        public static string ASSETBUNDLE_PATH_EDITOR = PathData.ProjectDir+ "/AssetBundle/" + EditorUserBuildSettings.activeBuildTarget.ToString();
         /// <summary>
         /// AB包文件资源
         /// </summary>

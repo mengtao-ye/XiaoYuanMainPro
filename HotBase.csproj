@@ -77,7 +77,7 @@
     <Compile Include="Assets\Scripts\YFramework\Core\Utility\Utility.Directory.cs" />
     <Compile Include="Assets\Scripts\Core\Model\MainModel\MainModel.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Utility\Utility.MicroPhoneTools.cs" />
-    <Compile Include="Assets\Scripts\Core\Helper\XiaoYuanYFrameworkHelper.cs" />
+    <Compile Include="Assets\Scripts\Core\Helper\Framework\XiaoYuanYFrameworkHelper.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\ToTween\Base\FatherBase\BaseToTween.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\UI\Log\LogUI\ILogUI.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Data\Const\BytesConst.cs" />
@@ -85,7 +85,7 @@
     <Compile Include="Assets\Scripts\YFramework\Core\MVC\Controller\Controller\BaseController.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\FSM\FSM\BaseFSM.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\PoolModule\GameObjectPoolModule\Base\IGameObjectPoolTarget.cs" />
-    <Compile Include="Assets\Scripts\Core\Tools\Log\UnityDebug.cs" />
+    <Compile Include="Assets\Scripts\Core\Helper\Log\UnityLogHelper.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Utility\Utility.CompressTools.cs" />
     <Compile Include="Assets\Scripts\Core\Mono\UI\InputField\CustomInputField.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Utility\Utility.BinaryMapper.cs" />
@@ -155,8 +155,9 @@
     <Compile Include="Assets\Scripts\YFramework\Core\Common\Interface\Map\IMap.cs" />
     <Compile Include="Assets\Scripts\Core\Tools\BatTools\BatTools.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Utility\Utility.EndPointTools.cs" />
+    <Compile Include="Assets\Scripts\Core\Data\Data\UserData\UserData.cs" />
     <Compile Include="Assets\Scripts\Core\Module\HotFixModule\Windows\HotFixWindows.cs" />
-    <Compile Include="Assets\Scripts\Core\UI\TipsUI\CommonTipsUI\CommonTipsUI.cs" />
+    <Compile Include="Assets\Scripts\Core\UI\TipsUI\CommonTipsUI\CommonTwoTipsUI.cs" />
     <Compile Include="Assets\Scripts\Core\Tools\AppTools\Log\AppTools.cs" />
     <Compile Include="Assets\Scripts\Core\Model\LoginModel\LoginModel.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\ToTween\Extend\Transform\LocalEuler\ToTweenExtend.cs" />
@@ -164,7 +165,8 @@
     <Compile Include="Assets\Scripts\Core\Module\AssetBundleModule\AssetBundleData\AssetBundleConfigData.cs" />
     <Compile Include="Assets\Scripts\Core\Extend\StringExtend.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\ToTween\Extend\Transform\Position\ToTweenExtend.cs" />
-    <Compile Include="Assets\Scripts\Core\Tools\Resources\MyResources.cs" />
+    <Compile Include="Assets\Scripts\Core\Helper\Resources\ResourcesLoadHelper.cs" />
+    <Compile Include="Assets\Scripts\Core\Module\ABResModule\ABResModule.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\DataStructure\DoubleLinkedList\DoubleLinkedNode.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\DesignPattern\ObserverPattern\Observer\IObserver.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Manager\SceneManager\SceneManager.cs" />
@@ -190,7 +192,6 @@
     <Compile Include="Assets\Scripts\YFramework\Core\Utility\Utility.PhysicsTools.cs" />
     <Compile Include="Assets\Scripts\Core\Socket\UdpModule\XiaoYuanSubUDPSocketManager.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\LockStepModule\FixedData\Fix32\Fix32Vector2.cs" />
-    <Compile Include="Assets\Scripts\YFramework\Core\Module\ProcessModule\ProcessManager\T\ProcessManager.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Utility\Utility.HttpTools.cs" />
     <Compile Include="Assets\Scripts\Core\Model\Custom\BaseCustomThreeDModel.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Common\Interface\Life\Core\IAwake.cs" />
@@ -221,7 +222,6 @@
     <Compile Include="Assets\Scripts\YFramework\Core\Module\DataModule\List\ListPoolModule.cs" />
     <Compile Include="Assets\Scripts\Core\Manager\HttpManager\HttpRequest\Base\BaseHttpRequest.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Common\Interface\Collection\ICollectionCount.cs" />
-    <Compile Include="Assets\Scripts\YFramework\Core\Module\ProcessModule\ProcessManager\Normal\ProcessManager.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\AI\Path\Manager\NodeManager.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Manager\SocketManager\Udp\BigData\UdpBigDataManager.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Extend\CollectionExtend.cs" />
@@ -243,10 +243,11 @@
     <Compile Include="Assets\Scripts\YFramework\Core\Module\ToTween\Entity\Rotation\Rotation\ToQuaternionTween.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\DataModule\Dictionary\DictionaryModule.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Manager\SocketManager\Udp\BigData\UdpMsg.cs" />
-    <Compile Include="Assets\Scripts\YFramework\Core\Module\LogModule\Log.cs" />
+    <Compile Include="Assets\Scripts\YFramework\Core\Module\LogModule\LogHelper.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Extend\ObjectExtend.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\ECSModule\Component\IECSComponent.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Utility\Utility.VersionTools.cs" />
+    <Compile Include="Assets\Scripts\YFramework\Core\Module\ProcessModule\ProcessManager\Base\BaseProcessManager.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\LockStepModule\Data\LockStepData.cs" />
     <Compile Include="Assets\Scripts\Core\UI\Canvas\Core\LoginCanvas.cs" />
     <Compile Include="Assets\Scripts\Core\Model\Common\Child\TwoDCameraChildModel.cs" />
@@ -254,6 +255,7 @@
     <Compile Include="Assets\Scripts\YFramework\Core\Common\Abstractor\Count\BaseCount.cs" />
     <Compile Include="Assets\Scripts\Core\Data\Data\LayerData\LayerMaskData.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Manager\SocketManager\Tcp\RequestHandle\SocketMsg.cs" />
+    <Compile Include="Assets\Scripts\YFramework\Core\Module\ProcessModule\ProcessManager\T\ProcessManager.cs" />
     <Compile Include="Assets\Scripts\Core\Data\Data\SocketData\SocketVarData.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\MVC\Model\ChildModel\IChildModel.cs" />
     <Compile Include="Assets\Scripts\Core\Module\HotFixModule\HotFixEditor\HotFixEditor.cs" />
@@ -332,24 +334,26 @@
     <Compile Include="Assets\Scripts\Core\Data\Mapper\UIMapper.cs" />
     <Compile Include="Assets\Scripts\Core\Main\GameCenter.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\BoardCastModule\BoardCastDelegate.cs" />
+    <Compile Include="Assets\Scripts\YFramework\Core\Module\ProcessModule\ProcessManager\Base\IProcessManager.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Common\Interface\Life\Core\IOnDestory.cs" />
     <Compile Include="Assets\Scripts\Core\UI\Log\Core\MidLogUI.cs" />
     <Compile Include="Assets\Scripts\Core\Data\Data\AppData\AppData.cs" />
     <Compile Include="Assets\Scripts\Core\Tools\BuildTools\BuildData.cs" />
+    <Compile Include="Assets\Scripts\Core\Helper\Resources\XiaoYuanABLoadHelper.cs" />
     <Compile Include="Assets\Scripts\Core\Tools\SpriteTools\SpriteTools.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\LockStepModule\Data\LockStepUserData.cs" />
     <Compile Include="Assets\Scripts\Core\Tools\PermissionTools\PermissionTools.cs" />
-    <Compile Include="Assets\Scripts\YFramework\Core\Module\ProcessModule\ProcessManager\Base\IProcessManager.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Utility\Utility.ConvertDataTools.cs" />
     <Compile Include="Assets\Scripts\Core\Scene\XiaoYuanSceneManager.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Utility\Utility.MeshTools.cs" />
+    <Compile Include="Assets\Scripts\YFramework\Core\Module\ProcessModule\ProcessManager\Normal\ProcessManager.cs" />
     <Compile Include="Assets\Scripts\Core\Pool\Data\PoolID.cs" />
     <Compile Include="Assets\Scripts\Core\Manager\HttpManager\Main\HttpManager.cs" />
     <Compile Include="Assets\Scripts\Core\Module\ReflectionDataModule\UserData\Data\CallBackData\Core\UserDataMap.cs" />
     <Compile Include="Assets\Scripts\Core\Module\ReflectionDataModule\UserData\Data\CallBackData\Base\BaseUnityUserDataCallBack.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\ToTween\Entity\Position\ToPositionTween.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\UI\Log\LogUIManager\LogUIManager.cs" />
-    <Compile Include="Assets\Scripts\YFramework\Core\Module\ResourceModule\Resource.cs" />
+    <Compile Include="Assets\Scripts\YFramework\Core\Module\ResourceModule\ResourceHelper.cs" />
     <Compile Include="Assets\Scripts\Core\Controller\Custom\BaseCustomChildController.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Extend\RectTransformExtend.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Manager\SocketManager\Tcp\Message.cs" />
@@ -365,7 +369,6 @@
     <Compile Include="Assets\Scripts\YFramework\Core\Common\Interface\Life\Core\IUpdate.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Common\Interface\Life\Core\IStart.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Utility\Utility.PointTools.cs" />
-    <Compile Include="Assets\Scripts\YFramework\Core\Module\ProcessModule\ProcessManager\Base\BaseProcessManager.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Common\Interface\Operator\IPool.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\PoolModule\ClassPoolModule\ClassPool.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Mono\UI\Text\TextSpacing.cs" />
@@ -380,11 +383,17 @@
     <Compile Include="Assets\Scripts\Core\Socket\Data\SubServerType.cs" />
     <Compile Include="Assets\Scripts\Core\Module\HotFixModule\Data\Patch.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Manager\SocketManager\Tcp\TCPServer.cs" />
+    <Compile Include="Assets\Scripts\Core\Data\Data\ABAssetData\ABTag.cs" />
     <Compile Include="Assets\Scripts\Core\Module\ReflectionDataModule\UserData\Data\CallBackData\Base\IUnityUserDataCallBack.cs" />
     <Compile Include="Assets\Scripts\Core\Module\ReflectionDataModule\UserData\UserDataModule.cs" />
     <Compile Include="Assets\Scripts\Core\Data\Data\SocketData\IPAddressConstData.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Extend\ToggleGroupExtend.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\ToTween\Base\FatherBase\IToTween.cs" />
+    <Compile Include="Assets\Scripts\Core\UI\TipsUI\CommonTipsUI\CommonOneTipsUI.cs" />
+    <Compile Include="Assets\Scripts\Core\Tools\AppTools\System\AppTools.cs" />
+    <Compile Include="Assets\Scripts\Core\UI\Panel\Login\RegisterPanel.cs" />
+    <Compile Include="Assets\Scripts\Core\UI\SubUI\RegisterCodeSubUI.cs" />
+    <Compile Include="Assets\Scripts\Core\UI\SubUI\RegisterNormalSubUI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\HotBase.asmdef" />

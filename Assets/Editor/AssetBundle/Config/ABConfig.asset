@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mAllPrefabDir:
   - Assets/Resources/Prefabs
-  mAllFileDir: []
-  mOriginalFileDir:
-  - Describute: "\u70ED\u66F4\u65B0\u811A\u672C"
+  mAllFileDir:
+  - ABName: hotbase
+    Describute: "\u70ED\u66F4\u65B0\u811A\u672C"
     Path: Assets/HotDll/Android
+  mOriginalFileDir: []

@@ -6,7 +6,7 @@ namespace Game
     public class XiaoYuanSubUDPSocketManager : XiaoYuanUDPScoketManager
     {
         private int mReconnectCount;
-        public XiaoYuanSubUDPSocketManager(Center center, IMap<short, IUdpRequestHandle> map, SubServerType subServerType) : base(center, map, subServerType)
+        public XiaoYuanSubUDPSocketManager(Center center, IMap<short, IUdpRequestHandle> map, SubServerType subServerType,string name) : base(center, map, subServerType,name)
         {
 
         }

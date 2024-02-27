@@ -14,12 +14,13 @@
                 switch (AppData.netType)
                 {
                     case ServerNetType.Ali:
-                        return IPAddressConstData.ALI_IP;
+                        return IPAddressConstData.PRE_IP;
                     case ServerNetType.Tencent:
-                        return IPAddressConstData.TENCENT_IP;
+                        return IPAddressConstData.PRO_IP;
                     case ServerNetType.Local:
                         return IPAddressConstData.LOCAL_IP;
                 }
+                return null;
             }
         }
         /// <summary>

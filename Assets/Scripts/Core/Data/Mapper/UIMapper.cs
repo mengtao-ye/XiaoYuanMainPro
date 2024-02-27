@@ -25,10 +25,25 @@ namespace Game
         /// </summary>
         private const string UI_LOG_DIR = UI_ROOT_DIR + "/Log";
 
+        /// <summary>
+        /// Tips面板目录
+        /// </summary>
+        private const string UI_TIPUI_DIR = UI_ROOT_DIR + "/TipsUI";
+
+        /// <summary>
+        /// CommonTips面板目录
+        /// </summary>
+        private const string UI_COMMON_TIPUI_DIR = UI_TIPUI_DIR + "/CommonTipsUI";
         protected override void Config()
         {
+            //Panel
             AddUI<LoginPanel>(UI_LOGIN_DIR);
+            AddUI<RegisterPanel>(UI_LOGIN_DIR);
+            //Log
             AddUI<MidLogUI>(UI_LOG_DIR);
+            //Tip
+            AddUI<CommonOneTipsUI>(UI_COMMON_TIPUI_DIR);
+            AddUI<CommonTwoTipsUI>(UI_COMMON_TIPUI_DIR);
         }
         /// <summary>
         /// 注册面板

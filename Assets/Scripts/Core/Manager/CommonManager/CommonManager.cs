@@ -140,16 +140,16 @@ namespace Game
         /// </summary>
         private void ChechIsOnLine()
         {
-            if (AppVarData.IsLogin)
-            {
-                mOnLineTimer -= UnityEngine.Time.deltaTime;
-                if (mOnLineTimer <= 0)
-                {
-                   AppTools.LogNotify("正在尝试重新连接网络");
-                    mOnLineTimer = 3;
-                    GameCenter.Instance.ReConnectServer();
-                }
-            }
+            //if (AppVarData.IsLogin)
+            //{
+            //    mOnLineTimer -= UnityEngine.Time.deltaTime;
+            //    if (mOnLineTimer <= 0)
+            //    {
+            //       AppTools.LogNotify("正在尝试重新连接网络");
+            //        mOnLineTimer = 3;
+            //        GameCenter.Instance.ReConnectServer();
+            //    }
+            //}
         }
         /// <summary>
         ///  重置玩家在线状态

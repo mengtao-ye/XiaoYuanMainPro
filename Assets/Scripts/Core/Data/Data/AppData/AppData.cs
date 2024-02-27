@@ -1,27 +1,33 @@
 ﻿namespace Game
 {
-    public enum ServerNetType 
-    { 
+    public enum ServerNetType
+    {
         Ali,
         Tencent,
         Local
     }
+    /// <summary>
+    /// 平台环境
+    /// </summary>
+    public enum PlatformType
+    {
+        Test,//测试环境
+        Pre,//预生产环境
+        Pro//正式环境
+    }
 
     public static class AppData
     {
-#if UNITY_EDITOR
-        /// <summary>
-        /// 当前数据通道
-        /// </summary>
-        public const ServerNetType netType =  ServerNetType.Local;
-#else
-        /// <summary>
-        /// 当前数据通道
-        /// </summary>
-       public const ServerNetType netType =  ServerNetType.Tencent;
-#endif
+        public static ServerNetType netType
+        {
+            get
+            {
+                if (platformType == PlatformType.Test) return ServerNetType.Local;
+                else return ServerNetType.Tencent;
 
-
+            }
+        }
+        public static PlatformType platformType = PlatformType.Test;
         /// <summary>
         /// 当前运行的平台
         /// </summary>

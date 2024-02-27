@@ -24,6 +24,15 @@ namespace Game
               ;
             process.processManager.Launcher();
         }
+
+        public override void Start()
+        {
+            base.Start();
+            if (AppData.platformType == PlatformType.Test) 
+            {
+                AudoLogin(18379366314, "528099tt...");
+            }
+        }
         private void Init()
         {
             mLoginBtn = transform.FindObject<Button>("LoginBtn");
@@ -32,11 +41,14 @@ namespace Game
             mLoginBtn.onClick.AddListener(LoginBtnListener);
             transform.FindObject<Button>("RegisterBtn").onClick.AddListener(() =>
             {
-                
+                GameCenter.Instance.ShowPanel<RegisterPanel>();
             });
             transform.FindObject<Button>("QuitBtn").onClick.AddListener(() =>
             {
-
+                GameCenter.Instance.ShowTipsUI<CommonTwoTipsUI>((ui)=>
+                {
+                    ui.ShowContent("是否退出应用？","退出应用","取消",null,"退出",()=> { AppTools.QuitApp(); });
+                });
             });
         }
 
@@ -63,16 +75,16 @@ namespace Game
                 return;
             }
             IListData<byte[]> loginBytes = ClassPool<ListData<byte[]>>.Pop();
-            loginBytes.Add(mAccount.text.ToInt().ToBytes());
+            loginBytes.Add(mAccount.text.ToLong().ToBytes());
             loginBytes.Add(mPassword.text.ToBytes());
             byte[] sendDatas = loginBytes.list.ToBytes();
             loginBytes.Recycle();
             AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.LoginAccount, sendDatas);
         }
 
-        public void AudoLogin(string account, string password)
+        public void AudoLogin(long account, string password)
         {
-            mAccount.text = account;
+            mAccount.text = account.ToString();
             mPassword.text = password;
             mLoginBtn.onClick.Invoke();
         }

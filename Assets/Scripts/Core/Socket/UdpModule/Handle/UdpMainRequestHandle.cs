@@ -23,7 +23,7 @@ namespace Game
             if (data.IsNullOrEmpty()) return;
             EndPointData endPointData = EndPointTools.GetPointData(data, 0);
             if (endPointData == null) return;
-            GameCenter.Instance.AddUdpServer(SubServerType.Login, endPointData.ipAddress, endPointData.port, (short)LoginUdpCode.LoginHeartBeat);
+            GameCenter.Instance.AddUdpServer(SubServerType.Login, endPointData.ipAddress, endPointData.port, (short)LoginUdpCode.LoginHeartBeat,"登录分布式服务器");
             GetLoginServerPointProcess.IsGetData = true;
         }
     }

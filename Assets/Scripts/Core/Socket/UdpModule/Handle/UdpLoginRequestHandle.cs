@@ -44,21 +44,21 @@ namespace Game
         }
         private void RegisterAccount(byte[] data)
         {
-            //if (data.IsNullOrEmpty()) return;
-            //RegisterReturnCode register = (RegisterReturnCode)data[0];
-            //switch (register)
-            //{
-            //    case RegisterReturnCode.IsExist:
-            //        AppTools.LogNotify("账号已存在");
-            //        break;
-            //    case RegisterReturnCode.Error:
-            //        AppTools.LogError("注册失败");
-            //        break;
-            //    case RegisterReturnCode.Success:
-            //        AppTools.Log("注册成功");
-            //        GameCenter.Instance.ShowPanel<LoginPanel>();
-            //        break;
-            //}
+            if (data.IsNullOrEmpty()) return;
+            byte register = data[0];
+            switch (register)
+            {
+                case 2:
+                    AppTools.LogNotify("账号已存在");
+                    break;
+                case 0:
+                    AppTools.LogError("注册失败");
+                    break;
+                case 1:
+                    AppTools.Log("注册成功");
+                    GameCenter.Instance.ShowPanel<LoginPanel>();
+                    break;
+            }
         }
 
         private void LoginServerHeartBeat(byte[] data)
@@ -69,25 +69,22 @@ namespace Game
         private void LoginAccount(byte[] data)
         {
             if (data.IsNullOrEmpty()) return;
-            //IDictionaryData<byte, byte[]> dict = data.ToBytesDictionary();
-            //LoginResultEnum loginResultEnum = (LoginResultEnum)dict[0][0];
-            //switch (loginResultEnum)
-            //{
-            //    case LoginResultEnum.Success:
-            //        AppTools.Log("登录成功");
-            //        AppVarData.userData = ConverterDataTools.ToObject<UserData>(dict[1]);
-            //        GameCenter.Instance.LoadScene(SceneID.MainScene);
-            //        break;
-            //    case LoginResultEnum.IsOnLine:
-            //        AppTools.LogNotify("账号已登录");
-            //        break;
-            //    case LoginResultEnum.AccountOrPasswordError:
-            //        AppTools.LogError("账号或密码错误");
-            //        break;
-            //    case LoginResultEnum.Fail:
-            //        AppTools.LogError("登录失败");
-            //        break;
-            //}
+            IDictionaryData<byte, byte[]> dict = data.ToBytesDictionary();
+            byte loginResultEnum = dict[0][0];// 0 为失败 1为成功  2为账号或密码错误  
+            switch (loginResultEnum)
+            {
+                case 0:
+                    AppTools.LogError("登录失败");
+                    break;
+                case 1:
+                    AppTools.Log("登录成功");
+                    AppVarData.userData = ConverterDataTools.ToObject<UserData>(dict[1]);
+                    GameCenter.Instance.LoadScene(SceneID.MainScene, ABTag.Main);
+                    break;
+                case 2:
+                    AppTools.LogError("账号或密码错误");
+                    break;
+            }
         }
     }
 }

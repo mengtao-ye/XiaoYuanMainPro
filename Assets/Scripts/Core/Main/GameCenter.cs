@@ -9,7 +9,12 @@ namespace Game
     /// </summary>
     public class GameCenter : SingletonMono<GameCenter>
     {
-        private static bool mRun = true; //是否运行YFramwork框架
+        public static bool isRun =//是否运行YFramwork框架  
+#if UNITY_EDITOR
+         true;
+#else
+          false; 
+#endif
         #region Field
         public Center center { get; private set; } = null;
         private UdpModule mUdpModule;
@@ -24,23 +29,34 @@ namespace Game
         public IController curController { get { return mSceneManager.curScene.controller; } }
         private ProcessController mProcessController;
         public ProcessController processController { get { return mProcessController; } }
-        #endregion
-        #region Init
+#endregion
+#region Init
      
         /// <summary>
         /// 最先执行的方法
         /// </summary>
-        private void InitData()
+        public  void Awake()
         {
             Instance = this;
             YFrameworkHelper.Instance = new XiaoYuanYFrameworkHelper();
+            LogHelper.Instance = new UnityLogHelper();
+#if UNITY_EDITOR
+            ResourceHelper.Instance = new ResourcesLoadHelper();
+#else
+            ResourceHelper.Instance = new XiaoYuanABLoadHelper();
+#endif
+
+#if UNITY_EDITOR
+            Init(); 
+#endif
         }
-        private void Awake()
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        public void Init() 
         {
-              if (!mRun) return;
-            InitData();
             mProcessController = new ProcessController();
-            center = new Center(new UnityDebug(), new MyResources());
+            center = new Center();
             mSceneManager = new XiaoYuanSceneManager(center, new SceneMapper());
             mUdpModule = new UdpModule(center);
             commonManager = new CommonManager(center);
@@ -57,28 +73,29 @@ namespace Game
             center.AddGame(mSceneManager);
 
             center.Awake();
-        }
-        private void Start()
-        {
             center.Start();
         }
+
         private void Update()
         {
+            if (!isRun) return;
             mProcessController.Update();
             center.Update();
         }
 
         public void LateUpdate()
         {
+            if (!isRun) return;
             center.LaterUpdate();
         }
 
         private void FixedUpdate()
         {
+            if (!isRun) return;
             center.FixedUpdate();
         }
-        #endregion
-        #region UI
+#endregion
+#region UI
         /// <summary>
         /// 使用屏幕中方的Log打印信息
         /// </summary>
@@ -86,7 +103,10 @@ namespace Game
         /// <param name="msg"></param>
         public void LogSuccess<T>(T msg)
         {
-            ShowLogUI<MidLogUI>().ShowContent(msg.ToString(), NotifyType.Success);
+            ShowLogUI<MidLogUI>((ui) =>
+            {
+                ui.ShowContent(msg.ToString(), NotifyType.Success);
+            });
         }
 
         /// <summary>
@@ -96,7 +116,10 @@ namespace Game
         /// <param name="msg"></param>
         public void LogError<T>(T msg)
         {
-            ShowLogUI<MidLogUI>().ShowContent(msg.ToString(), NotifyType.Error);
+            ShowLogUI<MidLogUI>((ui) =>
+            {
+                ui.ShowContent(msg.ToString(), NotifyType.Error);
+            });
         }
 
         /// <summary>
@@ -106,23 +129,26 @@ namespace Game
         /// <param name="msg"></param>
         public void LogNotify<T>(T msg)
         {
-            ShowLogUI<MidLogUI>().ShowContent(msg.ToString(), NotifyType.Notify);
+            ShowLogUI<MidLogUI>((ui) =>
+            {
+                ui.ShowContent(msg.ToString(), NotifyType.Notify);
+            });
         }
         /// <summary>
         /// 显示LogUI
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public T ShowLogUI<T>() where T : BaseCustomLogUI, new()
+        public void ShowLogUI<T>(Action<T> action) where T : BaseCustomLogUI, new()
         {
-            return curCanvas.logUIManager.ShowLogUI<T>();
+             curCanvas.logUIManager.ShowLogUI<T>(action);
         }
         /// <summary>
         /// 显示提示UI
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public T ShowTipsUI<T>() where T : BaseCustomTipsUI, new()
+        public void ShowTipsUI<T>(Action<T> action) where T : BaseCustomTipsUI, new()
         {
-            return curCanvas.showTipsPanel.ShowTipsUI<T>();
+             curCanvas.showTipsPanel.ShowTipsUI<T>(action);
         }
         /// <summary>
         /// 显示提示UI
@@ -136,17 +162,17 @@ namespace Game
         /// 获取提示UI
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public T GetTipsUI<T>() where T : BaseCustomTipsUI, new()
+        public void GetTipsUI<T>(Action<T> action) where T : BaseCustomTipsUI, new()
         {
-            return curCanvas.showTipsPanel.GetTipsUI<T>();
+             curCanvas.showTipsPanel.GetTipsUI<T>(action);
         }
         /// <summary>
         /// 显示提示Panel
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public T ShowPanel<T>() where T : BaseCustomPanel, new()
+        public void ShowPanel<T>(Action<T> callBack =  null) where T : BaseCustomPanel, new()
         {
-            return curCanvas.ShowPanel<T>();
+             curCanvas.ShowPanel<T>(callBack);
         }
         /// <summary>
         /// 显示提示Panel
@@ -156,8 +182,8 @@ namespace Game
         {
             return curCanvas.FindPanel<T>();
         }
-        #endregion
-        #region SceneManager
+#endregion
+#region SceneManager
         /// <summary>
         /// 配置场景加载数据
         /// </summary>
@@ -179,12 +205,26 @@ namespace Game
         /// </summary>
         /// <param name="sceneName">加载的名称</param>
         /// <param name="loadPorcess">加载的进度</param>
-        public void LoadScene(SceneID sceneName, Action<float> loadPorcess = null)
+        public void LoadScene(SceneID sceneName,string tag, Action<float> loadPorcess = null)
         {
+#if UNITY_EDITOR
             mSceneManager.LoadScene(sceneName.ToString(), loadPorcess);
+#else
+            LauncherBridgeMono.SendLoadScene(tag, sceneName.ToString());
+#endif
         }
-        #endregion
-        #region UdpManager
+
+        /// <summary>
+        /// 切换scene
+        /// </summary>
+        /// <param name="sceneName">加载的名称</param>
+        /// <param name="loadPorcess">加载的进度</param>
+        public void ChangeScene(string sceneName)
+        {
+            mSceneManager.ChangeScene(sceneName);
+        }
+#endregion
+#region UdpManager
         public bool CenterUdpServerIsConnect
         {
             get
@@ -225,9 +265,9 @@ namespace Game
         /// </summary>
         /// <param name="ipAddress"></param>
         /// <param name="port"></param>
-        public void AddUdpServer(SubServerType subServerType, string ipAddress, int port, short heartBeatID)
+        public void AddUdpServer(SubServerType subServerType, string ipAddress, int port, short heartBeatID,string name)
         {
-            mUdpModule.AddUdpServer(subServerType, ipAddress, port, heartBeatID);
+            mUdpModule.AddUdpServer(subServerType, ipAddress, port, heartBeatID,name);
         }
         /// <summary>
         /// 移除udpServer
@@ -275,8 +315,8 @@ namespace Game
 
             mUdpModule.centerUdpServer.ReceiveCallBack(udpCode, index, isReceive);
         }
-        #endregion
-        #region TcpMangaer
+#endregion
+#region TcpMangaer
         /// <summary>
         /// Tcp发送数据
         /// </summary>
@@ -286,14 +326,14 @@ namespace Game
         //{
         //    mTcpSocket.TcpSend(actionCode, data);
         //}
-        #endregion
-        #region LiveManager
+#endregion
+#region LiveManager
         public ILive AddUpdate(float freshTime, Action callBack)
         {
             return mLiveManager.AddUpdate(freshTime, callBack);
         }
-        #endregion
-        #region 原生之间调用
+#endregion
+#region 原生之间调用
         public string UnityToAndroid(int id, int value1, int value2, int value3, string str1, string str2, string str3)
         {
             if (mBridgeManager.isRun)
@@ -302,8 +342,8 @@ namespace Game
             }
             return null;
         }
-        #endregion
-        #region HttpManager
+#endregion
+#region HttpManager
         /// <summary>
         /// 发送获取图片的Http请求
         /// </summary>
@@ -326,6 +366,6 @@ namespace Game
         {
             mHttpManager.SendSpriteRequest(url, callBack, errorCallBack, value);
         }
-        #endregion
+#endregion
     }
 }

@@ -6,6 +6,7 @@
   <ABList Path="Assets/HotDll/Android/System.Core.dll.bytes" ABName="hotbase" AssetName="System.Core.dll" CRC="746494015" />
   <ABList Path="Assets/HotDll/Android/System.dll.bytes" ABName="hotbase" AssetName="System.dll" CRC="1823858116" />
   <ABList Path="Assets/Resources/Prefabs/Main/LauncherBridge.prefab" ABName="launcherbridge" AssetName="LauncherBridge" CRC="911740674" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Panel/Login/LoginPanel.prefab" ABName="loginpanel" AssetName="LoginPanel" CRC="3076916357" />
   <ABList Path="Assets/Resources/Prefabs/Main/MainLauncher.prefab" ABName="mainlauncher" AssetName="MainLauncher" CRC="450413615" />
   <ABList Path="Assets/Resources/Prefabs/UI/Log/MidLogUI.prefab" ABName="midlogui" AssetName="MidLogUI" CRC="568562610" />
 </AssetBundleConfigData>
