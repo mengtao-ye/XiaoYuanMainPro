@@ -47,6 +47,7 @@ namespace Game
             {
                 GameCenter.Instance.ShowTipsUI<CommonTwoTipsUI>((ui)=>
                 {
+                    ui.SetType(CommonTwoTipID.QuitGame);
                     ui.ShowContent("是否退出应用？","退出应用","取消",null,"退出",()=> { AppTools.QuitApp(); });
                 });
             });
@@ -56,22 +57,22 @@ namespace Game
         {
             if (mAccount.text == "")
             {
-                AppTools.LogError("账号不能为空");
+                AppTools.ToastError("账号不能为空");
                 return;
             }
             if (mAccount.text .Length !=11)
             {
-                AppTools.LogError("账号必须为11位");
+                AppTools.ToastError("账号必须为11位");
                 return;
             }
             if (mPassword.text == "")
             {
-                AppTools.LogError("密码不能为空");
+                AppTools.ToastError("密码不能为空");
                 return;
             }
             if (mPassword.text.Length < 6)
             {
-                AppTools.LogError("密码长度为6-18位");
+                AppTools.ToastError("密码长度为6-18位");
                 return;
             }
             IListData<byte[]> loginBytes = ClassPool<ListData<byte[]>>.Pop();

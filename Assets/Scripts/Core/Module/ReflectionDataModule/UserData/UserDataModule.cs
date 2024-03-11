@@ -10,15 +10,15 @@ namespace Game
     /// </summary>
     public static class UserDataModule
     {
-        private static Dictionary<int, Queue<IUnityUserDataCallBack>> mUserDataQueueCallBackDict  = new Dictionary<int, Queue<IUnityUserDataCallBack>>();
-        private static Dictionary<int, UnityUserData> mUserDataDict = new Dictionary<int, UnityUserData>();
+        private static Dictionary<long, Queue<IUnityUserDataCallBack>> mUserDataQueueCallBackDict  = new Dictionary<long, Queue<IUnityUserDataCallBack>>();
+        private static Dictionary<long, UnityUserData> mUserDataDict = new Dictionary<long, UnityUserData>();
         /// <summary>
         /// 映射用户信息
         /// </summary>
         /// <param name="account"></param>
         /// <param name="image"></param>
         /// <param name="name"></param>
-        public static void MapUserData<T>(int account, Action<UnityUserData,T> call,T data)
+        public static void MapUserData<T>(long account, Action<UnityUserData,T> call,T data)
         {
             if (mUserDataDict.ContainsKey(account))
             {
@@ -41,7 +41,7 @@ namespace Game
         /// <param name="account"></param>
         /// <param name="image"></param>
         /// <param name="name"></param>
-        public static void MapUserData(int account, Action<UnityUserData> call)
+        public static void MapUserData(long account, Action<UnityUserData> call)
         {
             if (mUserDataDict.ContainsKey(account))
             {
@@ -64,7 +64,7 @@ namespace Game
         /// <param name="account"></param>
         /// <param name="image"></param>
         /// <param name="name"></param>
-        public static void MapUserData(int account, Image image, Text name)
+        public static void MapUserData(long account, Image image, Text name)
         {
             if (mUserDataDict.ContainsKey(account))
             {
@@ -85,16 +85,16 @@ namespace Game
         /// <summary>
         /// 发送获取用户数据请求
         /// </summary>
-        private static void SendGetUserDataRequest(int account)
+        private static void SendGetUserDataRequest(long account)
         {
-            //AppTools .UdpSend( SubServerType.Login,(short)LoginUdpCode.GetUserData, BitConverter.GetBytes(account));
+            AppTools .UdpSend( SubServerType.Login,(short)LoginUdpCode.GetUserData, account.ToBytes());
         }
         /// <summary>
         /// 接收到了玩家的数据
         /// </summary>
         /// <param name="account"></param>
         /// <param name="userData"></param>
-        public static void ReceiveUserDataCallBack(int account,UnityUserData userData) 
+        public static void ReceiveUserDataCallBack(long account,UnityUserData userData) 
         {
             if (!mUserDataDict.ContainsKey(account)) 
             {

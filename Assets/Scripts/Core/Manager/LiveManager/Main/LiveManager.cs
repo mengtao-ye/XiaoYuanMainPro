@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 using YFramework;
 
 namespace Game
@@ -25,6 +26,7 @@ namespace Game
         public ILive AddUpdate(float refreshTime,Action callBack)
         {
             UpdateLive lift = ClassPool<UpdateLive>.Pop(refreshTime, callBack, this);
+            lift.SetData(refreshTime, callBack, this);
             mLiveList.Add(lift);
             return lift;
         }

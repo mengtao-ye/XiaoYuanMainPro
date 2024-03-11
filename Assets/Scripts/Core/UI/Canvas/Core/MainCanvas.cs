@@ -10,6 +10,7 @@ namespace Game
         public override void Awake()
         {
             base.Awake();
+            ShowPanel<MainPanel>();
         }
     }
 }

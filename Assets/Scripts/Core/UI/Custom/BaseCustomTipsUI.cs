@@ -1,5 +1,4 @@
-﻿using UnityEngine.UI;
-using YFramework;
+﻿using YFramework;
 
 namespace Game
 {
@@ -8,18 +7,6 @@ namespace Game
         public BaseCustomTipsUI()
         {
 
-        }
-        public override void Awake()
-        {
-            Button[] btns = transform.GetComponentsInChildren<Button>();
-            for (int i = 0; i < btns.Length; i++)
-            {
-                btns[i].onClick.AddListener(ClickAudio);
-            }
-        }
-        private void ClickAudio()
-        {
-            YFramework.AudioPlayerModule.Play(YFramework.AudioType.Operator, "Audios/Operator/Click_Audio");
         }
     }
 }

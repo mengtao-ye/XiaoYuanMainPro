@@ -120,7 +120,7 @@ namespace Game
                 if (mIsConnectNet)
                 {
                     mIsConnectNet = false;
-                    AppTools.LogError("网络连接失败");
+                    AppTools.ToastError("网络连接失败");
                     GameCenter.Instance.ReConnectServer();
                     BoardCastModule.Broadcast((int)BoardCastID.LostLine);
                 }
@@ -130,7 +130,7 @@ namespace Game
                 if (!mIsConnectNet)
                 {
                     mIsConnectNet = true;
-                    AppTools.Log("网络连接成功");
+                    AppTools.Toast("网络连接成功");
                     BoardCastModule.Broadcast((int)BoardCastID.ConnectLine);
                 }
             }

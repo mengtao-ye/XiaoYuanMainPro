@@ -9,11 +9,11 @@ namespace Game
     public  class UnityUserData
     {
         public int UserID;
-        public int account;
+        public long account;
         public string userName;
         public string headUrl;
         public Sprite headSprite;
-        public UnityUserData(int userID,int account,string userName,string headUrl,Sprite headSprite)
+        public UnityUserData(int userID,long account,string userName,string headUrl,Sprite headSprite)
         {
             this.UserID = userID;
             this.account = account;

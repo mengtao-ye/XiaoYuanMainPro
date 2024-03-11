@@ -18,6 +18,12 @@ namespace Game
         /// 启动器的桥梁对象
         /// </summary>
         public static GameObject LauncherTarget;
+
+        private void Awake()
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+
         #region Receive
         /// <summary>
         /// 初始化

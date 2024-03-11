@@ -57,10 +57,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Editor\HybridCLR\BuildAssetsCommand.cs" />
+    <Compile Include="Assets\Editor\WindowsEditor\WindowsEditor.cs" />
     <Compile Include="Assets\Editor\Scripts\UI\SimpleRoundedImageEditor.cs" />
     <Compile Include="Assets\Editor\HybridCLR\BuildPlayerCommand.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Editor\WindowsEditor\LoginPanel.txt" />
     <None Include="Assets\Editor\AssetBundle\readme.txt" />
   </ItemGroup>
   <ItemGroup>

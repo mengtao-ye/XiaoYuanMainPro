@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using UnityEngine;
 using YFramework;
 
@@ -22,7 +23,6 @@ namespace Game
         public CommonManager commonManager { get; private set; }
         private BridgeManager mBridgeManager;
         private ILiveManager mLiveManager;
-        private IHttpManager mHttpManager;
         public IScene curScene { get { return mSceneManager.curScene; } }
         public ICanvas curCanvas { get { return mSceneManager.curScene.canvas; } }
         public IModel curModel { get { return mSceneManager.curScene.model; } }
@@ -37,6 +37,7 @@ namespace Game
         /// </summary>
         public  void Awake()
         {
+            DontDestroyOnLoad(gameObject);
             Instance = this;
             YFrameworkHelper.Instance = new XiaoYuanYFrameworkHelper();
             LogHelper.Instance = new UnityLogHelper();
@@ -57,19 +58,16 @@ namespace Game
         {
             mProcessController = new ProcessController();
             center = new Center();
-            mSceneManager = new XiaoYuanSceneManager(center, new SceneMapper());
             mUdpModule = new UdpModule(center);
             commonManager = new CommonManager(center);
             mLiveManager = new LiveManager(center);
             mBridgeManager = new BridgeManager(center);
-            mHttpManager = new HttpManager(center);
-
+            mSceneManager = new XiaoYuanSceneManager(center, new SceneMapper());
             ConfigSceneManager();
             center.AddGame(mUdpModule);
             center.AddGame(commonManager);
             center.AddGame(mLiveManager);
             center.AddGame(mBridgeManager);
-            center.AddGame(mHttpManager);
             center.AddGame(mSceneManager);
 
             center.Awake();
@@ -146,7 +144,7 @@ namespace Game
         /// 显示提示UI
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public void ShowTipsUI<T>(Action<T> action) where T : BaseCustomTipsUI, new()
+        public void ShowTipsUI<T>(Action<T> action = null) where T : BaseCustomTipsUI, new()
         {
              curCanvas.showTipsPanel.ShowTipsUI<T>(action);
         }
@@ -157,6 +155,14 @@ namespace Game
         public void HideTipsUI<T>() where T : BaseCustomTipsUI, new()
         {
             curCanvas.showTipsPanel.HideTipsUI<T>();
+        }
+        /// <summary>
+        /// 显示提示UI
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        public void HideTipsUI<T>(int type) where T : BaseCustomTipsUI, new()
+        {
+            curCanvas.showTipsPanel.HideTipsUI<T>(type);
         }
         /// <summary>
         /// 获取提示UI
@@ -315,8 +321,8 @@ namespace Game
 
             mUdpModule.centerUdpServer.ReceiveCallBack(udpCode, index, isReceive);
         }
-#endregion
-#region TcpMangaer
+        #endregion
+        #region TcpMangaer
         /// <summary>
         /// Tcp发送数据
         /// </summary>
@@ -326,14 +332,27 @@ namespace Game
         //{
         //    mTcpSocket.TcpSend(actionCode, data);
         //}
-#endregion
-#region LiveManager
+        #endregion
+        #region LiveManager
+        /// <summary>
+        /// 添加帧函数
+        /// </summary>
+        /// <param name="live"></param>
         public ILive AddUpdate(float freshTime, Action callBack)
         {
             return mLiveManager.AddUpdate(freshTime, callBack);
         }
-#endregion
-#region 原生之间调用
+        /// <summary>
+        /// 移除生命周期
+        /// </summary>
+        /// <param name="live"></param>
+        public void RemoveLife(ILive live)
+        {
+            if(live!=null)
+             mLiveManager.RemoveLive(live);
+        }
+        #endregion
+        #region 原生之间调用
         public string UnityToAndroid(int id, int value1, int value2, int value3, string str1, string str2, string str3)
         {
             if (mBridgeManager.isRun)
@@ -343,29 +362,6 @@ namespace Game
             return null;
         }
 #endregion
-#region HttpManager
-        /// <summary>
-        /// 发送获取图片的Http请求
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="url"></param>
-        /// <param name="callBack"></param>
-        /// <param name="errorCallBack"></param>
-        public void SendGetSpriteRequest(string url, Action<Sprite> callBack, Action<string> errorCallBack)
-        {
-            mHttpManager.SendSpriteRequest(url, callBack, errorCallBack);
-        }
-        /// <summary>
-        /// 发送Http请求
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="url"></param>
-        /// <param name="callBack"></param>
-        /// <param name="errorCallBack"></param>
-        public void SendSpriteRequest<T>(string url, Action<Sprite, T> callBack, Action<string> errorCallBack, T value)
-        {
-            mHttpManager.SendSpriteRequest(url, callBack, errorCallBack, value);
-        }
-#endregion
+
     }
 }

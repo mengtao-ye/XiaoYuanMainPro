@@ -1,0 +1,1 @@
+rd /S /q C:\UnityProject\XiaoYuanMainPro2\Assets

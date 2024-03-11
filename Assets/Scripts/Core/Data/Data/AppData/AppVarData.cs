@@ -1,4 +1,6 @@
-﻿namespace Game
+﻿using YFramework;
+
+namespace Game
 {
     /// <summary>
     /// APP变量数据

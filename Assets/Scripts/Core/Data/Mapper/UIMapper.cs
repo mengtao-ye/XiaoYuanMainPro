@@ -19,7 +19,10 @@ namespace Game
         /// 登录场景目录
         /// </summary>
         private const string UI_LOGIN_DIR = UI_PANEL_DIR + "/Login";
-
+        /// <summary>
+        /// 主场景目录
+        /// </summary>
+        private const string UI_MAIN_DIR = UI_PANEL_DIR + "/Main";
         /// <summary>
         /// Log面板目录
         /// </summary>
@@ -34,16 +37,29 @@ namespace Game
         /// CommonTips面板目录
         /// </summary>
         private const string UI_COMMON_TIPUI_DIR = UI_TIPUI_DIR + "/CommonTipsUI";
+
+        /// <summary>
+        /// Main面板目录
+        /// </summary>
+        private const string UI_Main_TIPUI_DIR = UI_TIPUI_DIR + "/Main";
         protected override void Config()
         {
             //Panel
             AddUI<LoginPanel>(UI_LOGIN_DIR);
             AddUI<RegisterPanel>(UI_LOGIN_DIR);
+            AddUI<MainPanel>(UI_MAIN_DIR);
+            AddUI<SelectSchoolPanel>(UI_MAIN_DIR);
+            AddUI<ChatPanel>(UI_MAIN_DIR);
+            AddUI<FindFriendPanel>(UI_MAIN_DIR);
+            AddUI<SendAddFriendPanel>(UI_MAIN_DIR);
+            AddUI<AddFriendRequestViewPanel>(UI_MAIN_DIR);
+            AddUI<FriendListPanel>(UI_MAIN_DIR);
             //Log
             AddUI<MidLogUI>(UI_LOG_DIR);
             //Tip
             AddUI<CommonOneTipsUI>(UI_COMMON_TIPUI_DIR);
             AddUI<CommonTwoTipsUI>(UI_COMMON_TIPUI_DIR);
+            AddUI<NotifyTipUI>(UI_Main_TIPUI_DIR);
         }
         /// <summary>
         /// 注册面板

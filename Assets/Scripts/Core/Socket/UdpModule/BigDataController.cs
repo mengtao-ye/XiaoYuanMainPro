@@ -57,7 +57,7 @@ namespace Game
         /// <param name="data"></param>
         private void AnalysicsReceiveData(short udpCode, byte[] data, Action<short,byte[]> callBack)
         {
-            UdpBigDataItem bigData = YFramework.Utility.ConverterDataTools.ToObject<UdpBigDataItem>(data);
+            UdpBigDataItem bigData = YFramework.Utility.ConverterDataTools.ToPoolObject<UdpBigDataItem>(data);
             if (bigData == null) return;
             if (!mBigData.ContainsKey(udpCode)) mBigData.Add(udpCode, new List<UdpBigDataItem>());
             List<UdpBigDataItem> bigDataList = mBigData[udpCode];
@@ -91,6 +91,7 @@ namespace Game
                 mTempDict.Add(1, BitConverter.GetBytes(bigData.index));//index
                 mTempDict.Add(2, isReceive .ToBytes());//IsReceive
                 mTempDict.Add(3, BitConverter.GetBytes(udpCode));//UdpCode
+                bigData.Recycle();
                 AppTools.UdpSend( SubServerType.Center,(short)MainUdpCode.ClientBigDataResponse,mTempDict.ToBytes());
             }
         }

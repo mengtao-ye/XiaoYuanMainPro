@@ -28,7 +28,7 @@ namespace Game
                 mReconnectCount++;
                 if (mReconnectCount > 3)
                 {
-                    AppTools.LogError("登录服务器断开连接");
+                    AppTools.ToastError("登录服务器断开连接");
                     //超过三次了表示这个连接断开了，需要重新发起连接
                     GameCenter.Instance.RemoveUdpServer(subServerType);
                     IProcess process = GameCenter.Instance.processController.Create()

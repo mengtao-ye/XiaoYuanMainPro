@@ -2,7 +2,7 @@
 
 namespace Game
 {
-    public class UserData : IDataConverter
+    public class UserData : IPool, IDataConverter
     {
         public int ID;
         public long Account;
@@ -11,6 +11,20 @@ namespace Game
         public string HeadURL;
         public string IDCard;
         private byte[] mDatas;
+        public bool isPop { get ; set ; }
+        public void PopPool()
+        {
+        }
+
+        public void PushPool()
+        {
+        }
+
+        public void Recycle()
+        {
+            ClassPool<UserData>.Push(this);
+        }
+
         public  byte[] ToBytes()
         {
             if (mDatas == null)
