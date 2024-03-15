@@ -7,8 +7,8 @@ namespace Game
 {
     public class NewFriendItemPool : BaseGameObjectPoolTarget<NewFriendItemPool>
     {
-        public override int Type => (int)GameObjectPoolID.NewFriendItemPool;
         public override string assetPath => "Prefabs/UI/Item/Chat/NewFriendItem";
+        public override bool isUI { get; } = true;
         private Image mHead;
         private Text mName;
         private Text mContent;
@@ -50,6 +50,11 @@ namespace Game
             mFriendAccount = account;
             mContent.text = content;
             UserDataModule.MapUserData(account, mHead, mName);
+        }
+
+        public override void Recycle()
+        {
+            ClassPool<NewFriendItemPool>.Push(this);
         }
     }
 }

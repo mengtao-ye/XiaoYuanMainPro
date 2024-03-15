@@ -6,8 +6,8 @@ namespace Game
 {
     public class ChatMsgItemPool : BaseGameObjectPoolTarget<ChatMsgItemPool>
     {
-        public override int Type =>(int) GameObjectPoolID.ChatMsgItem;
         public override string assetPath => "Prefabs/UI/Item/Chat/ChatMsgItem";
+        public override bool isUI { get; } = true;
         private Image mIcon;
         private Text mName;
         private Text mTopMsg;
@@ -101,6 +101,11 @@ namespace Game
         public void ClearUnreadMsg() 
         {
             mUnreadBG.SetAvtiveExtend(false);
+        }
+
+        public override void Recycle()
+        {
+            ClassPool<ChatMsgItemPool>.Push(this);
         }
     }
 }

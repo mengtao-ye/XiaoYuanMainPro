@@ -56,7 +56,7 @@ namespace Game
             {
                 byte[] chatBytes = File.ReadAllBytes(files[i]);
                 ChatListItemData chatListItemData = ConverterDataTools.ToObject<ChatListItemData>(chatBytes);
-                GameObjectPoolModule.AsyncPop<ChatMsgItemPool>((int)GameObjectPoolID.ChatMsgItem, parent, (item) =>
+                GameObjectPoolModule.AsyncPop<ChatMsgItemPool>( parent, (item) =>
                 {
                     item.SetFriendAccount(chatListItemData.account);
                     item.SetTopMsg(chatListItemData.msgType, chatListItemData.topMsg);
@@ -137,7 +137,7 @@ namespace Game
                     chatListItemData.time = chatDatas.list[i].time;
                     chatListItemData.unreadCount++;
                     SaveChatListToLocal(chatListItemData);
-                    GameObjectPoolModule.AsyncPop<ChatMsgItemPool>((int)GameObjectPoolID.ChatMsgItem, parent, (item) =>
+                    GameObjectPoolModule.AsyncPop<ChatMsgItemPool>(parent, (item) =>
                     {
                         item.SetFriendAccount(chatListItemData.account);
                         item.SetTopMsg(chatListItemData.msgType, chatListItemData.topMsg);
@@ -223,7 +223,7 @@ namespace Game
         /// <returns></returns>
         public static void LoadAddFriendList(Transform parent)
         {
-            GameObjectPoolModule.PushTarget((int)GameObjectPoolID.NewFriendItemPool);
+            GameObjectPoolModule.PushTarget<NewFriendItemPool>();
             ClearAddFriendListItem();
             if (!Directory.Exists(ChatPathData.AddFriendListDir())) return;
             string[] files = Directory.GetFiles(ChatPathData.AddFriendListDir());
@@ -232,7 +232,7 @@ namespace Game
             {
                 byte[] chatBytes = File.ReadAllBytes(files[i]);
                 AddFriendRequestData friendPairData = ConverterDataTools.ToObject<AddFriendRequestData>(chatBytes);
-                GameObjectPoolModule.AsyncPop<NewFriendItemPool>((int)GameObjectPoolID.NewFriendItemPool, parent, (item) =>
+                GameObjectPoolModule.AsyncPop<NewFriendItemPool>( parent, (item) =>
                 {
                     item.SetNewFriendData(friendPairData.friendAccount, friendPairData.addContent);
                     int index = GetAddFriendListIndex(friendPairData.id);
@@ -386,15 +386,14 @@ namespace Game
         #endregion
         #region Friend
         private static int mLastFriendID = -1;
-        private static List<FriendPairData> mFriendList = new List<FriendPairData>();
-        private static Dictionary<byte, FriendGroupData> mFriendListGroupDict = new Dictionary<byte, FriendGroupData>();
+        private static FriendGroupData[] mFriendListGroupList = new FriendGroupData[PinYinConstData.MAX];
         /// <summary>
         /// 加载好友数据
         /// </summary>
         /// <returns></returns>
         public static void LoadFriendList(Transform parent)
         {
-            GameObjectPoolModule.PushTarget((int)GameObjectPoolID.FriendListItem);
+            GameObjectPoolModule.PushTarget<FriendListItemPool>();
             if (!Directory.Exists(ChatPathData.FriendListDir())) return;
             string[] files = Directory.GetFiles(ChatPathData.FriendListDir());
             if (files.IsNullOrEmpty()) return;
@@ -402,13 +401,45 @@ namespace Game
             {
                 byte[] chatBytes = File.ReadAllBytes(files[i]);
                 FriendPairData friendPairData = ConverterDataTools.ToObject<FriendPairData>(chatBytes);
-                GameObjectPoolModule.AsyncPop<FriendListItemPool>((int)GameObjectPoolID.FriendListItem, parent, (item) =>
+                GameObjectPoolModule.AsyncPop<FriendListItemPool>( parent, (item) =>
                 {
-                    item.SetFriendAccount(friendPairData.friendAccount);
-                    friendPairData.friendListItemPool = item;
-                    mFriendList.Add(friendPairData);
+                    char showName = default(char);
+                    if (friendPairData.notes.IsNullOrEmpty())
+                    {
+                        showName = PinYinConstData.DEFAULT;
+                    }
+                    else
+                    {
+                        showName = friendPairData.notes[0];
+                    }
+                    PinYinTools.GetPinYin(showName,(ch)=>
+                    {
+                        int pinYinCode = PinYinTools.YinPinCodeToIndex(ch);
+                        FriendGroupData friendGroupData = mFriendListGroupList[pinYinCode];
+                        if (friendGroupData == null)
+                        {
+                            friendGroupData = new FriendGroupData();
+                        }
+                        friendGroupData.count++;
+                        int index =  GetIndex(pinYinCode);
+                        item.transform.SetSiblingIndex(index);
+                        item.SetFriendData(friendPairData.friendAccount, friendPairData.notes);
+                        friendPairData.friendListItemPool = item;
+                    });
                 });
             }
+        }
+        private static int GetIndex(int codeIndex)
+        {
+            int index = 0;
+            for (int i = 0; i < codeIndex ; i++)
+            {
+                if (mFriendListGroupList[i] != null)
+                {
+                    index += mFriendListGroupList[i].count;
+                }
+            }
+            return index;
         }
         /// <summary>
         /// 根据好友名称获取下标

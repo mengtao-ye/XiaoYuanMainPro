@@ -21,7 +21,7 @@ namespace Game
         }
         private void SearchBtnListener()
         {
-            GameObjectPoolModule.PushTarget((int)GameObjectPoolID.SchoolItem);
+            GameObjectPoolModule.PushTarget<SchoolItemPool>();
             if (mSchoolNameIF.text.IsNullOrEmpty())
             {
                 AppTools.Toast("请输入学校名称");
@@ -34,7 +34,7 @@ namespace Game
             for (int i = 0; i < datas.list.Count; i++)
             {
                 SchoolData schoolData = datas.list[i];
-                GameObjectPoolModule.AsyncPop<SchoolItemPool>((int)GameObjectPoolID.SchoolItem,mContent,(value)=> {
+                GameObjectPoolModule.AsyncPop<SchoolItemPool>(mContent,(value)=> {
                     value.SetData(schoolData);
                 });
             }

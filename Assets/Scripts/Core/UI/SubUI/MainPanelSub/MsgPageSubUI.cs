@@ -13,6 +13,9 @@ namespace Game
         private float mTime = 1;
         private byte[] mGetMsgBytes;
         private RectTransform mNofityBtnRect;
+        private ILive mGetFriendListLive;
+        private byte[] mSendGetFriendListBytes;
+
         public MsgPageSubUI(Transform trans, MainPanel mainPanel) : base(trans)
         {
             mMainPanel = mainPanel;
@@ -27,12 +30,19 @@ namespace Game
             mNofityBtnRect.GetComponent<Button>().onClick.AddListener(ClickNotifyTipUIListener);
         }
 
-        private void ClickNotifyTipUIListener()
+        public override void FirstShow()
         {
-            GameCenter.Instance.ShowTipsUI<NotifyTipUI>((ui)=>
+            base.FirstShow();
+            ChatModule.LoadChatList(mContent);
+        }
+
+        public override void Show()
+        {
+            base.Show();
+            if (mGetFriendListLive == null || !mGetFriendListLive.isPop)
             {
-                ui.SetPos(mNofityBtnRect.position);
-            });
+                mGetFriendListLive = GameCenter.Instance.AddUpdate(1f, GetFriendUpdate);
+            }
         }
 
         public override void Update()
@@ -46,11 +56,39 @@ namespace Game
                 AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.GetNewChatMsg, mGetMsgBytes); ;
             }
         }
-
-        public override void FirstShow()
+        public override void OnDestory()
         {
-            base.FirstShow();
-            ChatModule.LoadChatList(mContent);
+            base.OnDestory();
+            RemoveGetFriendLife();
+        }
+        /// <summary>
+        /// 移除获取好友列表请求
+        /// </summary>
+        public void RemoveGetFriendLife()
+        {
+            GameCenter.Instance.RemoveLife(mGetFriendListLive);
+        }
+
+        public void GetFriendUpdate()
+        {
+            mSendGetFriendListBytes = ByteTools.Concat(AppVarData.Account.ToBytes(), ChatModule.GetLastFirendListID().ToBytes());
+            AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.GetFriendList, mSendGetFriendListBytes);
+        }
+
+        /// <summary>
+        /// 设置好友列表数据
+        /// </summary>
+        public void SetFriendData(IListData<FriendPairData> listData)
+        {
+            ChatModule.SetFriendListData(listData, mContent);
+        }
+
+        private void ClickNotifyTipUIListener()
+        {
+            GameCenter.Instance.ShowTipsUI<NotifyTipUI>((ui)=>
+            {
+                ui.SetPos(mNofityBtnRect.position);
+            });
         }
         private void FriendBtnListener()
         {

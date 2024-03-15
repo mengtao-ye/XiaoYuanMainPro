@@ -12,7 +12,7 @@ namespace Game
     /// <summary>
     /// 与启动工程之间的桥接脚本
     /// </summary>
-    public class LauncherBridgeMono : MonoBehaviour
+    public class LauncherBridge : SingletonMono<MonoBehaviour>
     {
         /// <summary>
         /// 启动器的桥梁对象
@@ -87,6 +87,26 @@ namespace Game
             LogHelper.Log("加载资源:" + gameObject.name);
             ABResModule<GameObject>.BoardCast(gameObject.name, gameObject);
         }
+
+        /// <summary>
+        /// 收到解析出来的拼音
+        /// </summary>
+        /// <param name="target"></param>
+        public void ReceivePinYin(char[] target)
+        {
+            if (target.IsNullOrEmpty() )
+            {
+                LogHelper.Log("ReceivePinYin对象为空");
+                return;
+            }
+            if (target.Length !=2)
+            {
+                LogHelper.Log("ReceivePinYin对象格数异常");
+                return;
+            }
+            PinYinTools.ReceivePinYin(target[0], target[1]);
+        }
+
         #endregion
         #region Send
         /// <summary>
@@ -103,6 +123,11 @@ namespace Game
         public static void SendLoadScene(string tag, string sceneName) 
         { 
            LauncherTarget?.SendMessage("LoadScene", tag +"&"+sceneName, UnityEngine.SendMessageOptions.DontRequireReceiver);
+        }
+
+        public static void SendGetPinYin(string tag, char ch)
+        { 
+           LauncherTarget?.SendMessage("GetPinYin", tag + "&" + ch, UnityEngine.SendMessageOptions.DontRequireReceiver);
         }
         #endregion
     }

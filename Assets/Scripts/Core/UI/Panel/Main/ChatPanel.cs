@@ -76,11 +76,11 @@ namespace Game
             if (data.send_userid == AppVarData.Account)
             {
 
-                GameObjectPoolModule.AsyncPop<MyMsgItemPool, ChatData>((int)GameObjectPoolID.MyMsgItem, mContent, LoadMsgItemCallBack, data);
+                GameObjectPoolModule.AsyncPop<MyMsgItemPool, ChatData>(mContent, LoadMsgItemCallBack, data);
             }
             else
             {
-                GameObjectPoolModule.AsyncPop<FriendMsgItemPool, ChatData>((int)GameObjectPoolID.FriendMsgItem, mContent, LoadMsgItemCallBack, data);
+                GameObjectPoolModule.AsyncPop<FriendMsgItemPool, ChatData>( mContent, LoadMsgItemCallBack, data);
             }
         }
 

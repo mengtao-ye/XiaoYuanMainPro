@@ -121,20 +121,22 @@ namespace Game
         private void GetFriendList(byte[] data)
         {
             if (data.IsNullOrEmpty()) return;
+            MsgPageSubUI  msgPage = GameCenter.Instance.GetPanel<MainPanel>().msgSubUI;
             if (ByteTools.IsCompare(data, BytesConst.Empty))
             {
                 //好友全部获取到了
-                GameCenter.Instance.GetPanel<FriendListPanel>().RemoveGetFriendLife();
+
+                msgPage.RemoveGetFriendLife();
             }
             else
             {
                 IListData<FriendPairData> friendList = ConverterDataTools.ToListPoolObject<FriendPairData>(data);
                 if (friendList.IsNullOrEmpty())
                 {
-                    GameCenter.Instance.GetPanel<FriendListPanel>().RemoveGetFriendLife();
+                    msgPage.RemoveGetFriendLife();
                     return;
                 }
-                GameCenter.Instance.GetPanel<FriendListPanel>().SetData(friendList);
+                msgPage.SetFriendData(friendList);
                 friendList.Recycle();
             }
         }
@@ -200,7 +202,7 @@ namespace Game
         {
             if (data.IsNullOrEmpty()) return;
             SchoolData schoolData = ConverterDataTools.ToPoolObject<SchoolData>(data);
-            (GameCenter.Instance.GetPanel<MainPanel>().mainPage.subUI as MainPageSubUI).SetSchoolData(schoolData);
+            GameCenter.Instance.GetPanel<MainPanel>().mainSubUI.SetSchoolData(schoolData);
             schoolData.Recycle();
         }
 
@@ -212,7 +214,7 @@ namespace Game
         {
             if (data.IsNullOrEmpty()) return;
             int schoolID = data.ToInt();
-            (GameCenter.Instance.GetPanel<MainPanel>().mainPage.subUI as MainPageSubUI).SetMySchoolID(schoolID);
+            GameCenter.Instance.GetPanel<MainPanel>().mainSubUI.SetMySchoolID(schoolID);
         }
         /// <summary>
         /// 获取到用户数据

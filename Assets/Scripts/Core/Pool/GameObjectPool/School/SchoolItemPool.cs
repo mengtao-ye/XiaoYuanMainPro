@@ -7,8 +7,8 @@ namespace Game
 {
     public class SchoolItemPool : BaseGameObjectPoolTarget<SchoolItemPool>
     {
-        public override int Type =>(int) GameObjectPoolID.SchoolItem;
         public override string assetPath => "Prefabs/UI/Item/School/SchoolItem";
+        public override bool isUI { get; } = true;
         private Image mIcon;
         private Text mName;
         private SchoolData mCurSchoolData;
@@ -44,6 +44,11 @@ namespace Game
         private void GetIconCallback(Sprite sprite) 
         {
             mIcon.sprite = sprite;
+        }
+
+        public override void Recycle()
+        {
+            ClassPool<SchoolItemPool>.Push(this);
         }
     }
 }

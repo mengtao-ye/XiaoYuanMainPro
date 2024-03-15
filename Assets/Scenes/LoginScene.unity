@@ -146,7 +146,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &501440924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,15 +295,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7627289872391247729, guid: 56624c0c4b410a742966a44db86e6f2c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1827.289
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7627289872391247729, guid: 56624c0c4b410a742966a44db86e6f2c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 962.7965
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7627289872391247729, guid: 56624c0c4b410a742966a44db86e6f2c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -23.051853
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7627289872391247729, guid: 56624c0c4b410a742966a44db86e6f2c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -636,7 +636,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1421745273623984227, guid: d5af1946997337c468fa1d6a58ecc5a9, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1421745275026464904, guid: d5af1946997337c468fa1d6a58ecc5a9, type: 3}
       propertyPath: m_SizeDelta.y
@@ -1239,6 +1239,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6794632140028831115, guid: c4d4c785395eb1e4a9597644b2cdae13, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6794632140912514577, guid: c4d4c785395eb1e4a9597644b2cdae13, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6794632141022804262, guid: c4d4c785395eb1e4a9597644b2cdae13, type: 3}
@@ -1247,7 +1251,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6794632141022804262, guid: c4d4c785395eb1e4a9597644b2cdae13, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6794632141022804263, guid: c4d4c785395eb1e4a9597644b2cdae13, type: 3}
       propertyPath: m_Pivot.x
@@ -1333,6 +1337,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6794632141110198673, guid: c4d4c785395eb1e4a9597644b2cdae13, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4d4c785395eb1e4a9597644b2cdae13, type: 3}
 --- !u!1001 &8401129040966825549
@@ -1348,15 +1356,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8401129041439888818, guid: c389a8a236b08aa4096cc477589ec42d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 21440.395
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8401129041439888818, guid: c389a8a236b08aa4096cc477589ec42d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2034.9971
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8401129041439888818, guid: c389a8a236b08aa4096cc477589ec42d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -462.4388
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8401129041439888818, guid: c389a8a236b08aa4096cc477589ec42d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1389,10 +1397,6 @@ PrefabInstance:
     - target: {fileID: 8401129041439888819, guid: c389a8a236b08aa4096cc477589ec42d, type: 3}
       propertyPath: m_Name
       value: LauncherBridge
-      objectReference: {fileID: 0}
-    - target: {fileID: 8401129041439888819, guid: c389a8a236b08aa4096cc477589ec42d, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c389a8a236b08aa4096cc477589ec42d, type: 3}

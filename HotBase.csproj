@@ -254,7 +254,7 @@
     <Compile Include="Assets\Scripts\YFramework\Core\UI\Data\Enum\ShowAnimEnum.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\UndoModule\BaseUndo.cs" />
     <Compile Include="Assets\Scripts\Core\Mono\UI\ScrollRect\Rocker.cs" />
-    <Compile Include="Assets\Scripts\Core\Bridge\LauncherBridgeMono.cs" />
+    <Compile Include="Assets\Scripts\Core\Bridge\LauncherBridge.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Common\Interface\Operator\IRecycle.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\DataStructure\MultiTree\MultiTree.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Common\Interface\Life\Core\IFixedUpdate.cs" />
@@ -416,7 +416,6 @@
     <Compile Include="Assets\Scripts\Core\UI\Panel\Main\SendAddFriendPanel.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Main\Module\BaseModule.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\PoolModule\GameObjectPoolModule\Base\BaseGameObjectPoolTarget.cs" />
-    <Compile Include="Assets\Scripts\Core\Pool\Data\GameObjectPoolID.cs" />
     <Compile Include="Assets\Scripts\Core\Manager\LiveManager\Live\Data\LiveType.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\DesignPattern\SinglePattern\SingletonMono.cs" />
     <Compile Include="Assets\Scripts\Core\Data\Data\PlayerPrefsData\PlayerPrefsData.cs" />
@@ -431,6 +430,8 @@
     <Compile Include="Assets\Scripts\Core\Data\Data\SocketData\IPAddressConstData.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Extend\ToggleGroupExtend.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\ToTween\Base\FatherBase\IToTween.cs" />
+    <Compile Include="Assets\Scripts\Core\Tools\PinYinTools\PinYinTools.cs" />
+    <Compile Include="Assets\Scripts\Core\Tools\PinYinTools\Data\PinYinConstData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\HotBase.asmdef" />

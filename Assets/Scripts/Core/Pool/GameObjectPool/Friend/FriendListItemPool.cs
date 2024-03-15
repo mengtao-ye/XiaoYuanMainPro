@@ -6,8 +6,8 @@ namespace Game
 {
     public class FriendListItemPool : BaseGameObjectPoolTarget<FriendListItemPool>
     {
-        public override int Type => (int) GameObjectPoolID.FriendListItem;
         public override string assetPath => "Prefabs/UI/Item/Chat/FriendItem";
+        public override bool isUI { get; } = true;
         private Image mHead;
         private Text mName;
         private long mFriendAccount = 0;
@@ -27,16 +27,16 @@ namespace Game
                 return;
             }
         }
-        public void SetFriendAccount(long account)
+        public void SetFriendData(long account,string name)
         {
             mFriendAccount = account;
-            UserDataModule.MapUserData(account, UserDataCallBack);
+            mName.text = name;
+            UserDataModule.MapUserData(account, mHead,null);
         }
-        private void UserDataCallBack(UnityUserData unityUserData)
-        {
-            mHead.sprite = unityUserData.headSprite;
-            mName.text = unityUserData.userName;
 
+        public override void Recycle()
+        {
+            ClassPool<FriendListItemPool>.Push(this);
         }
     }
 }
