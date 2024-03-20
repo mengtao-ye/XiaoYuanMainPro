@@ -4,7 +4,7 @@ using YFramework;
 
 namespace Game
 {
-    public class ChatMsgItemPool : BaseGameObjectPoolTarget<ChatMsgItemPool>
+    public class ChatListItemPool : BaseGameObjectPoolTarget<ChatListItemPool>
     {
         public override string assetPath => "Prefabs/UI/Item/Chat/ChatMsgItem";
         public override bool isUI { get; } = true;
@@ -15,7 +15,6 @@ namespace Game
         private long mFriendAccount;//好友账号
         private GameObject mUnreadBG;
         private Text mUnreadCountText;
-        public ChatListItemData data;
         public override void Init(GameObject target)
         {
             base.Init(target);
@@ -31,6 +30,7 @@ namespace Game
         private void ClickBtnListener()
         {
             ClearUnreadMsg();
+            ChatListItemData data = GameCenter.Instance.GetPanel<MainPanel>().msgSubUI.scrollView.Get(ID);
             if (data != null) 
             {
                 data.unreadCount = 0;
@@ -40,7 +40,6 @@ namespace Game
                 GameCenter.Instance.ShowPanel<AddFriendRequestViewPanel>();
                 return;    
             }
-            
             GameCenter.Instance.ShowPanel<ChatPanel>((item)=> { item.SetChatData(mFriendAccount); });
         }
 
@@ -102,10 +101,12 @@ namespace Game
         {
             mUnreadBG.SetAvtiveExtend(false);
         }
-
+        /// <summary>
+        /// 回收
+        /// </summary>
         public override void Recycle()
         {
-            ClassPool<ChatMsgItemPool>.Push(this);
+            GameObjectPoolModule.Push(this);
         }
     }
 }

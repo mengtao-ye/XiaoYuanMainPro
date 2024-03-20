@@ -7,17 +7,17 @@
         /// 聊天列表目录
         /// </summary>
         /// <returns></returns>
-        public static string ChatMsgDetailDir(long account, long friendAccount)
+        public static string ChatMsgDetailDir( long friendAccount)
         {
-            return ChatMsgDir(account) + "/" + friendAccount;
+            return ChatMsgDir() + "/" + friendAccount;
         }
         /// <summary>
         /// 聊天列表目录
         /// </summary>
         /// <returns></returns>
-        public static string ChatMsgDir(long account)
+        public static string ChatMsgDir()
         {
-            return ChatDir + "/ChatMsg/" + account.ToString();
+            return ChatDir + "/ChatMsg/";
         }
         #endregion
         #region FirendList
@@ -76,7 +76,7 @@
         /// <returns></returns>
         public static string ChatListDir()
         {
-            return ChatDir + "/ChatList";
+            return ChatDir  +"/ChatList";
         } 
         #endregion
         /// <summary>
@@ -88,7 +88,7 @@
             get 
             {
 #if UNITY_EDITOR
-                return ApplicationData.ProjectPath + "/ChatData";
+                return ApplicationData.ProjectPath + "/ChatData/" + AppVarData.Account.ToString();
 #else
             return Application.persistentDataPath + "/ChatData";
 #endif

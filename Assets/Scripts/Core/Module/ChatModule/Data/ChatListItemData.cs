@@ -1,15 +1,27 @@
-﻿using YFramework;
+﻿using UnityEngine;
+using YFramework;
 
 namespace Game
 {
-    public class ChatListItemData : IDataConverter
+    public class ChatListItemData : BaseScrollViewItem<ChatListItemPool,ChatListItemData>,IDataConverter
     {
         public long account;
         public string topMsg = "";
         public byte msgType;
-        public long time;
+        public long time;//时间戳
         public int unreadCount = 0;//未读的信息数量
-        public ChatMsgItemPool poolItem;
+        public override Vector2 size { get; set; } = new Vector2(1080,122);
+
+        public override void LoadData()
+        {
+            ChatListItemPool chatMsgItemPool = poolTarget as ChatListItemPool;
+            chatMsgItemPool.SetFriendAccount(account);
+            chatMsgItemPool.SetTopTime(time);
+            chatMsgItemPool.SetTopMsg(msgType, topMsg);
+            chatMsgItemPool.SetUnreadCount(unreadCount);
+            chatMsgItemPool.ID = ID;
+        }
+
         public byte[] ToBytes()
         {
             IListData<byte[]> list = ClassPool<ListData<byte[]>>.Pop();

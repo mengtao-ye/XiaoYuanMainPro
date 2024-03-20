@@ -8,14 +8,13 @@ namespace Game
     public class MsgPageSubUI : BaseCustomSubUI
     {
         private MainPanel mMainPanel;
-        private Transform mContent;
         private float mTimer;
         private float mTime = 1;
         private byte[] mGetMsgBytes;
         private RectTransform mNofityBtnRect;
         private ILive mGetFriendListLive;
         private byte[] mSendGetFriendListBytes;
-
+        public IScrollView<ChatListItemData> scrollView;
         public MsgPageSubUI(Transform trans, MainPanel mainPanel) : base(trans)
         {
             mMainPanel = mainPanel;
@@ -23,7 +22,9 @@ namespace Game
         public override void Awake()
         {
             base.Awake();
-            mContent = transform.FindObject<Transform>("Content");
+            scrollView = transform.FindObject("MsgScrollView").AddComponent<ChatListScrollView>();
+            scrollView.Init();
+            scrollView.SetSpace(10,10,10);
             transform.FindObject<Button>("FriendBtn").onClick.AddListener(FriendBtnListener);
             transform.FindObject<Button>("SearchBtn").onClick.AddListener(SearchBtnListener);
             mNofityBtnRect = transform.FindObject<RectTransform>("NotifyBtn");
@@ -33,7 +34,7 @@ namespace Game
         public override void FirstShow()
         {
             base.FirstShow();
-            ChatModule.LoadChatList(mContent);
+            ChatModule.LoadChatList(scrollView);
         }
 
         public override void Show()
@@ -80,7 +81,7 @@ namespace Game
         /// </summary>
         public void SetFriendData(IListData<FriendPairData> listData)
         {
-            ChatModule.SetFriendListData(listData, mContent);
+            ChatModule.SetFriendListData(listData);
         }
 
         private void ClickNotifyTipUIListener()
@@ -101,7 +102,7 @@ namespace Game
         public void SetMsgData(IListData<ChatData> chatData)
         {
             if (chatData.IsNullOrEmpty()) return;
-            ChatModule.SetChatData(chatData,mContent);
+            ChatModule.SetChatData(chatData,scrollView);
             chatData.Recycle();
         }
     }

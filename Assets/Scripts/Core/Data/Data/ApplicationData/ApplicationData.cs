@@ -7,6 +7,6 @@ namespace Game
         /// <summary>
         /// 项目根地址
         /// </summary>
-        public static string ProjectPath { get; private set; } = Application.dataPath.Replace("/Assets", "");
+        public static string ProjectPath { get; private set; } = Application.dataPath.Replace("/Assets", "") + "/XiaoYuanData";
     }
 }

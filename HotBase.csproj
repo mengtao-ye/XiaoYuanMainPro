@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\YFramework\Core\Module\ProcessModule\Process\IProcess.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Mono\UI\ScrollView\FlashScrollView.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\UndoModule\UndoModule.cs" />
+    <Compile Include="Assets\Scripts\Core\UI\Component\ScrollView\Base\Item\IScrollViewItem.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Common\Interface\Converter\IDataConverter.cs" />
     <Compile Include="Assets\Scripts\Core\Tools\AppTools\System\AppTools.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\PoolModule\ClassPoolModule\PoolData\List\Entity\ListData.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Assets\Scripts\Core\Model\MainModel\MainModel.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Utility\Utility.MicroPhoneTools.cs" />
     <Compile Include="Assets\Scripts\Core\Helper\Framework\XiaoYuanYFrameworkHelper.cs" />
+    <Compile Include="Assets\Scripts\Core\UI\Component\ScrollView\Base\Item\BaseScrollViewItem.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\ToTween\Base\FatherBase\BaseToTween.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\UI\Log\LogUI\ILogUI.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Data\Const\BytesConst.cs" />
@@ -102,6 +104,7 @@
     <Compile Include="Assets\Scripts\YFramework\Core\Module\ToTween\Entity\Rotation\Euler\ToLocalEulerTween.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Manager\SocketManager\Tcp\RequestHandle\BaseTcpRequestHandle.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\UI\Form\IForm.cs" />
+    <Compile Include="Assets\Scripts\Core\UI\Component\ScrollView\Base\ScrollView\IScrollView.cs" />
     <Compile Include="Assets\Scripts\Core\Scene\Scene\LoginScene.cs" />
     <Compile Include="Assets\Scripts\Core\Tools\ConverterTools\ConverterTools.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\UI\Panel\IPanel.cs" />
@@ -143,6 +146,7 @@
     <Compile Include="Assets\Scripts\YFramework\Core\Manager\SocketManager\Udp\BigData\UdpBigData.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\DataStructure\MultiTree\MultiTreeNode.cs" />
     <Compile Include="Assets\Scripts\Core\Module\HotFixModule\Data\HotFixData.cs" />
+    <Compile Include="Assets\Scripts\Core\Tools\PinYinTools\PinYinTools.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\DataModule\List\ListModule.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Extend\ByteExtend.cs" />
     <Compile Include="Assets\Scripts\Core\Pool\GameObjectPool\Friend\FriendListItemPool.cs" />
@@ -196,6 +200,7 @@
     <Compile Include="Assets\Scripts\Core\Manager\LiveManager\Main\LiveManager.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Utility\Utlilty.Algorithm.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Common\Interface\Life\Core\ILaterUpdate.cs" />
+    <Compile Include="Assets\Scripts\Core\UI\Component\ScrollView\CustomScrollView.cs" />
     <Compile Include="Assets\Scripts\Core\Data\Data\SchoolData\SchoolVarData.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Common\Abstractor\Map\Map.cs" />
     <Compile Include="Assets\Scripts\Core\Data\Data\SystemData\SystemData.cs" />
@@ -223,7 +228,7 @@
     <Compile Include="Assets\Scripts\YFramework\Core\Module\PoolModule\ClassPoolModule\PoolData\List\Base\BaseListData.cs" />
     <Compile Include="Assets\Scripts\Core\Tools\OssTools\Data\OssConfig.cs" />
     <Compile Include="Assets\Scripts\Core\Module\AssetBundleModule\AssetBundleData\AssetBundlePathData.cs" />
-    <Compile Include="Assets\Scripts\Core\Pool\GameObjectPool\Chat\ChatMsgItemPool.cs" />
+    <Compile Include="Assets\Scripts\Core\Pool\GameObjectPool\Chat\ChatListItemPool.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Manager\SocketManager\Udp\IUdpRequestHandle.cs" />
     <Compile Include="Assets\Scripts\Core\UI\SubUI\RegisterPanel\RegisterNormalSubUI.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\DesignPattern\SinglePattern\Singleton.cs" />
@@ -423,6 +428,7 @@
     <Compile Include="Assets\Scripts\Core\Socket\Data\SubServerType.cs" />
     <Compile Include="Assets\Scripts\Core\Module\HotFixModule\Data\Patch.cs" />
     <Compile Include="Assets\Scripts\Core\Tools\StringTools\StringTools.cs" />
+    <Compile Include="Assets\Scripts\Core\Tools\PinYinTools\Data\PinYinConstData.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Manager\SocketManager\Tcp\TCPServer.cs" />
     <Compile Include="Assets\Scripts\Core\Data\Data\ABAssetData\ABTag.cs" />
     <Compile Include="Assets\Scripts\Core\Module\ReflectionDataModule\UserData\Data\CallBackData\Base\IUnityUserDataCallBack.cs" />
@@ -430,8 +436,7 @@
     <Compile Include="Assets\Scripts\Core\Data\Data\SocketData\IPAddressConstData.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Extend\ToggleGroupExtend.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\ToTween\Base\FatherBase\IToTween.cs" />
-    <Compile Include="Assets\Scripts\Core\Tools\PinYinTools\PinYinTools.cs" />
-    <Compile Include="Assets\Scripts\Core\Tools\PinYinTools\Data\PinYinConstData.cs" />
+    <Compile Include="Assets\Scripts\Core\Mono\Component\ChatListScrollView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\HotBase.asmdef" />

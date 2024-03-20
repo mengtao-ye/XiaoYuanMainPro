@@ -8,17 +8,8 @@ namespace Game
 {
     public static class ChatModule
     {
-        #region Chat
+        #region ChatList
         private static long mLastMsgID = -1;
-        /// <summary>
-        /// 聊天列表
-        /// </summary>
-        public static Dictionary<long, ChatListItemData> chatListItemDict = new Dictionary<long, ChatListItemData>();
-        /// <summary>
-        /// 聊天列表
-        /// </summary>
-        public static List<ChatListItemData> chatListItemList = new List<ChatListItemData>();
-
         /// <summary>
         /// 保存聊天记录到本地
         /// </summary>
@@ -27,7 +18,7 @@ namespace Game
         public static void SaveChatMsgToLocal(long account, ChatData chatData)
         {
             long friendID = chatData.send_userid == account ? chatData.receive_userid : chatData.send_userid;
-            string dir = ChatPathData.ChatMsgDetailDir(account, friendID);
+            string dir = ChatPathData.ChatMsgDetailDir(friendID);
             FileTools.Write(dir + "/" + chatData.id + ".txt", chatData.ToBytes());
             SaveChatMsgConfigToLocal(dir + "/Config.txt", chatData.id);
         }
@@ -46,46 +37,19 @@ namespace Game
         /// 获取聊天列表数据
         /// </summary>
         /// <returns></returns>
-        public static void LoadChatList(Transform parent)
+        public static void LoadChatList(IScrollView<ChatListItemData> scrollView) 
         {
-            ClearChatListItem();
-            if (!Directory.Exists(ChatPathData.ChatListDir())) return;
+            string path = ChatPathData.ChatListDir();
+            if (!Directory.Exists(path)) return;
             string[] files = Directory.GetFiles(ChatPathData.ChatListDir());
             if (files.IsNullOrEmpty()) return;
             for (int i = 0; i < files.Length; i++)
             {
                 byte[] chatBytes = File.ReadAllBytes(files[i]);
                 ChatListItemData chatListItemData = ConverterDataTools.ToObject<ChatListItemData>(chatBytes);
-                GameObjectPoolModule.AsyncPop<ChatMsgItemPool>( parent, (item) =>
-                {
-                    item.SetFriendAccount(chatListItemData.account);
-                    item.SetTopMsg(chatListItemData.msgType, chatListItemData.topMsg);
-                    item.SetTopTime(chatListItemData.time);
-                    item.SetUnreadCount(chatListItemData.unreadCount);
-                    chatListItemData.poolItem = item;
-                    item.data = chatListItemData;
-                    int index = GetMsgListIndex(chatListItemData.time);
-                    AddChatListItem(chatListItemData);
-                    item.Target.transform.SetSiblingIndex(index);
-                });
+                chatListItemData.ID = chatListItemData.account;
+                scrollView.Add(chatListItemData );
             }
-        }
-        /// <summary>
-        /// 根据消息时间排序
-        /// </summary>
-        /// <param name="time"></param>
-        /// <returns></returns>
-        private static int GetMsgListIndex(long time)
-        {
-            int count = 0;
-            for (int i = 0; i < chatListItemList.Count; i++)
-            {
-                if (time < chatListItemList[i].time)
-                {
-                    count++;
-                }
-            }
-            return count;
         }
         /// <summary>
         /// 获取最近的聊天ID
@@ -111,22 +75,23 @@ namespace Game
         /// </summary>
         /// <param name="chatDatas"></param>
         /// <param name="parent"></param>
-        public static void SetChatData(IListData<ChatData> chatDatas, Transform parent)
+        public static void SetChatData(IListData<ChatData> chatDatas, IScrollView<ChatListItemData> scrollView)
         {
             if (chatDatas.IsNullOrEmpty()) return;
             SetLastMsgID(chatDatas[chatDatas.Count - 1].id);
             for (int i = 0; i < chatDatas.list.Count; i++)
             {
                 SaveChatMsgToLocal(AppVarData.Account, chatDatas.list[i]);
-                if (chatListItemDict.ContainsKey(chatDatas.list[i].send_userid))
+                if (scrollView.Contains(chatDatas.list[i].send_userid)) 
                 {
-                    ChatListItemData chatListItemData = chatListItemDict[chatDatas.list[i].send_userid];
-                    chatListItemData.poolItem.SetTopMsg(chatDatas.list[i].msg_type, chatDatas.list[i].chat_msg);
-                    chatListItemData.poolItem.SetTopTime(chatDatas.list[i].time);
-                    chatListItemData.unreadCount++;
-                    chatListItemData.poolItem.SetUnreadCount(chatListItemData.unreadCount);
-                    chatListItemData.poolItem.Target.transform.SetAsFirstSibling();
-                    SaveChatListToLocal(chatListItemData);
+                    ChatListItemData chatListItem = scrollView.Get(chatDatas.list[i].send_userid);
+                    ChatData chatData = chatDatas.list[i];
+                    chatListItem.topMsg = chatData.chat_msg;
+                    chatListItem.msgType = chatData.msg_type;
+                    chatListItem.time = chatData.msg_type;
+                    chatListItem.unreadCount++;
+                    SaveChatListToLocal(chatListItem);
+                    chatListItem.InsertTo(0);
                 }
                 else
                 {
@@ -137,17 +102,8 @@ namespace Game
                     chatListItemData.time = chatDatas.list[i].time;
                     chatListItemData.unreadCount++;
                     SaveChatListToLocal(chatListItemData);
-                    GameObjectPoolModule.AsyncPop<ChatMsgItemPool>(parent, (item) =>
-                    {
-                        item.SetFriendAccount(chatListItemData.account);
-                        item.SetTopMsg(chatListItemData.msgType, chatListItemData.topMsg);
-                        item.SetTopTime(chatListItemData.time);
-                        item.SetUnreadCount(chatListItemData.unreadCount);
-                        chatListItemData.poolItem = item;
-                        item.data = chatListItemData;
-                        AddChatListItem(chatListItemData);
-                        item.Target.transform.SetAsFirstSibling();
-                    });
+                    scrollView.Add(chatListItemData);
+                    chatListItemData.InsertTo(0);
                 }
             }
         }
@@ -171,39 +127,13 @@ namespace Game
             FileTools.Write(path, chatListItemData.ToBytes());
         }
         /// <summary>
-        /// 添加消息列表对象
-        /// </summary>
-        /// <param name="chatListItemData"></param>
-        private static void AddChatListItem(ChatListItemData chatListItemData)
-        {
-            chatListItemDict.Add(chatListItemData.account, chatListItemData);
-            chatListItemList.Add(chatListItemData);
-        }
-        /// <summary>
         /// 更新聊天列表数据
         /// </summary>
         /// <param name="chatListItemData"></param>
         public static void UpdateChatListItem(ChatListItemData chatListItemData)
         {
             if (chatListItemData == null) return;
-            if (chatListItemDict.ContainsKey(chatListItemData.account))
-            {
-                chatListItemDict[chatListItemData.account] = chatListItemData;
-            }
-            if (chatListItemList.Contains(chatListItemData))
-            {
-                chatListItemList[chatListItemList.IndexOf(chatListItemData)] = chatListItemData;
-            }
             SaveChatListToLocal(chatListItemData);
-        }
-        /// <summary>
-        /// 添加消息列表对象
-        /// </summary>
-        /// <param name="chatListItemData"></param>
-        private static void ClearChatListItem()
-        {
-            chatListItemDict.Clear();
-            chatListItemList.Clear();
         }
         #endregion
         #region NewFriend
@@ -475,7 +405,7 @@ namespace Game
         /// </summary>
         /// <param name="friendList"></param>
         /// <param name="parent"></param>
-        public static void SetFriendListData(IListData<FriendPairData> friendList, Transform parent)
+        public static void SetFriendListData(IListData<FriendPairData> friendList)
         {
             if (friendList.IsNullOrEmpty()) return;
             SetLastFriendID(friendList[friendList.Count - 1].id);
