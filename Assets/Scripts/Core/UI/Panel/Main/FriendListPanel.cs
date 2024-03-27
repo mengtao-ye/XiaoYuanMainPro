@@ -7,16 +7,18 @@ namespace Game
 {
     public class FriendListPanel : BaseCustomPanel
     {
-        private Transform mContent;
+        private IScrollView<FriendScrollViewItem> mScrollView;
         public FriendListPanel()
         {
-
+              
         }
         public override void Awake()
         {
-            
+
             base.Awake();
-            mContent = transform.FindObject<Transform>("Content");
+            mScrollView = transform.FindObject("FriendScrollView").AddComponent<FriendListScrollView>() ;
+            mScrollView.Init();
+            mScrollView.SetSpace(10,10,10);
             transform.FindObject<Button>("BackBtn").onClick.AddListener(() => { GameCenter.Instance.ShowPanel<MainPanel>(); });
             transform.FindObject<Button>("SetBtn").onClick.AddListener(() => { });
         }
@@ -24,7 +26,7 @@ namespace Game
         public override void Show()
         {
             base.Show();
-            ChatModule.LoadFriendList(mContent);
+            ChatModule.LoadFriendList(mScrollView);
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using UnityEngine;
+﻿using System.IO;
 using YFramework;
 using static YFramework.Utility;
 
@@ -8,20 +6,74 @@ namespace Game
 {
     public static class ChatModule
     {
-        #region ChatList
-        private static long mLastMsgID = -1;
+
+        #region Chat
+        /// <summary>
+        /// 加载聊天数据
+        /// </summary>
+        /// <param name="friendAccount"></param>
+        /// <param name="msgIndex"></param>
+        /// <param name="readCount"></param>
+        /// <returns></returns>
+        public static IListData<ChatData> LoadChatMsg(long friendAccount, int msgIndex, int readCount)
+        {
+            string dir = ChatPathData.ChatMsgDetailDir(friendAccount);
+            string configPath = dir + "/Config.txt";
+            if (!File.Exists(configPath)) return null;
+            byte[] configBytes = File.ReadAllBytes(configPath);
+            int startIndex = msgIndex * 8;
+            IListData<ChatData> listData = null;
+            for (int i = 0; i < readCount; i++)
+            {
+                int tempStartIndex = configBytes.Length - (startIndex + 8);
+                if (tempStartIndex < 0)
+                {
+                    return listData;
+                }
+                byte[] chatIDBytes = ByteTools.SubBytes(configBytes, tempStartIndex, 8);
+                if (chatIDBytes == null)
+                {
+                    return listData;
+                }
+                if (listData == null)
+                {
+                    listData = ClassPool<ListPoolData<ChatData>>.Pop();
+                }
+                string chatDataPath = dir + "/" + chatIDBytes.ToLong() + ".txt";
+                if (File.Exists(chatDataPath))
+                {
+                    byte[] chatDataBytes = File.ReadAllBytes(chatDataPath);
+                    ChatData chatData = ConverterDataTools.ToPoolObject<ChatData>(chatDataBytes);
+                    if (chatData == null)
+                    {
+                        return listData;
+                    }
+                    listData.Add(chatData);
+                    startIndex += 8;
+                }
+                else
+                {
+                    return listData;
+                }
+            }
+            return listData;
+        }
+
         /// <summary>
         /// 保存聊天记录到本地
         /// </summary>
         /// <param name="account"></param>
         /// <param name="chatData"></param>
-        public static void SaveChatMsgToLocal(long account, ChatData chatData)
+        public static void SaveChatMsgToLocal(long friendID, ChatData chatData)
         {
-            long friendID = chatData.send_userid == account ? chatData.receive_userid : chatData.send_userid;
             string dir = ChatPathData.ChatMsgDetailDir(friendID);
             FileTools.Write(dir + "/" + chatData.id + ".txt", chatData.ToBytes());
             SaveChatMsgConfigToLocal(dir + "/Config.txt", chatData.id);
         }
+        #endregion
+        #region ChatList
+        private static long mLastMsgID = -1;
+        
         /// <summary>
         /// 保存聊天记录配置表到本地
         /// </summary>
@@ -37,7 +89,7 @@ namespace Game
         /// 获取聊天列表数据
         /// </summary>
         /// <returns></returns>
-        public static void LoadChatList(IScrollView<ChatListItemData> scrollView) 
+        public static void LoadChatList(IScrollView<ChatListScrollViewItem> scrollView)
         {
             string path = ChatPathData.ChatListDir();
             if (!Directory.Exists(path)) return;
@@ -46,9 +98,9 @@ namespace Game
             for (int i = 0; i < files.Length; i++)
             {
                 byte[] chatBytes = File.ReadAllBytes(files[i]);
-                ChatListItemData chatListItemData = ConverterDataTools.ToObject<ChatListItemData>(chatBytes);
-                chatListItemData.ID = chatListItemData.account;
-                scrollView.Add(chatListItemData );
+                ChatListScrollViewItem chatListItemData = ConverterDataTools.ToObject<ChatListScrollViewItem>(chatBytes);
+                chatListItemData.ViewItemID = chatListItemData.account;
+                scrollView.Add(chatListItemData);
             }
         }
         /// <summary>
@@ -75,35 +127,37 @@ namespace Game
         /// </summary>
         /// <param name="chatDatas"></param>
         /// <param name="parent"></param>
-        public static void SetChatData(IListData<ChatData> chatDatas, IScrollView<ChatListItemData> scrollView)
+        public static void SetChatData(IListData<ChatData> chatDatas, IScrollView<ChatListScrollViewItem> scrollView)
         {
             if (chatDatas.IsNullOrEmpty()) return;
             SetLastMsgID(chatDatas[chatDatas.Count - 1].id);
             for (int i = 0; i < chatDatas.list.Count; i++)
             {
-                SaveChatMsgToLocal(AppVarData.Account, chatDatas.list[i]);
-                if (scrollView.Contains(chatDatas.list[i].send_userid)) 
+                long friendAccount = chatDatas.list[i].send_userid == AppVarData.Account ? chatDatas.list[i].receive_userid : chatDatas.list[i].send_userid;
+                SaveChatMsgToLocal(friendAccount, chatDatas.list[i]);
+                if (scrollView.Contains(chatDatas.list[i].send_userid))
                 {
-                    ChatListItemData chatListItem = scrollView.Get(chatDatas.list[i].send_userid);
+                    ChatListScrollViewItem chatListItem = scrollView.Get(chatDatas.list[i].send_userid);
                     ChatData chatData = chatDatas.list[i];
                     chatListItem.topMsg = chatData.chat_msg;
                     chatListItem.msgType = chatData.msg_type;
                     chatListItem.time = chatData.msg_type;
                     chatListItem.unreadCount++;
                     SaveChatListToLocal(chatListItem);
-                    chatListItem.InsertTo(0);
+                    scrollView.Insert(chatListItem,0);
                 }
                 else
                 {
-                    ChatListItemData chatListItemData = new ChatListItemData();
-                    chatListItemData.msgType = chatDatas.list[i].msg_type;
-                    chatListItemData.topMsg = chatDatas.list[i].chat_msg;
-                    chatListItemData.account = chatDatas.list[i].send_userid;
-                    chatListItemData.time = chatDatas.list[i].time;
+                    ChatListScrollViewItem chatListItemData = new ChatListScrollViewItem();
+                    ChatData chatData =  chatDatas.list[i];
+                    chatListItemData.msgType = chatData.msg_type;
+                    chatListItemData.topMsg = chatData.chat_msg;
+                    chatListItemData.account = chatData.send_userid;
+                    chatListItemData.time = chatData.time;
                     chatListItemData.unreadCount++;
+                    chatListItemData.ViewItemID = chatData.send_userid;
                     SaveChatListToLocal(chatListItemData);
-                    scrollView.Add(chatListItemData);
-                    chatListItemData.InsertTo(0);
+                    scrollView.Insert(chatListItemData, 0);
                 }
             }
         }
@@ -121,7 +175,7 @@ namespace Game
         /// 将聊天列表对象写入本地
         /// </summary>
         /// <param name="chatListItemData"></param>
-        public static void SaveChatListToLocal(ChatListItemData chatListItemData)
+        public static void SaveChatListToLocal(ChatListScrollViewItem chatListItemData)
         {
             string path = ChatPathData.ChatListDir() + "/" + chatListItemData.account + ".txt";
             FileTools.Write(path, chatListItemData.ToBytes());
@@ -130,7 +184,7 @@ namespace Game
         /// 更新聊天列表数据
         /// </summary>
         /// <param name="chatListItemData"></param>
-        public static void UpdateChatListItem(ChatListItemData chatListItemData)
+        public static void UpdateChatListItem(ChatListScrollViewItem chatListItemData)
         {
             if (chatListItemData == null) return;
             SaveChatListToLocal(chatListItemData);
@@ -139,58 +193,31 @@ namespace Game
         #region NewFriend
         private static int mLastAddFriendID = -1;
         /// <summary>
-        /// 好友申请列表
-        /// </summary>
-        public static Dictionary<long, AddFriendRequestData> addFriendListItemDict = new Dictionary<long, AddFriendRequestData>();
-        /// <summary>
-        /// 好友申请列表
-        /// </summary>
-        public static List<AddFriendRequestData> addFriendListItemList = new List<AddFriendRequestData>();
-
-        /// <summary>
         /// 加载好友申请数据
         /// </summary>
         /// <returns></returns>
-        public static void LoadAddFriendList(Transform parent)
+        public static void LoadAddFriendList(IScrollView<NewFriendScrollViewItem> scrollView)
         {
-            GameObjectPoolModule.PushTarget<NewFriendItemPool>();
-            ClearAddFriendListItem();
             if (!Directory.Exists(ChatPathData.AddFriendListDir())) return;
             string[] files = Directory.GetFiles(ChatPathData.AddFriendListDir());
             if (files.IsNullOrEmpty()) return;
             for (int i = 0; i < files.Length; i++)
             {
                 byte[] chatBytes = File.ReadAllBytes(files[i]);
-                AddFriendRequestData friendPairData = ConverterDataTools.ToObject<AddFriendRequestData>(chatBytes);
-                GameObjectPoolModule.AsyncPop<NewFriendItemPool>( parent, (item) =>
+                NewFriendScrollViewItem friendPairData = ConverterDataTools.ToPoolObject<NewFriendScrollViewItem>(chatBytes);
+                if (!scrollView.Contains(friendPairData.friendAccount))
                 {
-                    item.SetNewFriendData(friendPairData.friendAccount, friendPairData.addContent);
-                    int index = GetAddFriendListIndex(friendPairData.id);
-                    item.Target.transform.SetSiblingIndex(index);
-                    friendPairData.poolItem = item;
-                    AddNewFriendListItem(friendPairData);
-                });
-            }
-        }
-        /// <summary>
-        /// 根据消息时间排序
-        /// </summary>
-        /// <param name="time"></param>
-        /// <returns></returns>
-        private static int GetAddFriendListIndex(int id)
-        {
-            int count = 0;
-            for (int i = 0; i < addFriendListItemList.Count; i++)
-            {
-                if (id < addFriendListItemList[i].id)
+                    friendPairData.ViewItemID = friendPairData.friendAccount;
+                    scrollView.Add(friendPairData);
+                }
+                else
                 {
-                    count++;
+                    friendPairData.Recycle();
                 }
             }
-            return count;
         }
         /// <summary>
-        /// 获取最近的聊天ID
+        /// 获取最近的添加好友ID
         /// </summary>
         /// <returns></returns>
         public static long GetLastAddFriendID()
@@ -213,17 +240,13 @@ namespace Game
         /// </summary>
         /// <param name="addFriendList"></param>
         /// <param name="parent"></param>
-        public static void SetAddFriendListData(IListData<AddFriendRequestData> addFriendList)
+        public static void SetAddFriendListData(IListData<NewFriendScrollViewItem> addFriendList)
         {
             if (addFriendList.IsNullOrEmpty()) return;
             SetLastAddFriendID(addFriendList[addFriendList.Count - 1].id);
             for (int i = 0; i < addFriendList.list.Count; i++)
             {
-                if (!addFriendListItemDict.ContainsKey(addFriendList.list[i].friendAccount))
-                {
-                    AddFriendRequestData friendPairData = addFriendList.list[i];
-                    SaveAddFriendRequestToLocal(friendPairData);
-                }
+                SaveAddFriendRequestToLocal(addFriendList.list[i]);
             }
         }
         /// <summary>
@@ -240,77 +263,28 @@ namespace Game
         /// 将聊天列表对象写入本地
         /// </summary>
         /// <param name="chatListItemData"></param>
-        public static void SaveAddFriendRequestToLocal(AddFriendRequestData data)
+        public static void SaveAddFriendRequestToLocal(NewFriendScrollViewItem data)
         {
             string path = ChatPathData.AddFriendListDir() + "/" + data.friendAccount + ".txt";
             FileTools.Write(path, data.ToBytes());
         }
         /// <summary>
-        /// 将聊天列表对象写入本地
+        /// 移除本地添加好友请求数据
         /// </summary>
         /// <param name="chatListItemData"></param>
         public static void RemoveLocalAddFriendRequest(long account)
         {
             string path = ChatPathData.AddFriendListDir() + "/" + account + ".txt";
             FileTools.ForceDelete(path);
-
-        }
-        /// <summary>
-        /// 添加消息列表对象
-        /// </summary>
-        /// <param name="chatListItemData"></param>
-        private static void AddNewFriendListItem(AddFriendRequestData data)
-        {
-            if (!addFriendListItemDict.ContainsKey(data.friendAccount))
-            {
-                addFriendListItemDict.Add(data.friendAccount, data);
-                addFriendListItemList.Add(data);
-            }
-        }
-        /// <summary>
-        /// 清除好友申请消息列表对象
-        /// </summary>
-        /// <param name="chatListItemData"></param>
-        private static void ClearAddFriendListItem()
-        {
-            addFriendListItemDict.Clear();
-            for (int i = 0; i < addFriendListItemList.Count; i++)
-            {
-                addFriendListItemList[i].Recycle();
-            }
-            addFriendListItemList.Clear();
         }
 
-        /// <summary>
-        /// 移除好友申请消息列表对象
-        /// </summary>
-        /// <param name="chatListItemData"></param>
-        private static void RemoveAddFriendListItem(long account)
-        {
-            if (addFriendListItemDict.ContainsKey(account))
-            {
-                addFriendListItemDict.Remove(account);
-            }
-            for (int i = 0; i < addFriendListItemList.Count; i++)
-            {
-                if (addFriendListItemList[i].friendAccount == account)
-                {
-                    addFriendListItemList.RemoveAt(i);
-                    break;
-                }
-            }
-        }
         /// <summary>
         /// 设置好友申请状态
         /// </summary>
         public static void SetAddFriendState(long account)
         {
-            if (addFriendListItemDict.ContainsKey(account))
-            {
-                addFriendListItemDict[account].Recycle();
-                RemoveAddFriendListItem(account);
-            }
             RemoveLocalAddFriendRequest(account);
+            GameCenter.Instance.GetPanel<AddFriendRequestViewPanel>().scrollView.Delete(account); ;
         }
 
         #endregion
@@ -321,17 +295,16 @@ namespace Game
         /// 加载好友数据
         /// </summary>
         /// <returns></returns>
-        public static void LoadFriendList(Transform parent)
+        public static void LoadFriendList(IScrollView<FriendScrollViewItem> scrollView)
         {
-            GameObjectPoolModule.PushTarget<FriendListItemPool>();
             if (!Directory.Exists(ChatPathData.FriendListDir())) return;
             string[] files = Directory.GetFiles(ChatPathData.FriendListDir());
             if (files.IsNullOrEmpty()) return;
             for (int i = 0; i < files.Length; i++)
             {
                 byte[] chatBytes = File.ReadAllBytes(files[i]);
-                FriendPairData friendPairData = ConverterDataTools.ToObject<FriendPairData>(chatBytes);
-                GameObjectPoolModule.AsyncPop<FriendListItemPool>( parent, (item) =>
+                FriendScrollViewItem friendPairData = ConverterDataTools.ToPoolObject<FriendScrollViewItem>(chatBytes);
+                if (!scrollView.Contains(friendPairData.friendAccount))
                 {
                     char showName = default(char);
                     if (friendPairData.notes.IsNullOrEmpty())
@@ -342,7 +315,7 @@ namespace Game
                     {
                         showName = friendPairData.notes[0];
                     }
-                    PinYinTools.GetPinYin(showName,(ch)=>
+                    PinYinTools.GetPinYin(showName, (ch) =>
                     {
                         int pinYinCode = PinYinTools.YinPinCodeToIndex(ch);
                         FriendGroupData friendGroupData = mFriendListGroupList[pinYinCode];
@@ -351,18 +324,21 @@ namespace Game
                             friendGroupData = new FriendGroupData();
                         }
                         friendGroupData.count++;
-                        int index =  GetIndex(pinYinCode);
-                        item.transform.SetSiblingIndex(index);
-                        item.SetFriendData(friendPairData.friendAccount, friendPairData.notes);
-                        friendPairData.friendListItemPool = item;
+                        int index = GetIndex(pinYinCode);
+                        friendPairData.ViewItemID = friendPairData.friendAccount;
+                        scrollView.Insert(friendPairData, index);
                     });
-                });
+                }
+                else 
+                {
+                    friendPairData.Recycle();
+                }
             }
         }
         private static int GetIndex(int codeIndex)
         {
             int index = 0;
-            for (int i = 0; i < codeIndex ; i++)
+            for (int i = 0; i < codeIndex; i++)
             {
                 if (mFriendListGroupList[i] != null)
                 {
@@ -371,16 +347,6 @@ namespace Game
             }
             return index;
         }
-        /// <summary>
-        /// 根据好友名称获取下标
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public static int GetFriendListIndex(string name)
-        {
-            return 0;
-        }
-
         /// <summary>
         /// 获取最近好友列表ID
         /// </summary>
@@ -405,7 +371,7 @@ namespace Game
         /// </summary>
         /// <param name="friendList"></param>
         /// <param name="parent"></param>
-        public static void SetFriendListData(IListData<FriendPairData> friendList)
+        public static void SetFriendListData(IListData<FriendScrollViewItem> friendList)
         {
             if (friendList.IsNullOrEmpty()) return;
             SetLastFriendID(friendList[friendList.Count - 1].id);
@@ -428,11 +394,12 @@ namespace Game
         /// 将聊天列表对象写入本地
         /// </summary>
         /// <param name="chatListItemData"></param>
-        public static void SaveFriendListToLocal(FriendPairData friendPair)
+        public static void SaveFriendListToLocal(FriendScrollViewItem friendPair)
         {
             string path = ChatPathData.FriendListDir() + "/" + friendPair.friendAccount + ".txt";
             FileTools.Write(path, friendPair.ToBytes());
         }
         #endregion
+
     }
 }

@@ -1,13 +1,11 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 using YFramework;
-using static YFramework.Utility;
 
 namespace Game
 {
     public class AddFriendRequestViewPanel : BaseCustomPanel
     {
-        private Transform mContent;
+        public IScrollView<NewFriendScrollViewItem> scrollView { get; private set; }
         public AddFriendRequestViewPanel()
         {
 
@@ -15,13 +13,15 @@ namespace Game
         public override void Awake()
         {
             base.Awake();
+            scrollView = transform.FindObject("NewFriendScrollView").AddComponent<NewFriendScrollView>();
+            scrollView.Init();
+            scrollView.SetSpace(10,10,10);
             transform.FindObject<Button>("BackBtn").onClick.AddListener(() => { GameCenter.Instance.ShowPanel<MainPanel>(); });
-            mContent = transform.FindObject<Transform>("Content");
         }
         public override void Show()
         {
             base.Show();
-            ChatModule.LoadAddFriendList(mContent);
+            ChatModule.LoadAddFriendList(scrollView);
         }
     }
 }

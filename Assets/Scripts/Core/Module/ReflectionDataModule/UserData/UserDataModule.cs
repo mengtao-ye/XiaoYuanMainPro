@@ -18,7 +18,7 @@ namespace Game
         /// <param name="account"></param>
         /// <param name="image"></param>
         /// <param name="name"></param>
-        public static void MapUserData<T>(long account, Action<UnityUserData,T> call,T data)
+        public static void MapUserDataCallBack<T>(long account, Action<UnityUserData,T> call,T data)
         {
             if (mUserDataDict.ContainsKey(account))
             {
@@ -58,6 +58,18 @@ namespace Game
             mUserDataQueueCallBackDict[account].Enqueue(callBack);
             SendGetUserDataRequest(account);
         }
+
+        /// <summary>
+        /// 映射用户信息
+        /// </summary>
+        /// <param name="account"></param>
+        /// <param name="image"></param>
+        /// <param name="name"></param>
+        public static void MapUserData(long account,Text name)
+        {
+            MapUserData(account,null,name);
+        }
+
         /// <summary>
         /// 映射用户信息
         /// </summary>

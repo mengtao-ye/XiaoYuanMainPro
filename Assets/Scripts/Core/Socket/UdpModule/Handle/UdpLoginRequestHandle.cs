@@ -24,7 +24,65 @@ namespace Game
             Add((short)LoginUdpCode.GetAddFriendRequest, GetAddFriendRequest);
             Add((short)LoginUdpCode.RefuseFriend, RefuseFriend);
             Add((short)LoginUdpCode.ConfineFriend, ConfineFriend);
+            Add((short)LoginUdpCode.SendChatMsg, SendChatMsg);
+            Add((short)LoginUdpCode.PublishCampusCircle, PublishCampusCircle);
+
         }
+        /// <summary>
+        /// 拒绝还有申请
+        /// </summary>
+        /// <param name="data"></param>
+        private void PublishCampusCircle(byte[] data)
+        {
+            if (data.IsNullOrEmpty()) return;
+            bool res = data[0].ToBool();
+            if (res)
+            {
+                AppTools.Toast("发表成功");
+                GameCenter.Instance.ShowPanel<CampusCirclePanel>();
+            }
+            else {
+                AppTools.ToastError("发表失败");
+            }
+        }
+        /// <summary>
+        /// 拒绝还有申请
+        /// </summary>
+        /// <param name="data"></param>
+        private void SendChatMsg(byte[] data)
+        {
+            if (data.IsNullOrEmpty()) return;
+            if (data[0] == 0)
+            {
+                AppTools.ToastNotify("发送失败");
+            }
+            else
+            {
+                IListData<byte[]> list = data.ToListBytes(1);
+                long sendAccount = list[0].ToLong();
+                long receiveAccount = list[1].ToLong();
+                byte msgType = list[2].ToByte();
+                string content = list[3].ToStr();
+                long time = list[4].ToLong();
+                long id = list[5].ToLong();
+                ChatData chatData = ClassPool<ChatData>.Pop();
+                chatData.id = id;
+                chatData.send_userid = sendAccount;
+                chatData.receive_userid = receiveAccount;
+                chatData.msg_type = msgType;
+                chatData.chat_msg = content;
+                chatData.time = time;
+                ChatPanel chatPanel = GameCenter.Instance.GetPanel<ChatPanel>();
+                if (chatPanel == null) return;
+                if (chatPanel.isShow && chatPanel.friendAccount == receiveAccount)
+                {
+                    chatPanel.AddMsg(chatData,true,false);
+                }
+                ChatModule.SaveChatMsgToLocal(receiveAccount, chatData);
+                chatData.Recycle();
+            }
+        }
+
         /// <summary>
         /// 拒绝还有申请
         /// </summary>
@@ -42,9 +100,9 @@ namespace Game
         private void RefuseFriend(byte[] data)
         {
             if (data.IsNullOrEmpty()) return;
-            long account= data.ToLong();
+            long account = data.ToLong();
             ChatModule.SetAddFriendState(account);
-        }   
+        }
         /// <summary>
         /// 获取聊天数据
         /// </summary>
@@ -52,8 +110,9 @@ namespace Game
         private void GetAddFriendRequest(byte[] data)
         {
             if (data.IsNullOrEmpty()) return;
-            IListData<AddFriendRequestData> listData = data.ToListBytes<AddFriendRequestData>();
-            if (!listData.IsNullOrEmpty()) {
+            IListData<NewFriendScrollViewItem> listData = data.ToListBytes<NewFriendScrollViewItem>();
+            if (!listData.IsNullOrEmpty())
+            {
                 ChatModule.SetAddFriendListData(listData);
                 listData.Recycle();
             }
@@ -121,7 +180,7 @@ namespace Game
         private void GetFriendList(byte[] data)
         {
             if (data.IsNullOrEmpty()) return;
-            MsgPageSubUI  msgPage = GameCenter.Instance.GetPanel<MainPanel>().msgSubUI;
+            MsgPageSubUI msgPage = GameCenter.Instance.GetPanel<MainPanel>().msgSubUI;
             if (ByteTools.IsCompare(data, BytesConst.Empty))
             {
                 //好友全部获取到了
@@ -130,7 +189,7 @@ namespace Game
             }
             else
             {
-                IListData<FriendPairData> friendList = ConverterDataTools.ToListPoolObject<FriendPairData>(data);
+                IListData<FriendScrollViewItem> friendList = ConverterDataTools.ToListPoolObject<FriendScrollViewItem>(data);
                 if (friendList.IsNullOrEmpty())
                 {
                     msgPage.RemoveGetFriendLife();

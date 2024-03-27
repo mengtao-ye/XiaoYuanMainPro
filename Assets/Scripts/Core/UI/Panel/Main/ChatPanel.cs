@@ -7,48 +7,59 @@ namespace Game
 {
     public class ChatPanel : BaseCustomPanel
     {
-        private ScrollRect mScrollRect;
-        private RectTransform mContent;
-        private float mStepVertical; //上下两个气泡的垂直间隔
-        private float mStepHorizontal; //左右两个气泡的水平间隔
-        private float mMaxTextWidth;//文本内容的最大宽度
-        private float mLastPos; //上一个气泡最下方的位置
-        private Image mHead;
         private Text mName;
         private InputField mContentIF;
-        private long mFriendAccount;
+        public long friendAccount { get; private set; }
+        private int mCurMsgIndex;
+        private int mReadCount = 10;
+        private IScrollView<MsgScrollViewItem> mScrollView;
         public override void Awake()
         {
             base.Awake();
-            mStepVertical = 20;
-            mStepHorizontal = YFrameworkHelper.Instance.ScreenSize.x * 0.8f;
-            mMaxTextWidth = YFrameworkHelper.Instance.ScreenSize.x * 0.6f;
-            mScrollRect = transform.FindObject<ScrollRect>("ChatScrollRect");
-            mContent = transform.FindObject<RectTransform>("Content");
-            mLastPos = 0;
-            mHead = transform.FindObject<Image>("HeadImg");
+            mScrollView = transform.FindObject("ChatScrollView").AddComponent<ChatScrollView>();
+            mScrollView.Init();
+            mScrollView.SetSpace(10, 10, 10);
             mName = transform.FindObject<Text>("Name");
             transform.FindObject<Button>("BackBtn").onClick.AddListener(() => { GameCenter.Instance.ShowPanel<MainPanel>(); });
             transform.FindObject<Button>("SetBtn").onClick.AddListener(() => { });
 
             mContentIF = transform.FindObject<InputField>("ContentIF");
             transform.FindObject<Button>("SendBtn").onClick.AddListener(SendBtnListener);
+            mScrollView.SetUpFrashCallBack(UpFrashCallBack);
+        }
+
+        private void UpFrashCallBack()
+        {
+            LoadChatData(friendAccount,true);
+        }
+
+        public override void Show()
+        {
+            base.Show();
+            mScrollView.SetUpFrashState(true);
+        }
+
+        public override void Hide()
+        {
+            base.Hide();
+            mScrollView.ClearItems();
+            mCurMsgIndex = 0;
         }
 
         private void SendBtnListener()
         {
-            if (mContentIF.text.IsNullOrEmpty()) 
+            if (mContentIF.text.IsNullOrEmpty())
             {
                 AppTools.Toast("请输入内容");
                 return;
             }
-            SendMsgToServer((byte)ChatMsgType.Text,mContentIF.text, mFriendAccount);
+            SendMsgToServer((byte)ChatMsgType.Text, mContentIF.text, friendAccount);
             mContentIF.text = "";
         }
         /// <summary>
         /// 发送消息到服务器端
         /// </summary>
-        private void SendMsgToServer(byte msgType,string content,long receiveAccount)
+        private void SendMsgToServer(byte msgType, string content, long receiveAccount)
         {
             IListData<byte[]> datas = ClassPool<ListData<byte[]>>.Pop();
             datas.Add(AppVarData.Account.ToBytes());
@@ -58,7 +69,7 @@ namespace Game
             datas.Add(DateTimeOffset.Now.ToUnixTimeSeconds().ToBytes());
             byte[] returnBytes = datas.list.ToBytes();
             datas.Recycle();
-            AppTools.UdpSend( SubServerType.Login,(short)LoginUdpCode.SendChatMsg, returnBytes);
+            AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.SendChatMsg, returnBytes);
         }
 
         /// <summary>
@@ -67,69 +78,76 @@ namespace Game
         /// <param name="account"></param>
         public void SetChatData(long account)
         {
-            mFriendAccount = account;
-            UserDataModule.MapUserData(account, mHead, mName);
+            friendAccount = account;
+            UserDataModule.MapUserData(account, mName);
+            mCurMsgIndex = 0;
+            LoadChatData(friendAccount,false);
         }
 
-        public void AddMsg(ChatData data)
+        private void LoadChatData(long friendAccount,bool isLoadData)
         {
+            IListData<ChatData> listData = ChatModule.LoadChatMsg(friendAccount, mCurMsgIndex, mReadCount);
+            if (listData.IsNullOrEmpty())
+            {
+                //数据加载完了
+                mScrollView.SetUpFrashState(false);
+                return;
+            }
+            mCurMsgIndex += listData.Count;
+            if (isLoadData)
+            {
+                for (int i =0; i < listData.Count; i++)
+                {
+                    AddMsg(listData[i], false, isLoadData);
+                }
+            }
+            else 
+            {
+                for (int i = listData.Count - 1; i >= 0; i--)
+                {
+                    AddMsg(listData[i], false, isLoadData);
+                }
+            }
+            
+            if (listData.Count != mReadCount)
+            {
+                mScrollView.SetUpFrashState(false);
+                //数据加载完了    
+            }
+            listData.Recycle();
+        }
+
+
+        public void AddMsg(ChatData data, bool isMySendMsg, bool isLoadData)
+        {
+            if (isMySendMsg)
+            {
+                mCurMsgIndex++;
+            }
+            MsgScrollViewItem msgScrollViewItem = null;
             if (data.send_userid == AppVarData.Account)
             {
+                msgScrollViewItem = ClassPool<MyChatScrollViewItem>.Pop();
+                msgScrollViewItem.account = data.send_userid;
 
-                GameObjectPoolModule.AsyncPop<MyMsgItemPool, ChatData>(mContent, LoadMsgItemCallBack, data);
             }
             else
             {
-                GameObjectPoolModule.AsyncPop<FriendMsgItemPool, ChatData>( mContent, LoadMsgItemCallBack, data);
+                msgScrollViewItem = ClassPool<FriendChatScrollViewItem>.Pop();
+                msgScrollViewItem.account = data.receive_userid;
             }
-        }
-
-        private void LoadMsgItemCallBack<T>(BaseMsgItemPool<T> item, ChatData data) where T : IGameObjectPoolTarget, new()
-        {
-            item.SetContent(data);
-            if (item.content.preferredWidth > mMaxTextWidth)
+            msgScrollViewItem.id = data.id;
+            msgScrollViewItem.msg_type = data.msg_type;
+            msgScrollViewItem.chat_msg = data.chat_msg;
+            msgScrollViewItem.time = data.time;
+            if (isLoadData)
             {
-                item.layoutElement.preferredWidth = mMaxTextWidth;
-            }
-            //计算气泡的水平位置
-            float hPos = data.send_userid == AppVarData.Account ? mStepHorizontal / 2 : -mStepHorizontal / 2;
-            //计算气泡的垂直位置
-            float vPos = -mStepVertical + mLastPos;
-            item.Target.transform.localPosition = new Vector2(hPos, vPos);
-            //更新lastPos
-            float imageLength = GetContentSizeFitterPreferredSize(item.bgImg.rectTransform, item.contentSizeFitter).y;
-            mLastPos = vPos - imageLength;
-            //更新content的长度
-            if (-mLastPos > this.mContent.rect.height)
-            {
-                this.mContent.sizeDelta = new Vector2(this.mContent.rect.width, -mLastPos);
-            }
-            mScrollRect.verticalNormalizedPosition = 0;//使滑动条滚轮在最下方
-        }
-        /// <summary>
-        /// 获取内容大小
-        /// </summary>
-        /// <param name="rect"></param>
-        /// <param name="contentSizeFitter"></param>
-        /// <returns></returns>
-        public Vector2 GetContentSizeFitterPreferredSize(RectTransform rect, ContentSizeFitter contentSizeFitter)
-        {
-            LayoutRebuilder.ForceRebuildLayoutImmediate(rect);
-            return new Vector2(HandleSelfFittingAlongAxis(0, rect, contentSizeFitter),
-                HandleSelfFittingAlongAxis(1, rect, contentSizeFitter));
-        }
-
-        private float HandleSelfFittingAlongAxis(int axis, RectTransform rect, ContentSizeFitter contentSizeFitter)
-        {
-            ContentSizeFitter.FitMode fitting =
-                (axis == 0 ? contentSizeFitter.horizontalFit : contentSizeFitter.verticalFit);
-            if (fitting == ContentSizeFitter.FitMode.MinSize)
-            {
-                return LayoutUtility.GetMinSize(rect, axis);
+                mScrollView.Insert(msgScrollViewItem, 0);
             }
             else
             {
-                return LayoutUtility.GetPreferredSize(rect, axis);
+                mScrollView.Add(msgScrollViewItem);
+
             }
         }
     }

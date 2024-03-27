@@ -4,7 +4,7 @@ using YFramework;
 
 namespace Game
 {
-    public class FriendListItemPool : BaseGameObjectPoolTarget<FriendListItemPool>
+    public class FriendItemPool : BaseGameObjectPoolTarget<FriendItemPool>
     {
         public override string assetPath => "Prefabs/UI/Item/Chat/FriendItem";
         public override bool isUI { get; } = true;
@@ -36,7 +36,8 @@ namespace Game
 
         public override void Recycle()
         {
-            ClassPool<FriendListItemPool>.Push(this);
+            GameObjectPoolModule.Push(this);
+            ClassPool<FriendItemPool>.Push(this);
         }
     }
 }

@@ -30,13 +30,14 @@ namespace Game
         private void ClickBtnListener()
         {
             ClearUnreadMsg();
-            ChatListItemData data = GameCenter.Instance.GetPanel<MainPanel>().msgSubUI.scrollView.Get(ID);
+            ChatListScrollViewItem data = GameCenter.Instance.GetPanel<MainPanel>().msgSubUI.scrollView.Get(ID);
             if (data != null) 
             {
                 data.unreadCount = 0;
                 ChatModule.UpdateChatListItem(data);
             }
-            if (mFriendAccount == UserAccountConstData.NEW_FRIEND_ACCOUNT) {
+            if (mFriendAccount == UserAccountConstData.NEW_FRIEND_ACCOUNT)
+            {
                 GameCenter.Instance.ShowPanel<AddFriendRequestViewPanel>();
                 return;    
             }

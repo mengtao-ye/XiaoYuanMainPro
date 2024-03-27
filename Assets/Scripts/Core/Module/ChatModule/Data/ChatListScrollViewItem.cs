@@ -3,7 +3,7 @@ using YFramework;
 
 namespace Game
 {
-    public class ChatListItemData : BaseScrollViewItem<ChatListItemPool,ChatListItemData>,IDataConverter
+    public class ChatListScrollViewItem : BaseScrollViewItem<ChatListScrollViewItem>,IDataConverter
     {
         public long account;
         public string topMsg = "";
@@ -12,14 +12,14 @@ namespace Game
         public int unreadCount = 0;//未读的信息数量
         public override Vector2 size { get; set; } = new Vector2(1080,122);
 
-        public override void LoadData()
+        public override void LoadData(IGameObjectPoolTarget gameObjectPoolTarget)
         {
-            ChatListItemPool chatMsgItemPool = poolTarget as ChatListItemPool;
+            ChatListItemPool chatMsgItemPool = gameObjectPoolTarget as ChatListItemPool;
             chatMsgItemPool.SetFriendAccount(account);
             chatMsgItemPool.SetTopTime(time);
             chatMsgItemPool.SetTopMsg(msgType, topMsg);
             chatMsgItemPool.SetUnreadCount(unreadCount);
-            chatMsgItemPool.ID = ID;
+            chatMsgItemPool.ID = ViewItemID;
         }
 
         public byte[] ToBytes()
@@ -44,6 +44,11 @@ namespace Game
             time = list[3].ToLong();
             unreadCount = list[4].ToInt();
             list.Recycle();
+        }
+
+        protected override IGameObjectPoolTarget PopTarget()
+        {
+            return GameObjectPoolModule.Pop<ChatListItemPool>(mParent);
         }
     }
 }

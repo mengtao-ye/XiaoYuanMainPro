@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -7,11 +8,11 @@ namespace Game
     /// <summary>
     /// 自制滑动模块
     /// </summary>
-    public class CustomScrollView<T> : MonoBehaviour, IScrollView<T> where T : IScrollViewItem<T>
+    public class CustomScrollView<TScrollView> : MonoBehaviour, IScrollView<TScrollView> where TScrollView : IScrollViewItem<TScrollView>
     {
         public RectTransform viewPort { get; private set; }//显示窗口
         public RectTransform content { get; private set; }//内容
-        public IList<T> listData { get; private set; }//内容接口对象
+        public IList<TScrollView> listData { get; private set; }//内容接口对象
         private float mTopSpace;//距离最上边的距离
         private float mBottomSpace;//距离最下边的距离
         private float mSpace;//每个对象之间的距离
@@ -33,47 +34,105 @@ namespace Game
         private float[] mDragPosList;//记录滑动时手指所在的最后几帧位置
         private int mDragPosIndex;//记录滑动时手指所在的最后几帧位置的当前下标
         private int mDragPosCount = 5;//记录滑动时手指所在的最后几帧位置个数
+        private bool mUpFrash = false;//是否可以向上拉动刷新
+        private float mUpFrashValue = 20;//向上拉动刷新阈值
+        private Action mUpFrashCallBack;//向上拉动刷新回调
+        private bool mDownFrash = false;//是否可以向上拉动刷新
+        private float mDownFrashValue = 20;//向上拉动刷新阈值
+        private Action mDownFrashCallBack;//向上拉动刷新回调
         public void Init(RectTransform viewPort = null, RectTransform content = null)
         {
             mVerticcalValue = 0;
             mDragPosIndex = 0;
-            mVerticalSize = mTopSpace + mBottomSpace;
             if (viewPort == null) this.viewPort = transform.Find("Viewport").GetComponent<RectTransform>();
             if (content == null) this.content = this.viewPort.Find("Content").GetComponent<RectTransform>();
-            listData = new List<T>();
+            listData = new List<TScrollView>();
             mTopIndex = mBottomIndex = 0;
             mDragPosList = new float[mDragPosCount];
+            mVerticalSize = 0;
         }
-
+        /// <summary>
+        ///设置间隔
+        /// </summary>
+        /// <param name="topSpace"></param>
+        /// <param name="bottomSpace"></param>
+        /// <param name="space"></param>
         public void SetSpace(float topSpace, float bottomSpace, float space)
         {
             mTopSpace = topSpace;
             mBottomSpace = bottomSpace;
             mSpace = space;
+            mVerticalSize = mTopSpace + mBottomSpace;
+        }
+
+        public void SetDownFrashCallBack(Action callBack)
+        {
+            mDownFrashCallBack = callBack;
+        }
+        public void SetDownFrashState(bool value)
+        {
+            mDownFrash = value;
+        }
+        public void SetUpFrashCallBack(Action callBack)
+        {
+            mUpFrashCallBack = callBack;
+        }
+        public void SetUpFrashState(bool value)
+        {
+            mUpFrash = value;
         }
 
         /// <summary>
-        /// 添加子对象
+        /// 计算滑动区域
         /// </summary>
-        /// <param name="scrollViewItem"></param>
-        public void Add(T scrollViewItem)
+        private void CalcScrollView()
         {
-            if (scrollViewItem == null) return;
-            if (listData.Count != 0)
+            mBottomIndex = 0;
+            mTopIndex = 0;
+            for (int i = 0; i < listData.Count; i++)
             {
-                mVerticalSize += mSpace;//如果当前内容为空的话滑动条大小加上物体间隔
+                if (listData[i].IsShow(new Vector2(0, mVerticcalValue), viewPort.rect.size))
+                {
+                    mBottomIndex++;
+                }
+                else
+                {
+                    if (mBottomIndex > mTopIndex)
+                    {
+                        break;
+                    }
+                    mTopIndex++;
+                    mBottomIndex++;
+                }
             }
-            float pos = mVerticalSize - mBottomSpace;//计算生成对象的初始位置
-            scrollViewItem.originalPos = new Vector2(0, pos);
-            scrollViewItem.SetParent(content);
-            bool needShow = scrollViewItem.IsShow(new Vector2(0, mVerticcalValue), viewPort.rect.size);
-            if (needShow)
+            for (int i = 0; i < listData.Count; i++)
             {
-                mBottomIndex++;
-                scrollViewItem.LoadGameObject();
+                if (i < mTopIndex || i >= mBottomIndex)
+                {
+                    if (listData[i].isInstantiate)
+                    {
+                        listData[i].RecycleItem();
+                    }
+                }
+                else
+                {
+                    if (!listData[i].isInstantiate)
+                    {
+                        listData[i].LoadGameObject();
+                    }
+                    else
+                    {
+                        listData[i].LoadToOriginalPos();
+                    }
+                }
             }
-            mVerticalSize += scrollViewItem.size.y;
-            if (mVerticalSize > viewPort.rect.size.y)//如果当前大小超过视口大小的话
+        }
+        /// <summary>
+        /// 计算是否填满屏幕了
+        /// </summary>
+        private void CheckIsFull()
+        {
+            if (mVerticalSize > viewPort.rect.size.y)
             {
                 mIsFull = true;
             }
@@ -81,90 +140,153 @@ namespace Game
             {
                 mIsFull = false;
             }
-            content.sizeDelta = new Vector2(content.sizeDelta.x, mVerticalSize);//更新内容大小
-            scrollViewItem.index = listData.Count;//设置物体下标
-            listData.Add(scrollViewItem);
+        }
+        /// <summary>
+        /// 添加对象
+        /// </summary>
+        /// <param name="scrollViewItem"></param>
+        public void Add(TScrollView scrollViewItem)
+        {
+            if (scrollViewItem == null) return;
+            if (listData.Count != 0)
+            {
+                mVerticalSize += mSpace;
+            }
+            float pos = mVerticalSize - mBottomSpace;
+            scrollViewItem.originalPos = new Vector2(0, pos);
+            scrollViewItem.SetParent(content);
+            mVerticalSize += scrollViewItem.size.y;
+            content.sizeDelta = new Vector2(content.sizeDelta.x, mVerticalSize);
+            scrollViewItem.index = listData.Count;
             scrollViewItem.scrollViewTarget = this;
+            listData.Add(scrollViewItem);
+            CalcScrollView();
+            CheckIsFull();
+        }
+        /// <summary>
+        /// 插入对象
+        /// </summary>
+        /// <param name="scrollViewItem"></param>
+        /// <param name="index"></param>
+        public void Insert(TScrollView scrollViewItem, int index)
+        {
+            if (index < 0 && index > listData.Count) return;
+            if (scrollViewItem == null) return;
+            if (listData.Count != 0)
+            {
+                mVerticalSize += mSpace;
+            }
+            float pos = mTopSpace;
+            for (int i = 0; i < index; i++)
+            {
+                pos += listData[i].size.y;
+                pos += mSpace;
+            }
+            scrollViewItem.originalPos = new Vector2(0, pos);
+            scrollViewItem.SetParent(content);
+            mVerticalSize += scrollViewItem.size.y;
+            content.sizeDelta = new Vector2(content.sizeDelta.x, mVerticalSize);
+            scrollViewItem.index = index;
+            for (int i = index; i < listData.Count; i++)
+            {
+                listData[i].index++;
+                listData[i].originalPos += new Vector2(0, scrollViewItem.size.y + mSpace);
+            }
+            scrollViewItem.scrollViewTarget = this;
+            listData.Insert(index, scrollViewItem);
+            CalcScrollView();
+            CheckIsFull();
         }
         /// <summary>
         /// 删除子对象
         /// </summary>
         /// <param name="scrollViewItem"></param>
-        public void Delete(T scrollViewItem)
+        public void Delete(TScrollView scrollViewItem)
         {
             if (scrollViewItem == null) return;
-            float offectLen = 0;//偏移长度
+            if (listData.Count == 0) return;
+            float offectLen = 0;
             offectLen = scrollViewItem.size.y;
-            bool targetIsInstantiate = scrollViewItem.isInstantiate;
-            scrollViewItem.Recycle();
-            if (targetIsInstantiate)//如果删除的对象是处于显示状态
-            {
-                mBottomIndex--;
-            }
-            else
-            {
-                //当前下标都往下移动一格
-                mBottomIndex--;
-                mTopIndex--;
-            }
-            if (listData.Count == 1)  //只有一个数据时
-            {
-                mTopIndex = mBottomIndex = 0;
-            }
-            else
+            scrollViewItem.RecycleItem();
+            if (listData.Count != 1)
             {
                 offectLen += mSpace;
-                for (int i = scrollViewItem.index + 1; i < listData.Count; i++)
+            }
+            for (int i = scrollViewItem.index + 1; i < listData.Count; i++)
+            {
+                listData[i].index--;
+                listData[i].originalPos -= new Vector2(0, offectLen);
+            }
+            //mVerticcalValue -= offectLen;
+            mVerticalSize -= offectLen;
+            content.sizeDelta = new Vector2(content.sizeDelta.x, mVerticalSize);
+            listData.Remove(scrollViewItem);
+            CalcScrollView();
+            CheckIsFull();
+            if (mIsFull)
+            {
+                if (mVerticcalValue + viewPort.rect.size.y > mVerticalSize)
                 {
-                    listData[i].index--;
-                    listData[i].originalPos -= new Vector2(0, offectLen);
-                    if (targetIsInstantiate)
-                    {
-                        bool needShow = listData[i].IsShow(new Vector2(0, mVerticcalValue), viewPort.rect.size);
-                        if (needShow)
-                        {
-                            bool isInstantiate = listData[i].isInstantiate;//记录当前对象是否处于显示状态
-                            listData[i].LoadGameObject();
-                            if (isInstantiate)
-                            {
-                                //如果处于显示状态就修改偏移
-                                listData[i].MoveDelat(new Vector2(0, offectLen));
-                            }
-                            else
-                            {
-                                //这里说明如果之前没实例化的话因为前面已经改变了它的原始坐标
-                                //生成的时候会自动设置当前位置为原始坐标
-                                //如果不处于显示状态，LoadGameObject()会设置原始位置，
-                                //然后再加上当前滑动值的偏移
-                                listData[i].MoveDelat(new Vector2(0, mVerticcalValue));
-                                mBottomIndex++;
-                            }
-                        }
-                    }
+                    mBottomValue = mVerticcalValue - ((mVerticcalValue + viewPort.rect.size.y) - mVerticalSize);
+                    mIsToBottom = true;
                 }
-            }
-            if (!targetIsInstantiate)//如果需要删除的对象不处于显示状态的话
-            {
-                mVerticcalValue -= offectLen;
-            }
-            mVerticalSize -= offectLen;//总长度减去删除的对象长度
-            if (mVerticalSize > viewPort.rect.size.y)//判断现在屏幕是否还是满的
-            {
-                mIsFull = true;
             }
             else
             {
-                mIsFull = false;
+                mIsToTop = true;
             }
-            content.sizeDelta = new Vector2(content.sizeDelta.x, mVerticalSize);//更新内容大小
-            listData.Remove(scrollViewItem);
         }
-
+        /// <summary>
+        /// 根据对象ID来删除
+        /// </summary>
+        /// <param name="itemID"></param>
+        public void Delete(long itemID)
+        {
+            TScrollView scrollView = Get(itemID);
+            if (scrollView == null) return;
+            Delete(scrollView);
+        }
+        /// <summary>
+        /// 更新大小
+        /// </summary>
+        /// <param name="scrollViewItem"></param>
+        /// <param name="size"></param>
+        public void UpdateSize(TScrollView scrollViewItem, Vector2 size)
+        {
+            Vector2 offect = new Vector2(0, size.y - scrollViewItem.size.y);
+            scrollViewItem.size = new Vector2(scrollViewItem.size.x, size.y);
+            for (int i = scrollViewItem.index + 1; i < listData.Count; i++)
+            {
+                listData[i].originalPos += offect;
+                listData[i].MoveDelat(offect);
+            }
+            mVerticalSize += offect.y;
+            content.sizeDelta = new Vector2(content.sizeDelta.x, mVerticalSize);
+            CalcScrollView();
+            CheckIsFull();
+            if (mIsFull)
+            {
+                if (mVerticcalValue + viewPort.rect.size.y > mVerticalSize)
+                {
+                    mBottomValue = mVerticcalValue - ((mVerticcalValue + viewPort.rect.size.y) - mVerticalSize);
+                    mIsToBottom = true;
+                }
+            }
+            else
+            {
+                mIsToTop = true;
+            }
+        }
+        /// <summary>
+        /// 将指定对象移动到目标位置
+        /// </summary>
+        /// <param name="insertIndex"></param>
+        /// <param name="targetIndex"></param>
         public void InsertTo(int insertIndex, int targetIndex)
         {
-            if (insertIndex == targetIndex) return;
             if (!CheckIndex(insertIndex)) return;
             if (!CheckIndex(targetIndex)) return;
+            if (insertIndex == targetIndex) return;
             int startIndex = Mathf.Min(insertIndex, targetIndex);
             int endIndex = Mathf.Max(insertIndex, targetIndex);
             for (int i = endIndex; i > startIndex; i--)
@@ -172,7 +294,6 @@ namespace Game
                 Exchange(i, i - 1);
             }
         }
-
         /// <summary>
         /// 交换
         /// </summary>
@@ -183,74 +304,38 @@ namespace Game
             if (!CheckIndex(moveTargetIndex)) return;
             if (!CheckIndex(exchangeIndex)) return;
             if (exchangeIndex == moveTargetIndex) return;
-            T tempMoveTarget = listData[moveTargetIndex];
+            TScrollView tempMoveTarget = listData[moveTargetIndex];
             listData[moveTargetIndex] = listData[exchangeIndex];
             listData[exchangeIndex] = tempMoveTarget;
+
             int index = listData[moveTargetIndex].index;
             Vector2 originalPos = listData[moveTargetIndex].originalPos;
             bool isInstantiate = listData[moveTargetIndex].isInstantiate;
-            if (listData[moveTargetIndex].poolTarget != null)
-            {
-                listData[moveTargetIndex].Recycle();
-            }
-            if (listData[exchangeIndex].poolTarget != null)
-            {
-                listData[exchangeIndex].Recycle();
-            }
+
             listData[moveTargetIndex].Exchange(listData[exchangeIndex]);
             listData[exchangeIndex].Exchange(index, originalPos, isInstantiate);
 
-            bool isShow = listData[exchangeIndex].IsShow(new Vector2(0, mVerticcalValue), viewPort.rect.size);
-            if (listData[exchangeIndex].isInstantiate)
-            {
-                if (isShow)
-                {
-                    listData[exchangeIndex].LoadGameObject();
-                    listData[exchangeIndex].LoadToOriginalPos(new Vector2(0, mVerticcalValue));
-                }
-                else
-                {
-                    listData[exchangeIndex].Recycle();
-                }
-            }
-            else
-            {
-                if (isShow)
-                {
-                    listData[exchangeIndex].LoadGameObject();
-                    listData[exchangeIndex].LoadToOriginalPos(new Vector2(0, mVerticcalValue));
-                }
-            }
+            listData[moveTargetIndex].RecycleItem();
+            listData[exchangeIndex].RecycleItem();
 
-            isShow = listData[moveTargetIndex].IsShow(new Vector2(0, mVerticcalValue), viewPort.rect.size);
-            if (listData[moveTargetIndex].isInstantiate)
-            {
-                if (isShow)
-                {
-                    listData[moveTargetIndex].LoadGameObject();
-                    listData[moveTargetIndex].LoadToOriginalPos(new Vector2(0, mVerticcalValue));
-                }
-                else
-                {
-                    listData[moveTargetIndex].Recycle();
-                }
-            }
-            else
-            {
-                if (isShow)
-                {
-                    listData[moveTargetIndex].LoadGameObject();
-                    listData[moveTargetIndex].LoadToOriginalPos(new Vector2(0, mVerticcalValue));
-                }
-            }
+            CalcScrollView();
         }
-
+        /// <summary>
+        /// 开始拖动
+        /// </summary>
+        /// <param name="eventData"></param>
         public void OnBeginDrag(PointerEventData eventData)
         {
             mIsDraging = true;
             mDragStartTime = Time.time;
             mDragStartPos = eventData.position.y;
+            mIsToBottom = false;
+            mIsToTop = false;
         }
+        /// <summary>
+        /// 拖动中
+        /// </summary>
+        /// <param name="eventData"></param>
         public void OnDrag(PointerEventData eventData)
         {
             if (mIsToBottom) return;
@@ -258,12 +343,23 @@ namespace Game
             mVerticcalValue += eventData.delta.y;
             MoveDelta(new Vector2(0, eventData.delta.y));
         }
+        /// <summary>
+        /// 结束拖动
+        /// </summary>
+        /// <param name="eventData"></param>
         public void OnEndDrag(PointerEventData eventData)
         {
             mIsDraging = false;
             if (mVerticcalValue < 0)//如果拖动的距离小于0说明在向上拉
             {
                 mIsToTop = true;
+                if (mUpFrash) 
+                {
+                    if (-mVerticcalValue > mUpFrashValue)
+                    {
+                        mUpFrashCallBack?.Invoke();
+                    }
+                }
                 return;
             }
             if (mIsFull)//如果内容满了
@@ -273,6 +369,10 @@ namespace Game
                     //计算底部值
                     mBottomValue = mVerticcalValue - ((mVerticcalValue + viewPort.rect.size.y) - mVerticalSize);
                     mIsToBottom = true;
+                    if (mVerticcalValue + viewPort.rect.size.y + mDownFrashValue > mVerticalSize)
+                    {
+                        mDownFrashCallBack?.Invoke();
+                    }
                     return;
                 }
             }
@@ -291,7 +391,7 @@ namespace Game
                     count += mDragPosList[i];
                 }
                 count /= mDragPosCount;
-                if (Mathf.Abs(mDragPosList[(mDragPosIndex + 4) % mDragPosCount] - count) < 5)
+                if (Mathf.Abs(mDragPosList[(mDragPosIndex + 4) % mDragPosCount] - count) <10)
                 {
                     //如果滑动的偏移值比较小的话就判断为是拖动
                     isSlider = false;
@@ -310,66 +410,94 @@ namespace Game
                 mIsUpDir = mDragLen > 0;
                 mDragTime = Time.time - mDragStartTime;
                 //计算滑动的速录
-                float ratio = Mathf.Clamp(Mathf.Abs(mDragLen / (mDragTime * 1000)), 1, 10);
+                float ratio = Mathf.Clamp(Mathf.Abs(mDragLen / (mDragTime * 1000)), 1,10);
                 mDragLen = mDragLen * ratio;
             }
         }
-
+        /// <summary>
+        /// 按位移差来移动
+        /// </summary>
+        /// <param name="vector"></param>
         private void MoveDelta(Vector2 vector)
         {
-            for (int i = mTopIndex; i < mBottomIndex; i++)
-            {
-                listData[i].MoveDelat(vector);
-            }
-            bool res = false;
+            content.anchoredPosition += vector;
             //是否是向下滑动
             bool isToBottom = vector.y < 0;
             if (isToBottom)
             {
                 //下层检查是否需要回收
-                if (CheckIndex(mBottomIndex - 1) && listData[mBottomIndex - 1].isInstantiate)
-                {
-                    res = listData[mBottomIndex - 1].CheckBottomRecycle(viewPort.rect.size);
-                    if (res)
-                    {
-                        //最下一层回收了
-                        mBottomIndex--;
-                    }
-                }
+                CheckBottomRecycle();
                 //上层检查是否需要生成
-                if (CheckIndex(mTopIndex - 1))//第一层时不需要生成 
-                {
-                    res = listData[mTopIndex - 1].CheckTopInstantiate(new Vector2(0, mVerticcalValue), viewPort.rect.size);
-                    if (res)
-                    {
-                        //最上一层需要生成
-                        mTopIndex--;
-                        listData[mTopIndex].MoveDelat(new Vector2(vector.x, mVerticcalValue));
-                    }
-                }
+                CheckTopInstantiate();
             }
             else
             {
                 //下层检查是否需要生成
-                if (CheckIndex(mBottomIndex) && !listData[mBottomIndex].isInstantiate)
-                {
-                    res = listData[mBottomIndex].CheckBottomInstantiate(new Vector2(0, mVerticcalValue), viewPort.rect.size);
-                    if (res)
-                    {
-                        //最下一层需要生成
-                        listData[mBottomIndex].MoveDelat(new Vector2(vector.x, mVerticcalValue));
-                        mBottomIndex++;
-                    }
-                }
+                CheckBottomInstantiate();
                 //上层检查是否需要回收
-                if (CheckIndex(mTopIndex) && listData[mTopIndex].isInstantiate)
+                CheckTopRecycle();
+            }
+            CalcScrollView();
+        }
+        /// <summary>
+        /// 检查顶部是否回收
+        /// </summary>
+        public void CheckTopRecycle()
+        {
+            if (CheckIndex(mTopIndex) && listData[mTopIndex].isInstantiate)
+            {
+                bool res = listData[mTopIndex].CheckTopRecycle(new Vector2(0, mVerticcalValue));
+                if (res)
                 {
-                    res = listData[mTopIndex].CheckTopRecycle(viewPort.rect.size);
-                    if (res)
+                    //最上一层回收了
+                    mTopIndex++;
+                    CheckTopRecycle();
+                }
+            }
+        }
+        public void CheckBottomInstantiate()
+        {
+            if (CheckIndex(mBottomIndex) && !listData[mBottomIndex].isInstantiate)
+            {
+                bool res = listData[mBottomIndex].CheckBottomInstantiate(new Vector2(0, mVerticcalValue), viewPort.rect.size);
+                
+                if (res)
+                {
+                    //最下一层需要生成
+                    mBottomIndex++;
+                    CheckBottomInstantiate();
+                }
+            }
+        }
+        private void CheckBottomRecycle()
+        {
+            if (CheckIndex(mBottomIndex - 1) && listData[mBottomIndex - 1].isInstantiate)
+            {
+                bool res = listData[mBottomIndex - 1].CheckBottomRecycle(new Vector2(0, mVerticcalValue), viewPort.rect.size);
+                if (res)
+                {
+                    //最下一层回收了
+                    mBottomIndex--;
+                    CheckBottomRecycle();
+                }
+            }
+        }
+        public void CheckTopInstantiate()
+        {
+            if (CheckIndex(mTopIndex - 1))//第一层时不需要生成 
+            {
+                bool res = listData[mTopIndex - 1].CheckTopInstantiate(new Vector2(0, mVerticcalValue), viewPort.rect.size);
+                if (res)
+                {
+                    //最上一层需要生成
+                    mTopIndex--;
+                    if (mTopIndex < 0) 
                     {
-                        //最上一层回收了
-                        mTopIndex++;
+                        mTopIndex = 0;
+                        return;
+
                     }
+                    CheckTopInstantiate();
                 }
             }
         }
@@ -383,10 +511,9 @@ namespace Game
             if (index >= 0 && index < listData.Count) return true;
             return false;
         }
-
-
         private void Update()
         {
+        
             if (mIsDraging)
             {
                 if (
@@ -408,15 +535,14 @@ Input.touches[0].position.y;
                 }
             }
 
-            if (mIsToBottom)//如果滑到底部了
+            if (mIsToBottom)
             {
-                //计算当前帧偏移值
                 float offect = Mathf.Lerp(mVerticcalValue, mBottomValue, Time.deltaTime * 10);
                 float delta = mVerticcalValue - offect;
                 mVerticcalValue = offect;
                 if (mVerticcalValue < mBottomValue + 5f)
                 {
-                    MoveDelta(new Vector2(0, -(mVerticcalValue - mBottomValue)));
+                    content.anchoredPosition = new Vector2(0, mBottomValue);
                     mVerticcalValue = mBottomValue;
                     mIsToBottom = false;
                     return;
@@ -424,14 +550,13 @@ Input.touches[0].position.y;
                 MoveDelta(new Vector2(0, -delta));
                 return;
             }
-            if (mIsToTop)//如果滑到顶部了
+            if (mIsToTop)
             {
-                //计算当前帧偏移值
                 float offect = Mathf.Lerp(0, mVerticcalValue, Time.deltaTime * 10);
                 mVerticcalValue -= offect;
                 if (mVerticcalValue > -5f)
                 {
-                    MoveDelta(new Vector2(0, -mVerticcalValue));
+                    content.anchoredPosition = Vector2.zero;
                     mVerticcalValue = 0;
                     mIsToTop = false;
                     return;
@@ -439,7 +564,7 @@ Input.touches[0].position.y;
                 MoveDelta(new Vector2(0, -offect));
                 return;
             }
-            if (mIsSlidering)//处于滑动状态
+            if (mIsSlidering)
             {
                 bool isToBound = false;//是否到边界
                 if (mVerticcalValue < 0)
@@ -465,16 +590,15 @@ Input.touches[0].position.y;
                         isToBound = true;
                     }
                 }
-                if (isToBound)//是否滑到边界了
+                if (isToBound)
                 {
                     mIsSlidering = false;
                     mDragLen = 0;
                     return;
                 }
-                //计算滑动的偏移值
                 float offect = Mathf.Lerp(0, mDragLen, Time.deltaTime * 5);
                 mDragLen -= offect;
-                if (mIsUpDir)//是否是向上滑动
+                if (mIsUpDir)
                 {
                     if (mDragLen < 5)
                     {
@@ -508,19 +632,41 @@ Input.touches[0].position.y;
         {
             mIsSlidering = false;
         }
-
-        public T Get(long id)
+        /// <summary>
+        /// 获取对象
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public TScrollView Get(long id)
         {
             for (int i = 0; i < listData.Count; i++)
             {
-                if (listData[i].ID == id) return listData[i];
+                if (listData[i].ViewItemID == id) return listData[i];
             }
-            return default(T);
+            return default(TScrollView);
         }
-
+        /// <summary>
+        /// 是否包含对象
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public bool Contains(long id)
         {
             return Get(id) != null;
+        }
+        /// <summary>
+        /// 回收当前生成的对象
+        /// </summary>
+        public void ClearItems()
+        {
+            for (int i = 0; i < listData.Count; i++)
+            {
+                listData[i].RecycleItem();
+            }
+            listData.Clear();
+            mVerticcalValue = 0;
+            mVerticalSize = mTopSpace + mBottomSpace;
+            mTopIndex = mBottomIndex = 0;
         }
     }
 

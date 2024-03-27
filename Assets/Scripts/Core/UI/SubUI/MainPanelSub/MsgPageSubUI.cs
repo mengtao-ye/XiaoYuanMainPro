@@ -14,7 +14,7 @@ namespace Game
         private RectTransform mNofityBtnRect;
         private ILive mGetFriendListLive;
         private byte[] mSendGetFriendListBytes;
-        public IScrollView<ChatListItemData> scrollView;
+        public IScrollView<ChatListScrollViewItem> scrollView;
         public MsgPageSubUI(Transform trans, MainPanel mainPanel) : base(trans)
         {
             mMainPanel = mainPanel;
@@ -79,7 +79,7 @@ namespace Game
         /// <summary>
         /// 设置好友列表数据
         /// </summary>
-        public void SetFriendData(IListData<FriendPairData> listData)
+        public void SetFriendData(IListData<FriendScrollViewItem> listData)
         {
             ChatModule.SetFriendListData(listData);
         }

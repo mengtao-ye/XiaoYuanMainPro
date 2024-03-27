@@ -14,6 +14,9 @@ namespace Game
         public override void Awake()
         {
             base.Awake();
+            transform.FindObject<Button>("CampusCircle").onClick.AddListener(() => {
+                GameCenter.Instance.ShowPanel<CampusCirclePanel>();
+            }) ;
         }
     }
 }

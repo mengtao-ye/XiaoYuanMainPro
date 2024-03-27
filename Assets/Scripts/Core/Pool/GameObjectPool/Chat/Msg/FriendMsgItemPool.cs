@@ -2,12 +2,14 @@
 
 namespace Game
 {
-    public class FriendMsgItemPool : BaseMsgItemPool<FriendMsgItemPool>
+    public class FriendMsgItemPool : MsgItemPool<FriendItemPool>
     {
         public override string assetPath => "Prefabs/UI/Item/Chat/FriendMsgItem";
-        public override bool isUI { get; } = true;
+        public override bool isUI => true;
+
         public override void Recycle()
         {
+            GameObjectPoolModule.Push(this);
             ClassPool<FriendMsgItemPool>.Push(this);
         }
     }

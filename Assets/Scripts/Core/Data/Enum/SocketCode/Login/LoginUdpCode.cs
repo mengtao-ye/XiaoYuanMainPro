@@ -19,5 +19,8 @@
         GetAddFriendRequest = UdpRequestCode.LoginServer + 14,//获取好友申请请求
         RefuseFriend = UdpRequestCode.LoginServer + 15,//拒绝好友申请
         ConfineFriend = UdpRequestCode.LoginServer + 16,//同意好友申请
+
+        //CampusCircle
+        PublishCampusCircle = UdpRequestCode.LoginServer + 17,//发表校友圈
     }
 }

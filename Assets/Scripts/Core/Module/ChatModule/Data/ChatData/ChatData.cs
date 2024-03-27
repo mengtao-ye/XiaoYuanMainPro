@@ -1,11 +1,12 @@
-﻿using YFramework;
+﻿using UnityEngine;
+using YFramework;
 
 namespace Game
 {
     /// <summary>
     /// 聊天信息
     /// </summary>
-    public class ChatData : IPool, IDataConverter
+    public  class ChatData : IPool, IDataConverter 
     {
         public long id;
         public long send_userid;
@@ -14,15 +15,17 @@ namespace Game
         public string chat_msg;
         public long time;
         public bool isPop { get; set; }
+        public ChatData()
+        {
+
+        }
         public void PopPool()
         {
         }
         public void PushPool()
         {
         }
-
-        public  void Recycle()
-        {
+        public  void Recycle() {
             ClassPool<ChatData>.Push(this);
         }
         public  byte[] ToBytes()

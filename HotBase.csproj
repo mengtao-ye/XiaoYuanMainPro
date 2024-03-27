@@ -82,12 +82,14 @@
     <Compile Include="Assets\Scripts\YFramework\Core\Utility\Utility.MicroPhoneTools.cs" />
     <Compile Include="Assets\Scripts\Core\Helper\Framework\XiaoYuanYFrameworkHelper.cs" />
     <Compile Include="Assets\Scripts\Core\UI\Component\ScrollView\Base\Item\BaseScrollViewItem.cs" />
+    <Compile Include="Assets\Scripts\Core\Pool\GameObjectPool\Chat\Msg\Base\MsgItemPool.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\ToTween\Base\FatherBase\BaseToTween.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\UI\Log\LogUI\ILogUI.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Data\Const\BytesConst.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\DataModule\Dictionary\DictionaryPoolModule.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\MVC\Controller\Controller\BaseController.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\FSM\FSM\BaseFSM.cs" />
+    <Compile Include="Assets\Scripts\Core\Data\Data\FriendData\FriendScrollViewItem.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\PoolModule\GameObjectPoolModule\Base\IGameObjectPoolTarget.cs" />
     <Compile Include="Assets\Scripts\Core\Helper\Log\UnityLogHelper.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Utility\Utility.CompressTools.cs" />
@@ -111,12 +113,15 @@
     <Compile Include="Assets\Scripts\YFramework\Core\Manager\SceneManager\ISceneManager.cs" />
     <Compile Include="Assets\Scripts\Core\Model\Custom\BaseCustomChildModel.cs" />
     <Compile Include="Assets\Scripts\Core\Scene\BaseCustomScene.cs" />
+    <Compile Include="Assets\Scripts\Core\Mono\Component\ScrollView\FriendListScrollView.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\ECSModule\System\BaseECSSystem.cs" />
     <Compile Include="Assets\Scripts\Core\UI\TipsUI\CommonTipsUI\CommonInputTipsUI.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Extend\GameObjectExtend.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\ToTween\Extend\Transform\Scale\ToTweenExtend.cs" />
     <Compile Include="Assets\Scripts\Core\Module\ReflectionDataModule\UserData\Data\CallBackData\Core\UserDataCallBack.cs" />
+    <Compile Include="Assets\Scripts\Core\Module\ChatModule\Data\MsgData\MsgScrollViewItem.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Extend\BytesConverterExtend.cs" />
+    <Compile Include="Assets\Scripts\Core\Module\ChatModule\Data\MsgData\MyChatScrollViewItem.cs" />
     <Compile Include="Assets\Scripts\Core\Tools\InputTools\InputTools.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Manager\SocketManager\Udp\BaseUdpRequestHandle.cs" />
     <Compile Include="Assets\Scripts\Test\Test.cs" />
@@ -130,10 +135,12 @@
     <Compile Include="Assets\Scripts\YFramework\Core\Manager\SceneManager\BaseScene.cs" />
     <Compile Include="Assets\Scripts\Core\Manager\HttpManager\HttpRequest\Core_T\SpriteHttpRequest.cs" />
     <Compile Include="Assets\Scripts\Core\Tools\RecordTools\RecordData.cs" />
+    <Compile Include="Assets\Scripts\Core\Mono\Component\ScrollView\ChatScrollView.cs" />
     <Compile Include="Assets\Scripts\Core\Module\HotFixModule\MD5\BaseMD5.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\UI\TipsUI\Tips\ITipsUI.cs" />
     <Compile Include="Assets\Scripts\Core\Data\Data\UserData\UserAccountConstData.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\MVC\Controller\ChildController\IChildController.cs" />
+    <Compile Include="Assets\Scripts\Core\Data\Data\FriendData\NewFriendScrollViewItem.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Utility\Utility.BesierLineTools.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\UI\TipsUI\Manager\ITipsUIManager.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\PoolModule\ClassPoolModule\PoolData\List\Base\IListData.cs" />
@@ -148,8 +155,9 @@
     <Compile Include="Assets\Scripts\Core\Module\HotFixModule\Data\HotFixData.cs" />
     <Compile Include="Assets\Scripts\Core\Tools\PinYinTools\PinYinTools.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\DataModule\List\ListModule.cs" />
+    <Compile Include="Assets\Scripts\Core\Pool\GameObjectPool\Chat\Msg\FriendMsgItemPool.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Extend\ByteExtend.cs" />
-    <Compile Include="Assets\Scripts\Core\Pool\GameObjectPool\Friend\FriendListItemPool.cs" />
+    <Compile Include="Assets\Scripts\Core\Pool\GameObjectPool\Friend\FriendItemPool.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Extend\UIExtend.cs" />
     <Compile Include="Assets\Scripts\Core\Manager\HttpManager\HttpRequest\Core\SpriteHttpRequest.cs" />
     <Compile Include="Assets\Scripts\Core\UI\SubUI\RegisterPanel\RegisterCodeSubUI.cs" />
@@ -208,6 +216,7 @@
     <Compile Include="Assets\Scripts\YFramework\Core\Common\Interface\Collection\ICollectionContain.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Common\Interface\Operator\IResume.cs" />
     <Compile Include="Assets\Scripts\Core\UI\Panel\Main\FriendListPanel.cs" />
+    <Compile Include="Assets\Scripts\Core\Mono\Component\ScrollView\NewFriendScrollView.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Utility\Utility.PhysicsTools.cs" />
     <Compile Include="Assets\Scripts\Core\Socket\UdpModule\XiaoYuanSubUDPSocketManager.cs" />
     <Compile Include="Assets\Scripts\Core\UI\Panel\Main\SelectSchoolPanel.cs" />
@@ -238,6 +247,7 @@
     <Compile Include="Assets\Scripts\Core\Module\PhysicsModule\PhysicsModule.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Utility\Utility.ByteTools.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\LockStepModule\FixedData\Fix64\FixVector2.cs" />
+    <Compile Include="Assets\Scripts\Core\Pool\GameObjectPool\Chat\Msg\MyMsgItemPool.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Manager\SceneManager\IScene.cs" />
     <Compile Include="Assets\Scripts\Core\Manager\LiveManager\Live\Core\UpdateLive.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\ToTween\Entity\Rotation\Rotation\ToLocalQuaternionTween.cs" />
@@ -265,6 +275,7 @@
     <Compile Include="Assets\Scripts\YFramework\Core\Common\Interface\Life\Core\IFixedUpdate.cs" />
     <Compile Include="Assets\Scripts\Core\Data\Data\PermissionData\PermissionData.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\ToTween\Entity\Rotation\Rotation\ToQuaternionTween.cs" />
+    <Compile Include="Assets\Scripts\Core\Module\ChatModule\Data\MsgData\FriendChatScrollViewItem.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\DataModule\Dictionary\DictionaryModule.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Manager\SocketManager\Udp\BigData\UdpMsg.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\LogModule\LogHelper.cs" />
@@ -287,16 +298,16 @@
     <Compile Include="Assets\Scripts\YFramework\Core\Module\FSM\FSM\IFSM.cs" />
     <Compile Include="Assets\Scripts\Core\Data\Mapper\SceneMapper.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\IEnumeratorModule\IEnumeratorMono.cs" />
-    <Compile Include="Assets\Scripts\Core\Module\ChatModule\Data\ChatListItemData.cs" />
+    <Compile Include="Assets\Scripts\Core\Module\ChatModule\Data\ChatListScrollViewItem.cs" />
     <Compile Include="Assets\Scripts\Core\UI\Custom\BaseCustomLogUI.cs" />
     <Compile Include="Assets\Scripts\Core\Socket\UdpModule\Handle\UdpCommonRequestHandle.cs" />
     <Compile Include="Assets\Scripts\Core\Data\Enum\SocketCode\Mian\UdpRequestCode.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\UI\Sub\ISubUI.cs" />
     <Compile Include="Assets\Scripts\Core\Socket\UdpModule\UdpModule.cs" />
     <Compile Include="Assets\Scripts\Core\Manager\HttpManager\Main\IHttpManager.cs" />
-    <Compile Include="Assets\Scripts\Core\Pool\GameObjectPool\Chat\FriendMsgItemPool.cs" />
     <Compile Include="Assets\Scripts\Core\UI\TipsUI\Data\CommonTwoTipID.cs" />
     <Compile Include="Assets\Scripts\Core\Tools\OssTools\Data\OssData.cs" />
+    <Compile Include="Assets\Scripts\YFramework\Core\Extend\ListDataExtend.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\UndoModule\IUnDo.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\ECSModule\Component\BaseECSComponent.cs" />
     <Compile Include="Assets\Scripts\Core\Socket\UdpModule\Handle\UdpMainRequestHandle.cs" />
@@ -325,9 +336,7 @@
     <Compile Include="Assets\Scripts\YFramework\Core\Module\IEnumeratorModule\IEnumeratorModule.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Common\Interface\Collection\ICollectionDoubleAdd.cs" />
     <Compile Include="Assets\Scripts\Core\Module\AssetBundleModule\AssetBundleConfig\AssetBundleConfig.cs" />
-    <Compile Include="Assets\Scripts\Core\UI\Panel\Main\ChatPanelManager.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Common\Interface\Collection\ICollectionDoubleMove.cs" />
-    <Compile Include="Assets\Scripts\Core\Data\Data\FriendData\AddFriendRequestData.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\MVC\Canvas\ICanvas.cs" />
     <Compile Include="Assets\Scripts\Core\Data\Data\PathData\PathData.cs" />
     <Compile Include="Assets\Scripts\Core\Mono\UI\InputField\MultiInput.cs" />
@@ -381,6 +390,7 @@
     <Compile Include="Assets\Scripts\Core\Tools\SpriteTools\SpriteTools.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\LockStepModule\Data\LockStepUserData.cs" />
     <Compile Include="Assets\Scripts\Core\Tools\PermissionTools\PermissionTools.cs" />
+    <Compile Include="Assets\Scripts\Core\Mono\Component\ScrollView\ChatListScrollView.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Utility\Utility.ConvertDataTools.cs" />
     <Compile Include="Assets\Scripts\Core\Scene\XiaoYuanSceneManager.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Utility\Utility.MeshTools.cs" />
@@ -397,7 +407,7 @@
     <Compile Include="Assets\Scripts\YFramework\Core\Extend\RectTransformExtend.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Manager\SocketManager\Tcp\Message.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\UI\Base\IUI.cs" />
-    <Compile Include="Assets\Scripts\Core\Module\ChatModule\Data\ChatData.cs" />
+    <Compile Include="Assets\Scripts\Core\Module\ChatModule\Data\ChatData\ChatData.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Common\Abstractor\Map\SingleMap.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\UI\Log\LogUIManager\ILogUIManager.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\ProcessModule\Process\BaseProcess.cs" />
@@ -405,13 +415,11 @@
     <Compile Include="Assets\Scripts\YFramework\Core\Module\ECSModule\Entity\IECSEntity.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Utility\Utility.RandomTools.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Helper\YFrameworkHelper.cs" />
-    <Compile Include="Assets\Scripts\Core\Pool\GameObjectPool\Chat\Base\BaseMsgItemPool.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\ToTween\Entity\Rotation\Euler\ToEulerTween.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Common\Interface\Life\Core\IUpdate.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Common\Interface\Life\Core\IStart.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Utility\Utility.PointTools.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Common\Interface\Operator\IPool.cs" />
-    <Compile Include="Assets\Scripts\Core\Data\Data\FriendData\FriendPairData.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\PoolModule\ClassPoolModule\ClassPool.cs" />
     <Compile Include="Assets\Scripts\Core\Pool\GameObjectPool\School\SchoolItemPool.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Mono\UI\Text\TextSpacing.cs" />
@@ -424,7 +432,6 @@
     <Compile Include="Assets\Scripts\Core\Manager\LiveManager\Live\Data\LiveType.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\DesignPattern\SinglePattern\SingletonMono.cs" />
     <Compile Include="Assets\Scripts\Core\Data\Data\PlayerPrefsData\PlayerPrefsData.cs" />
-    <Compile Include="Assets\Scripts\Core\Pool\GameObjectPool\Chat\MyMsgItemPool.cs" />
     <Compile Include="Assets\Scripts\Core\Socket\Data\SubServerType.cs" />
     <Compile Include="Assets\Scripts\Core\Module\HotFixModule\Data\Patch.cs" />
     <Compile Include="Assets\Scripts\Core\Tools\StringTools\StringTools.cs" />
@@ -436,7 +443,8 @@
     <Compile Include="Assets\Scripts\Core\Data\Data\SocketData\IPAddressConstData.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Extend\ToggleGroupExtend.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\ToTween\Base\FatherBase\IToTween.cs" />
-    <Compile Include="Assets\Scripts\Core\Mono\Component\ChatListScrollView.cs" />
+    <Compile Include="Assets\Scripts\Core\UI\Panel\Main\PublishCampusCirclePanel.cs" />
+    <Compile Include="Assets\Scripts\Core\UI\Panel\Main\CampusCirclePanel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\HotBase.asmdef" />

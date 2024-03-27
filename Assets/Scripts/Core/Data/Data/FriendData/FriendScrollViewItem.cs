@@ -1,17 +1,18 @@
-﻿using YFramework;
+﻿using UnityEngine;
+using YFramework;
 
 namespace Game
 {
     /// <summary>
-    /// 好友列表
+    /// 好友对象数据
     /// </summary>
-    public class FriendPairData : IPool, IDataConverter
+    public class FriendScrollViewItem : BaseScrollViewItem< FriendScrollViewItem>, IPool, IDataConverter
     {
         public int id;
         public long friendAccount;
         public string notes;
         public bool isPop { get ; set ; }
-        public FriendListItemPool friendListItemPool;
+        public override Vector2 size { get; set; } = new Vector2(1080,150);
         public void PopPool()
         {
         }
@@ -22,7 +23,7 @@ namespace Game
 
         public  void Recycle()
         {
-            ClassPool<FriendPairData>.Push(this);
+            ClassPool<FriendScrollViewItem>.Push(this);
         }
         public  byte[] ToBytes()
         {
@@ -42,6 +43,17 @@ namespace Game
             friendAccount = bytes[1].ToLong();
             notes = bytes[2].ToStr();
             bytes.Recycle();
+        }
+
+        public override void LoadData(IGameObjectPoolTarget gameObjectPoolTarget)
+        {
+            FriendItemPool friendItemPool = gameObjectPoolTarget.As<FriendItemPool>();
+            friendItemPool.SetFriendData(friendAccount, notes);
+        }
+
+        protected override IGameObjectPoolTarget PopTarget()
+        {
+            return GameObjectPoolModule.Pop<FriendItemPool>(mParent);
         }
     }
 }

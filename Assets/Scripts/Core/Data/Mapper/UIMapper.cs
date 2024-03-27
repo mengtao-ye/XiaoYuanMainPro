@@ -54,6 +54,8 @@ namespace Game
             AddUI<SendAddFriendPanel>(UI_MAIN_DIR);
             AddUI<AddFriendRequestViewPanel>(UI_MAIN_DIR);
             AddUI<FriendListPanel>(UI_MAIN_DIR);
+            AddUI<PublishCampusCirclePanel>(UI_MAIN_DIR);
+            AddUI<CampusCirclePanel>(UI_MAIN_DIR);
             //Log
             AddUI<MidLogUI>(UI_LOG_DIR);
             //Tip

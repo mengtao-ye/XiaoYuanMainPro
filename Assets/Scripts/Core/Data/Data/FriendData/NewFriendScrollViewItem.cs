@@ -1,19 +1,25 @@
-﻿using YFramework;
+﻿using UnityEngine;
+using YFramework;
 
 namespace Game
 {
     /// <summary>
-    /// 添加好友申请列表
     /// </summary>
-    public class AddFriendRequestData : IPool, IDataConverter
+    public class NewFriendScrollViewItem : BaseScrollViewItem< NewFriendScrollViewItem>  ,IPool, IDataConverter
     {
         public int id;
         public long friendAccount;
         public string addContent;
         public bool isPop { get ; set; }
-        public NewFriendItemPool poolItem;
+        public override Vector2 size { get; set; } = new Vector2(1080,150);
+        public override void LoadData(IGameObjectPoolTarget gameObjectPoolTarget)
+        {
+            NewFriendItemPool newFriendItemPool = gameObjectPoolTarget as NewFriendItemPool;
+            newFriendItemPool.SetNewFriendData(friendAccount, addContent);
+        }
         public void PopPool()
         {
+
         }
 
         public void PushPool()
@@ -23,8 +29,7 @@ namespace Game
 
         public  void Recycle()
         {
-            GameObjectPoolModule.Push(poolItem);
-            ClassPool<AddFriendRequestData>.Push(this);
+            ClassPool<NewFriendScrollViewItem>.Push(this);
         }
         public  byte[] ToBytes()
         {
@@ -43,6 +48,11 @@ namespace Game
             friendAccount = bytes[1].ToLong();
             addContent = bytes[2].ToStr();
             bytes.Recycle();
+        }
+
+        protected override IGameObjectPoolTarget PopTarget()
+        {
+            return GameObjectPoolModule.Pop<NewFriendItemPool>(mParent);
         }
     }
 }
