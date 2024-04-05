@@ -3,7 +3,7 @@ using YFramework;
 
 namespace Game
 {
-    public class ChatListScrollViewItem : BaseScrollViewItem<ChatListScrollViewItem>,IDataConverter
+    public class ChatListScrollViewItem : BaseScrollViewItem,IDataConverter
     {
         public long account;
         public string topMsg = "";
@@ -11,6 +11,7 @@ namespace Game
         public long time;//时间戳
         public int unreadCount = 0;//未读的信息数量
         public override Vector2 size { get; set; } = new Vector2(1080,122);
+        public override float anchoredPositionX => 0;
 
         public override void LoadData(IGameObjectPoolTarget gameObjectPoolTarget)
         {
@@ -45,10 +46,9 @@ namespace Game
             unreadCount = list[4].ToInt();
             list.Recycle();
         }
-
-        protected override IGameObjectPoolTarget PopTarget()
+        protected override void StartPopTarget()
         {
-            return GameObjectPoolModule.Pop<ChatListItemPool>(mParent);
+            GameObjectPoolModule.AsyncPop<ChatListItemPool>(mParent,PopTarget);
         }
     }
 }

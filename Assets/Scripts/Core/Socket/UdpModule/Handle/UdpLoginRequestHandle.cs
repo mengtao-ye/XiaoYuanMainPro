@@ -26,10 +26,106 @@ namespace Game
             Add((short)LoginUdpCode.ConfineFriend, ConfineFriend);
             Add((short)LoginUdpCode.SendChatMsg, SendChatMsg);
             Add((short)LoginUdpCode.PublishCampusCircle, PublishCampusCircle);
+            Add((short)LoginUdpCode.GetCampusCircle, GetCampusCircle);
+            Add((short)LoginUdpCode.GetCampusCircleItemDetail, GetCampusCircleItemDetail);
+            Add((short)LoginUdpCode.LikeCampusCircleItem, LikeCampusCircleItem);
+            Add((short)LoginUdpCode.HasLikeCampusCircleItem, HasLikeCampusCircleItem);
+            Add((short)LoginUdpCode.GetCommit, GetCommit);
+
+        }
+
+        /// <summary>
+        /// 获取评论
+        /// </summary>
+        /// <param name="data"></param>
+        private void GetCommit(byte[] data)
+        {
+            if (data.IsNullOrEmpty()) return;
+            if (data == BytesConst.FALSE_BYTES)
+            {
+                GameCenter.Instance.GetTipsUI<CommitTipUI>((ui) => {
+                    ui.SetData(null);
+                });
+            }
+            else {
+                IListData<CampusCircleCommitData> listData = ConverterDataTools.ToListPoolObject<CampusCircleCommitData>(data);
+                if (!listData.IsNullOrEmpty()) {
+                    GameCenter.Instance.GetTipsUI<CommitTipUI>((ui)=> {
+                        ui.SetData(listData);
+                        listData.Recycle();
+                    });
+                    
+                }
+            }
 
         }
         /// <summary>
-        /// 拒绝还有申请
+        /// 获取校友圈对象详情
+        /// </summary>
+        /// <param name="data"></param>
+        private void HasLikeCampusCircleItem(byte[] data)
+        {
+            if (data.IsNullOrEmpty()) return;
+            long campusCircleID = data.ToLong(0);
+            bool res = data.ToBool(8);
+            GameCenter.Instance.GetPanel<CampusCirclePanel>().SetLike(campusCircleID, res,false);
+        }
+        /// <summary>
+        /// 获取校友圈对象详情
+        /// </summary>
+        /// <param name="data"></param>
+        private void LikeCampusCircleItem(byte[] data)
+        {
+            if (data.IsNullOrEmpty()) return;
+            long campusCircleID = data.ToLong(0);
+            bool res = data.ToBool(8);
+            GameCenter.Instance.GetPanel<CampusCirclePanel>().SetLike(campusCircleID, res,true) ;
+        }
+        /// <summary>
+        /// 获取校友圈对象详情
+        /// </summary>
+        /// <param name="data"></param>
+        private void GetCampusCircleItemDetail(byte[] data)
+        {
+            if (data.IsNullOrEmpty()) return;
+            if (data != BytesConst.FALSE_BYTES)
+            {
+                CampusCircleData campusCircleData = ConverterDataTools.ToPoolObject<CampusCircleData>(data);
+                if (campusCircleData != null)
+                {
+                    GameCenter.Instance.GetPanel<CampusCirclePanel>().GetDetailData(campusCircleData);
+                    campusCircleData.Recycle();
+                }
+            }
+        }
+        /// <summary>
+        /// 获取校友圈
+        /// </summary>
+        /// <param name="data"></param>
+        private void GetCampusCircle(byte[] data)
+        {
+            if (data.IsNullOrEmpty()) return;
+            if (data == BytesConst.FALSE_BYTES)
+            {
+                AppTools.Toast("暂无校友圈");
+            }
+            else
+            {
+                IListData<long> listData = data.ToListLong();
+                if (listData.IsNullOrEmpty())
+                {
+                    AppTools.Toast("暂无校友圈");
+                }
+                else
+                {
+                    GameCenter.Instance.GetPanel<CampusCirclePanel>().GetCampusCircle(listData);
+                    listData.Recycle();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 发布校友圈
         /// </summary>
         /// <param name="data"></param>
         private void PublishCampusCircle(byte[] data)
@@ -233,10 +329,10 @@ namespace Game
                 case 1:
                     {
                         AppTools.Toast("加入成功");
-                        SchoolVarData.SchoolID = data.ToInt(1);
+                        SchoolVarData.SchoolCode = data.ToLong(1);
                         GameCenter.Instance.ShowPanel<MainPanel>();
                         GameCenter.Instance.HideTipsUI<CommonTwoTipsUI>(CommonTwoTipID.JoinSchool);
-                        AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.GetSchoolData, SchoolVarData.SchoolID.ToBytes());
+                        AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.GetSchoolData, SchoolVarData.SchoolCode.ToBytes());
                         break;
                     }
             }
@@ -272,8 +368,9 @@ namespace Game
         private void GetMySchool(byte[] data)
         {
             if (data.IsNullOrEmpty()) return;
-            int schoolID = data.ToInt();
-            GameCenter.Instance.GetPanel<MainPanel>().mainSubUI.SetMySchoolID(schoolID);
+            long schoolCode = data.ToLong();
+            SchoolVarData.SchoolCode = schoolCode;
+            GameCenter.Instance.GetPanel<MainPanel>().mainSubUI.SetMySchoolID(schoolCode);
         }
         /// <summary>
         /// 获取到用户数据
@@ -283,7 +380,15 @@ namespace Game
         {
             if (data.IsNullOrEmpty()) return;
             UserData userData = ConverterDataTools.ToPoolObject<UserData>(data);
-            HttpTools.LoadSprite<UserData>(userData.HeadURL, SpriteRequestCallBack, SpriteRequestErrorCallBack, userData);
+            if (userData.IsSetHead)
+            {
+                string headUrl = OssPathData.GetMiniHeadPath(userData.Account);
+                HttpTools.LoadSprite<UserData>(headUrl, SpriteRequestCallBack, SpriteRequestErrorCallBack, userData);
+            }
+            else
+            {
+                SpriteRequestCallBack(DefaultValue.defaultHead, userData);
+            }
         }
         /// <summary>
         /// 获取用户数据成功回调
@@ -292,7 +397,7 @@ namespace Game
         /// <param name="userData"></param>
         private void SpriteRequestCallBack(Sprite sprite, UserData userData)
         {
-            UnityUserData unityUserData = new UnityUserData(userData.ID, userData.Account, userData.Username, userData.HeadURL, sprite);
+            UnityUserData unityUserData = new UnityUserData(userData.ID, userData.Account, userData.Username, userData.IsSetHead, sprite);
             UserDataModule.ReceiveUserDataCallBack(userData.Account, unityUserData);
             userData?.Recycle();
         }

@@ -2,6 +2,6 @@
 {
    public static class SchoolVarData
     {
-        public static int SchoolID = 0;//当前学校ID
+        public static long SchoolCode = 0;//当前学校编码
     }
 }

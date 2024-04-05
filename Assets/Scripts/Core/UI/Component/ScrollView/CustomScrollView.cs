@@ -8,11 +8,11 @@ namespace Game
     /// <summary>
     /// 自制滑动模块
     /// </summary>
-    public class CustomScrollView<TScrollView> : MonoBehaviour, IScrollView<TScrollView> where TScrollView : IScrollViewItem<TScrollView>
+    public class CustomScrollView : MonoBehaviour, IScrollView
     {
         public RectTransform viewPort { get; private set; }//显示窗口
         public RectTransform content { get; private set; }//内容
-        public IList<TScrollView> listData { get; private set; }//内容接口对象
+        public IList<IScrollViewItem> listData { get; private set; }//内容接口对象
         private float mTopSpace;//距离最上边的距离
         private float mBottomSpace;//距离最下边的距离
         private float mSpace;//每个对象之间的距离
@@ -46,7 +46,7 @@ namespace Game
             mDragPosIndex = 0;
             if (viewPort == null) this.viewPort = transform.Find("Viewport").GetComponent<RectTransform>();
             if (content == null) this.content = this.viewPort.Find("Content").GetComponent<RectTransform>();
-            listData = new List<TScrollView>();
+            listData = new List<IScrollViewItem>();
             mTopIndex = mBottomIndex = 0;
             mDragPosList = new float[mDragPosCount];
             mVerticalSize = 0;
@@ -145,7 +145,7 @@ namespace Game
         /// 添加对象
         /// </summary>
         /// <param name="scrollViewItem"></param>
-        public void Add(TScrollView scrollViewItem)
+        public void Add(IScrollViewItem scrollViewItem)
         {
             if (scrollViewItem == null) return;
             if (listData.Count != 0)
@@ -168,7 +168,7 @@ namespace Game
         /// </summary>
         /// <param name="scrollViewItem"></param>
         /// <param name="index"></param>
-        public void Insert(TScrollView scrollViewItem, int index)
+        public void Insert(IScrollViewItem scrollViewItem, int index)
         {
             if (index < 0 && index > listData.Count) return;
             if (scrollViewItem == null) return;
@@ -201,7 +201,7 @@ namespace Game
         /// 删除子对象
         /// </summary>
         /// <param name="scrollViewItem"></param>
-        public void Delete(TScrollView scrollViewItem)
+        public void Delete(IScrollViewItem scrollViewItem)
         {
             if (scrollViewItem == null) return;
             if (listData.Count == 0) return;
@@ -242,7 +242,7 @@ namespace Game
         /// <param name="itemID"></param>
         public void Delete(long itemID)
         {
-            TScrollView scrollView = Get(itemID);
+            IScrollViewItem scrollView = Get(itemID);
             if (scrollView == null) return;
             Delete(scrollView);
         }
@@ -251,7 +251,7 @@ namespace Game
         /// </summary>
         /// <param name="scrollViewItem"></param>
         /// <param name="size"></param>
-        public void UpdateSize(TScrollView scrollViewItem, Vector2 size)
+        public void UpdateSize(IScrollViewItem scrollViewItem, Vector2 size)
         {
             Vector2 offect = new Vector2(0, size.y - scrollViewItem.size.y);
             scrollViewItem.size = new Vector2(scrollViewItem.size.x, size.y);
@@ -304,7 +304,7 @@ namespace Game
             if (!CheckIndex(moveTargetIndex)) return;
             if (!CheckIndex(exchangeIndex)) return;
             if (exchangeIndex == moveTargetIndex) return;
-            TScrollView tempMoveTarget = listData[moveTargetIndex];
+            IScrollViewItem tempMoveTarget = listData[moveTargetIndex];
             listData[moveTargetIndex] = listData[exchangeIndex];
             listData[exchangeIndex] = tempMoveTarget;
 
@@ -369,15 +369,22 @@ namespace Game
                     //计算底部值
                     mBottomValue = mVerticcalValue - ((mVerticcalValue + viewPort.rect.size.y) - mVerticalSize);
                     mIsToBottom = true;
-                    if (mVerticcalValue + viewPort.rect.size.y + mDownFrashValue > mVerticalSize)
-                    {
-                        mDownFrashCallBack?.Invoke();
+                    if (mDownFrash) {
+                        if (mVerticcalValue + viewPort.rect.size.y + mDownFrashValue > mVerticalSize)
+                        {
+                            mDownFrashCallBack?.Invoke();
+                        }
                     }
+                   
                     return;
                 }
             }
             else
             {
+                if (mDownFrash)
+                {
+                    mDownFrashCallBack?.Invoke();
+                }
                 mBottomValue = 0;
                 mIsToBottom = true;
                 return;
@@ -637,13 +644,13 @@ Input.touches[0].position.y;
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public TScrollView Get(long id)
+        public IScrollViewItem Get(long id)
         {
             for (int i = 0; i < listData.Count; i++)
             {
                 if (listData[i].ViewItemID == id) return listData[i];
             }
-            return default(TScrollView);
+            return null;
         }
         /// <summary>
         /// 是否包含对象
@@ -667,6 +674,8 @@ Input.touches[0].position.y;
             mVerticcalValue = 0;
             mVerticalSize = mTopSpace + mBottomSpace;
             mTopIndex = mBottomIndex = 0;
+            content.sizeDelta = new Vector2(content.sizeDelta.x,0);
+            content.anchoredPosition = new Vector2(content.anchoredPosition.x,0);
         }
     }
 

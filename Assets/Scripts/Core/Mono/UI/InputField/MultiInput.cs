@@ -24,7 +24,6 @@ public class MultiInput
     private MultiInputType mType;
     private float mMin;
     private float mMax;
-    private float mPreInputData = float.MinValue;//上一个输入的参数
     public MultiInput(GameObject target, MultiInputType type, float minValue, float maxValue)
     {
         if (target == null) return;

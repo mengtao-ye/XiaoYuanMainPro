@@ -27,7 +27,7 @@ namespace Game
                 {
                     ui.SetType(CommonTwoTipID.JoinSchool);
                     ui.ShowContent("是否加入学校:" + mCurSchoolData.name,"加入学校","取消",null,"加入",()=> {
-                        byte[] datas = ByteTools.Concat(AppVarData.Account.ToBytes(), mCurSchoolData.schoolID.ToBytes());
+                        byte[] datas = ByteTools.Concat(AppVarData.Account.ToBytes(), mCurSchoolData.schoolCode.ToBytes());
                         AppTools.UdpSend( SubServerType.Login,(short)LoginUdpCode.JoinSchool, datas);
                     });
                 });
@@ -39,7 +39,8 @@ namespace Game
             Debug.Log("学校:"+data.name);
             mCurSchoolData = data;
             mName.text = data.name;
-            HttpTools.LoadSprite(data.icon, GetIconCallback);
+            string iconUrl = OssPathData.GetMiniSchoolIcon(data.schoolCode);
+            HttpTools.LoadSprite(iconUrl, GetIconCallback);
         }
         private void GetIconCallback(Sprite sprite) 
         {
@@ -48,7 +49,7 @@ namespace Game
 
         public override void Recycle()
         {
-            ClassPool<SchoolItemPool>.Push(this);
+            GameObjectPoolModule.Push(this);
         }
     }
 }

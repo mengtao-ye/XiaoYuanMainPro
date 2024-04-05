@@ -68,7 +68,7 @@ namespace Game
            
             mainPage = new MainPageData(this, mainSubUI, transform.FindObject<Button>("MainBtn"), PageType.Main);
             msgPage = new MainPageData(this, msgSubUI, transform.FindObject<Button>("MsgBtn"), PageType.Msg);
-            menuPage = new MainPageData(this, mineSubUI, transform.FindObject<Button>("MenuBtn"), PageType.Menu);
+            menuPage = new MainPageData(this, menuSubUI, transform.FindObject<Button>("MenuBtn"), PageType.Menu);
             minePage = new MainPageData(this, mineSubUI, transform.FindObject<Button>("MineBtn"), PageType.Mine);
             
             mCurPage = mainPage;

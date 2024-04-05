@@ -3,9 +3,9 @@ using YFramework;
 
 namespace Game
 {
-    public interface IScrollViewItem<TScrollViewItem> where TScrollViewItem : IScrollViewItem<TScrollViewItem>
+    public interface IScrollViewItem 
     {
-        IScrollView<TScrollViewItem> scrollViewTarget { get; set; }
+        IScrollView scrollViewTarget { get; set; }
         long ViewItemID { get; set; }//对象唯一ID
         int index { get; set; }
         bool isInstantiate { get; }
@@ -24,10 +24,11 @@ namespace Game
         void SetParent(Transform parent);
         void RecycleItem();
         void LoadData(IGameObjectPoolTarget gameObjectPoolTarget);
-        void Exchange(IScrollViewItem<TScrollViewItem> item);
+        void Exchange(IScrollViewItem item);
         void LoadToOriginalPos(Vector2 offect = default);
         void Exchange(int thisindex, Vector2 thisOriginalPos, bool thisIsInstantiate);
         void InsertTo(int targetIndex);
         void Exchange(int index);
+        void UpdateSize(Vector2 size);
     }
 }

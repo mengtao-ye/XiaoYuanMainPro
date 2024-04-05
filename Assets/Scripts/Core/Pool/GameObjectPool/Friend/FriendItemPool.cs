@@ -33,11 +33,9 @@ namespace Game
             mName.text = name;
             UserDataModule.MapUserData(account, mHead,null);
         }
-
         public override void Recycle()
         {
             GameObjectPoolModule.Push(this);
-            ClassPool<FriendItemPool>.Push(this);
         }
     }
 }

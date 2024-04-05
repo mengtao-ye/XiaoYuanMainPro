@@ -15,18 +15,18 @@ namespace Game
             string str = "一分钟前";
             if (DateTime.Now.Year - dateTimeOffset.LocalDateTime.Year > 0)
             {
-                str =  dateTimeOffset.LocalDateTime.ToString("yyyy年MM月dd日");
+                str =  dateTimeOffset.LocalDateTime.ToString("yyyy年MMMdd日");
             }
             else if (DateTime.Now.Month - dateTimeOffset.LocalDateTime.Month > 0)
             {
-                str = dateTimeOffset.LocalDateTime.ToString("MM月dd日");
+                str = dateTimeOffset.LocalDateTime.ToString("MMMdd日");
             }
             else if (DateTime.Now.Day - dateTimeOffset.LocalDateTime.Day > 0)
             {
                 int day = DateTime.Now.Day - dateTimeOffset.LocalDateTime.Day;
                 if (day > 3)
                 {
-                    str = dateTimeOffset.LocalDateTime.ToString("MM月dd日");
+                    str = dateTimeOffset.LocalDateTime.ToString("MMMdd日");
                 }
                 else
                 { 

@@ -12,11 +12,11 @@ namespace Game
         public long friendAccount { get; private set; }
         private int mCurMsgIndex;
         private int mReadCount = 10;
-        private IScrollView<MsgScrollViewItem> mScrollView;
+        private IScrollView mScrollView;
         public override void Awake()
         {
             base.Awake();
-            mScrollView = transform.FindObject("ChatScrollView").AddComponent<ChatScrollView>();
+            mScrollView = transform.FindObject("ChatScrollView").AddComponent<CustomScrollView>();
             mScrollView.Init();
             mScrollView.SetSpace(10, 10, 10);
             mName = transform.FindObject<Text>("Name");

@@ -5,13 +5,14 @@ namespace Game
 {
     /// <summary>
     /// </summary>
-    public class NewFriendScrollViewItem : BaseScrollViewItem< NewFriendScrollViewItem>  ,IPool, IDataConverter
+    public class NewFriendScrollViewItem : BaseScrollViewItem, IPool, IDataConverter
     {
         public int id;
         public long friendAccount;
         public string addContent;
         public bool isPop { get ; set; }
         public override Vector2 size { get; set; } = new Vector2(1080,150);
+        public override float anchoredPositionX =>0;
         public override void LoadData(IGameObjectPoolTarget gameObjectPoolTarget)
         {
             NewFriendItemPool newFriendItemPool = gameObjectPoolTarget as NewFriendItemPool;
@@ -49,10 +50,9 @@ namespace Game
             addContent = bytes[2].ToStr();
             bytes.Recycle();
         }
-
-        protected override IGameObjectPoolTarget PopTarget()
+        protected override void StartPopTarget()
         {
-            return GameObjectPoolModule.Pop<NewFriendItemPool>(mParent);
+            GameObjectPoolModule.AsyncPop<NewFriendItemPool>(mParent, PopTarget);
         }
     }
 }

@@ -6,13 +6,14 @@ namespace Game
     /// <summary>
     /// 好友对象数据
     /// </summary>
-    public class FriendScrollViewItem : BaseScrollViewItem< FriendScrollViewItem>, IPool, IDataConverter
+    public class FriendScrollViewItem : BaseScrollViewItem, IPool, IDataConverter
     {
         public int id;
         public long friendAccount;
         public string notes;
         public bool isPop { get ; set ; }
         public override Vector2 size { get; set; } = new Vector2(1080,150);
+        public override float anchoredPositionX => 0;
         public void PopPool()
         {
         }
@@ -50,10 +51,9 @@ namespace Game
             FriendItemPool friendItemPool = gameObjectPoolTarget.As<FriendItemPool>();
             friendItemPool.SetFriendData(friendAccount, notes);
         }
-
-        protected override IGameObjectPoolTarget PopTarget()
+        protected override void StartPopTarget()
         {
-            return GameObjectPoolModule.Pop<FriendItemPool>(mParent);
+            GameObjectPoolModule.AsyncPop<FriendItemPool>(mParent, PopTarget);
         }
     }
 }

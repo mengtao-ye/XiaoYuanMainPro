@@ -1,11 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using YFramework;
 
 namespace Game
 {
-    public abstract class BaseScrollViewItem<TScrollViewItem> : IScrollViewItem<TScrollViewItem> where TScrollViewItem : IScrollViewItem<TScrollViewItem>
+    public abstract class BaseScrollViewItem: IScrollViewItem
     {
         public abstract Vector2 size { get; set; }
+        public abstract float anchoredPositionX { get; }
         private GameObject mGo;
         public GameObject gameoObject
         {
@@ -42,7 +44,7 @@ namespace Game
         public int index { get; set; }
         public IGameObjectPoolTarget poolTarget { get; set; }
         public long ViewItemID { get; set; }
-        public IScrollView<TScrollViewItem> scrollViewTarget { get; set; }
+        public IScrollView scrollViewTarget { get; set; }
 
         public BaseScrollViewItem()
         {
@@ -52,17 +54,21 @@ namespace Game
         public void LoadGameObject()
         {
             isInstantiate = true;
-            poolTarget = PopTarget();
+            StartPopTarget();
+        }
+        protected abstract void StartPopTarget();
+        protected virtual void PopTarget(IGameObjectPoolTarget target) 
+        {
+            poolTarget = target;
             LoadToOriginalPos();
             LoadData(poolTarget);
         }
-        protected abstract IGameObjectPoolTarget PopTarget();
 
         public void LoadToOriginalPos(Vector2 offect = default)
         {
             if (rectTransform != null)
             {
-                rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, -originalPos.y) + offect;
+                rectTransform.anchoredPosition = new Vector2(anchoredPositionX, -originalPos.y) + offect;
             }
         }
 
@@ -131,7 +137,7 @@ namespace Game
             {
                 mGo = null;
                 mRectTransform = null;
-                poolTarget.Recycle();
+                GameObjectPoolModule.Push(poolTarget);
                 poolTarget = null;
             }
         }
@@ -157,7 +163,7 @@ namespace Game
             return false;
         }
 
-        public void Exchange(IScrollViewItem<TScrollViewItem> item)
+        public void Exchange(IScrollViewItem item)
         {
             if (item == null) return;
             Exchange(item.index, item.originalPos, item.isInstantiate);
@@ -178,6 +184,11 @@ namespace Game
         public void Exchange(int index)
         {
             scrollViewTarget.Exchange(this.index, index);
+        }
+
+        public void UpdateSize(Vector2 size)
+        {
+            scrollViewTarget.UpdateSize(this,size);
         }
     }
 }

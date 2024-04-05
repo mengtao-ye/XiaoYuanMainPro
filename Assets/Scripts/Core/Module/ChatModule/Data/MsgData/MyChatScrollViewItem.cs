@@ -28,9 +28,10 @@ namespace Game
             }
             scrollViewTarget.UpdateSize(this, itemPool.rectTransform.sizeDelta);
         }
-        protected override IGameObjectPoolTarget PopTarget()
+        protected override void VirtualStartPopTarget()
         {
-            return GameObjectPoolModule.Pop<MyMsgItemPool>(mParent);
+            base.VirtualStartPopTarget();
+            GameObjectPoolModule.AsyncPop<MyMsgItemPool>(mParent,PopTarget);
         }
     }
 }

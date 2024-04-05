@@ -8,7 +8,7 @@ namespace Game
         public long Account;
         public string Username;
         public string Password;
-        public string HeadURL;
+        public bool IsSetHead;
         public string IDCard;
         private byte[] mDatas;
         public bool isPop { get ; set ; }
@@ -34,7 +34,7 @@ namespace Game
                 bytes.Add(Account.ToBytes());
                 bytes.Add(Username.ToBytes());
                 bytes.Add(Password.ToBytes());
-                bytes.Add(HeadURL.ToBytes());
+                bytes.Add(IsSetHead.ToBytes());
                 bytes.Add(IDCard.ToBytes());
                 mDatas = bytes.list.ToBytes();
                 bytes.Recycle();
@@ -49,7 +49,7 @@ namespace Game
             Account = bytes[1].ToLong();
             Username = bytes[2].ToStr();
             Password = bytes[3].ToStr();
-            HeadURL = bytes[4].ToStr();
+            IsSetHead = bytes[4].ToBool();
             IDCard = bytes[5].ToString();
             bytes.Recycle();
         }

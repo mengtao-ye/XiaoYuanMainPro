@@ -62,6 +62,7 @@ namespace Game
             AddUI<CommonOneTipsUI>(UI_COMMON_TIPUI_DIR);
             AddUI<CommonTwoTipsUI>(UI_COMMON_TIPUI_DIR);
             AddUI<NotifyTipUI>(UI_Main_TIPUI_DIR);
+            AddUI<CommitTipUI>(UI_Main_TIPUI_DIR);
         }
         /// <summary>
         /// 注册面板

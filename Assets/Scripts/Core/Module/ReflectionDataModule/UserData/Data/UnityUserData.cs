@@ -11,14 +11,14 @@ namespace Game
         public int UserID;
         public long account;
         public string userName;
-        public string headUrl;
+        public bool isSetHead;
         public Sprite headSprite;
-        public UnityUserData(int userID,long account,string userName,string headUrl,Sprite headSprite)
+        public UnityUserData(int userID,long account,string userName,bool  isSetHead,Sprite headSprite)
         {
             this.UserID = userID;
             this.account = account;
             this.userName = userName;
-            this.headUrl = headUrl;
+            this.isSetHead = isSetHead;
             this.headSprite = headSprite;
         }
     }

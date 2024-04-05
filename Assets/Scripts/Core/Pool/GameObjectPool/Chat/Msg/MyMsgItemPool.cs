@@ -10,7 +10,6 @@ namespace Game
         public override void Recycle()
         {
             GameObjectPoolModule.Push(this);
-            ClassPool<MyMsgItemPool>.Push(this);
         }
     }
 }

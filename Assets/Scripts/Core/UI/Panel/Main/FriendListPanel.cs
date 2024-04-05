@@ -7,7 +7,7 @@ namespace Game
 {
     public class FriendListPanel : BaseCustomPanel
     {
-        private IScrollView<FriendScrollViewItem> mScrollView;
+        private IScrollView mScrollView;
         public FriendListPanel()
         {
               
@@ -16,7 +16,7 @@ namespace Game
         {
 
             base.Awake();
-            mScrollView = transform.FindObject("FriendScrollView").AddComponent<FriendListScrollView>() ;
+            mScrollView = transform.FindObject("FriendScrollView").AddComponent<CustomScrollView>() ;
             mScrollView.Init();
             mScrollView.SetSpace(10,10,10);
             transform.FindObject<Button>("BackBtn").onClick.AddListener(() => { GameCenter.Instance.ShowPanel<MainPanel>(); });

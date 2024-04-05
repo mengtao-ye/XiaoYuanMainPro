@@ -18,7 +18,6 @@ namespace Game
     {
         public InputValue inputValue { get; private set; }
         private bool mIsConnectNet;//是否连接到服务器了
-        private float mOnLineTimer = 3;//在线检测时间
         public CommonManager(Center center) : base(center)
         {
         }
@@ -151,12 +150,6 @@ namespace Game
             //    }
             //}
         }
-        /// <summary>
-        ///  重置玩家在线状态
-        /// </summary>
-        public void SetPlayerIsOnLine()
-        {
-            mOnLineTimer = 3;
-        }
+       
     }
 }

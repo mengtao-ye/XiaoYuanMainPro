@@ -89,7 +89,7 @@ namespace Game
         /// 获取聊天列表数据
         /// </summary>
         /// <returns></returns>
-        public static void LoadChatList(IScrollView<ChatListScrollViewItem> scrollView)
+        public static void LoadChatList(IScrollView scrollView)
         {
             string path = ChatPathData.ChatListDir();
             if (!Directory.Exists(path)) return;
@@ -127,7 +127,7 @@ namespace Game
         /// </summary>
         /// <param name="chatDatas"></param>
         /// <param name="parent"></param>
-        public static void SetChatData(IListData<ChatData> chatDatas, IScrollView<ChatListScrollViewItem> scrollView)
+        public static void SetChatData(IListData<ChatData> chatDatas, IScrollView scrollView)
         {
             if (chatDatas.IsNullOrEmpty()) return;
             SetLastMsgID(chatDatas[chatDatas.Count - 1].id);
@@ -137,7 +137,7 @@ namespace Game
                 SaveChatMsgToLocal(friendAccount, chatDatas.list[i]);
                 if (scrollView.Contains(chatDatas.list[i].send_userid))
                 {
-                    ChatListScrollViewItem chatListItem = scrollView.Get(chatDatas.list[i].send_userid);
+                    ChatListScrollViewItem chatListItem = scrollView.Get(chatDatas.list[i].send_userid) as ChatListScrollViewItem;
                     ChatData chatData = chatDatas.list[i];
                     chatListItem.topMsg = chatData.chat_msg;
                     chatListItem.msgType = chatData.msg_type;
@@ -196,7 +196,7 @@ namespace Game
         /// 加载好友申请数据
         /// </summary>
         /// <returns></returns>
-        public static void LoadAddFriendList(IScrollView<NewFriendScrollViewItem> scrollView)
+        public static void LoadAddFriendList(IScrollView scrollView)
         {
             if (!Directory.Exists(ChatPathData.AddFriendListDir())) return;
             string[] files = Directory.GetFiles(ChatPathData.AddFriendListDir());
@@ -295,7 +295,7 @@ namespace Game
         /// 加载好友数据
         /// </summary>
         /// <returns></returns>
-        public static void LoadFriendList(IScrollView<FriendScrollViewItem> scrollView)
+        public static void LoadFriendList(IScrollView scrollView)
         {
             if (!Directory.Exists(ChatPathData.FriendListDir())) return;
             string[] files = Directory.GetFiles(ChatPathData.FriendListDir());

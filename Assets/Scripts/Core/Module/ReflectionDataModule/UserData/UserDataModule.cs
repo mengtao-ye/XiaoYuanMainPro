@@ -99,7 +99,7 @@ namespace Game
         /// </summary>
         private static void SendGetUserDataRequest(long account)
         {
-            AppTools .UdpSend( SubServerType.Login,(short)LoginUdpCode.GetUserData, account.ToBytes());
+            AppTools.UdpSend( SubServerType.Login,(short)LoginUdpCode.GetUserData, account.ToBytes());
         }
         /// <summary>
         /// 接收到了玩家的数据

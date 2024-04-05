@@ -22,5 +22,10 @@
 
         //CampusCircle
         PublishCampusCircle = UdpRequestCode.LoginServer + 17,//发表校友圈
+        GetCampusCircle = UdpRequestCode.LoginServer + 18,//获取朋友圈
+        GetCampusCircleItemDetail = UdpRequestCode.LoginServer + 19,//获取朋友圈对象详情 
+        LikeCampusCircleItem = UdpRequestCode.LoginServer + 20,//朋友圈点赞 
+        HasLikeCampusCircleItem = UdpRequestCode.LoginServer + 21,//是否朋友圈点赞 
+        GetCommit = UdpRequestCode.LoginServer + 22,//获取评论信息
     }
 }

@@ -15,6 +15,11 @@ namespace Game
         {
             base.Awake();
             transform.FindObject<Button>("CampusCircle").onClick.AddListener(() => {
+                if (SchoolVarData.SchoolCode == 0)
+                {
+                    AppTools.ToastNotify("请选择学校");
+                    return;
+                }
                 GameCenter.Instance.ShowPanel<CampusCirclePanel>();
             }) ;
         }

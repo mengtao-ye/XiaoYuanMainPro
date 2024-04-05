@@ -33,9 +33,10 @@ namespace Game
             }
         }
 
-        protected override IGameObjectPoolTarget PopTarget()
+        protected override void VirtualStartPopTarget()
         {
-            return GameObjectPoolModule.Pop<FriendMsgItemPool>(mParent);
+            base.VirtualStartPopTarget();
+            GameObjectPoolModule.AsyncPop<FriendMsgItemPool>(mParent,PopTarget);
         }
     }
 }

@@ -5,7 +5,7 @@ namespace Game
 {
     public class AddFriendRequestViewPanel : BaseCustomPanel
     {
-        public IScrollView<NewFriendScrollViewItem> scrollView { get; private set; }
+        public IScrollView scrollView { get; private set; }
         public AddFriendRequestViewPanel()
         {
 
@@ -13,7 +13,7 @@ namespace Game
         public override void Awake()
         {
             base.Awake();
-            scrollView = transform.FindObject("NewFriendScrollView").AddComponent<NewFriendScrollView>();
+            scrollView = transform.FindObject("NewFriendScrollView").AddComponent<CustomScrollView>();
             scrollView.Init();
             scrollView.SetSpace(10,10,10);
             transform.FindObject<Button>("BackBtn").onClick.AddListener(() => { GameCenter.Instance.ShowPanel<MainPanel>(); });

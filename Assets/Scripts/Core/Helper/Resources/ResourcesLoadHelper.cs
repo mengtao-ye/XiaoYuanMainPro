@@ -13,7 +13,8 @@ namespace Game
 
         protected override T Load<T>(string assetPath)
         {
-            return UnityEngine.Resources.Load<T>(assetPath);
+            LogHelper.LogError("校元工程请不要使用Load<T>,请使用AsyncLoad<T>");
+            return null;
         }
     }
 }

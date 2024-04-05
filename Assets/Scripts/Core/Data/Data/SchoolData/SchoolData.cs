@@ -6,9 +6,9 @@ namespace Game
     {
         public int schoolID;
         public string name;
-        public string icon;
-        public string bg;
         public bool isPop { get; set ; }
+        public long schoolCode;//学校编码
+
         public void PopPool()
         {
            
@@ -29,8 +29,8 @@ namespace Game
             IListData<byte[]> list = ClassPool<ListData<byte[]>>.Pop();
             list.Add(schoolID.ToBytes());
             list.Add(name.ToBytes());
-            list.Add(icon.ToBytes());
-            list.Add(bg.ToBytes());
+            list.Add(schoolCode.ToBytes());
+
             byte[] bytes = list.list.ToBytes();
             list.Recycle();
             return bytes;
@@ -41,8 +41,8 @@ namespace Game
             IListData<byte[]> list = data.ToListBytes();
             schoolID = list[0].ToInt();
             name = list[1].ToStr();
-            icon = list[2].ToStr();
-            bg = list[3].ToStr();
+            schoolCode = list[2].ToLong();
+
             list.Recycle();
         }
     }

@@ -48,8 +48,9 @@ namespace Game
 #endif
             Application.targetFrameRate = 60;//设置刷新率
 #if UNITY_EDITOR
-            Init(); 
+            Init();
 #endif
+            DefaultValue.Init();
         }
         /// <summary>
         /// 初始化

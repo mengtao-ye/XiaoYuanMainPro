@@ -51,26 +51,28 @@ namespace Game
             UserDataModule.MapUserData(AppVarData.Account, mHeadImg, mName);
             AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.GetMySchool, AppVarData.Account.ToBytes());
         }
-        public void SetMySchoolID(int id)
+        public void SetMySchoolID(long schoolCode)
         {
-            mJoinSchoolBtn.gameObject.SetAvtiveExtend(id == 0);
-            mSchoolBG.gameObject.SetAvtiveExtend(id != 0);
-            if (id != 0)
+            mJoinSchoolBtn.gameObject.SetAvtiveExtend(schoolCode == 0);
+            mSchoolBG.gameObject.SetAvtiveExtend(schoolCode != 0);
+            if (schoolCode != 0)
             {
                 //加入了学校
-                AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.GetSchoolData, id.ToBytes());
+                AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.GetSchoolData, schoolCode.ToBytes());
             }
         }
         public void SetSchoolData(SchoolData data)
         {
             mJoinSchoolBtn.gameObject.SetAvtiveExtend(false);
             mSchoolBG.gameObject.SetAvtiveExtend(true);
-            HttpTools.LoadSprite(data.bg, LoadSchoolBGCallBack);
+            string bgUrl =  OssPathData.GetSchoolBG(data.schoolCode);
+            HttpTools.LoadSprite(bgUrl, LoadSchoolBGCallBack);
             mSchoolName.text = data.name;
         }
 
         private void LoadSchoolBGCallBack(Sprite sprite ) {
             mSchoolBG.sprite = sprite;
         }
+
     }
 }

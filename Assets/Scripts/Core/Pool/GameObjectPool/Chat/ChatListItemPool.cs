@@ -30,7 +30,7 @@ namespace Game
         private void ClickBtnListener()
         {
             ClearUnreadMsg();
-            ChatListScrollViewItem data = GameCenter.Instance.GetPanel<MainPanel>().msgSubUI.scrollView.Get(ID);
+            ChatListScrollViewItem data = GameCenter.Instance.GetPanel<MainPanel>().msgSubUI.scrollView.Get(ID) as ChatListScrollViewItem;
             if (data != null) 
             {
                 data.unreadCount = 0;

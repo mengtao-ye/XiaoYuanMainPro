@@ -14,7 +14,7 @@ namespace Game
         private RectTransform mNofityBtnRect;
         private ILive mGetFriendListLive;
         private byte[] mSendGetFriendListBytes;
-        public IScrollView<ChatListScrollViewItem> scrollView;
+        public IScrollView scrollView;
         public MsgPageSubUI(Transform trans, MainPanel mainPanel) : base(trans)
         {
             mMainPanel = mainPanel;
@@ -22,7 +22,7 @@ namespace Game
         public override void Awake()
         {
             base.Awake();
-            scrollView = transform.FindObject("MsgScrollView").AddComponent<ChatListScrollView>();
+            scrollView = transform.FindObject("MsgScrollView").AddComponent<CustomScrollView>();
             scrollView.Init();
             scrollView.SetSpace(10,10,10);
             transform.FindObject<Button>("FriendBtn").onClick.AddListener(FriendBtnListener);
