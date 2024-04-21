@@ -14,7 +14,7 @@ namespace Game
             {
                 loadAssetType = LoadAssetType.GameObject;
             }
-            LauncherBridge.SendLoadAsset(ABTag.Main, assetPath, loadAssetType);
+            LauncherBridge.SendLoadAsset(ABTagEnum.Main, assetPath, loadAssetType);
         }
 
         protected override T Load<T>(string assetPath) 

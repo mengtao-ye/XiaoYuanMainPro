@@ -16,7 +16,7 @@ namespace Game
 #else
           false; 
 #endif
-        #region Field
+#region Field
         public Center center { get; private set; } = null;
         private UdpModule mUdpModule;
         private XiaoYuanSceneManager mSceneManager;
@@ -212,12 +212,12 @@ namespace Game
         /// </summary>
         /// <param name="sceneName">加载的名称</param>
         /// <param name="loadPorcess">加载的进度</param>
-        public void LoadScene(SceneID sceneName,string tag, Action<float> loadPorcess = null)
+        public void LoadScene(SceneID sceneName,ABTagEnum tag, Action<float> loadPorcess = null)
         {
 #if UNITY_EDITOR
             mSceneManager.LoadScene(sceneName.ToString(), loadPorcess);
 #else
-            LauncherBridgeMono.SendLoadScene(tag, sceneName.ToString());
+            LauncherBridge.SendLoadScene(tag.ToString(), sceneName.ToString());
 #endif
         }
 
@@ -323,7 +323,7 @@ namespace Game
             mUdpModule.centerUdpServer.ReceiveCallBack(udpCode, index, isReceive);
         }
         #endregion
-        #region TcpMangaer
+#region TcpMangaer
         /// <summary>
         /// Tcp发送数据
         /// </summary>
@@ -334,7 +334,7 @@ namespace Game
         //    mTcpSocket.TcpSend(actionCode, data);
         //}
         #endregion
-        #region LiveManager
+#region LiveManager
         /// <summary>
         /// 添加帧函数
         /// </summary>
@@ -353,7 +353,7 @@ namespace Game
              mLiveManager.RemoveLive(live);
         }
         #endregion
-        #region 原生之间调用
+#region 原生之间调用
         public string UnityToAndroid(int id, int value1, int value2, int value3, string str1, string str2, string str3)
         {
             if (mBridgeManager.isRun)
@@ -363,6 +363,5 @@ namespace Game
             return null;
         }
 #endregion
-
     }
 }

@@ -19,12 +19,12 @@ namespace Game
         public override void Awake()
         {
             base.Awake();
-            mTitle = transform.FindObject<Text>("Title");
-            mIF = transform.FindObject<InputField>("InputField");
-            mSureText = transform.FindObject<Text>("SureText");
+            mTitle = rectTransform.FindObject<Text>("Title");
+            mIF = rectTransform.FindObject<InputField>("InputField");
+            mSureText = rectTransform.FindObject<Text>("SureText");
 
-            transform.FindObject<Button>("SureBtn").onClick.AddListener(SureBtnListener);
-            transform.FindObject<Button>("CloseBtn").onClick.AddListener(CloseBtnListener);
+            rectTransform.FindObject<Button>("SureBtn").onClick.AddListener(SureBtnListener);
+            rectTransform.FindObject<Button>("CloseBtn").onClick.AddListener(CloseBtnListener);
         }
 
         private void SureBtnListener()

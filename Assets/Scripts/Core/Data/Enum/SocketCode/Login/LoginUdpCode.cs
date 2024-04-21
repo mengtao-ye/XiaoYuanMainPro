@@ -27,5 +27,21 @@
         LikeCampusCircleItem = UdpRequestCode.LoginServer + 20,//朋友圈点赞 
         HasLikeCampusCircleItem = UdpRequestCode.LoginServer + 21,//是否朋友圈点赞 
         GetCommit = UdpRequestCode.LoginServer + 22,//获取评论信息
+
+        //LostAndFound
+        PublishLostData = UdpRequestCode.LoginServer + 23,//发表失物招领
+        GetMyLostData = UdpRequestCode.LoginServer + 24,//获取我的失物招领
+
+        //PartTimeJob
+        ReleasePartTimeJob = UdpRequestCode.LoginServer + 25,//发布兼职
+        GetMyReleasePartTimeJob = UdpRequestCode.LoginServer + 26,//获取我发布的兼职
+        GetPartTimeJobList = UdpRequestCode.LoginServer + 27,//获取兼职列表
+        ApplicationPartTimeJob = UdpRequestCode.LoginServer + 28,//报名兼职
+        GetApplicationPartTimeJob = UdpRequestCode.LoginServer + 29,//获取报名兼职列表
+
+        //Unuse
+        ReleaseUnuse = UdpRequestCode.LoginServer + 30,//发布闲置
+        GetUnuseList = UdpRequestCode.LoginServer + 31,//获取闲置列表
+
     }
 }

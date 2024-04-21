@@ -56,13 +56,26 @@ namespace Game
             AddUI<FriendListPanel>(UI_MAIN_DIR);
             AddUI<PublishCampusCirclePanel>(UI_MAIN_DIR);
             AddUI<CampusCirclePanel>(UI_MAIN_DIR);
+            AddUI<LostPanel>(UI_MAIN_DIR);
+            AddUI<PublishLostPanel>(UI_MAIN_DIR);
+            AddUI<PartTimeJobPanel>(UI_MAIN_DIR);
+            AddUI<BusinessPartTimeJobPanel>(UI_MAIN_DIR);
+            AddUI<ReleasePartTimeJobPanel>(UI_MAIN_DIR);
+            AddUI<MyReleasePartTimeJobDetailPanel>(UI_MAIN_DIR);
+            AddUI<PartTimeJobDetailPanel>(UI_MAIN_DIR);
+            AddUI<PartTimeJobApplicationListPanel>(UI_MAIN_DIR);
+            AddUI<UnusePanel>(UI_MAIN_DIR);
+            AddUI<ReleaseUnusePanel>(UI_MAIN_DIR);
+            AddUI<UnuseDetailPanel>(UI_MAIN_DIR);
             //Log
             AddUI<MidLogUI>(UI_LOG_DIR);
             //Tip
             AddUI<CommonOneTipsUI>(UI_COMMON_TIPUI_DIR);
             AddUI<CommonTwoTipsUI>(UI_COMMON_TIPUI_DIR);
+            AddUI<SelectDateTimeTipUI>(UI_COMMON_TIPUI_DIR);
             AddUI<NotifyTipUI>(UI_Main_TIPUI_DIR);
             AddUI<CommitTipUI>(UI_Main_TIPUI_DIR);
+            AddUI<ApplicationPartTimeJobTipUI>(UI_Main_TIPUI_DIR);
         }
         /// <summary>
         /// 注册面板

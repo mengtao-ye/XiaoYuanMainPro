@@ -22,7 +22,7 @@ namespace Game
         public override void Awake()
         {
             base.Awake();
-            scrollView = transform.FindObject("MsgScrollView").AddComponent<CustomScrollView>();
+            scrollView = transform.FindObject("MsgScrollView").AddComponent<PoolScrollView>();
             scrollView.Init();
             scrollView.SetSpace(10,10,10);
             transform.FindObject<Button>("FriendBtn").onClick.AddListener(FriendBtnListener);

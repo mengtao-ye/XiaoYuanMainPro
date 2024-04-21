@@ -22,6 +22,17 @@ namespace Game
                 }
                 GameCenter.Instance.ShowPanel<CampusCirclePanel>();
             }) ;
+            transform.FindObject<Button>("LostFoundItem").onClick.AddListener(() => {
+                GameCenter.Instance.ShowPanel<LostPanel>();
+            });
+            transform.FindObject<Button>("PartJobItem").onClick.AddListener(() => {
+                GameCenter.Instance.ShowPanel<PartTimeJobPanel>();
+            });
+            transform.FindObject<Button>("UnuseItem").onClick.AddListener(() => {
+                GameCenter.Instance.ShowPanel<UnusePanel>();
+            });
+
         }
+
     }
 }

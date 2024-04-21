@@ -11,23 +11,18 @@ namespace Game
         public string chat_msg;
         public long time;
         public override Vector2 size { get; set; } = new Vector2(100,60);
-        public bool isPop { get; set; }
         public override float anchoredPositionX => 0;
-
         public override void LoadData(IGameObjectPoolTarget gameObjectPoolTarget)
         {
                 
         }
-        public void PopPool()
+        public override void Recycle()
         {
+            ParentRecycle();
         }
 
-        public void PushPool()
-        {
-        }
-
-        public virtual void Recycle()
-        {
+        public virtual void ParentRecycle() { 
+            
         }
         protected override void StartPopTarget()
         {

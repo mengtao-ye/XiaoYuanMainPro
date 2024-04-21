@@ -112,9 +112,9 @@ namespace Game
         /// <summary>
         /// 发送异步加载资源请求
         /// </summary>
-        public static void SendLoadAsset(string tag,string assetName, LoadAssetType loadAssetType )
+        public static void SendLoadAsset(ABTagEnum tag,string assetName, LoadAssetType loadAssetType )
         { 
-           LauncherTarget?.SendMessage("LoadAsset", tag +"&"+ assetName +"&"+ (byte)loadAssetType, UnityEngine.SendMessageOptions.DontRequireReceiver);
+           LauncherTarget?.SendMessage("LoadAsset", tag.ToString() +"&"+ assetName +"&"+ (byte)loadAssetType, UnityEngine.SendMessageOptions.DontRequireReceiver);
         }
         /// <summary>
         /// 发送切换场景请求

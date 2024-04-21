@@ -16,7 +16,7 @@ namespace Game
         public override void Awake()
         {
             base.Awake();
-            mScrollView = transform.FindObject("ChatScrollView").AddComponent<CustomScrollView>();
+            mScrollView = transform.FindObject("ChatScrollView").AddComponent<PoolScrollView>();
             mScrollView.Init();
             mScrollView.SetSpace(10, 10, 10);
             mName = transform.FindObject<Text>("Name");

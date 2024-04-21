@@ -3,7 +3,7 @@ using YFramework;
 
 namespace Game
 {
-    public interface IScrollViewItem 
+    public interface IScrollViewItem  : IPool
     {
         IScrollView scrollViewTarget { get; set; }
         long ViewItemID { get; set; }//对象唯一ID

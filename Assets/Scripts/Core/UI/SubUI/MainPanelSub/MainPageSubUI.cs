@@ -30,6 +30,12 @@ namespace Game
             mJoinSchoolBtn.onClick.AddListener(JoinSchoolBtnListener);
             mJoinSchoolBtn.gameObject.SetAvtiveExtend(false);
             mSchoolBG.gameObject.SetAvtiveExtend(false);
+            transform.FindObject<Button>("EnterMetaSchoolBtn").onClick.AddListener(EnterMetaSchoolBtnListener);
+        }
+
+        private void EnterMetaSchoolBtnListener() 
+        {
+            GameCenter.Instance.LoadScene( SceneID.MetaSchoolScene,ABTagEnum.Main);
         }
         /// <summary>
         /// 加入学校按钮

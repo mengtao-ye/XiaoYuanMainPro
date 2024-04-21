@@ -25,14 +25,22 @@
         {
             return GetOssBucketDir() + "/Images/SchoolDataImages/" + schoolCode + "/Icon.jpg" + GetSize(50, 50);
         }
-        public static string GetMiniCampusCircleImage(string url,float width, float height)
+        public static string GetCampusCircleImage(string url)
         {
-            return GetOssBucketDir() + "/Images/CampusCircle/" + url + ".jpg" + GetSize(width, height);
+            return GetOssBucketDir() + "/Images/CampusCircle/" + url + ".jpg" ;
         }
 
         public static string GetSchoolBG(long schoolCode)
         {
             return GetOssBucketDir() + "/Images/SchoolDataImages/" + schoolCode + "/BG.jpg" ;
+        }
+        public static string GetLostImage(string imageCode)
+        {
+            return GetOssBucketDir() + "/Images/LostImages/" + imageCode + ".jpg";
+        }
+        public static string GetUnuseImage(string name) 
+        { 
+            return GetOssBucketDir() + "/Images/UnuseImages/" + name + ".jpg";
         }
         /// <summary>
         /// 获取图片尺寸

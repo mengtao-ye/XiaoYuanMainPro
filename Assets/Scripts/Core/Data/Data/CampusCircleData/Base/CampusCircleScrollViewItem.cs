@@ -3,11 +3,11 @@ using YFramework;
 
 namespace Game
 {
-    public class CampusCircleScrollViewItem : BaseScrollViewItem, IPool
+    public class CampusCircleScrollViewItem : BaseScrollViewItem
     {
         private static Vector2 DEFAULT_SIZE = new Vector2(1080, 230);
         public override Vector2 size { get; set; } = DEFAULT_SIZE;
-        public bool isPop { get; set; }
+      
         public long id;
         public long account;
         public string content;
@@ -68,19 +68,14 @@ namespace Game
 
 
 
-        public void PopPool()
+        public override void PushPool()
         {
-
-        }
-
-        public void PushPool()
-        {
+            base.PushPool();
             hasData = false;
         }
 
-        public void Recycle()
+        public override void Recycle()
         {
-            GameObjectPoolModule.Push(poolTarget);
             ClassPool<CampusCircleScrollViewItem>.Push(this);
         }
 

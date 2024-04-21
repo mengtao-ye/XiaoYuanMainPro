@@ -45,7 +45,7 @@ namespace Game
         public IGameObjectPoolTarget poolTarget { get; set; }
         public long ViewItemID { get; set; }
         public IScrollView scrollViewTarget { get; set; }
-
+        public bool isPop { get ; set ; }
         public BaseScrollViewItem()
         {
 
@@ -137,7 +137,7 @@ namespace Game
             {
                 mGo = null;
                 mRectTransform = null;
-                GameObjectPoolModule.Push(poolTarget);
+                poolTarget.Recycle();
                 poolTarget = null;
             }
         }
@@ -190,5 +190,9 @@ namespace Game
         {
             scrollViewTarget.UpdateSize(this,size);
         }
+
+        public virtual void PopPool()   { }
+        public virtual void PushPool()  { }
+        public abstract void Recycle();
     }
 }

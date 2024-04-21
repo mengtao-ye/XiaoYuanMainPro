@@ -1,10 +1,14 @@
 using UnityEngine;
 
-public class Test : MonoBehaviour
+namespace Game
 {
-    private void Awake()
+    public class Test : MonoBehaviour
     {
-        RectTransform transform = GetComponent<RectTransform>();
-        Debug.Log(transform.anchoredPosition);
-    }
+        private void Awake()
+        {
+            NormalVerticalScrollView normalScrollView = gameObject.AddComponent<NormalVerticalScrollView>();
+            normalScrollView.Init();
+            normalScrollView.SetSize(1498.456f);
+        }
+    } 
 }

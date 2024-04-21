@@ -31,9 +31,187 @@ namespace Game
             Add((short)LoginUdpCode.LikeCampusCircleItem, LikeCampusCircleItem);
             Add((short)LoginUdpCode.HasLikeCampusCircleItem, HasLikeCampusCircleItem);
             Add((short)LoginUdpCode.GetCommit, GetCommit);
+            Add((short)LoginUdpCode.PublishLostData, PublishLostData);
+            Add((short)LoginUdpCode.GetMyLostData, GetMyLostData);
+            Add((short)LoginUdpCode.ReleasePartTimeJob, ReleasePartTimeJob);
+            Add((short)LoginUdpCode.GetMyReleasePartTimeJob, GetMyReleasePartTimeJob);
+            Add((short)LoginUdpCode.GetPartTimeJobList, GetPartTimeJobList);
+            Add((short)LoginUdpCode.ApplicationPartTimeJob, ApplicationPartTimeJob);
+            Add((short)LoginUdpCode.GetApplicationPartTimeJob, GetApplicationPartTimeJob);
+            Add((short)LoginUdpCode.ReleaseUnuse, ReleaseUnuse);
+            Add((short)LoginUdpCode.GetUnuseList, GetUnuseList);
+        }
+        /// <summary>
+        /// 获取闲置列表
+        /// </summary>
+        /// <param name="data"></param>
+        private void GetUnuseList(byte[] data)
+        {
+            if (data.IsNullOrEmpty()) return;
+            if (data == BytesConst.FALSE_BYTES)
+            {
+                GameCenter.Instance.GetPanel<UnusePanel>().UnuseListSubUI.SetData(null);
+            }
+            else
+            {
+                UnuseData unuseData = ConverterDataTools.ToPoolObject<UnuseData>(data);
+                GameCenter.Instance.GetPanel<UnusePanel>().UnuseListSubUI.SetData(unuseData);
+            }
 
         }
+        /// <summary>
+        /// 发布闲置
+        /// </summary>
+        /// <param name="data"></param>
+        private void ReleaseUnuse(byte[] data)
+        {
+            if (data.IsNullOrEmpty()) return;
+            if (data == BytesConst.FALSE_BYTES)
+            {
+                AppTools.ToastError("发布失败");
+            }
+            else {
+                bool res = data.ToBool();
+                if (res)
+                {
+                    AppTools.Toast("发布成功");
+                    GameCenter.Instance.ShowPanel<UnusePanel>();
+                }
+                else 
+                {
+                    AppTools.ToastError("发布失败");
+                }
+            }
+            
+        }
 
+        /// <summary>
+        /// 报名兼职
+        /// </summary>
+        /// <param name="data"></param>
+        private void GetApplicationPartTimeJob(byte[] data)
+        {
+            if (data.IsNullOrEmpty()) return;
+            if (data == BytesConst.FALSE_BYTES)
+            {
+                GameCenter.Instance.GetPanel<PartTimeJobApplicationListPanel>().SetData(null);
+            }
+            else 
+            {
+                IListData<PartTimeJobApplicationData> listData = ConverterDataTools.ToListPoolObject<PartTimeJobApplicationData>(data);
+                GameCenter.Instance.GetPanel<PartTimeJobApplicationListPanel>().SetData(listData);
+                listData?.Recycle();
+            }
+        }
+        /// <summary>
+        /// 报名兼职
+        /// </summary>
+        /// <param name="data"></param>
+        private void ApplicationPartTimeJob(byte[] data)
+        {
+            if (data.IsNullOrEmpty()) return;
+            bool res = data.ToBool();
+            if (res)
+            {
+                AppTools.Toast("报名成功");
+            }
+            else
+            {
+                AppTools.Toast("失败成功");
+            }
+            GameCenter.Instance.HideTipsUI<ApplicationPartTimeJobTipUI>();
+        }
+        /// <summary>
+        /// 获取兼职列表
+        /// </summary>
+        /// <param name="data"></param>
+        private void GetPartTimeJobList(byte[] data)
+        {
+            if (data.IsNullOrEmpty()) return;
+            if (data == BytesConst.FALSE_BYTES)
+            {
+                GameCenter.Instance.GetPanel<PartTimeJobPanel>().PartTimeListSubUI.SetData(null);
+            }
+            else
+            {
+                MyReleasePartTimeJobData myReleasePartTimeJobData = ConverterDataTools.ToPoolObject<MyReleasePartTimeJobData>(data);
+                GameCenter.Instance.GetPanel<PartTimeJobPanel>().PartTimeListSubUI.SetData(myReleasePartTimeJobData);
+                myReleasePartTimeJobData?.Recycle();
+            }
+        }
+        /// <summary>
+        /// 发布失物招领
+        /// </summary>
+        /// <param name="data"></param>
+        private void GetMyReleasePartTimeJob(byte[] data)
+        {
+            if (data.IsNullOrEmpty()) return;
+            if (data == BytesConst.FALSE_BYTES)
+            {
+                GameCenter.Instance.GetPanel<BusinessPartTimeJobPanel>().RecruitSubUI.SetData(null);
+            }
+            else
+            {
+                MyReleasePartTimeJobData myReleasePartTimeJobData = ConverterDataTools.ToPoolObject<MyReleasePartTimeJobData>(data);
+                GameCenter.Instance.GetPanel<BusinessPartTimeJobPanel>().RecruitSubUI.SetData(myReleasePartTimeJobData);
+                myReleasePartTimeJobData?.Recycle();
+            }
+        }
+
+        /// <summary>
+        /// 发布失物招领
+        /// </summary>
+        /// <param name="data"></param>
+        private void ReleasePartTimeJob(byte[] data)
+        {
+            if (data.IsNullOrEmpty()) return;
+            bool res = data.ToBool();
+            if (res)
+            {
+                GameCenter.Instance.GetPanel<BusinessPartTimeJobPanel>();
+                AppTools.Toast("发布成功");
+            }
+            else
+            { 
+                AppTools.Toast("发布失败");
+            }
+        }
+        /// <summary>
+        /// 发布失物招领
+        /// </summary>
+        /// <param name="data"></param>
+        private void GetMyLostData(byte[] data)
+        {
+            if (data.IsNullOrEmpty()) return;
+            if (data == BytesConst.FALSE_BYTES)
+            {
+                GameCenter.Instance.GetPanel<LostPanel>().SetData(null);
+            }
+            else 
+            {
+                IListData<LostData> listData = data.ToListPoolBytes<LostData>();
+                GameCenter.Instance.GetPanel<LostPanel>().SetData(listData);
+                listData?.Recycle();
+            }
+        }
+
+        /// <summary>
+        /// 发布失物招领
+        /// </summary>
+        /// <param name="data"></param>
+        private void PublishLostData(byte[] data)
+        {
+            if (data.IsNullOrEmpty()) return;
+            bool res = data.ToBool();
+            if (res)
+            {
+                AppTools.Toast("发布成功");
+                GameCenter.Instance.ShowPanel<LostPanel>();
+            }
+            else { 
+                AppTools.ToastError("发布失败");
+            }
+        }
         /// <summary>
         /// 获取评论
         /// </summary>
@@ -206,7 +384,7 @@ namespace Game
         private void GetAddFriendRequest(byte[] data)
         {
             if (data.IsNullOrEmpty()) return;
-            IListData<NewFriendScrollViewItem> listData = data.ToListBytes<NewFriendScrollViewItem>();
+            IListData<NewFriendScrollViewItem> listData = data.ToListPoolBytes<NewFriendScrollViewItem>();
             if (!listData.IsNullOrEmpty())
             {
                 ChatModule.SetAddFriendListData(listData);
@@ -446,7 +624,7 @@ namespace Game
                 case 1:
                     AppTools.Toast("登录成功");
                     AppVarData.userData = ConverterDataTools.ToObject<UserData>(dict[1]);
-                    GameCenter.Instance.LoadScene(SceneID.MainScene, ABTag.Main);
+                    GameCenter.Instance.LoadScene(SceneID.MainScene, ABTagEnum.Main);
                     break;
                 case 2:
                     AppTools.ToastError("账号或密码错误");

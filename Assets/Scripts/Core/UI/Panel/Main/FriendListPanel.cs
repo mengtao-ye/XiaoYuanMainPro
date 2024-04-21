@@ -16,7 +16,7 @@ namespace Game
         {
 
             base.Awake();
-            mScrollView = transform.FindObject("FriendScrollView").AddComponent<CustomScrollView>() ;
+            mScrollView = transform.FindObject("FriendScrollView").AddComponent<PoolScrollView>() ;
             mScrollView.Init();
             mScrollView.SetSpace(10,10,10);
             transform.FindObject<Button>("BackBtn").onClick.AddListener(() => { GameCenter.Instance.ShowPanel<MainPanel>(); });

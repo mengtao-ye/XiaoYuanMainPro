@@ -23,8 +23,8 @@ namespace Game
             base.Awake();
             mCampusCircleID = 0;
             mLastID = long.MaxValue;
-            transform.FindObject<Button>("CloseBtn").onClick.AddListener(Hide);
-            mScrollView = transform.FindObject("ScrollView").AddComponent<CustomScrollView>();
+            rectTransform.FindObject<Button>("CloseBtn").onClick.AddListener(Hide);
+            mScrollView = rectTransform.FindObject("ScrollView").AddComponent<PoolScrollView>();
             mScrollView.Init();
             mScrollView.SetSpace(10, 10, 10);
             mScrollView.SetDownFrashCallBack(DownFrashCallBack);

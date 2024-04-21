@@ -9,17 +9,17 @@ namespace Game
     {
         protected override void LogErrorMsg<T>(T msg)
         {
-            UnityEngine.Debug.LogError( ABTag.Main+":"+ msg.ToString());
+            UnityEngine.Debug.LogError( ABTagEnum.Main.ToString()+":"+ msg.ToString());
         }
 
         protected override void LogMsg<T>(T msg)
         {
-            UnityEngine.Debug.Log(ABTag.Main + ":" + msg.ToString());
+            UnityEngine.Debug.Log(ABTagEnum.Main.ToString() + ":" + msg.ToString());
         }
 
         protected override void LogWarningMsg<T>(T msg)
         {
-            UnityEngine.Debug.LogWarning(ABTag.Main + ":" + msg.ToString());
+            UnityEngine.Debug.LogWarning(ABTagEnum.Main .ToString()+ ":" + msg.ToString());
         }
     }
 }

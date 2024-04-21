@@ -98,7 +98,7 @@ namespace Game
             for (int i = 0; i < files.Length; i++)
             {
                 byte[] chatBytes = File.ReadAllBytes(files[i]);
-                ChatListScrollViewItem chatListItemData = ConverterDataTools.ToObject<ChatListScrollViewItem>(chatBytes);
+                ChatListScrollViewItem chatListItemData = ConverterDataTools.ToPoolObject<ChatListScrollViewItem>(chatBytes);
                 chatListItemData.ViewItemID = chatListItemData.account;
                 scrollView.Add(chatListItemData);
             }
@@ -148,7 +148,7 @@ namespace Game
                 }
                 else
                 {
-                    ChatListScrollViewItem chatListItemData = new ChatListScrollViewItem();
+                    ChatListScrollViewItem chatListItemData = ClassPool<ChatListScrollViewItem>.Pop();
                     ChatData chatData =  chatDatas.list[i];
                     chatListItemData.msgType = chatData.msg_type;
                     chatListItemData.topMsg = chatData.chat_msg;

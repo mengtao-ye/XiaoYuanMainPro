@@ -21,16 +21,16 @@ namespace Game
         public override void Awake()
         {
             base.Awake();
-            mTitle = transform.FindObject<Text>("Title");
-            mContent = transform.FindObject<Text>("TextArea");
-            mTwoSureText = transform.FindObject<Text>("TwoSureText");
-            mTwoCancelText = transform.FindObject<Text>("TwoCancelText");
-            transform.FindObject<Button>("TwoSureBtn").onClick.AddListener(()=> {
+            mTitle = rectTransform.FindObject<Text>("Title");
+            mContent = rectTransform.FindObject<Text>("TextArea");
+            mTwoSureText = rectTransform.FindObject<Text>("TwoSureText");
+            mTwoCancelText = rectTransform.FindObject<Text>("TwoCancelText");
+            rectTransform.FindObject<Button>("TwoSureBtn").onClick.AddListener(()=> {
                 if (mSureAction != null) {
                     mSureAction.Invoke();
                 } 
             });
-            transform.FindObject<Button>("TwoCancelBtn").onClick.AddListener(() => {
+            rectTransform.FindObject<Button>("TwoCancelBtn").onClick.AddListener(() => {
                 if (mCancelAction != null)
                 {
                     mCancelAction.Invoke();

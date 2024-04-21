@@ -17,7 +17,7 @@ namespace Game
         {
             base.Awake();
 
-            mScrollView = transform.FindObject("CampusCircleScrollView").AddComponent<CustomScrollView>();
+            mScrollView = transform.FindObject("CampusCircleScrollView").AddComponent<PoolScrollView>();
             mScrollView.Init();
             mScrollView.SetSpace(10, 10, 10);
 

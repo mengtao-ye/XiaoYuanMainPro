@@ -5,12 +5,11 @@ namespace Game
 {
     /// <summary>
     /// </summary>
-    public class NewFriendScrollViewItem : BaseScrollViewItem, IPool, IDataConverter
+    public class NewFriendScrollViewItem : BaseScrollViewItem,  IDataConverter
     {
         public int id;
         public long friendAccount;
         public string addContent;
-        public bool isPop { get ; set; }
         public override Vector2 size { get; set; } = new Vector2(1080,150);
         public override float anchoredPositionX =>0;
         public override void LoadData(IGameObjectPoolTarget gameObjectPoolTarget)
@@ -18,20 +17,11 @@ namespace Game
             NewFriendItemPool newFriendItemPool = gameObjectPoolTarget as NewFriendItemPool;
             newFriendItemPool.SetNewFriendData(friendAccount, addContent);
         }
-        public void PopPool()
-        {
-
-        }
-
-        public void PushPool()
-        {
-
-        }
-
-        public  void Recycle()
+        public override void Recycle()
         {
             ClassPool<NewFriendScrollViewItem>.Push(this);
         }
+
         public  byte[] ToBytes()
         {
             IListData<byte[]> bytes = ClassPool<ListData<byte[]>>.Pop();

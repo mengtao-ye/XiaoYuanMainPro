@@ -23,6 +23,11 @@ namespace Game
             chatMsgItemPool.ID = ViewItemID;
         }
 
+        public override void Recycle()
+        {
+            ClassPool<ChatListScrollViewItem>.Push(this);
+        }
+
         public byte[] ToBytes()
         {
             IListData<byte[]> list = ClassPool<ListData<byte[]>>.Pop();

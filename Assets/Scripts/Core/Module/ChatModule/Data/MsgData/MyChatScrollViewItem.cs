@@ -5,11 +5,10 @@ namespace Game
 {
     public class MyChatScrollViewItem : MsgScrollViewItem, IPool
     {
-        public override void Recycle()
+        public override void ParentRecycle()
         {
             ClassPool<MyChatScrollViewItem>.Push(this);
         }
-
         public override void LoadData(IGameObjectPoolTarget gameObjectPoolTarget)
         {
             MyMsgItemPool itemPool = gameObjectPoolTarget.As<MyMsgItemPool>();

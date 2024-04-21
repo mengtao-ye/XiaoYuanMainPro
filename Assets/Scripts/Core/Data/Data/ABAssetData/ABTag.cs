@@ -1,10 +1,7 @@
 ﻿namespace Game
 {
-    public static class ABTag
+    public  enum ABTagEnum
     {
-        /// <summary>
-        /// 主资源
-        /// </summary>
-        public const string Main = "Main";
+        Main,//主资源
     }
 }
