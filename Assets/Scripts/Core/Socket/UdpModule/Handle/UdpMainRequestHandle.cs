@@ -8,10 +8,19 @@ namespace Game
         protected override short mRequestCode => (short)UdpRequestCode.MainServer;
         protected override void ComfigActionCode()
         {
-            Add((short)MainUdpCode.GetBaseServerPoint, GetBaseServerPoint);
+            Add((short)MainUdpCode.GetLoginServerPoint, GetBaseServerPoint);
             Add((short)MainUdpCode.MainServerHeartBeat, MainServerHeartBeat);
+            Add((short)MainUdpCode.GetMetaSchoolServerPoint, GetMetaSchoolServerPoint);
         }
 
+        private void GetMetaSchoolServerPoint(byte[] data)
+        {
+            if (data.IsNullOrEmpty()) return;
+            EndPointData endPointData = EndPointTools.GetPointData(data, 0);
+            if (endPointData == null) return;
+            GameCenter.Instance.AddUdpServer(SubServerType.MetaSchool, endPointData.ipAddress, endPointData.port, (short)MetaSchoolUdpCode.MetaSchoolHeartBeat, "校园分布式服务器");
+            GetMetaSchoolServerPointProcess.IsGetData = true;
+        }
         private void MainServerHeartBeat(byte[] data)
         {
             if (data.IsNullOrEmpty()) return;

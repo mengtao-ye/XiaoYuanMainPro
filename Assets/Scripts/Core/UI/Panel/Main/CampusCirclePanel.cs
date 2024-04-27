@@ -38,7 +38,7 @@ namespace Game
             IListData<byte[]> list = ClassPool<ListData<byte[]>>.Pop();
             list.Add(AppVarData.Account.ToBytes());
             list.Add(mLastID.ToBytes());
-            list.Add(SchoolVarData.SchoolCode.ToBytes());
+            list.Add(SchoolGlobalVarData.SchoolCode.ToBytes());
             byte[] sendBytes = list.list.ToBytes();
             list.Recycle();
             AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.GetCampusCircle, sendBytes);

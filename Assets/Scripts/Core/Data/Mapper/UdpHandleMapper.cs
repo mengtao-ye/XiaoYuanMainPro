@@ -9,6 +9,7 @@ namespace Game
             AddRequestHandler(new UdpCommonRequestHandle());
             AddRequestHandler(new UdpMainRequestHandle());
             AddRequestHandler(new UdpLoginRequestHandle());
+            AddRequestHandler(new UdpMetaSchoolRequestHandle());
 
         }
         private void AddRequestHandler(IUdpRequestHandle handler) {

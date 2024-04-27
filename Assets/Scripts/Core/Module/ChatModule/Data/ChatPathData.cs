@@ -88,9 +88,9 @@
             get 
             {
 #if UNITY_EDITOR
-                return ApplicationData.ProjectPath + "/ChatData/" + AppVarData.Account.ToString();
+                return PathData.ProjectDataPath + "/ChatData/" + AppVarData.Account.ToString();
 #else
-            return Application.persistentDataPath + "/ChatData";
+                return Application.persistentDataPath + "/ChatData";
 #endif
             }
         }

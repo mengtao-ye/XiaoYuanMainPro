@@ -13,5 +13,9 @@
         /// 分布式登录服务器
         /// </summary>
         Login = 2,
+        /// <summary>
+        /// 分布式校园服务器
+        /// </summary>
+        MetaSchool = 3,
     }
 }

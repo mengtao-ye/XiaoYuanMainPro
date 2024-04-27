@@ -2,6 +2,9 @@
 {
     public enum LoginUdpCode: short
     {
+        //目前到了
+
+        //Base
         LoginHeartBeat = UdpRequestCode.LoginServer +1,//心跳包
         LoginAccount = UdpRequestCode.LoginServer +2,//账号登录
         RegisterAccount = UdpRequestCode.LoginServer + 3,//注册账号
@@ -43,5 +46,9 @@
         ReleaseUnuse = UdpRequestCode.LoginServer + 30,//发布闲置
         GetUnuseList = UdpRequestCode.LoginServer + 31,//获取闲置列表
 
+
+        //MetaSchool
+        GetMyMetaSchoolData = UdpRequestCode.LoginServer + 32,//获取我的校园数据
+        SetMyMetaSchoolData = UdpRequestCode.LoginServer + 33,//选择我的校园数据
     }
 }

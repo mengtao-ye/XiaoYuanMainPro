@@ -16,6 +16,7 @@
 
         //MainServer
         MainServerHeartBeat = UdpRequestCode.MainServer + 1,//主服务器心跳包
-        GetBaseServerPoint = UdpRequestCode.MainServer + 2,//获取基础服务器point
+        GetLoginServerPoint = UdpRequestCode.MainServer + 2,//获取基础服务器point
+        GetMetaSchoolServerPoint = UdpRequestCode.MainServer + 3,//获取基础服务器point
     }
 }

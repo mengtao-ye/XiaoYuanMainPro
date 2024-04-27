@@ -40,7 +40,40 @@ namespace Game
             Add((short)LoginUdpCode.GetApplicationPartTimeJob, GetApplicationPartTimeJob);
             Add((short)LoginUdpCode.ReleaseUnuse, ReleaseUnuse);
             Add((short)LoginUdpCode.GetUnuseList, GetUnuseList);
+            Add((short)LoginUdpCode.GetMyMetaSchoolData, GetMyMetaSchoolData);
+            Add((short)LoginUdpCode.SetMyMetaSchoolData, SetMyMetaSchoolData);
         }
+        /// <summary>
+        /// 设置校园数据
+        /// </summary>
+        /// <param name="data"></param>
+        private void SetMyMetaSchoolData(byte[] data)
+        {
+            if (data.IsNullOrEmpty()) return;
+            if (data == BytesConst.FALSE_BYTES)
+            {
+                AppTools.ToastError("设置失败");
+            }
+            else
+            {
+                MyMetaSchoolData myMetaSchoolData = ConverterDataTools.ToPoolObject<MyMetaSchoolData>(data);
+                MetaSchoolGlobalVarData.SetMyMetaSchoolData(myMetaSchoolData);
+                GameCenter.Instance.LoadScene(SceneID.MetaSchoolScene, ABTagEnum.Main);
+            }
+        }
+        /// <summary>
+        /// 获取校园数据
+        /// </summary>
+        /// <param name="data"></param>
+        private void GetMyMetaSchoolData(byte[] data)
+        {
+            if (data.IsNullOrEmpty()) return;
+            int code = data.ToInt();
+            byte[] datas = ByteTools.SubBytes(data,4);
+            BoardCastModule.Broadcast(code, datas);
+            
+        }
+
         /// <summary>
         /// 获取闲置列表
         /// </summary>
@@ -507,10 +540,10 @@ namespace Game
                 case 1:
                     {
                         AppTools.Toast("加入成功");
-                        SchoolVarData.SchoolCode = data.ToLong(1);
+                        SchoolGlobalVarData.SchoolCode = data.ToLong(1);
                         GameCenter.Instance.ShowPanel<MainPanel>();
                         GameCenter.Instance.HideTipsUI<CommonTwoTipsUI>(CommonTwoTipID.JoinSchool);
-                        AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.GetSchoolData, SchoolVarData.SchoolCode.ToBytes());
+                        AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.GetSchoolData, SchoolGlobalVarData.SchoolCode.ToBytes());
                         break;
                     }
             }
@@ -535,8 +568,9 @@ namespace Game
         {
             if (data.IsNullOrEmpty()) return;
             SchoolData schoolData = ConverterDataTools.ToPoolObject<SchoolData>(data);
+            MetaSchoolGlobalVarData.SetSchoolData(schoolData);
             GameCenter.Instance.GetPanel<MainPanel>().mainSubUI.SetSchoolData(schoolData);
-            schoolData.Recycle();
+
         }
 
         /// <summary>
@@ -547,7 +581,7 @@ namespace Game
         {
             if (data.IsNullOrEmpty()) return;
             long schoolCode = data.ToLong();
-            SchoolVarData.SchoolCode = schoolCode;
+            SchoolGlobalVarData.SchoolCode = schoolCode;
             GameCenter.Instance.GetPanel<MainPanel>().mainSubUI.SetMySchoolID(schoolCode);
         }
         /// <summary>

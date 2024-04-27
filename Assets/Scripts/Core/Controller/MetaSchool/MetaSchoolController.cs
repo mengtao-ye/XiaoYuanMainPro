@@ -11,7 +11,8 @@ namespace Game
 
         protected override void ConfigChildController()
         {
-            
+            AddChildController(new GetMetaSchoolPointChildController(this));
+            AddChildController(new MultiPlayerChildController(this));
         }
     }
 }

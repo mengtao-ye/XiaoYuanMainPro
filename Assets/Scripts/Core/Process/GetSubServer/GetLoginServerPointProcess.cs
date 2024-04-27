@@ -4,7 +4,7 @@ using YFramework;
 namespace Game
 {
     /// <summary>
-    /// 获取登录服务器point
+    /// 获取分布式服务器point
     /// </summary>
     public class GetLoginServerPointProcess : BaseProcess
     {
@@ -28,7 +28,7 @@ namespace Game
             if (mTimer > mTime) 
             {
                 mTimer = 0;
-                AppTools.UdpSend( SubServerType.Center,(short) MainUdpCode.GetBaseServerPoint, new byte[] {(byte)SubServerType.Login });
+                AppTools.UdpSend( SubServerType.Center,(short) MainUdpCode.GetLoginServerPoint, new byte[] {(byte)SubServerType.Login });
             }
             if (IsGetData)
             {

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using YFramework;
+using static YFramework.Utility;
 
 namespace Game
 {
@@ -11,24 +12,13 @@ namespace Game
         public override void Awake()
         {
             base.Awake();
-            Init();
         }
 
         protected override void ConfigChildModel()
         {
-
+            AddChildModel(new InitMetaSchoolChildModel(this, UnityTools.CreateGameObject("Init",transform)));
+          
         }
-
-        private void Init()
-        {
-            InitSkyBox();
-        }
-        private void InitSkyBox() {
-            ResourceHelper.AsyncLoadAsset<Material>("Materials/Skybox/" + (MetaSchoolTools.IsLight ? "LightSkybox" : "NightSkybox"), (mat) => {
-                RenderSettings.skybox = mat;
-            });
-        }
-
         
     }
 }

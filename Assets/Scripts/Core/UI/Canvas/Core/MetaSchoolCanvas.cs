@@ -6,6 +6,12 @@ namespace Game
     {
         public MetaSchoolCanvas(BaseScene scene, IMap<string, UIMapperData> map) : base(scene, map)
         {
+
+        }
+        public override void Awake()
+        {
+            base.Awake();
+            GameCenter.Instance.ShowPanel<LoadMetaSchoolSceneDataPanel>();
         }
     }
 }

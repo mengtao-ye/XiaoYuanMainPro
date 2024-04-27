@@ -1,6 +1,5 @@
 ﻿namespace Game
 {
-    //https://xiaoyuan-test-data.oss-cn-hangzhou.aliyuncs.com/Images/Heads/18379366314.jpg?x-oss-process=image/resize,w_100,h_100
     public static class OssPathData
     {
         public static string GetOssBucketDir() 
@@ -15,6 +14,25 @@
                     return @"https://xiaoyuan-pro-data.oss-cn-hangzhou.aliyuncs.com";
             }
             return null;
+        }
+        /// <summary>
+        /// 获取场景文件地址
+        /// </summary>
+        /// <param name="sceneABName"></param>
+        /// <returns></returns>
+        public static string GetSceneData(string sceneABName,string version)
+        {
+            return GetOssBucketDir() + "/AssetBundles/Scenes/" + sceneABName + "/"+ sceneABName + "_"+ version;
+        }
+
+        /// <summary>
+        /// 获取场景配置文件地址
+        /// </summary>
+        /// <param name="sceneABName"></param>
+        /// <returns></returns>
+        public static string GetSceneConfigData(string sceneABName)
+        {
+            return GetOssBucketDir() + "/AssetBundles/Scenes/" + sceneABName + "/config.txt";
         }
         public static string GetMiniHeadPath(long account)
         {

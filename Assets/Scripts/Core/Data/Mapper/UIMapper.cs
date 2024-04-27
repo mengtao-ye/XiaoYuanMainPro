@@ -24,6 +24,10 @@ namespace Game
         /// </summary>
         private const string UI_MAIN_DIR = UI_PANEL_DIR + "/Main";
         /// <summary>
+        /// 校园目录
+        /// </summary>
+        private const string UI_METASCHOOL_DIR = UI_PANEL_DIR + "/MetaSchool";
+        /// <summary>
         /// Log面板目录
         /// </summary>
         private const string UI_LOG_DIR = UI_ROOT_DIR + "/Log";
@@ -67,6 +71,10 @@ namespace Game
             AddUI<UnusePanel>(UI_MAIN_DIR);
             AddUI<ReleaseUnusePanel>(UI_MAIN_DIR);
             AddUI<UnuseDetailPanel>(UI_MAIN_DIR);
+            AddUI<SelectRolePanel>(UI_MAIN_DIR);
+
+            AddUI<MetaSchoolMainPanel>(UI_METASCHOOL_DIR);
+            AddUI<LoadMetaSchoolSceneDataPanel>(UI_METASCHOOL_DIR);
             //Log
             AddUI<MidLogUI>(UI_LOG_DIR);
             //Tip

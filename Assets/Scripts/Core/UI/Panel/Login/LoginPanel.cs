@@ -19,7 +19,7 @@ namespace Game
             base.Awake();
             Init();
             IProcess process = GameCenter.Instance.processController.Create()
-                 .Concat(new CheckUdpServerIsInitProcess())
+                 .Concat(new CheckMainServerIsInitProcess())
               .Concat(new GetLoginServerPointProcess())
               ;
             process.processManager.Launcher();

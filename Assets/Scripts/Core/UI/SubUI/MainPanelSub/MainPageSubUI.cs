@@ -35,7 +35,7 @@ namespace Game
 
         private void EnterMetaSchoolBtnListener() 
         {
-            GameCenter.Instance.LoadScene( SceneID.MetaSchoolScene,ABTagEnum.Main);
+            AppTools.UdpSend( SubServerType.Login,(short)LoginUdpCode.GetMyMetaSchoolData, ByteTools.Concat(BoardCastID.GetMetaSchoolData.ToBytes(),  AppVarData.Account.ToBytes()));
         }
         /// <summary>
         /// 加入学校按钮

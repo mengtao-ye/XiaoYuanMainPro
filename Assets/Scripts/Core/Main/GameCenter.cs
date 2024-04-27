@@ -47,10 +47,21 @@ namespace Game
             ResourceHelper.Instance = new XiaoYuanABLoadHelper();
 #endif
             Application.targetFrameRate = 60;//设置刷新率
+
 #if UNITY_EDITOR
+            AppVarData.userData = new UserData();
+            AppVarData.userData.Account = 18379366314;
+            SchoolGlobalVarData.SchoolCode = 4136014839;
+            MetaSchoolGlobalVarData.SetSchoolData(new SchoolData() { assetBundleName = "default_scene" });
+#endif
+
+#if UNITY_EDITOR
+
             Init();
 #endif
             DefaultValue.Init();
+
+
         }
         /// <summary>
         /// 初始化

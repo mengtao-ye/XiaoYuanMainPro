@@ -14,7 +14,7 @@ namespace Game
         /// <summary>
         /// 用户账号
         /// </summary>
-        public static long Account { get { return userData!=null? userData.Account : -1; } }
+        public static long Account { get { return userData != null ? userData.Account : -1; }  }
         /// <summary>
         /// 是否登录
         /// </summary>

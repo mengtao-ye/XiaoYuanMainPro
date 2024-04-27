@@ -8,5 +8,6 @@
         //这里的64是空出位置给系统用
         MainServer = CommonConstData.REQUESTCODE_SPAN * 65,//主服务器
         LoginServer = CommonConstData.REQUESTCODE_SPAN * 66,//登录服务器
+        MetaSchoolServer = CommonConstData.REQUESTCODE_SPAN * 67,//校园服务器
     }
 }

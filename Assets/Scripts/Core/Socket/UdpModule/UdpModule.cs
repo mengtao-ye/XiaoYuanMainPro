@@ -37,13 +37,17 @@ namespace Game
                 mUdpDict.Remove(subServerType);
             }
             XiaoYuanUDPScoketManager socket = null;
-            if (subServerType == SubServerType.Center)
+            switch (subServerType)
             {
-                socket = new XiaoYuanUDPScoketManager(center, mMapper, subServerType,name);
-            }
-            else 
-            {
-                socket = new XiaoYuanSubUDPSocketManager(center, mMapper, subServerType,name);
+                case SubServerType.Center:
+                    socket = new XiaoYuanUDPScoketManager(center, mMapper, subServerType, name);
+                    break;
+                case SubServerType.Login:
+                    socket = new XiaoYuanLoginUDPSocketManager(center, mMapper, subServerType, name);
+                    break;
+                case SubServerType.MetaSchool:
+                    socket = new XiaoYuanMetaSchoolUDPSocketManager(center, mMapper, subServerType, name);
+                    break;
             }
             socket.Launcher(ipAddress,port, heartBeatID);
             mUdpDict.Add(subServerType, socket);
