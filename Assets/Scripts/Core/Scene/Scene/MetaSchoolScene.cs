@@ -1,4 +1,5 @@
-﻿using YFramework;
+﻿using UnityEngine;
+using YFramework;
 
 namespace Game
 {
@@ -16,6 +17,7 @@ namespace Game
 
         private void Init() 
         {
+            Application.targetFrameRate = 120;//设置刷新率
             YFrameworkHelper.Instance.ScreenSize = new UnityEngine.Vector2(1624, 750);
         }
 

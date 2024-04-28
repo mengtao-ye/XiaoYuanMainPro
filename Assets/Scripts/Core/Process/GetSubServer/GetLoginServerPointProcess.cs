@@ -19,7 +19,7 @@ namespace Game
 
         public override void Exit()
         {
-            AppTools.Toast("登录服务器连接完成");
+
         }
 
         public override void Update()

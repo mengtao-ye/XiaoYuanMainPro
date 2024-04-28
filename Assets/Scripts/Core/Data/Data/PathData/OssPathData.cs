@@ -39,9 +39,9 @@
             return GetOssBucketDir() + "/Images/Heads/" + account+ ".jpg"+ GetSize(50,50);
         }
 
-        public static string GetMiniSchoolIcon(long schoolCode)
+        public static string GetSchoolIcon(long schoolCode)
         {
-            return GetOssBucketDir() + "/Images/SchoolDataImages/" + schoolCode + "/Icon.jpg" + GetSize(50, 50);
+            return GetOssBucketDir() + "/Images/SchoolDataImages/" + schoolCode + "/Icon.jpg" ;
         }
         public static string GetCampusCircleImage(string url)
         {

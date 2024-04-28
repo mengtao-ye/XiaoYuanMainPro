@@ -388,6 +388,7 @@
     <Compile Include="Assets\Scripts\Core\Data\Data\UnuseData\UnuseData.cs" />
     <Compile Include="Assets\Scripts\Core\MultiPlayer\ECS\Component\PositionComponent.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\ToTween\Entity\AnchorPosition\ToAnchorPositionTween.cs" />
+    <Compile Include="Assets\Scripts\Core\UI\Panel\MetaSchool\MetaSchoolSetPanel.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Common\Interface\Operator\IClear.cs" />
     <Compile Include="Assets\Scripts\Core\MultiPlayer\ECS\Component\LerpRotationComponent.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Data\UIData\UIMappperData\UIMapperData.cs" />
@@ -508,7 +509,7 @@
     <Compile Include="Assets\Scripts\YFramework\Core\Utility\Utility.PointTools.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\PoolModule\ClassPoolModule\ClassPool.cs" />
     <Compile Include="Assets\Scripts\Core\Controller\MetaSchool\ChildController\MultiPlayerChildController.cs" />
-    <Compile Include="Assets\Scripts\Core\Data\Pool\GameObjectPool\School\SchoolItemPool.cs" />
+    <Compile Include="Assets\Scripts\Core\Data\Pool\GameObjectPool\School\SearchSchoolItemPool.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Mono\UI\Text\TextSpacing.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Manager\SocketManager\Udp\BigData\PlatformType.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Extend\TypeExtend.cs" />
@@ -535,6 +536,7 @@
     <Compile Include="Assets\Scripts\Core\Data\Data\SocketData\IPAddressConstData.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Extend\ToggleGroupExtend.cs" />
     <Compile Include="Assets\Scripts\Core\UI\TipsUI\Main\ApplicationPartTimeJobTipUI.cs" />
+    <Compile Include="Assets\Scripts\Core\Data\Data\SchoolData\SearchSchoolScrollViewItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\HotBase.asmdef" />

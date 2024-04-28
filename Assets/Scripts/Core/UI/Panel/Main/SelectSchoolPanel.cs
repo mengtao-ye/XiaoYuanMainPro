@@ -7,36 +7,46 @@ namespace Game
     public class SelectSchoolPanel : BaseCustomPanel
     {
         private InputField mSchoolNameIF;
-        private Transform mContent;
+        private IScrollView mScrollView;
         public SelectSchoolPanel()
         {
+
         }
         public override void Awake()
         {
             base.Awake();
+            mScrollView = transform.FindObject("SchoolView").AddComponent<PoolScrollView>();
+            mScrollView.Init();
+            mScrollView.SetSpace(10,10,10);
+
             mSchoolNameIF = transform.FindObject<InputField>("SchoolNameIF");
-            mContent = transform.FindObject<Transform>("Content");
             transform.FindObject<Button>("SearchSchoolBtn").onClick.AddListener(SearchBtnListener);
             transform.FindObject<Button>("BackBtn").onClick.AddListener(()=> { GameCenter.Instance.ShowPanel<MainPanel>(); });
         }
+        public override void Hide()
+        {
+            base.Hide();
+            mScrollView.ClearItems();
+            mSchoolNameIF.text = "";
+        }
+
         private void SearchBtnListener()
         {
-            GameObjectPoolModule.PushTarget<SchoolItemPool>();
             if (mSchoolNameIF.text.IsNullOrEmpty())
             {
                 AppTools.Toast("请输入学校名称");
                 return;
             }
+            mScrollView.ClearItems();
             AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.SearchSchool, mSchoolNameIF.text.ToBytes());
         }
         public void ShowSchoolItem(IListData<SchoolData> datas)
         {
             for (int i = 0; i < datas.list.Count; i++)
             {
-                SchoolData schoolData = datas.list[i];
-                GameObjectPoolModule.AsyncPop<SchoolItemPool>(mContent,(value)=> {
-                    value.SetData(schoolData);
-                });
+                SearchSchoolScrollViewItem searchSchoolScrollViewItem = ClassPool<SearchSchoolScrollViewItem>.Pop();
+                searchSchoolScrollViewItem.schoolData = datas.list[i];
+                mScrollView.Add(searchSchoolScrollViewItem);
             }
         }
     }

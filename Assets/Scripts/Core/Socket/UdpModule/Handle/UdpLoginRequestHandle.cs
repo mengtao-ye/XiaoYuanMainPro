@@ -555,10 +555,17 @@ namespace Game
         private void SearchSchool(byte[] data)
         {
             if (data.IsNullOrEmpty()) return;
-            IListData<SchoolData> schoolData = ConverterDataTools.ToListPoolObject<SchoolData>(data);
-            if (schoolData.IsNullOrEmpty()) return;
-            GameCenter.Instance.GetPanel<SelectSchoolPanel>().ShowSchoolItem(schoolData);
-            schoolData.Recycle();
+            if (ByteTools.Equals(data, BytesConst.FALSE_BYTES))
+            {
+                AppTools.Toast("未找到学校信息");
+            }
+            else 
+            {
+                IListData<SchoolData> schoolData = ConverterDataTools.ToListPoolObject<SchoolData>(data);
+                if (schoolData.IsNullOrEmpty()) return;
+                GameCenter.Instance.GetPanel<SelectSchoolPanel>().ShowSchoolItem(schoolData);
+            }
+           
         }
         /// <summary>
         /// 获取我的学校

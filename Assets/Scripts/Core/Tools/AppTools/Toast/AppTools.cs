@@ -27,7 +27,6 @@
         /// <param name="msg"></param>
         public static void ToastError<T>(T msg)
         {
-            YFramework.LogHelper.LogError(msg);
             GameCenter.Instance.LogError(msg);
         }
     }

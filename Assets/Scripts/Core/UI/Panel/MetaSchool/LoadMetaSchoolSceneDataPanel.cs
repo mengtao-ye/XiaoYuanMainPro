@@ -24,6 +24,7 @@ namespace Game
             mProcessText = transform.FindObject<Text>("ProcessText");
             mLoadText = transform.FindObject<Text>("LoadText");
             mProcessSlider = transform.FindObject<Image>("ProcessSlider");
+            
         }
         public override void Show()
         {

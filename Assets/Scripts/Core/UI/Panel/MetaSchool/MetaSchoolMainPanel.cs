@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using YFramework;
 
 namespace Game
 {
@@ -15,6 +17,9 @@ namespace Game
             base.Awake();
             move = transform.Find("Area/MoveArea").gameObject.AddComponent<TouchBarMoveAreaMono>();
             rotate = transform.Find("Area/RotateArea").gameObject.AddComponent<TouchBarMoveRotateMono>();
+            transform.FindObject<Button>("SetBtn").onClick.AddListener(() => {
+                GameCenter.Instance.ShowPanel<MetaSchoolSetPanel>();
+            });
         }
     }
 }

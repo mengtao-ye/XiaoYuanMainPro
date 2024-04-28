@@ -5,9 +5,9 @@ using static YFramework.Utility;
 
 namespace Game
 {
-    public class SchoolItemPool : BaseGameObjectPoolTarget<SchoolItemPool>
+    public class SearchSchoolItemPool : BaseGameObjectPoolTarget<SearchSchoolItemPool>
     {
-        public override string assetPath => "Prefabs/UI/Item/School/SchoolItem";
+        public override string assetPath => "Prefabs/UI/Item/School/SearchSchoolItem";
         public override bool isUI { get; } = true;
         private Image mIcon;
         private Text mName;
@@ -36,10 +36,9 @@ namespace Game
 
         public void SetData(SchoolData data) 
         {
-            Debug.Log("学校:"+data.name);
             mCurSchoolData = data;
             mName.text = data.name;
-            string iconUrl = OssPathData.GetMiniSchoolIcon(data.schoolCode);
+            string iconUrl = OssPathData.GetSchoolIcon(data.schoolCode);
             HttpTools.LoadSprite(iconUrl, GetIconCallback);
         }
         private void GetIconCallback(Sprite sprite) 

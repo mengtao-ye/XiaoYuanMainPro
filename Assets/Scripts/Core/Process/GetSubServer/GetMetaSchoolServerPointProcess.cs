@@ -20,7 +20,7 @@ namespace Game
 
         public override void Exit()
         {
-            AppTools.Toast("校园服务器连接完成");
+
         }
 
         public override void Update()

@@ -8,18 +8,24 @@ namespace Game
         private YFramework.UdpBigDataManager mBigDataManager;
         private float mBigDataRefreshTimer;
         private BigDataController mBigDataController;
-        public bool IsConnect { get; private set; }
+        public bool IsConnect { get; private set; } = true;
         private short mHeartBeatID = 0;
         private float mTimer;
         private float mTime = 1;
         private int mHeartBeatCount;
         public SubServerType subServerType { get; private set; }
         private string mName;
-        public XiaoYuanUDPScoketManager(Center center, IMap<short, IUdpRequestHandle> map,SubServerType subServerType,string name) : base(center, map)
+        public XiaoYuanUDPScoketManager(Center center, IMap<short, IUdpRequestHandle> map, SubServerType subServerType, string name) : base(center, map)
         {
-           this. subServerType = subServerType;
-            mName = name;
-            if (mName == null) mName = "默认Udp服务器";
+            this.subServerType = subServerType;
+            if (name.IsNullOrEmpty())
+            {
+                mName = "默认Udp服务器";
+            }
+            else
+            {
+                mName = name;
+            }
         }
         /// <summary>
         /// 启动
@@ -28,6 +34,7 @@ namespace Game
         /// <param name="port"></param>
         public void Launcher(string ipAddress, int port, short heartBeatID)
         {
+            mTimer = 1;
             isRun = true;
             mHeartBeatID = heartBeatID;
             try
@@ -43,7 +50,7 @@ namespace Game
                 Debug.LogError(mName + "启动UDP失败:" + e.Message);
                 return;
             }
-            Debug.Log(mName+"UDP服务器启动成功！");
+            Debug.Log(mName + "UDP服务器启动成功！");
         }
         /// <summary>
         /// 重新连接
@@ -69,7 +76,7 @@ namespace Game
                     UdpSend(mHeartBeatID, (byte)UdpMsgType.SmallData, BytesConst.TRUE_BYTES);
                 }
                 mHeartBeatCount++;
-                if (mHeartBeatCount > 4) 
+                if (mHeartBeatCount > 4)
                 {
                     mHeartBeatCount = 0;
                     IsConnect = false;
@@ -142,7 +149,7 @@ namespace Game
         /// <summary>
         /// 接收到心跳包
         /// </summary>
-        public void Heart() 
+        public void Heart()
         {
             mHeartBeatCount = 0;
             IsConnect = true;

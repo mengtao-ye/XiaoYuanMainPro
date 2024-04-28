@@ -75,6 +75,7 @@ namespace Game
 
             AddUI<MetaSchoolMainPanel>(UI_METASCHOOL_DIR);
             AddUI<LoadMetaSchoolSceneDataPanel>(UI_METASCHOOL_DIR);
+            AddUI<MetaSchoolSetPanel>(UI_METASCHOOL_DIR);
             //Log
             AddUI<MidLogUI>(UI_LOG_DIR);
             //Tip

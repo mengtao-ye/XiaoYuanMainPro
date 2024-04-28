@@ -9,8 +9,6 @@ namespace Game
     public class MainPageSubUI : BaseCustomSubUI
     {
         private MainPanel mMainPanel;
-        private Image mHeadImg;
-        private Text mName;
         private Image mSchoolBG;
         private Text mSchoolName;
         private Button mJoinSchoolBtn;
@@ -22,8 +20,6 @@ namespace Game
         public override void Awake()
         {
             base.Awake();
-            mHeadImg = transform.FindObject<Image>("HeadImg");
-            mName = transform.FindObject<Text>("Name");
             mSchoolBG = transform.FindObject<Image>("SchoolBG");
             mSchoolName = transform.FindObject<Text>("SchoolName");
             mJoinSchoolBtn = transform.FindObject<Button>("JoinSchoolBtn");
@@ -31,7 +27,27 @@ namespace Game
             mJoinSchoolBtn.gameObject.SetAvtiveExtend(false);
             mSchoolBG.gameObject.SetAvtiveExtend(false);
             transform.FindObject<Button>("EnterMetaSchoolBtn").onClick.AddListener(EnterMetaSchoolBtnListener);
+            BoardCastModule.AddListener<byte[]>(BoardCastID.GetMetaSchoolData, MetaSchoolDataCallBack);
         }
+        private void MetaSchoolDataCallBack(byte[] data)
+        {
+            if (ByteTools.IsCompare(data, BytesConst.FALSE_BYTES))
+            {
+                GameCenter.Instance.ShowPanel<SelectRolePanel>();
+            }
+            else
+            {
+                MyMetaSchoolData myMetaSchoolData = ConverterDataTools.ToPoolObject<MyMetaSchoolData>(data);
+                MetaSchoolGlobalVarData.SetMyMetaSchoolData(myMetaSchoolData);
+                GameCenter.Instance.LoadScene(SceneID.MetaSchoolScene, ABTagEnum.Main);
+            }
+        }
+        public override void OnDestory()
+        {
+            base.OnDestory();
+            BoardCastModule.RemoveListener<byte[]>(BoardCastID.GetMetaSchoolData, MetaSchoolDataCallBack);
+        }
+
 
         private void EnterMetaSchoolBtnListener() 
         {
@@ -48,13 +64,11 @@ namespace Game
         public override void Show()
         {
             base.Show();
-            UserDataModule.MapUserData(AppVarData.Account, mHeadImg, mName);
             AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.GetMySchool, AppVarData.Account.ToBytes());
         }
         public override void Refresh()
         {
             base.Refresh();
-            UserDataModule.MapUserData(AppVarData.Account, mHeadImg, mName);
             AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.GetMySchool, AppVarData.Account.ToBytes());
         }
         public void SetMySchoolID(long schoolCode)
