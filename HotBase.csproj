@@ -186,6 +186,7 @@
     <Compile Include="Assets\Scripts\Core\Process\GetSubServer\GetMetaSchoolServerPointProcess.cs" />
     <Compile Include="Assets\Scripts\Core\Model\Custom\BaseCustomModel.cs" />
     <Compile Include="Assets\Scripts\Core\Tools\PartTimeJobTools\PartTimeJobTools.cs" />
+    <Compile Include="Assets\Scripts\Core\Data\Data\SchoolData\SearchSchoolScrollViewItem.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\UI\Sub\BaseSubUI.cs" />
     <Compile Include="Assets\Scripts\Core\UI\SubUI\MainPanelSub\MsgPageSubUI.cs" />
     <Compile Include="Assets\Scripts\Core\Tools\DateTimeTools\DateTimeTools.cs" />
@@ -376,7 +377,6 @@
     <Compile Include="Assets\Scripts\YFramework\Core\UI\Base\BaseUI.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Main\Module\IModule.cs" />
     <Compile Include="Assets\Scripts\Core\Module\ChatModule\Data\FriendGroupData.cs" />
-    <Compile Include="Assets\Scripts\Core\Player\PlayerBuilder.cs" />
     <Compile Include="Assets\Scripts\Core\MultiPlayer\Data\MultiPlayerGlobalData.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\PoolModule\ClassPoolModule\PoolData\Dictionary\Base\IDictionaryData.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Utility\Utility.ListTools.cs" />
@@ -434,7 +434,6 @@
     <Compile Include="Assets\Scripts\YFramework\Core\MVC\Model\Model\IModel.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\DesignPattern\ObserverPattern\Subject\ISubject.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\UI\Form\BaseForm.cs" />
-    <Compile Include="Assets\Scripts\Core\Data\Pool\GameObjectPool\Player\Role1Pool.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\PoolModule\GameObjectPoolModule\GameObjectPoolModule.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\DataStructure\DoubleLinkedList\DoubleLinkedList.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\LockStepModule\FixedData\Fix32\Fix32.cs" />
@@ -442,7 +441,7 @@
     <Compile Include="Assets\Scripts\Core\Tools\EncryptionTools\EncryptionTools.cs" />
     <Compile Include="Assets\Scripts\Core\Module\ReflectionDataModule\UserData\Data\UnityUserData.cs" />
     <Compile Include="Assets\Scripts\Core\Data\Pool\GameObjectPool\CampusCircle\CampusCircleItemPool.cs" />
-    <Compile Include="Assets\Scripts\Core\Data\Pool\GameObjectPool\Player\Base\IRolePool.cs" />
+    <Compile Include="Assets\Scripts\Core\Tools\LoadABTools\LoadABSceneTools.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Utility\Utility.BirdFlyLinesTools.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Manager\SocketManager\Udp\BigData\UdpBigDataItem.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\UI\Data\CanvasLayerData.cs" />
@@ -536,7 +535,13 @@
     <Compile Include="Assets\Scripts\Core\Data\Data\SocketData\IPAddressConstData.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Extend\ToggleGroupExtend.cs" />
     <Compile Include="Assets\Scripts\Core\UI\TipsUI\Main\ApplicationPartTimeJobTipUI.cs" />
-    <Compile Include="Assets\Scripts\Core\Data\Data\SchoolData\SearchSchoolScrollViewItem.cs" />
+    <Compile Include="Assets\Scripts\Core\Tools\LoadABTools\LoadABRoleTools.cs" />
+    <Compile Include="Assets\Scripts\Core\FSM\RoleFSM\RoleFSM.cs" />
+    <Compile Include="Assets\Scripts\Core\FSM\RoleFSM\Data\RoleFSMData.cs" />
+    <Compile Include="Assets\Scripts\Core\FSM\RoleFSM\State\RoleIdleState.cs" />
+    <Compile Include="Assets\Scripts\Core\FSM\RoleFSM\State\RoleWalkState.cs" />
+    <Compile Include="Assets\Scripts\Core\FSM\RoleFSM\Data\RoleFSMStateID.cs" />
+    <Compile Include="Assets\Scripts\Core\MultiPlayer\ECS\Component\EntityAnimationComponent.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\HotBase.asmdef" />

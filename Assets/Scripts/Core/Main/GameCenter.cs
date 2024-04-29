@@ -50,6 +50,8 @@ namespace Game
             AppVarData.userData = new UserData();
             AppVarData.userData.Account = 18379366314;
             SchoolGlobalVarData.SchoolCode = 4136014839;
+            MetaSchoolGlobalVarData.SetMyMetaSchoolData(new MyMetaSchoolData() { RoleID = 10000001 });
+
             MetaSchoolGlobalVarData.SetSchoolData(new SchoolData() { assetBundleName = "default_scene" });
 #endif
 

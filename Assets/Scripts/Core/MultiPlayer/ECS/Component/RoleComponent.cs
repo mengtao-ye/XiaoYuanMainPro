@@ -10,7 +10,7 @@ namespace Game
         public override int ComponentID => ECSComponentID.ROLE_ID;
         private int mGetMetaSchoolBoardCastID;
         private bool IsGetRoleID;
-        private IRolePool mRoleTarget;
+        private GameObject mRoleTarget;
         public override void Awake()
         {
             base.Awake();
@@ -33,7 +33,6 @@ namespace Game
         public override void OnDestory()
         {
             base.OnDestory();
-            GameObjectPoolModule.Push(mRoleTarget);
             BoardCastModule.RemoveListener<byte[]>(mGetMetaSchoolBoardCastID, GetMetaSchoolDataCallBack);
         }
 
@@ -50,19 +49,22 @@ namespace Game
                 {
                     if (IsGetRoleID) return;
                     IsGetRoleID = true;
-                    byte roleID = myMetaSchoolData.RoleID;
-                    PlayerBuilder.Builder(roleID, BuildRoleCallback);
+                    int roleID = myMetaSchoolData.RoleID;
+                    LoadABRoleTools.LoadABRole(roleID.ToString(),null,(error)=> { LogHelper.LogError(error); }, BuildRoleCallback);
                     myMetaSchoolData.Recycle();
                 }
             }
         }
-        private void BuildRoleCallback(IRolePool rolePool)
+        private void BuildRoleCallback(GameObject rolePool)
         {
             if (rolePool != null)
             {
-                mRoleTarget = rolePool;
-                mRoleTarget.Target.transform.parent = entity.transform;
-                mRoleTarget.Target.transform.Reset();
+                mRoleTarget = rolePool.InstantiateGameObject(entity.transform) ;
+                mRoleTarget.transform.localPosition = Vector3.zero;
+                mRoleTarget.transform.localRotation = Quaternion.identity;
+                EntityAnimationComponent component = new EntityAnimationComponent();
+                entity.AddComponent(component);
+                component.Init(mRoleTarget);
             }
         }
 

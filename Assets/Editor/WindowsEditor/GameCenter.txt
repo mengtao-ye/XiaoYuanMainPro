@@ -46,16 +46,21 @@ namespace Game
 #else
             ResourceHelper.Instance = new XiaoYuanABLoadHelper();
 #endif
-            Application.targetFrameRate = 60;//设置刷新率
 #if UNITY_EDITOR
+            AppVarData.userData = new UserData();
+            AppVarData.userData.Account = 18379366315;
+            SchoolGlobalVarData.SchoolCode = 4136014839;
+            MetaSchoolGlobalVarData.SetMyMetaSchoolData(new MyMetaSchoolData() { RoleID = 10000001 });
+
+            MetaSchoolGlobalVarData.SetSchoolData(new SchoolData() { assetBundleName = "default_scene" });
+#endif
+
+#if UNITY_EDITOR
+
             Init();
 #endif
             DefaultValue.Init();
-#if UNITY_EDITOR
-            AppVarData.userData = new UserData() ;
-            AppVarData.userData.Account = 18379366315;
-            SchoolGlobalVarData.SchoolCode = 4136014839;
-#endif
+
 
         }
         /// <summary>

@@ -5,7 +5,7 @@ namespace Game
     public class MyMetaSchoolData : IPool, IDataConverter
     {
         public long Account;
-        public byte RoleID;
+        public int RoleID;
         public bool isPop { get ; set ; }
         public void PopPool()  {}
         public void PushPool()  {   }
@@ -26,7 +26,7 @@ namespace Game
         {
             IListData<byte[]> bytes = data.ToListBytes();
             Account = bytes[0].ToLong();
-            RoleID = bytes[1].ToByte();
+            RoleID = bytes[1].ToInt();
             bytes.Recycle();
         }
     }

@@ -16,15 +16,32 @@
             return null;
         }
         /// <summary>
+        /// 获取角色文件地址
+        /// </summary>
+        /// <param name="sceneABName"></param>
+        /// <returns></returns>
+        public static string GetRoleData(string roleID, string version)
+        {
+            return GetOssBucketDir() + "/AssetBundles/Roles/" + roleID + "/role_" + roleID + "@" + version;
+        }
+        /// <summary>
         /// 获取场景文件地址
         /// </summary>
         /// <param name="sceneABName"></param>
         /// <returns></returns>
         public static string GetSceneData(string sceneABName,string version)
         {
-            return GetOssBucketDir() + "/AssetBundles/Scenes/" + sceneABName + "/"+ sceneABName + "_"+ version;
+            return GetOssBucketDir() + "/AssetBundles/Scenes/" + sceneABName + "/"+ sceneABName + "@"+ version;
         }
-
+        /// <summary>
+        /// 获取角色配置文件地址
+        /// </summary>
+        /// <param name="sceneABName"></param>
+        /// <returns></returns>
+        public static string GetRoleConfigData(string roleID)
+        {
+            return GetOssBucketDir() + "/AssetBundles/Roles/" + roleID + "/config.txt";
+        }
         /// <summary>
         /// 获取场景配置文件地址
         /// </summary>

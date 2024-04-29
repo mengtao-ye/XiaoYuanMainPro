@@ -8,7 +8,6 @@ namespace Game
     public class UniqueCodeGenerator
     {
         private static System. Random mRandom = new System.Random();
-        private static long mMinValue = 1;
         public static string GenerateUniqueCode()
         {
             // 生成一个新的GUID

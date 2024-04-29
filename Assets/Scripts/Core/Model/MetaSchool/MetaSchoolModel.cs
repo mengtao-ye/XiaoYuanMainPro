@@ -17,8 +17,6 @@ namespace Game
         protected override void ConfigChildModel()
         {
             AddChildModel(new InitMetaSchoolChildModel(this, UnityTools.CreateGameObject("Init",transform)));
-          
         }
-        
     }
 }

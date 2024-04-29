@@ -15,6 +15,7 @@ namespace Game
         private Vector2 mDir;
         private float mDis;
         private Action<Vector2> mCallBack;
+        private Action<float> mSpeedBack;
         private void Awake()
         {
             mRadius = 65;
@@ -27,6 +28,10 @@ namespace Game
         public void SetCallBack(Action<Vector2> callback)
         {
             mCallBack = callback;
+        }
+        public void SetMoveSpeedBack(Action<float> callback)
+        {
+            mSpeedBack = callback;
         }
 
         public void OnPointerDown(PointerEventData eventData)
@@ -43,6 +48,7 @@ namespace Game
         {
             mIsDown = false;
             Bar.gameObject.SetActive(false);
+            mSpeedBack?.Invoke(0);
         }
 
         public void OnPointerMove(PointerEventData eventData)
@@ -51,6 +57,7 @@ namespace Game
             mDir = eventData.position- mDownPos;
             Center.up = mDir;
             mDis = Mathf.Clamp(Vector2.Distance(mDownPos, eventData.position),0,mRadius);
+            mSpeedBack?.Invoke(mDis);
             Anchor.anchoredPosition = new Vector2(0, mDis);
         }
         private void FixedUpdate()

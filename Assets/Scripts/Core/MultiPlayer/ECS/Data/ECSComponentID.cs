@@ -7,6 +7,7 @@
         public const int ROLE_ID = 3;
         public const int LERP_POSITION_ID = 4;
         public const int LERP_ROTATE_ID = 5;
+        public const int ENTITY_ANIMATION_ID = 6;
 
     }
 }
