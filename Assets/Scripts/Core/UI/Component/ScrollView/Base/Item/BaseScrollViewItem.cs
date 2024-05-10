@@ -40,7 +40,7 @@ namespace Game
         }
         public Vector2 originalPos { get; set; }
         public Transform mParent;
-        public bool isInstantiate { get; private set; }
+        public bool isInstantiate { get; private set; }//资源是否加载出来了
         public int index { get; set; }
         public IGameObjectPoolTarget poolTarget { get; set; }
         public long ViewItemID { get; set; }

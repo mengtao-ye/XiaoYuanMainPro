@@ -60,6 +60,7 @@
     <Compile Include="Assets\Editor\WindowsEditor\WindowsEditor.cs" />
     <Compile Include="Assets\Editor\Scripts\UI\SimpleRoundedImageEditor.cs" />
     <Compile Include="Assets\Editor\HybridCLR\BuildPlayerCommand.cs" />
+    <Compile Include="Assets\Editor\HybridCLR\BuildlDll.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Editor\WindowsEditor\GameCenter.txt" />
@@ -342,9 +343,6 @@
     </Reference>
     <Reference Include="Unity.Plastic.Antlr3.Runtime">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@2.0.1\Lib\Editor\PlasticSCM\Unity.Plastic.Antlr3.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Aliyun.OSS">
-      <HintPath>Assets\Plugin\Aliyun\Aliyun.OSS.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Burst.Cecil.Mdb">
       <HintPath>Library\PackageCache\com.unity.burst@1.8.2\Unity.Burst.CodeGen\Unity.Burst.Cecil.Mdb.dll</HintPath>

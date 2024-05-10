@@ -28,10 +28,9 @@ namespace Game
         public override void Start()
         {
             base.Start();
-            if (AppData.platformType == PlatformType.Test) 
-            {
-                AudoLogin(18379366314, "528099tt...");
-            }
+#if UNITY_EDITOR
+            AudoLogin(18379366314, "528099tt...");
+#endif
         }
         private void Init()
         {
@@ -45,10 +44,10 @@ namespace Game
             });
             transform.FindObject<Button>("QuitBtn").onClick.AddListener(() =>
             {
-                GameCenter.Instance.ShowTipsUI<CommonTwoTipsUI>((ui)=>
+                GameCenter.Instance.ShowTipsUI<CommonTwoTipsUI>((ui) =>
                 {
                     ui.SetType(CommonTwoTipID.QuitGame);
-                    ui.ShowContent("是否退出应用？","退出应用","取消",null,"退出",()=> { AppTools.QuitApp(); });
+                    ui.ShowContent("是否退出应用？", "退出应用", "取消", null, "退出", () => { AppTools.QuitApp(); });
                 });
             });
         }
@@ -60,7 +59,7 @@ namespace Game
                 AppTools.ToastError("账号不能为空");
                 return;
             }
-            if (mAccount.text .Length !=11)
+            if (mAccount.text.Length != 11)
             {
                 AppTools.ToastError("账号必须为11位");
                 return;

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6248480757027447752}
   - component: {fileID: 6248480757027447751}
   - component: {fileID: 9185144075939442611}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MyReleasePartTimeJobItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 6248480757143400441}
   - component: {fileID: 6248480757143400443}
   - component: {fileID: 6248480757143400442}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Price
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -216,7 +216,7 @@ GameObject:
   - component: {fileID: 6248480758390638782}
   - component: {fileID: 6248480758390638752}
   - component: {fileID: 6248480758390638783}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,7 +296,7 @@ GameObject:
   - component: {fileID: 6248480758996057177}
   - component: {fileID: 6248480758996057179}
   - component: {fileID: 6248480758996057178}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -376,7 +376,7 @@ GameObject:
   - component: {fileID: 6248480758999533515}
   - component: {fileID: 6248480758999533517}
   - component: {fileID: 6248480758999533516}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}

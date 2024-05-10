@@ -18,4 +18,18 @@ MonoBehaviour:
   - ABName: hotbase
     Describute: "\u70ED\u66F4\u65B0\u811A\u672C"
     Path: Assets/HotDll/Android
-  mOriginalFileDir: []
+  - ABName: image_default
+    Describute: "\u9ED8\u8BA4\u56FE\u7247"
+    Path: Assets/Resources/Images/Default
+  - ABName: image_common
+    Describute: "\u901A\u7528\u56FE\u7247"
+    Path: Assets/Res/Images/Common
+  - ABName: material_default
+    Describute: "\u9ED8\u8BA4\u6750\u8D28"
+    Path: Assets/Res/Materials/Default
+  - ABName: material_ui
+    Describute: "ui\u6750\u8D28"
+    Path: Assets/Res/Materials/UI
+  - ABName: shader_ui
+    Describute: ui shader
+    Path: Assets/Res/Shaders/UI

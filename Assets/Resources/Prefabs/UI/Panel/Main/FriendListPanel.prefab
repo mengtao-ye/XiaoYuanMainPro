@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7656562711742439373}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FriendScrollView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1421745273133913203}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TopArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 1421745273379145505}
   - component: {fileID: 1421745273379145504}
   - component: {fileID: 1421745273379145507}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SetBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -209,7 +209,7 @@ GameObject:
   - component: {fileID: 1421745273406540476}
   - component: {fileID: 1421745273406540479}
   - component: {fileID: 1421745273406540478}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BackBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -328,7 +328,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1421745273588720080}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FriendListArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -367,7 +367,7 @@ GameObject:
   - component: {fileID: 1421745273623984224}
   - component: {fileID: 1421745273623984238}
   - component: {fileID: 1421745273623984225}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FriendListPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -445,7 +445,7 @@ GameObject:
   - component: {fileID: 1421745273756808779}
   - component: {fileID: 1421745273756808777}
   - component: {fileID: 1421745273756808776}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -525,7 +525,7 @@ GameObject:
   - component: {fileID: 1421745273837683239}
   - component: {fileID: 1421745273837683237}
   - component: {fileID: 1421745273837683236}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -603,7 +603,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4111078606969798110}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -642,7 +642,7 @@ GameObject:
   - component: {fileID: 7245647653423441818}
   - component: {fileID: 7423270268714912923}
   - component: {fileID: 5884884868656161121}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Viewport
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 942617140}
   - component: {fileID: 942617139}
   - component: {fileID: 942617138}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ApplicationBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 962609178}
   - component: {fileID: 962609177}
   - component: {fileID: 962609176}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CollectBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -255,7 +255,7 @@ GameObject:
   - component: {fileID: 1667153637}
   - component: {fileID: 1667153639}
   - component: {fileID: 1667153638}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -333,7 +333,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1746352660}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BottomArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -372,7 +372,7 @@ GameObject:
   - component: {fileID: 1804739292}
   - component: {fileID: 1804739294}
   - component: {fileID: 1804739293}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -450,7 +450,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 455397515264672499}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ScrollView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -490,7 +490,7 @@ GameObject:
   - component: {fileID: 455397515924445095}
   - component: {fileID: 455397515924445094}
   - component: {fileID: 455397515924445092}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Viewport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -580,7 +580,7 @@ GameObject:
   - component: {fileID: 455397516986290819}
   - component: {fileID: 455397516986290813}
   - component: {fileID: 455397516986290812}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -662,7 +662,7 @@ GameObject:
   - component: {fileID: 1049082688208512873}
   - component: {fileID: 1049082688208512875}
   - component: {fileID: 1049082688208512872}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -742,7 +742,7 @@ GameObject:
   - component: {fileID: 1049082688274097958}
   - component: {fileID: 1049082688274097952}
   - component: {fileID: 1049082688274097953}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Detail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -823,7 +823,7 @@ GameObject:
   - component: {fileID: 1049082688329646507}
   - component: {fileID: 1049082688329646504}
   - component: {fileID: 1049082688329646505}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BackBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -944,7 +944,7 @@ GameObject:
   - component: {fileID: 1049082688368642570}
   - component: {fileID: 1049082688368642564}
   - component: {fileID: 1049082688368642565}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MainData
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1020,7 +1020,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1049082688412213086}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TopArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1061,7 +1061,7 @@ GameObject:
   - component: {fileID: 1049082688428413332}
   - component: {fileID: 1049082688428413334}
   - component: {fileID: 1049082688428413335}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PartTimeJobTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1141,7 +1141,7 @@ GameObject:
   - component: {fileID: 1049082688449286008}
   - component: {fileID: 1049082688449286010}
   - component: {fileID: 1049082688449286011}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1218,7 +1218,7 @@ GameObject:
   - component: {fileID: 1049082688603547238}
   - component: {fileID: 1049082688603547232}
   - component: {fileID: 1049082688603547233}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Price
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1298,7 +1298,7 @@ GameObject:
   - component: {fileID: 1049082688660101326}
   - component: {fileID: 1049082688660101320}
   - component: {fileID: 1049082688660101321}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1378,7 +1378,7 @@ GameObject:
   - component: {fileID: 1049082688757047449}
   - component: {fileID: 1049082688757047451}
   - component: {fileID: 1049082688757047448}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PartTimeJobDetailPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1457,7 +1457,7 @@ GameObject:
   - component: {fileID: 1049082688920577851}
   - component: {fileID: 1049082688920577845}
   - component: {fileID: 1049082688920577850}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PosAndTime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1535,7 +1535,7 @@ GameObject:
   - component: {fileID: 1049082689345798673}
   - component: {fileID: 1049082689345798675}
   - component: {fileID: 1049082689345798672}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MyData
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1612,7 +1612,7 @@ GameObject:
   - component: {fileID: 1049082689738600130}
   - component: {fileID: 1049082689738600124}
   - component: {fileID: 1049082689738600125}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: DetailArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1689,7 +1689,7 @@ GameObject:
   - component: {fileID: 1049082689748070527}
   - component: {fileID: 1049082689748070521}
   - component: {fileID: 1049082689748070526}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1769,7 +1769,7 @@ GameObject:
   - component: {fileID: 1049082690019233144}
   - component: {fileID: 1049082690019233146}
   - component: {fileID: 1049082690019233147}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1849,7 +1849,7 @@ GameObject:
   - component: {fileID: 1049082690098386416}
   - component: {fileID: 1049082690098386418}
   - component: {fileID: 1049082690098386419}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Time
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -22,6 +22,21 @@ namespace Game
             chatMsgItemPool.SetUnreadCount(unreadCount);
             chatMsgItemPool.ID = ViewItemID;
         }
+        /// <summary>
+        /// 更新数据
+        /// </summary>
+        public void UpdateData() 
+        {
+            if (isInstantiate) 
+            {
+                ChatListItemPool chatMsgItemPool = poolTarget as ChatListItemPool;
+                chatMsgItemPool.SetFriendAccount(account);
+                chatMsgItemPool.SetTopTime(time);
+                chatMsgItemPool.SetTopMsg(msgType, topMsg);
+                chatMsgItemPool.SetUnreadCount(unreadCount);
+                chatMsgItemPool.ID = ViewItemID;
+            }
+        }
 
         public override void Recycle()
         {

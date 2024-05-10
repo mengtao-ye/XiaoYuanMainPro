@@ -89,7 +89,7 @@ namespace Game
             mAccount = account;
             if (isAnonymous)
             {
-                mHead.sprite = DefaultValue.anonymousHead;
+                DefaultSpriteValue.SetValue(DefaultSpriteValue.DEFAULT_ANONYMOUS_HEAD, mHead);
                 mName.text = "匿名用户";
             }
             else 

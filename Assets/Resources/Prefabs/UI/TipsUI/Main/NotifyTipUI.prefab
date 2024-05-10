@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3933459469204505498}
   - component: {fileID: 3933459469204505496}
   - component: {fileID: 3933459469204505499}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 3933459469255984168}
   - component: {fileID: 3933459469255984166}
   - component: {fileID: 3933459469255984169}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +172,7 @@ GameObject:
   - component: {fileID: 3933459469418369304}
   - component: {fileID: 3933459469418369307}
   - component: {fileID: 3933459469418369305}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: NotifyArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: 3933459470105419866}
   - component: {fileID: 3933459470105419869}
   - component: {fileID: 3933459470105419868}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: NewFriend
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -401,7 +401,7 @@ GameObject:
   - component: {fileID: 3933459470147860087}
   - component: {fileID: 3933459470147860086}
   - component: {fileID: 3933459470147860089}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -523,7 +523,7 @@ GameObject:
   - component: {fileID: 3933459470310788294}
   - component: {fileID: 3933459470310788297}
   - component: {fileID: 3933459470310788296}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: News
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -644,7 +644,7 @@ GameObject:
   - component: {fileID: 3933459470783334611}
   - component: {fileID: 3933459470783334609}
   - component: {fileID: 3933459470783334608}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -725,7 +725,7 @@ GameObject:
   - component: {fileID: 1542083412}
   - component: {fileID: 1542083411}
   - component: {fileID: 1987001117}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: NotifyTipUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -846,7 +846,7 @@ GameObject:
   - component: {fileID: 7890272825254187667}
   - component: {fileID: 268253892330938646}
   - component: {fileID: 8676000253931747542}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -927,7 +927,7 @@ GameObject:
   - component: {fileID: 4215842192721057370}
   - component: {fileID: 164880829588532678}
   - component: {fileID: 1919165590327031591}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: AddFriend
   m_TagString: Untagged
   m_Icon: {fileID: 0}

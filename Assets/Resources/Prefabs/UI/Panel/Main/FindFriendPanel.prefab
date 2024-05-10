@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1435855306}
   - component: {fileID: 1435855305}
   - component: {fileID: 1435855304}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ViewBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 1906636592}
   - component: {fileID: 1906636594}
   - component: {fileID: 1906636593}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 2102547756}
   - component: {fileID: 2102547758}
   - component: {fileID: 2102547757}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: NotFindTip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -294,7 +294,7 @@ GameObject:
   - component: {fileID: 3535597096510152359}
   - component: {fileID: 3535597096510152358}
   - component: {fileID: 3535597096510152357}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BackBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -415,7 +415,7 @@ GameObject:
   - component: {fileID: 3535597096597523161}
   - component: {fileID: 3535597096597523163}
   - component: {fileID: 3535597096597523162}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -495,7 +495,7 @@ GameObject:
   - component: {fileID: 3535597096943206689}
   - component: {fileID: 3535597096943206703}
   - component: {fileID: 3535597096943206688}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: UserDataArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -574,7 +574,7 @@ GameObject:
   - component: {fileID: 3535597097109780937}
   - component: {fileID: 3535597097109780951}
   - component: {fileID: 3535597097109780936}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -654,7 +654,7 @@ GameObject:
   - component: {fileID: 3535597097126932473}
   - component: {fileID: 3535597097126932359}
   - component: {fileID: 3535597097126932472}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -735,7 +735,7 @@ GameObject:
   - component: {fileID: 3535597097774523930}
   - component: {fileID: 3535597097774523931}
   - component: {fileID: 3535597097774523932}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: AddBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -856,7 +856,7 @@ GameObject:
   - component: {fileID: 3535597097867397960}
   - component: {fileID: 3535597097867397974}
   - component: {fileID: 3535597097867397975}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -934,7 +934,7 @@ GameObject:
   - component: {fileID: 7641064331734304569}
   - component: {fileID: 7641064331734304566}
   - component: {fileID: 7641064331734304567}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FriendMsgIF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1080,7 +1080,7 @@ GameObject:
   - component: {fileID: 7641064331945852301}
   - component: {fileID: 7641064331945852303}
   - component: {fileID: 7641064331945852300}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Placeholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1160,7 +1160,7 @@ GameObject:
   - component: {fileID: 7641064332469317904}
   - component: {fileID: 7641064332469317906}
   - component: {fileID: 7641064332469317907}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1240,7 +1240,7 @@ GameObject:
   - component: {fileID: 7641064332525521775}
   - component: {fileID: 7641064332525521745}
   - component: {fileID: 7641064332525521774}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FindFriendPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1322,7 +1322,7 @@ GameObject:
   - component: {fileID: 7641064333054497694}
   - component: {fileID: 7641064333054497695}
   - component: {fileID: 7641064333054497692}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SearchFriendBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1443,7 +1443,7 @@ GameObject:
   - component: {fileID: 7641064333215359475}
   - component: {fileID: 7641064333215359477}
   - component: {fileID: 7641064333215359474}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

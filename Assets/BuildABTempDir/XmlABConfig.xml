@@ -1,12 +1,108 @@
 <?xml version="1.0" encoding="utf-16"?>
 <AssetBundleConfigData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <ABList Path="Assets/Resources/Prefabs/UI/TipsUI/CommonTipsUI/CommonTipsUI.prefab" ABName="commontipsui" AssetName="CommonTipsUI" CRC="1376441440" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Panel/Main/AddFriendRequestViewPanel.prefab" ABName="addfriendrequestviewpanel" AssetName="AddFriendRequestViewPanel" CRC="729210585" />
+  <ABList Path="Assets/Resources/Prefabs/UI/TipsUI/Main/ApplicationPartTimeJobTipUI.prefab" ABName="applicationparttimejobtipui" AssetName="ApplicationPartTimeJobTipUI" CRC="4176549150" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Panel/Main/BusinessPartTimeJobPanel.prefab" ABName="businessparttimejobpanel" AssetName="BusinessPartTimeJobPanel" CRC="4231598786" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Item/CampusCircle/CampusCircleItem.prefab" ABName="campuscircleitem" AssetName="CampusCircleItem" CRC="735969119" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Panel/Main/CampusCirclePanel.prefab" ABName="campuscirclepanel" AssetName="CampusCirclePanel" CRC="2739037395" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Item/Chat/ChatMsgItem.prefab" ABName="chatmsgitem" AssetName="ChatMsgItem" CRC="2550797756" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Panel/Main/ChatPanel.prefab" ABName="chatpanel" AssetName="ChatPanel" CRC="438604786" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Item/Commit/CommitItem.prefab" ABName="commititem" AssetName="CommitItem" CRC="160845646" />
+  <ABList Path="Assets/Resources/Prefabs/UI/TipsUI/Main/CommitTipUI.prefab" ABName="committipui" AssetName="CommitTipUI" CRC="2065624432" />
+  <ABList Path="Assets/Resources/Prefabs/UI/TipsUI/CommonTipsUI/CommonOneTipsUI.prefab" ABName="commononetipsui" AssetName="CommonOneTipsUI" CRC="3464613047">
+    <Dependence>image_common</Dependence>
+  </ABList>
+  <ABList Path="Assets/Resources/Prefabs/UI/TipsUI/CommonTipsUI/CommonTwoTipsUI.prefab" ABName="commontwotipsui" AssetName="CommonTwoTipsUI" CRC="663774549">
+    <Dependence>image_common</Dependence>
+  </ABList>
+  <ABList Path="Assets/Resources/Prefabs/UI/Panel/Main/FindFriendPanel.prefab" ABName="findfriendpanel" AssetName="FindFriendPanel" CRC="2335191891" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Item/Chat/FriendItem.prefab" ABName="frienditem" AssetName="FriendItem" CRC="2020656779" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Panel/Main/FriendListPanel.prefab" ABName="friendlistpanel" AssetName="FriendListPanel" CRC="3365260526" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Item/Chat/FriendMsgItem.prefab" ABName="friendmsgitem" AssetName="FriendMsgItem" CRC="456069590" />
+  <ABList Path="Assets/HotDll/Android/AssemblyConfig.json" ABName="hotbase" AssetName="AssemblyConfig" CRC="2998442867" />
   <ABList Path="Assets/HotDll/Android/HotBase.dll.bytes" ABName="hotbase" AssetName="HotBase.dll" CRC="2462921688" />
   <ABList Path="Assets/HotDll/Android/mscorlib.dll.bytes" ABName="hotbase" AssetName="mscorlib.dll" CRC="4294383255" />
   <ABList Path="Assets/HotDll/Android/System.Core.dll.bytes" ABName="hotbase" AssetName="System.Core.dll" CRC="746494015" />
   <ABList Path="Assets/HotDll/Android/System.dll.bytes" ABName="hotbase" AssetName="System.dll" CRC="1823858116" />
+  <ABList Path="Assets/HotDll/Android/UnityEngine.CoreModule.dll.bytes" ABName="hotbase" AssetName="UnityEngine.CoreModule.dll" CRC="3190213115" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Item/Common/Image.prefab" ABName="image" AssetName="Image" CRC="83635035" />
+  <ABList Path="Assets/Res/Images/Common/Back/Back_Img.png" ABName="image_common" AssetName="Back_Img" CRC="2893622954" />
+  <ABList Path="Assets/Res/Images/Common/Circle/Circle_Img.png" ABName="image_common" AssetName="Circle_Img" CRC="4087897097" />
+  <ABList Path="Assets/Res/Images/Common/Close/Close_Img.png" ABName="image_common" AssetName="Close_Img" CRC="3362286956" />
+  <ABList Path="Assets/Res/Images/Common/Default/Default_Img.jpg" ABName="image_common" AssetName="Default_Img" CRC="729051830" />
+  <ABList Path="Assets/Res/Images/Common/Enter/Enter_Img.png" ABName="image_common" AssetName="Enter_Img" CRC="2613146043" />
+  <ABList Path="Assets/Res/Images/Common/Exit/Exit_Img.png" ABName="image_common" AssetName="Exit_Img" CRC="399629723" />
+  <ABList Path="Assets/Res/Images/Common/Logo/LOGO_NoBG_192x192.png" ABName="image_common" AssetName="LOGO_NoBG_192x192" CRC="3292343902" />
+  <ABList Path="Assets/Res/Images/Common/Rectangle/Rectangle_Img.png" ABName="image_common" AssetName="Rectangle_Img" CRC="3790282952" />
+  <ABList Path="Assets/Res/Images/Common/Search/搜索.png" ABName="image_common" AssetName="搜索" CRC="1133727597" />
+  <ABList Path="Assets/Res/Images/Common/Select/Select_Img.png" ABName="image_common" AssetName="Select_Img" CRC="2483369009" />
+  <ABList Path="Assets/Res/Images/Common/Set/Set_Img.png" ABName="image_common" AssetName="Set_Img" CRC="882555928" />
+  <ABList Path="Assets/Resources/Images/Default/AnonymousHead.jpg" ABName="image_default" AssetName="AnonymousHead" CRC="184982460" />
+  <ABList Path="Assets/Resources/Images/Default/DefaultHead.jpg" ABName="image_default" AssetName="DefaultHead" CRC="3797007522" />
   <ABList Path="Assets/Resources/Prefabs/Main/LauncherBridge.prefab" ABName="launcherbridge" AssetName="LauncherBridge" CRC="911740674" />
-  <ABList Path="Assets/Resources/Prefabs/UI/Panel/Login/LoginPanel.prefab" ABName="loginpanel" AssetName="LoginPanel" CRC="3076916357" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Panel/MetaSchool/LoadMetaSchoolSceneDataPanel.prefab" ABName="loadmetaschoolscenedatapanel" AssetName="LoadMetaSchoolSceneDataPanel" CRC="3030446425">
+    <Dependence>image_common</Dependence>
+  </ABList>
+  <ABList Path="Assets/Resources/Prefabs/UI/Panel/Login/LoginPanel.prefab" ABName="loginpanel" AssetName="LoginPanel" CRC="3076916357">
+    <Dependence>image_common</Dependence>
+  </ABList>
+  <ABList Path="Assets/Resources/Prefabs/UI/Panel/Main/LostPanel.prefab" ABName="lostpanel" AssetName="LostPanel" CRC="1058658525" />
   <ABList Path="Assets/Resources/Prefabs/Main/MainLauncher.prefab" ABName="mainlauncher" AssetName="MainLauncher" CRC="450413615" />
-  <ABList Path="Assets/Resources/Prefabs/UI/Log/MidLogUI.prefab" ABName="midlogui" AssetName="MidLogUI" CRC="568562610" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Panel/Main/MainPanel.prefab" ABName="mainpanel" AssetName="MainPanel" CRC="1544240337">
+    <Dependence>shader_ui</Dependence>
+    <Dependence>image_common</Dependence>
+    <Dependence>material_ui</Dependence>
+  </ABList>
+  <ABList Path="Assets/Res/Materials/Default/DefaultMat.mat" ABName="material_default" AssetName="DefaultMat" CRC="3923125647" />
+  <ABList Path="Assets/Res/Materials/UI/RoundConor_Mat.mat" ABName="material_ui" AssetName="RoundConor_Mat" CRC="3612724389">
+    <Dependence>shader_ui</Dependence>
+  </ABList>
+  <ABList Path="Assets/Resources/Prefabs/UI/Panel/MetaSchool/MetaSchoolMainPanel.prefab" ABName="metaschoolmainpanel" AssetName="MetaSchoolMainPanel" CRC="4027881961">
+    <Dependence>image_common</Dependence>
+  </ABList>
+  <ABList Path="Assets/Resources/Prefabs/UI/Panel/MetaSchool/MetaSchoolSetPanel.prefab" ABName="metaschoolsetpanel" AssetName="MetaSchoolSetPanel" CRC="4054086884">
+    <Dependence>image_common</Dependence>
+  </ABList>
+  <ABList Path="Assets/Resources/Prefabs/UI/Log/MidLogUI.prefab" ABName="midlogui" AssetName="MidLogUI" CRC="568562610">
+    <Dependence>image_common</Dependence>
+  </ABList>
+  <ABList Path="Assets/Resources/Prefabs/UI/Item/Common/MipImage.prefab" ABName="mipimage" AssetName="MipImage" CRC="6869220" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Item/LostAndFound/MyLostItem.prefab" ABName="mylostitem" AssetName="MyLostItem" CRC="3364558362" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Item/Chat/MyMsgItem.prefab" ABName="mymsgitem" AssetName="MyMsgItem" CRC="1742663666" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Panel/Main/MyReleasePartTimeJobDetailPanel.prefab" ABName="myreleaseparttimejobdetailpanel" AssetName="MyReleasePartTimeJobDetailPanel" CRC="2826813943" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Item/PartTimeJob/MyReleasePartTimeJobItem.prefab" ABName="myreleaseparttimejobitem" AssetName="MyReleasePartTimeJobItem" CRC="2189931864" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Item/Chat/NewFriendItem.prefab" ABName="newfrienditem" AssetName="NewFriendItem" CRC="3020761356" />
+  <ABList Path="Assets/Resources/Prefabs/UI/TipsUI/Main/NotifyTipUI.prefab" ABName="notifytipui" AssetName="NotifyTipUI" CRC="2121611664" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Item/PartTimeJob/PartTimeJobApplicationItem.prefab" ABName="parttimejobapplicationitem" AssetName="PartTimeJobApplicationItem" CRC="3172514142" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Panel/Main/PartTimeJobApplicationListPanel.prefab" ABName="parttimejobapplicationlistpanel" AssetName="PartTimeJobApplicationListPanel" CRC="1251292574" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Panel/Main/PartTimeJobDetailPanel.prefab" ABName="parttimejobdetailpanel" AssetName="PartTimeJobDetailPanel" CRC="902636696" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Item/PartTimeJob/PartTimeJobItem.prefab" ABName="parttimejobitem" AssetName="PartTimeJobItem" CRC="25711959" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Panel/Main/PartTimeJobPanel.prefab" ABName="parttimejobpanel" AssetName="PartTimeJobPanel" CRC="2914236747" />
+  <ABList Path="Assets/Resources/Prefabs/Models/MetaSchool/PlayerRoot.prefab" ABName="playerroot" AssetName="PlayerRoot" CRC="3385920876" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Panel/Main/PublishCampusCirclePanel.prefab" ABName="publishcampuscirclepanel" AssetName="PublishCampusCirclePanel" CRC="3383771951" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Panel/Main/PublishLostPanel.prefab" ABName="publishlostpanel" AssetName="PublishLostPanel" CRC="567813547" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Panel/Login/RegisterPanel.prefab" ABName="registerpanel" AssetName="RegisterPanel" CRC="1498470213">
+    <Dependence>image_common</Dependence>
+  </ABList>
+  <ABList Path="Assets/Resources/Prefabs/UI/Panel/Main/ReleasePartTimeJobPanel.prefab" ABName="releaseparttimejobpanel" AssetName="ReleasePartTimeJobPanel" CRC="2612621601" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Panel/Main/ReleaseUnusePanel.prefab" ABName="releaseunusepanel" AssetName="ReleaseUnusePanel" CRC="3045096707" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Item/School/SearchSchoolItem.prefab" ABName="searchschoolitem" AssetName="SearchSchoolItem" CRC="1879234409">
+    <Dependence>shader_ui</Dependence>
+    <Dependence>image_common</Dependence>
+    <Dependence>material_ui</Dependence>
+  </ABList>
+  <ABList Path="Assets/Resources/Prefabs/UI/TipsUI/CommonTipsUI/SelectDateTimeTipUI.prefab" ABName="selectdatetimetipui" AssetName="SelectDateTimeTipUI" CRC="3547629975" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Item/Common/SelectImage.prefab" ABName="selectimage" AssetName="SelectImage" CRC="2004540539" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Panel/Main/SelectRolePanel.prefab" ABName="selectrolepanel" AssetName="SelectRolePanel" CRC="3060508935">
+    <Dependence>image_common</Dependence>
+  </ABList>
+  <ABList Path="Assets/Resources/Prefabs/UI/Panel/Main/SelectSchoolPanel.prefab" ABName="selectschoolpanel" AssetName="SelectSchoolPanel" CRC="2596301503">
+    <Dependence>image_common</Dependence>
+  </ABList>
+  <ABList Path="Assets/Resources/Prefabs/UI/Panel/Main/SendAddFriendPanel.prefab" ABName="sendaddfriendpanel" AssetName="SendAddFriendPanel" CRC="1073299850" />
+  <ABList Path="Assets/Res/Shaders/UI/RoundConor_Shader.shader" ABName="shader_ui" AssetName="RoundConor_Shader" CRC="3873976654" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Item/Chat/SortIndexItem.prefab" ABName="sortindexitem" AssetName="SortIndexItem" CRC="2134978412" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Panel/Main/UnuseDetailPanel.prefab" ABName="unusedetailpanel" AssetName="UnuseDetailPanel" CRC="217223023" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Item/Unuse/UnuseItem.prefab" ABName="unuseitem" AssetName="UnuseItem" CRC="3891564540" />
+  <ABList Path="Assets/Resources/Prefabs/UI/Panel/Main/UnusePanel.prefab" ABName="unusepanel" AssetName="UnusePanel" CRC="3964780529" />
 </AssetBundleConfigData>

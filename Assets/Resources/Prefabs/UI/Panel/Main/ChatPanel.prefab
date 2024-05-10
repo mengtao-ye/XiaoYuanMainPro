@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 581082057}
   - component: {fileID: 581082059}
   - component: {fileID: 581082058}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Placeholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 1302631095}
   - component: {fileID: 1302631097}
   - component: {fileID: 1302631096}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,7 +171,7 @@ GameObject:
   - component: {fileID: 1670685689}
   - component: {fileID: 1670685691}
   - component: {fileID: 1670685690}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -252,7 +252,7 @@ GameObject:
   - component: {fileID: 1861997158}
   - component: {fileID: 1861997157}
   - component: {fileID: 1861997156}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SendBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -374,7 +374,7 @@ GameObject:
   - component: {fileID: 2069515292}
   - component: {fileID: 2069515291}
   - component: {fileID: 2069515290}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ContentIF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -518,7 +518,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4257911382510808421}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ChatScrollView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -555,7 +555,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1790261468501512896}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TopArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -596,7 +596,7 @@ GameObject:
   - component: {fileID: 1790261468749529571}
   - component: {fileID: 1790261468749529581}
   - component: {fileID: 1790261468749529580}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -676,7 +676,7 @@ GameObject:
   - component: {fileID: 1790261468919688493}
   - component: {fileID: 1790261468919688495}
   - component: {fileID: 1790261468919688494}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -757,7 +757,7 @@ GameObject:
   - component: {fileID: 1790261469177995015}
   - component: {fileID: 1790261469177995014}
   - component: {fileID: 1790261469177995013}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BackBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -876,7 +876,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1790261469268722713}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MsgArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -913,7 +913,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1790261469720210116}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: InputArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -953,7 +953,7 @@ GameObject:
   - component: {fileID: 1790261469864096559}
   - component: {fileID: 1790261469864096553}
   - component: {fileID: 1790261469864096552}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ChatPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1032,7 +1032,7 @@ GameObject:
   - component: {fileID: 1790261470426332351}
   - component: {fileID: 1790261470426332345}
   - component: {fileID: 1790261470426332344}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1113,7 +1113,7 @@ GameObject:
   - component: {fileID: 1790261470488434727}
   - component: {fileID: 1790261470488434726}
   - component: {fileID: 1790261470488434725}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SetBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1235,7 +1235,7 @@ GameObject:
   - component: {fileID: 139118620281119606}
   - component: {fileID: 4416825299859609344}
   - component: {fileID: 177757734286600983}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Viewport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1323,7 +1323,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3723979851141457809}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}

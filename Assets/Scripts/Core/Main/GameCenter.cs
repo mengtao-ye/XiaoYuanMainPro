@@ -16,12 +16,18 @@ namespace Game
 #else
           false; 
 #endif
-#region Field
+
+
+        #region Public 
+        public PlatformType platformType;
+        #endregion
+
+        #region Field
         public Center center { get; private set; } = null;
         private UdpModule mUdpModule;
         private XiaoYuanSceneManager mSceneManager;
         public CommonManager commonManager { get; private set; }
-        private BridgeManager mBridgeManager;
+        //private BridgeManager mBridgeManager;
         private ILiveManager mLiveManager;
         public IScene curScene { get { return mSceneManager.curScene; } }
         public ICanvas curCanvas { get { return mSceneManager.curScene.canvas; } }
@@ -29,13 +35,13 @@ namespace Game
         public IController curController { get { return mSceneManager.curScene.controller; } }
         private ProcessController mProcessController;
         public ProcessController processController { get { return mProcessController; } }
-#endregion
-#region Init
-     
+        #endregion
+        #region Init
+
         /// <summary>
         /// 最先执行的方法
         /// </summary>
-        public  void Awake()
+        public void Awake()
         {
             DontDestroyOnLoad(gameObject);
             Instance = this;
@@ -47,41 +53,37 @@ namespace Game
             ResourceHelper.Instance = new XiaoYuanABLoadHelper();
 #endif
 #if UNITY_EDITOR
+
             AppVarData.userData = new UserData();
             AppVarData.userData.Account = 18379366314;
             SchoolGlobalVarData.SchoolCode = 4136014839;
             MetaSchoolGlobalVarData.SetMyMetaSchoolData(new MyMetaSchoolData() { RoleID = 10000001 });
-
             MetaSchoolGlobalVarData.SetSchoolData(new SchoolData() { assetBundleName = "default_scene" });
 #endif
-
+            AppData.platformType = platformType;
+            Debug.Log("platformType:" + AppData.platformType.ToString());
 #if UNITY_EDITOR
-
             Init();
 #endif
-            DefaultValue.Init();
-
-
         }
         /// <summary>
         /// 初始化
         /// </summary>
-        public void Init() 
+        public void Init()
         {
             mProcessController = new ProcessController();
             center = new Center();
             mUdpModule = new UdpModule(center);
             commonManager = new CommonManager(center);
             mLiveManager = new LiveManager(center);
-            mBridgeManager = new BridgeManager(center);
+            //mBridgeManager = new BridgeManager(center);
             mSceneManager = new XiaoYuanSceneManager(center, new SceneMapper());
             ConfigSceneManager();
             center.AddGame(mUdpModule);
             center.AddGame(commonManager);
             center.AddGame(mLiveManager);
-            center.AddGame(mBridgeManager);
+            //center.AddGame(mBridgeManager);
             center.AddGame(mSceneManager);
-
             center.Awake();
             center.Start();
         }
@@ -104,8 +106,8 @@ namespace Game
             if (!isRun) return;
             center.FixedUpdate();
         }
-#endregion
-#region UI
+        #endregion
+        #region UI
         /// <summary>
         /// 使用屏幕中方的Log打印信息
         /// </summary>
@@ -150,7 +152,7 @@ namespace Game
         /// <typeparam name="T"></typeparam>
         public void ShowLogUI<T>(Action<T> action) where T : BaseCustomLogUI, new()
         {
-             curCanvas.logUIManager.ShowLogUI<T>(action);
+            curCanvas.logUIManager.ShowLogUI<T>(action);
         }
         /// <summary>
         /// 显示提示UI
@@ -158,7 +160,7 @@ namespace Game
         /// <typeparam name="T"></typeparam>
         public void ShowTipsUI<T>(Action<T> action = null) where T : BaseCustomTipsUI, new()
         {
-             curCanvas.showTipsPanel.ShowTipsUI<T>(action);
+            curCanvas.showTipsPanel.ShowTipsUI<T>(action);
         }
         /// <summary>
         /// 显示提示UI
@@ -182,15 +184,15 @@ namespace Game
         /// <typeparam name="T"></typeparam>
         public void GetTipsUI<T>(Action<T> action) where T : BaseCustomTipsUI, new()
         {
-             curCanvas.showTipsPanel.GetTipsUI<T>(action);
+            curCanvas.showTipsPanel.GetTipsUI<T>(action);
         }
         /// <summary>
         /// 显示提示Panel
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public void ShowPanel<T>(Action<T> callBack =  null) where T : BaseCustomPanel, new()
+        public void ShowPanel<T>(Action<T> callBack = null) where T : BaseCustomPanel, new()
         {
-             curCanvas.ShowPanel<T>(callBack);
+            curCanvas.ShowPanel<T>(callBack);
         }
         /// <summary>
         /// 显示提示Panel
@@ -200,8 +202,24 @@ namespace Game
         {
             return curCanvas.FindPanel<T>();
         }
-#endregion
-#region SceneManager
+        /// <summary>
+        /// 是否存在
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        public bool IsExist<T>() where T : BaseCustomPanel, new()
+        {
+            return curCanvas.IsExist<T>();
+        }
+        ///// <summary>
+        ///// 是否存在
+        ///// </summary>
+        ///// <typeparam name="T"></typeparam>
+        //public T GetCurPanel<T>() where T : BaseCustomPanel, new()
+        //{
+        //    return curCanvas<T>();
+        //}
+        #endregion
+        #region SceneManager
         /// <summary>
         /// 配置场景加载数据
         /// </summary>
@@ -223,7 +241,7 @@ namespace Game
         /// </summary>
         /// <param name="sceneName">加载的名称</param>
         /// <param name="loadPorcess">加载的进度</param>
-        public void LoadScene(SceneID sceneName,ABTagEnum tag, Action<float> loadPorcess = null)
+        public void LoadScene(SceneID sceneName, ABTagEnum tag, Action<float> loadPorcess = null)
         {
 #if UNITY_EDITOR
             mSceneManager.LoadScene(sceneName.ToString(), loadPorcess);
@@ -241,8 +259,8 @@ namespace Game
         {
             mSceneManager.ChangeScene(sceneName);
         }
-#endregion
-#region UdpManager
+        #endregion
+        #region UdpManager
         public bool CenterUdpServerIsConnect
         {
             get
@@ -283,9 +301,9 @@ namespace Game
         /// </summary>
         /// <param name="ipAddress"></param>
         /// <param name="port"></param>
-        public void AddUdpServer(SubServerType subServerType, string ipAddress, int port, short heartBeatID,string name)
+        public void AddUdpServer(SubServerType subServerType, string ipAddress, int port, short heartBeatID, string name)
         {
-            mUdpModule.AddUdpServer(subServerType, ipAddress, port, heartBeatID,name);
+            mUdpModule.AddUdpServer(subServerType, ipAddress, port, heartBeatID, name);
         }
         /// <summary>
         /// 移除udpServer
@@ -334,7 +352,7 @@ namespace Game
             mUdpModule.centerUdpServer.ReceiveCallBack(udpCode, index, isReceive);
         }
         #endregion
-#region TcpMangaer
+        #region TcpMangaer
         /// <summary>
         /// Tcp发送数据
         /// </summary>
@@ -345,7 +363,7 @@ namespace Game
         //    mTcpSocket.TcpSend(actionCode, data);
         //}
         #endregion
-#region LiveManager
+        #region LiveManager
         /// <summary>
         /// 添加帧函数
         /// </summary>
@@ -360,19 +378,19 @@ namespace Game
         /// <param name="live"></param>
         public void RemoveLife(ILive live)
         {
-            if(live!=null)
-             mLiveManager.RemoveLive(live);
+            if (live != null)
+                mLiveManager.RemoveLive(live);
         }
         #endregion
-#region 原生之间调用
-        public string UnityToAndroid(int id, int value1, int value2, int value3, string str1, string str2, string str3)
-        {
-            if (mBridgeManager.isRun)
-            {
-                return mBridgeManager.UnityToAndroid(id, value1, value2, value3, str1, str2, str3);
-            }
-            return null;
-        }
-#endregion
+        #region 原生之间调用
+        //public string UnityToAndroid(int id, int value1, int value2, int value3, string str1, string str2, string str3)
+        //{
+        //    if (mBridgeManager.isRun)
+        //    {
+        //        return mBridgeManager.UnityToAndroid(id, value1, value2, value3, str1, str2, str3);
+        //    }
+        //    return null;
+        //}
+        #endregion
     }
 }

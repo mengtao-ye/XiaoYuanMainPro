@@ -24,7 +24,7 @@ namespace Game
             char[] chs = new char[] { 'a', 'b', 'c', 'd', 'e', 'f',PinYinConstData.DEFAULT };
             ReceivePinYin(ch, chs[UnityEngine.Random.Range(0, chs.Length)]);
 #else
-             LauncherBridge.SendGetPinYin(ABTag.Main, ch);
+             LauncherBridge.SendGetPinYin(ABTagEnum.Main.ToString(), ch);
 #endif
         }
         /// <summary>

@@ -69,9 +69,9 @@ namespace Game
         {
             if (data.IsNullOrEmpty()) return;
             int code = data.ToInt();
-            byte[] datas = ByteTools.SubBytes(data,4);
+            byte[] datas = ByteTools.SubBytes(data, 4);
             BoardCastModule.Broadcast(code, datas);
-            
+
         }
 
         /// <summary>
@@ -103,19 +103,20 @@ namespace Game
             {
                 AppTools.ToastError("发布失败");
             }
-            else {
+            else
+            {
                 bool res = data.ToBool();
                 if (res)
                 {
                     AppTools.Toast("发布成功");
                     GameCenter.Instance.ShowPanel<UnusePanel>();
                 }
-                else 
+                else
                 {
                     AppTools.ToastError("发布失败");
                 }
             }
-            
+
         }
 
         /// <summary>
@@ -129,7 +130,7 @@ namespace Game
             {
                 GameCenter.Instance.GetPanel<PartTimeJobApplicationListPanel>().SetData(null);
             }
-            else 
+            else
             {
                 IListData<PartTimeJobApplicationData> listData = ConverterDataTools.ToListPoolObject<PartTimeJobApplicationData>(data);
                 GameCenter.Instance.GetPanel<PartTimeJobApplicationListPanel>().SetData(listData);
@@ -205,7 +206,7 @@ namespace Game
                 AppTools.Toast("发布成功");
             }
             else
-            { 
+            {
                 AppTools.Toast("发布失败");
             }
         }
@@ -220,7 +221,7 @@ namespace Game
             {
                 GameCenter.Instance.GetPanel<LostPanel>().SetData(null);
             }
-            else 
+            else
             {
                 IListData<LostData> listData = data.ToListPoolBytes<LostData>();
                 GameCenter.Instance.GetPanel<LostPanel>().SetData(listData);
@@ -241,7 +242,8 @@ namespace Game
                 AppTools.Toast("发布成功");
                 GameCenter.Instance.ShowPanel<LostPanel>();
             }
-            else { 
+            else
+            {
                 AppTools.ToastError("发布失败");
             }
         }
@@ -254,18 +256,22 @@ namespace Game
             if (data.IsNullOrEmpty()) return;
             if (data == BytesConst.FALSE_BYTES)
             {
-                GameCenter.Instance.GetTipsUI<CommitTipUI>((ui) => {
+                GameCenter.Instance.GetTipsUI<CommitTipUI>((ui) =>
+                {
                     ui.SetData(null);
                 });
             }
-            else {
+            else
+            {
                 IListData<CampusCircleCommitData> listData = ConverterDataTools.ToListPoolObject<CampusCircleCommitData>(data);
-                if (!listData.IsNullOrEmpty()) {
-                    GameCenter.Instance.GetTipsUI<CommitTipUI>((ui)=> {
+                if (!listData.IsNullOrEmpty())
+                {
+                    GameCenter.Instance.GetTipsUI<CommitTipUI>((ui) =>
+                    {
                         ui.SetData(listData);
                         listData.Recycle();
                     });
-                    
+
                 }
             }
 
@@ -279,7 +285,7 @@ namespace Game
             if (data.IsNullOrEmpty()) return;
             long campusCircleID = data.ToLong(0);
             bool res = data.ToBool(8);
-            GameCenter.Instance.GetPanel<CampusCirclePanel>().SetLike(campusCircleID, res,false);
+            GameCenter.Instance.GetPanel<CampusCirclePanel>().SetLike(campusCircleID, res, false);
         }
         /// <summary>
         /// 获取校友圈对象详情
@@ -290,7 +296,7 @@ namespace Game
             if (data.IsNullOrEmpty()) return;
             long campusCircleID = data.ToLong(0);
             bool res = data.ToBool(8);
-            GameCenter.Instance.GetPanel<CampusCirclePanel>().SetLike(campusCircleID, res,true) ;
+            GameCenter.Instance.GetPanel<CampusCirclePanel>().SetLike(campusCircleID, res, true);
         }
         /// <summary>
         /// 获取校友圈对象详情
@@ -348,12 +354,13 @@ namespace Game
                 AppTools.Toast("发表成功");
                 GameCenter.Instance.ShowPanel<CampusCirclePanel>();
             }
-            else {
+            else
+            {
                 AppTools.ToastError("发表失败");
             }
         }
         /// <summary>
-        /// 拒绝还有申请
+        /// 发送聊天信息
         /// </summary>
         /// <param name="data"></param>
         private void SendChatMsg(byte[] data)
@@ -383,22 +390,43 @@ namespace Game
                 if (chatPanel == null) return;
                 if (chatPanel.isShow && chatPanel.friendAccount == receiveAccount)
                 {
-                    chatPanel.AddMsg(chatData,true,false);
+                    chatPanel.AddMsg(chatData, true, false);
                 }
                 ChatModule.SaveChatMsgToLocal(receiveAccount, chatData);
+
+                #region 设置新消息并记录到本地
+                IScrollView scrollView = GameCenter.Instance.GetPanel<MainPanel>().msgSubUI.scrollView;
+                ChatListScrollViewItem chatListItem = scrollView.Get(receiveAccount) as ChatListScrollViewItem;
+                chatListItem.topMsg = chatData.chat_msg;
+                chatListItem.msgType = chatData.msg_type;
+                chatListItem.time = chatData.time;
+                chatListItem.unreadCount = 0;
+                ChatModule.SaveChatListToLocal(chatListItem);
+                chatListItem.UpdateData();
+                #endregion
+
                 chatData.Recycle();
             }
         }
 
         /// <summary>
-        /// 拒绝还有申请
+        /// 发送好友申请
         /// </summary>
         /// <param name="data"></param>
         private void ConfineFriend(byte[] data)
         {
             if (data.IsNullOrEmpty()) return;
-            long account = data.ToLong();
-            ChatModule.SetAddFriendState(account);
+            bool res = data.ToBool();
+            if (res)
+            {
+                AppTools.Toast("添加成功");
+                long account = data.ToLong(1);
+                ChatModule.SetAddFriendState(account);
+            }
+            else
+            {
+                AppTools.ToastError("添加失败");
+            }
         }
         /// <summary>
         /// 拒绝还有申请
@@ -407,8 +435,17 @@ namespace Game
         private void RefuseFriend(byte[] data)
         {
             if (data.IsNullOrEmpty()) return;
-            long account = data.ToLong();
-            ChatModule.SetAddFriendState(account);
+            bool res = data.ToBool();
+            if (res)
+            {
+                AppTools.Toast("已拒绝好友申请");
+                long account = data.ToLong(1);
+                ChatModule.SetAddFriendState(account);
+            }
+            else
+            {
+                AppTools.ToastError("好友申请拒绝失败");
+            }
         }
         /// <summary>
         /// 获取聊天数据
@@ -516,7 +553,10 @@ namespace Game
             if (data.IsNullOrEmpty()) return;
             IListData<ChatData> schoolData = ConverterDataTools.ToListPoolObject<ChatData>(data);
             if (schoolData.IsNullOrEmpty()) return;
-            (GameCenter.Instance.GetPanel<MainPanel>().msgPage.subUI as MsgPageSubUI).SetMsgData(schoolData);
+            if (GameCenter.Instance.curScene.sceneName == SceneID.MainScene.ToString())
+            {
+                (GameCenter.Instance.GetPanel<MainPanel>().msgPage.subUI as MsgPageSubUI).SetMsgData(schoolData);
+            }
         }
         /// <summary>
         /// 加入学校
@@ -559,13 +599,13 @@ namespace Game
             {
                 AppTools.Toast("未找到学校信息");
             }
-            else 
+            else
             {
                 IListData<SchoolData> schoolData = ConverterDataTools.ToListPoolObject<SchoolData>(data);
                 if (schoolData.IsNullOrEmpty()) return;
                 GameCenter.Instance.GetPanel<SelectSchoolPanel>().ShowSchoolItem(schoolData);
             }
-           
+
         }
         /// <summary>
         /// 获取我的学校
@@ -606,7 +646,10 @@ namespace Game
             }
             else
             {
-                SpriteRequestCallBack(DefaultValue.defaultHead, userData);
+                DefaultSpriteValue.SetValue(DefaultSpriteValue.DEFAULT_HEAD, (defaultHead) =>
+                {
+                    SpriteRequestCallBack(defaultHead, userData);
+                });
             }
         }
         /// <summary>

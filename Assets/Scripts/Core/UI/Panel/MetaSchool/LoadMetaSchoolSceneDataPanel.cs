@@ -37,7 +37,7 @@ namespace Game
 
         public void SetProcess(float process) 
         {
-            mProcessText.text = (int)(process * 100) +"0%";
+            mProcessText.text = (int)(process * 100) +"%";
             mProcessSlider.fillAmount = process;
         }
         private void SetLoadText(string text)

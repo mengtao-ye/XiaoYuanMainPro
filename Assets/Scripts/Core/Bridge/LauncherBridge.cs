@@ -21,6 +21,7 @@ namespace Game
 
         private void Awake()
         {
+            Debug.Log("LauncherBridge Awake");
             DontDestroyOnLoad(gameObject);
         }
 
@@ -32,9 +33,11 @@ namespace Game
         public void Init(GameObject launcherTarget)
         {
             if (launcherTarget == null) return;
+            Debug.Log(launcherTarget.name);
             LauncherTarget = launcherTarget;
+            Debug.Log(GameCenter.Instance == null);
             GameCenter.Instance.Init();
-            LogHelper.Log("初始化应用");
+            LogHelper.Log("LauncherBridge LauncherBridge");
         }
         /// <summary>
         /// 启动
@@ -43,7 +46,7 @@ namespace Game
         public void StartGame()
         {
             GameCenter.isRun = true;
-            LogHelper.Log("启动应用");
+            LogHelper.Log("LauncherBridge StartGame");
         }
 
         /// <summary>
@@ -53,7 +56,7 @@ namespace Game
         public void StopGame()
         {
             GameCenter.isRun = false;
-            LogHelper.Log("暂停应用");
+            LogHelper.Log("LauncherBridge  StopGame");
         }
 
         /// <summary>

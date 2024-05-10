@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 439896521}
   - component: {fileID: 439896520}
   - component: {fileID: 439896519}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ApplicationListBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,7 +131,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 505783574}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ApplicationList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -170,7 +170,7 @@ GameObject:
   - component: {fileID: 1145850281}
   - component: {fileID: 1145850283}
   - component: {fileID: 1145850282}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: T
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -250,7 +250,7 @@ GameObject:
   - component: {fileID: 8236999127003113308}
   - component: {fileID: 8236999127003113310}
   - component: {fileID: 8236999127003113309}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MyReleasePartTimeJobDetailPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -328,7 +328,7 @@ GameObject:
   - component: {fileID: 8236999127112736523}
   - component: {fileID: 8236999127112736525}
   - component: {fileID: 8236999127112736524}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -408,7 +408,7 @@ GameObject:
   - component: {fileID: 8236999127156711843}
   - component: {fileID: 8236999127156711845}
   - component: {fileID: 8236999127156711844}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Price
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -488,7 +488,7 @@ GameObject:
   - component: {fileID: 8236999127373078782}
   - component: {fileID: 8236999127373078768}
   - component: {fileID: 8236999127373078783}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PosAndTime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -566,7 +566,7 @@ GameObject:
   - component: {fileID: 8236999127499530467}
   - component: {fileID: 8236999127499530469}
   - component: {fileID: 8236999127499530468}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Detail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -646,7 +646,7 @@ GameObject:
   - component: {fileID: 8236999127569211564}
   - component: {fileID: 8236999127569211566}
   - component: {fileID: 8236999127569211565}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -726,7 +726,7 @@ GameObject:
   - component: {fileID: 8236999127843539133}
   - component: {fileID: 8236999127843539135}
   - component: {fileID: 8236999127843539134}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -803,7 +803,7 @@ GameObject:
   - component: {fileID: 8236999127881258577}
   - component: {fileID: 8236999127881258579}
   - component: {fileID: 8236999127881258578}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PartTimeJobTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -881,7 +881,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8236999127897692315}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TopArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -921,7 +921,7 @@ GameObject:
   - component: {fileID: 8236999127928442319}
   - component: {fileID: 8236999127928442305}
   - component: {fileID: 8236999127928442304}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MainData
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1000,7 +1000,7 @@ GameObject:
   - component: {fileID: 8236999127984997998}
   - component: {fileID: 8236999127984997997}
   - component: {fileID: 8236999127984997996}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BackBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1121,7 +1121,7 @@ GameObject:
   - component: {fileID: 8236999128159680442}
   - component: {fileID: 8236999128159680444}
   - component: {fileID: 8236999128159680443}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1201,7 +1201,7 @@ GameObject:
   - component: {fileID: 8236999128185858311}
   - component: {fileID: 8236999128185858425}
   - component: {fileID: 8236999128185858424}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: DetailArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1278,7 +1278,7 @@ GameObject:
   - component: {fileID: 8236999128342221365}
   - component: {fileID: 8236999128342221367}
   - component: {fileID: 8236999128342221366}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1358,7 +1358,7 @@ GameObject:
   - component: {fileID: 8236999128438180541}
   - component: {fileID: 8236999128438180543}
   - component: {fileID: 8236999128438180542}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1438,7 +1438,7 @@ GameObject:
   - component: {fileID: 8236999128562714068}
   - component: {fileID: 8236999128562714070}
   - component: {fileID: 8236999128562714069}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MyData
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1513,7 +1513,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8831912455537640758}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ScrollView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1552,7 +1552,7 @@ GameObject:
   - component: {fileID: 8831912455959024966}
   - component: {fileID: 8831912455959025080}
   - component: {fileID: 8831912455959025081}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1636,7 +1636,7 @@ GameObject:
   - component: {fileID: 8831912456467812450}
   - component: {fileID: 8831912456467812451}
   - component: {fileID: 8831912456467812449}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Viewport
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -8,9 +8,6 @@ namespace Game
     public class MsgPageSubUI : BaseCustomSubUI
     {
         private MainPanel mMainPanel;
-        private float mTimer;
-        private float mTime = 1;
-        private byte[] mGetMsgBytes;
         private RectTransform mNofityBtnRect;
         private ILive mGetFriendListLive;
         private byte[] mSendGetFriendListBytes;
@@ -46,17 +43,6 @@ namespace Game
             }
         }
 
-        public override void Update()
-        {
-            base.Update();
-            mTimer += Time.deltaTime;
-            if (mTimer > mTime)
-            {
-                mTimer = 0;
-                mGetMsgBytes = ByteTools.Concat(AppVarData.Account.ToBytes(), ChatModule.GetLastChatID().ToBytes());
-                AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.GetNewChatMsg, mGetMsgBytes); ;
-            }
-        }
         public override void OnDestory()
         {
             base.OnDestory();

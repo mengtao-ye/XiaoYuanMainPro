@@ -85,6 +85,7 @@ namespace Game
             AddUI<NotifyTipUI>(UI_Main_TIPUI_DIR);
             AddUI<CommitTipUI>(UI_Main_TIPUI_DIR);
             AddUI<ApplicationPartTimeJobTipUI>(UI_Main_TIPUI_DIR);
+            AddUI<ChatListItemTipUI>(UI_Main_TIPUI_DIR);
         }
         /// <summary>
         /// 注册面板

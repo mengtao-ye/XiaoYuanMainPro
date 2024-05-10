@@ -20,7 +20,7 @@ namespace Game
             mScrollView.Init();
             mScrollView.SetSpace(10, 10, 10);
             mName = transform.FindObject<Text>("Name");
-            transform.FindObject<Button>("BackBtn").onClick.AddListener(() => { GameCenter.Instance.ShowPanel<MainPanel>(); });
+            transform.FindObject<Button>("BackBtn").onClick.AddListener(BackBtnListener);
             transform.FindObject<Button>("SetBtn").onClick.AddListener(() => { });
 
             mContentIF = transform.FindObject<InputField>("ContentIF");
@@ -28,9 +28,23 @@ namespace Game
             mScrollView.SetUpFrashCallBack(UpFrashCallBack);
         }
 
+        private void BackBtnListener()
+        {
+            GameCenter.Instance.ShowPanel<MainPanel>((ui)=> 
+            { 
+                ChatListScrollViewItem data =ui.msgSubUI.scrollView.Get(friendAccount) as ChatListScrollViewItem;
+                if (data != null)
+                {
+                    data.unreadCount = 0;
+                    ChatModule.UpdateChatListItem(data);
+                    data.UpdateData();
+                }
+            });
+        }
+
         private void UpFrashCallBack()
         {
-            LoadChatData(friendAccount,true);
+            LoadChatData(friendAccount, true);
         }
 
         public override void Show()
@@ -81,10 +95,10 @@ namespace Game
             friendAccount = account;
             UserDataModule.MapUserData(account, mName);
             mCurMsgIndex = 0;
-            LoadChatData(friendAccount,false);
+            LoadChatData(friendAccount, false);
         }
 
-        private void LoadChatData(long friendAccount,bool isLoadData)
+        private void LoadChatData(long friendAccount, bool isLoadData)
         {
             IListData<ChatData> listData = ChatModule.LoadChatMsg(friendAccount, mCurMsgIndex, mReadCount);
             if (listData.IsNullOrEmpty())
@@ -96,19 +110,19 @@ namespace Game
             mCurMsgIndex += listData.Count;
             if (isLoadData)
             {
-                for (int i =0; i < listData.Count; i++)
+                for (int i = 0; i < listData.Count; i++)
                 {
                     AddMsg(listData[i], false, isLoadData);
                 }
             }
-            else 
+            else
             {
                 for (int i = listData.Count - 1; i >= 0; i--)
                 {
                     AddMsg(listData[i], false, isLoadData);
                 }
             }
-            
+
             if (listData.Count != mReadCount)
             {
                 mScrollView.SetUpFrashState(false);

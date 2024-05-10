@@ -59,9 +59,8 @@
     <Compile Include="Assets\HybridCLRGenerate\AOTGenericReferences.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Res\Shaders\UI\RoundConor.shader" />
+    <None Include="Assets\Res\Shaders\UI\RoundConor_Shader.shader" />
     <None Include="Assets\StreamingAssets\Version.txt" />
-    <None Include="Assets\Plugin\Aliyun\Aliyun.OSS.dll" />
     <None Include="Assets\HybridCLRGenerate\link.xml" />
     <None Include="Assets\BuildABTempDir\XmlABConfig.xml" />
   </ItemGroup>
@@ -305,9 +304,6 @@
     </Reference>
     <Reference Include="UnityEditor.UnityConnectModule">
       <HintPath>C:\Unity\2021.3.21f1c1\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
-    </Reference>
-    <Reference Include="Aliyun.OSS">
-      <HintPath>Assets\Plugin\Aliyun\Aliyun.OSS.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Burst.Cecil.Mdb">
       <HintPath>Library\PackageCache\com.unity.burst@1.8.2\Unity.Burst.CodeGen\Unity.Burst.Cecil.Mdb.dll</HintPath>

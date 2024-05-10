@@ -76,8 +76,17 @@ namespace Game
         public void ShowFriendData(bool isFriend,long account)
         {
             mUserDataGo.SetAvtiveExtend(true);
-            mAddFriendBtn.gameObject.SetAvtiveExtend(!isFriend);
-            mViewBtn.gameObject.SetAvtiveExtend(isFriend);
+            if (account == AppVarData.Account)
+            {
+                //搜索的是自己的账号
+                mAddFriendBtn.gameObject.SetAvtiveExtend(false);
+                mViewBtn.gameObject.SetAvtiveExtend(false);
+            }
+            else 
+            {
+                mAddFriendBtn.gameObject.SetAvtiveExtend(!isFriend);
+                mViewBtn.gameObject.SetAvtiveExtend(isFriend);
+            }
             mNotFindTip.SetAvtiveExtend(false);
             mAccount = account;
             UserDataModule.MapUserData(account,mHead,mName);

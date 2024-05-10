@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2145076189173633688}
   - component: {fileID: 2145076189173633694}
   - component: {fileID: 2145076189173633695}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SearchSchoolItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 2145076189502271647}
   - component: {fileID: 2145076189502271645}
   - component: {fileID: 2145076189502271646}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -170,7 +170,7 @@ GameObject:
   - component: {fileID: 2145076189805604937}
   - component: {fileID: 2145076189805604938}
   - component: {fileID: 2145076189805604939}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: JoinBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -291,7 +291,7 @@ GameObject:
   - component: {fileID: 2145076189867682916}
   - component: {fileID: 2145076189867682906}
   - component: {fileID: 2145076189867682907}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -371,7 +371,7 @@ GameObject:
   - component: {fileID: 2145076189909018773}
   - component: {fileID: 2145076189909018763}
   - component: {fileID: 2145076189909018772}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}

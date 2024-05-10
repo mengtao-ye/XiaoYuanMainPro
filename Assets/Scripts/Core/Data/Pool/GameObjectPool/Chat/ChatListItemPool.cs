@@ -25,8 +25,19 @@ namespace Game
             mName =  target.transform.FindObject<Text>("Name");
             mTopMsg = target.transform.FindObject<Text>("TopMsg");
             mTime = target.transform.FindObject<Text>("Time");
-            target.GetComponent<Button>().onClick.AddListener(ClickBtnListener);
+            UIEvent uIEvent = target.AddComponent<UIEvent>();
+            uIEvent.SetClickAction(ClickBtnListener);
+            uIEvent.SetPressAction(PressCallBack);
         }
+
+        private void PressCallBack() 
+        {
+            GameCenter.Instance.ShowTipsUI<ChatListItemTipUI>((ui)=>
+            {
+                ui.SetID(mFriendAccount);
+            });
+        }
+
         private void ClickBtnListener()
         {
             ClearUnreadMsg();
@@ -47,7 +58,15 @@ namespace Game
         public void SetFriendAccount(long friendAccount ) 
         {
             mFriendAccount = friendAccount;
-            UserDataModule.MapUserData(friendAccount,mIcon, mName);
+            if (friendAccount == UserAccountConstData.NEW_FRIEND_ACCOUNT)
+            {
+                mName.text = "新好友";
+                DefaultSpriteValue.SetValue(DefaultSpriteValue .DEFAULT_NEWFRIEND_HEAD, mIcon);
+            }
+            else
+            {
+                UserDataModule.MapUserData(friendAccount, mIcon, mName);
+            }
         }
 
         public void SetTopTime(long time)
@@ -80,7 +99,7 @@ namespace Game
         /// <param name="count"></param>
         public void SetUnreadCount(int count)
         {
-            if (count != 0) 
+            if (count != 0)
             {
                 mUnreadBG.SetAvtiveExtend(true);
                 string countText = null;
@@ -93,6 +112,10 @@ namespace Game
                     countText = count.ToString();
                 }
                 mUnreadCountText.text = countText;
+            }
+            else
+            {
+                mUnreadBG.SetAvtiveExtend(false);
             }
         }
         /// <summary>

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 169262735619459445}
   - component: {fileID: 169262735619459447}
   - component: {fileID: 169262735619459444}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 169262736567352257}
   - component: {fileID: 169262736567352270}
   - component: {fileID: 169262736567352271}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ReleaseBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -214,7 +214,7 @@ GameObject:
   - component: {fileID: 4544266387788629414}
   - component: {fileID: 4544266387788629409}
   - component: {fileID: 4544266387788629408}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: RecruitBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -336,7 +336,7 @@ GameObject:
   - component: {fileID: 4544266387922411104}
   - component: {fileID: 4544266387922411107}
   - component: {fileID: 4544266387922411106}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Viewport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -424,7 +424,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4544266387992668276}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ScrollView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -464,7 +464,7 @@ GameObject:
   - component: {fileID: 4544266388279204482}
   - component: {fileID: 4544266388279204605}
   - component: {fileID: 4544266388279204604}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BackBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -583,7 +583,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4544266388291227419}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Type
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -622,7 +622,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4544266388506624704}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Recruit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -662,7 +662,7 @@ GameObject:
   - component: {fileID: 4544266388550356921}
   - component: {fileID: 4544266388550356920}
   - component: {fileID: 4544266388550356923}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MyBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -783,7 +783,7 @@ GameObject:
   - component: {fileID: 4544266388863195598}
   - component: {fileID: 4544266388863195596}
   - component: {fileID: 4544266388863195599}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -863,7 +863,7 @@ GameObject:
   - component: {fileID: 4544266388867877646}
   - component: {fileID: 4544266388867877644}
   - component: {fileID: 4544266388867877647}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -941,7 +941,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4544266388883377496}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: My
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -977,7 +977,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4544266388900553835}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TypeContent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1015,7 +1015,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4544266388949914511}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1053,7 +1053,7 @@ GameObject:
   - component: {fileID: 4544266389117059066}
   - component: {fileID: 4544266389117059064}
   - component: {fileID: 4544266389117059067}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1133,7 +1133,7 @@ GameObject:
   - component: {fileID: 4544266389420851096}
   - component: {fileID: 4544266389420851102}
   - component: {fileID: 4544266389420851097}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1211,7 +1211,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4544266389459627428}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TopArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1251,7 +1251,7 @@ GameObject:
   - component: {fileID: 4544266389821163367}
   - component: {fileID: 4544266389821163365}
   - component: {fileID: 4544266389821163364}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BusinessPartTimeJobPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}

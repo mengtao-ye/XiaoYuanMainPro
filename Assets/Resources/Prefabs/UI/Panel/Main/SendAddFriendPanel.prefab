@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4193572854849601708}
   - component: {fileID: 4193572854849601709}
   - component: {fileID: 4193572854849601706}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: AddContentIF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 4193572854933128727}
   - component: {fileID: 4193572854933128809}
   - component: {fileID: 4193572854933128726}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -239,7 +239,7 @@ GameObject:
   - component: {fileID: 4193572855033726698}
   - component: {fileID: 4193572855033726699}
   - component: {fileID: 4193572855033726696}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BackBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -358,7 +358,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4193572855349747529}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -399,7 +399,7 @@ GameObject:
   - component: {fileID: 4193572855635014840}
   - component: {fileID: 4193572855635014842}
   - component: {fileID: 4193572855635014843}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Placeholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -479,7 +479,7 @@ GameObject:
   - component: {fileID: 4193572855781835320}
   - component: {fileID: 4193572855781835322}
   - component: {fileID: 4193572855781835323}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -559,7 +559,7 @@ GameObject:
   - component: {fileID: 4193572855953145990}
   - component: {fileID: 4193572855953146008}
   - component: {fileID: 4193572855953146009}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: AddTip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -640,7 +640,7 @@ GameObject:
   - component: {fileID: 4193572856422349047}
   - component: {fileID: 4193572856422349044}
   - component: {fileID: 4193572856422349045}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SendBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -761,7 +761,7 @@ GameObject:
   - component: {fileID: 4193572856557832476}
   - component: {fileID: 4193572856557832478}
   - component: {fileID: 4193572856557832479}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SendAddFriendPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -837,7 +837,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4193572856640056870}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TopArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -876,7 +876,7 @@ GameObject:
   - component: {fileID: 4193572856965899680}
   - component: {fileID: 4193572856965899682}
   - component: {fileID: 4193572856965899683}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

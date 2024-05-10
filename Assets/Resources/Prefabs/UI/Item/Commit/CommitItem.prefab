@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8869354262560881568}
   - component: {fileID: 4102947976665232756}
   - component: {fileID: 63948757838155273}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ReplayName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 5279036400568360114}
   - component: {fileID: 5279036400568360112}
   - component: {fileID: 5279036400568360113}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 5279036400783758061}
   - component: {fileID: 5279036400783758067}
   - component: {fileID: 5279036400783758060}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -264,7 +264,7 @@ GameObject:
   - component: {fileID: 5279036401821546502}
   - component: {fileID: 5279036401821546503}
   - component: {fileID: 5279036401821546501}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -359,7 +359,7 @@ GameObject:
   - component: {fileID: 5279036401898074404}
   - component: {fileID: 5279036401898074410}
   - component: {fileID: 5279036401898074411}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CommitItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -438,7 +438,7 @@ GameObject:
   - component: {fileID: 8600248964113298707}
   - component: {fileID: 5379013200403918787}
   - component: {fileID: 760042121192408679}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ReplayTip
   m_TagString: Untagged
   m_Icon: {fileID: 0}

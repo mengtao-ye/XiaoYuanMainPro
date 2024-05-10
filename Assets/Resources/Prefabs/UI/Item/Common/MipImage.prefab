@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4181954117513994880}
   - component: {fileID: 4273891250716663176}
   - component: {fileID: 4588091385488157401}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 3067498553623778919}
   - component: {fileID: 2560685381670862757}
   - component: {fileID: 4392137053770918971}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MipImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}

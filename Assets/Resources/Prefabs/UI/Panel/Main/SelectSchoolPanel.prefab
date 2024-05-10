@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 340947199}
   - component: {fileID: 340947198}
   - component: {fileID: 340947197}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BackBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +130,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1183177820510634713}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TopArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,7 +171,7 @@ GameObject:
   - component: {fileID: 6564688414848247095}
   - component: {fileID: 6564688414848247049}
   - component: {fileID: 6564688414848247094}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SelectSchoolPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -249,7 +249,7 @@ GameObject:
   - component: {fileID: 6564688415344530389}
   - component: {fileID: 6564688415344530391}
   - component: {fileID: 6564688415344530388}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Placeholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -327,7 +327,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6564688415380924477}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -366,7 +366,7 @@ GameObject:
   - component: {fileID: 6564688415665678689}
   - component: {fileID: 6564688415665678702}
   - component: {fileID: 6564688415665678703}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SchoolNameIF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -510,7 +510,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6564688416156314806}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SchoolView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -549,7 +549,7 @@ GameObject:
   - component: {fileID: 6564688416339185579}
   - component: {fileID: 6564688416339185581}
   - component: {fileID: 6564688416339185578}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -630,7 +630,7 @@ GameObject:
   - component: {fileID: 6564688416518143430}
   - component: {fileID: 6564688416518143431}
   - component: {fileID: 6564688416518143428}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SearchSchoolBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -751,7 +751,7 @@ GameObject:
   - component: {fileID: 6564688416621692981}
   - component: {fileID: 6564688416621692978}
   - component: {fileID: 6564688416621692979}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Viewport
   m_TagString: Untagged
   m_Icon: {fileID: 0}

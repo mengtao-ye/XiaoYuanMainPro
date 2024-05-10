@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1093826619}
   - component: {fileID: 1093826618}
   - component: {fileID: 1093826617}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: RefuseBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 1270559314}
   - component: {fileID: 1270559316}
   - component: {fileID: 1270559315}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -214,7 +214,7 @@ GameObject:
   - component: {fileID: 1478043691858219330}
   - component: {fileID: 1478043691858219331}
   - component: {fileID: 1478043691858219452}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ConfineBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -335,7 +335,7 @@ GameObject:
   - component: {fileID: 1478043692212521630}
   - component: {fileID: 1478043692212521628}
   - component: {fileID: 1478043692212521629}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -413,7 +413,7 @@ GameObject:
   - component: {fileID: 1478043692297588040}
   - component: {fileID: 1478043692297588046}
   - component: {fileID: 1478043692297588047}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -493,7 +493,7 @@ GameObject:
   - component: {fileID: 1478043692914025658}
   - component: {fileID: 1478043692914025656}
   - component: {fileID: 1478043692914025657}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: NewFriendItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -572,7 +572,7 @@ GameObject:
   - component: {fileID: 1478043693171788868}
   - component: {fileID: 1478043693171788874}
   - component: {fileID: 1478043693171788875}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -652,7 +652,7 @@ GameObject:
   - component: {fileID: 1478043693277051073}
   - component: {fileID: 1478043693277051079}
   - component: {fileID: 1478043693277051072}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}

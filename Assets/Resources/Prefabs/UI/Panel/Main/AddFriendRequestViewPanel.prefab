@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1361042584718299953}
   - component: {fileID: 1361042584718299952}
   - component: {fileID: 1361042584718299955}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BackBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 1361042585400971589}
   - component: {fileID: 1361042585400972987}
   - component: {fileID: 1361042585400972986}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,7 +211,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1361042585417845970}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: NewFriendListArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -250,7 +250,7 @@ GameObject:
   - component: {fileID: 1361042585426332460}
   - component: {fileID: 1361042585426332450}
   - component: {fileID: 1361042585426332461}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: AddFriendRequestViewPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -326,7 +326,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1361042586518832562}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TopArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -363,7 +363,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7656604844324222171}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: NewFriendScrollView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -400,7 +400,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7385736296955137942}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -439,7 +439,7 @@ GameObject:
   - component: {fileID: 1435227301070532056}
   - component: {fileID: 7114443986198254980}
   - component: {fileID: 5724427721729165876}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Viewport
   m_TagString: Untagged
   m_Icon: {fileID: 0}

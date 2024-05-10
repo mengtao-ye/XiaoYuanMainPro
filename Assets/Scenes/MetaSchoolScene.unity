@@ -321,7 +321,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7627289872391247728, guid: 56624c0c4b410a742966a44db86e6f2c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7627289872391247729, guid: 56624c0c4b410a742966a44db86e6f2c, type: 3}
       propertyPath: m_RootOrder
@@ -470,7 +470,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8401129041439888819, guid: c389a8a236b08aa4096cc477589ec42d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c389a8a236b08aa4096cc477589ec42d, type: 3}
@@ -484,6 +484,10 @@ PrefabInstance:
     - target: {fileID: 1822252240614461314, guid: f2127781196142c40b67af6687949736, type: 3}
       propertyPath: m_Name
       value: LoadMetaSchoolSceneDataPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 1822252240614461314, guid: f2127781196142c40b67af6687949736, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1822252240614461317, guid: f2127781196142c40b67af6687949736, type: 3}
       propertyPath: m_Pivot.x
@@ -581,6 +585,10 @@ PrefabInstance:
     - target: {fileID: 2118226884531546427, guid: 7f85c38944687d94cb29f2cf1a83f539, type: 3}
       propertyPath: m_Name
       value: MetaSchoolMainPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 2118226884531546427, guid: 7f85c38944687d94cb29f2cf1a83f539, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2118226884531546428, guid: 7f85c38944687d94cb29f2cf1a83f539, type: 3}
       propertyPath: m_Pivot.x

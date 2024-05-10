@@ -69,8 +69,10 @@
     <Compile Include="Assets\Scripts\Core\Data\Enum\BoardCastID.cs" />
     <Compile Include="Assets\Scripts\Core\Module\ChatModule\Data\ChatMsgType.cs" />
     <Compile Include="Assets\Scripts\Core\Data\Data\UnuseData\UnuseScrollViewItemData.cs" />
+    <Compile Include="Assets\Scripts\Core\FSM\RoleFSM\State\RoleIdleState.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\ToTween\Entity\Position\ToLocalPositionTween.cs" />
     <Compile Include="Assets\Scripts\Core\Mono\UI\Image\SimpleRoundedImage.cs" />
+    <Compile Include="Assets\Scripts\Core\Scene\BaseThreeDScene.cs" />
     <Compile Include="Assets\Scripts\Core\Tools\BuildTools\BuildEditor\BuildEditor.cs" />
     <Compile Include="Assets\Scripts\Core\UI\SubUI\UnusePanelSubUI\UnuseListSubUI.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\ProcessModule\Process\IProcess.cs" />
@@ -124,6 +126,7 @@
     <Compile Include="Assets\Scripts\YFramework\Core\UI\Panel\IPanel.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Manager\SceneManager\ISceneManager.cs" />
     <Compile Include="Assets\Scripts\Core\Model\Custom\BaseCustomChildModel.cs" />
+    <Compile Include="Assets\Scripts\Core\Mono\UI\Event\UIEvent.cs" />
     <Compile Include="Assets\Scripts\Core\Scene\BaseCustomScene.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\ECSModule\System\BaseECSSystem.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Extend\GameObjectExtend.cs" />
@@ -201,12 +204,13 @@
     <Compile Include="Assets\Scripts\Core\Tools\BatTools\BatTools.cs" />
     <Compile Include="Assets\Scripts\Core\UI\Panel\Login\RegisterPanel.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Utility\Utility.EndPointTools.cs" />
-    <Compile Include="Assets\Scripts\Core\Data\Data\DefaultValue\DefaultValue.cs" />
+    <Compile Include="Assets\Scripts\Core\Data\Data\DefaultValue\DefaultSpriteValue.cs" />
     <Compile Include="Assets\Scripts\Core\Data\Data\UserData\UserData.cs" />
     <Compile Include="Assets\Scripts\Core\Module\HotFixModule\Windows\HotFixWindows.cs" />
     <Compile Include="Assets\Scripts\Core\UI\TipsUI\CommonTipsUI\CommonTwoTipsUI.cs" />
     <Compile Include="Assets\Scripts\Core\UI\Panel\Main\FindFriendPanel.cs" />
     <Compile Include="Assets\Scripts\Core\Model\LoginModel\LoginModel.cs" />
+    <Compile Include="Assets\Scripts\Core\Scene\BaseTwoDScene.cs" />
     <Compile Include="Assets\Scripts\Core\Tools\AppTools\Toast\AppTools.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\ToTween\Extend\Transform\LocalEuler\ToTweenExtend.cs" />
     <Compile Include="Assets\Scripts\Core\UI\Custom\BaseCustomPanel.cs" />
@@ -239,6 +243,7 @@
     <Compile Include="Assets\Scripts\YFramework\Core\Utility\Utlilty.Algorithm.cs" />
     <Compile Include="Assets\Scripts\Core\Data\Enum\SocketCode\MetaSchool\MetaSchoolUdpCode.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Common\Interface\Life\Core\ILaterUpdate.cs" />
+    <Compile Include="Assets\Scripts\Core\FSM\RoleFSM\Data\RoleFSMStateID.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Common\Abstractor\Map\Map.cs" />
     <Compile Include="Assets\Scripts\Core\Data\Data\SystemData\SystemData.cs" />
     <Compile Include="Assets\Scripts\Core\Data\Data\CommonData\CommonConstData.cs" />
@@ -336,9 +341,11 @@
     <Compile Include="Assets\Scripts\YFramework\Core\Utility\Utility.VersionTools.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\LockStepModule\Data\LockStepData.cs" />
     <Compile Include="Assets\Scripts\Core\UI\Canvas\Core\LoginCanvas.cs" />
+    <Compile Include="Assets\Scripts\Core\FSM\RoleFSM\State\RoleWalkState.cs" />
     <Compile Include="Assets\Scripts\Core\Module\ChatModule\ChatModule.cs" />
     <Compile Include="Assets\Scripts\Core\UI\Panel\Main\UnuseDetailPanel.cs" />
     <Compile Include="Assets\Scripts\Core\Model\Common\Child\TwoDCameraChildModel.cs" />
+    <Compile Include="Assets\Scripts\Core\MultiPlayer\ECS\Component\EntityAnimationComponent.cs" />
     <Compile Include="Assets\Scripts\Core\UI\Panel\Main\SelectRolePanel.cs" />
     <Compile Include="Assets\Scripts\Core\UI\Panel\Login\LoginPanel.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Common\Abstractor\Count\BaseCount.cs" />
@@ -356,10 +363,12 @@
     <Compile Include="Assets\Scripts\Core\Data\Mapper\SceneMapper.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\IEnumeratorModule\IEnumeratorMono.cs" />
     <Compile Include="Assets\Scripts\Core\Module\ChatModule\Data\ChatListScrollViewItem.cs" />
+    <Compile Include="Assets\Scripts\Core\UI\TipsUI\Main\ChatListItemTipUI.cs" />
     <Compile Include="Assets\Scripts\Core\UI\Custom\BaseCustomLogUI.cs" />
     <Compile Include="Assets\Scripts\Core\Socket\UdpModule\Handle\UdpCommonRequestHandle.cs" />
     <Compile Include="Assets\Scripts\Core\Process\GetSubServer\GetLoginServerPointProcess.cs" />
     <Compile Include="Assets\Scripts\Core\MultiPlayer\ECS\Data\ECSComponentID.cs" />
+    <Compile Include="Assets\Scripts\Core\FSM\RoleFSM\Data\RoleFSMData.cs" />
     <Compile Include="Assets\Scripts\Core\Data\Pool\GameObjectPool\Unuse\UnuseItemPool.cs" />
     <Compile Include="Assets\Scripts\Core\Data\Enum\SocketCode\Mian\UdpRequestCode.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\UI\Sub\ISubUI.cs" />
@@ -459,6 +468,7 @@
     <Compile Include="Assets\Scripts\YFramework\Core\Module\BoardCastModule\BoardCastDelegate.cs" />
     <Compile Include="Assets\Scripts\Core\Tools\AssetBundleTools\Data\AssetBundleSceneLoader.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\ProcessModule\ProcessManager\Base\IProcessManager.cs" />
+    <Compile Include="Assets\Scripts\Core\Tools\LoadABTools\LoadABRoleTools.cs" />
     <Compile Include="Assets\Scripts\Core\UI\Panel\Main\MainPanel.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Common\Interface\Life\Core\IOnDestory.cs" />
     <Compile Include="Assets\Scripts\Core\UI\Log\Core\MidLogUI.cs" />
@@ -470,6 +480,7 @@
     <Compile Include="Assets\Scripts\YFramework\Core\Module\LockStepModule\Data\LockStepUserData.cs" />
     <Compile Include="Assets\Scripts\Core\Tools\PermissionTools\PermissionTools.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Utility\Utility.ConvertDataTools.cs" />
+    <Compile Include="Assets\Scripts\Core\FSM\RoleFSM\RoleFSM.cs" />
     <Compile Include="Assets\Scripts\Core\Scene\XiaoYuanSceneManager.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Utility\Utility.MeshTools.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Module\ProcessModule\ProcessManager\Normal\ProcessManager.cs" />
@@ -506,8 +517,8 @@
     <Compile Include="Assets\Scripts\YFramework\Core\Common\Interface\Life\Core\IStart.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Common\Interface\Operator\IPool.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Utility\Utility.PointTools.cs" />
-    <Compile Include="Assets\Scripts\YFramework\Core\Module\PoolModule\ClassPoolModule\ClassPool.cs" />
     <Compile Include="Assets\Scripts\Core\Controller\MetaSchool\ChildController\MultiPlayerChildController.cs" />
+    <Compile Include="Assets\Scripts\YFramework\Core\Module\PoolModule\ClassPoolModule\ClassPool.cs" />
     <Compile Include="Assets\Scripts\Core\Data\Pool\GameObjectPool\School\SearchSchoolItemPool.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Mono\UI\Text\TextSpacing.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Manager\SocketManager\Udp\BigData\PlatformType.cs" />
@@ -535,13 +546,6 @@
     <Compile Include="Assets\Scripts\Core\Data\Data\SocketData\IPAddressConstData.cs" />
     <Compile Include="Assets\Scripts\YFramework\Core\Extend\ToggleGroupExtend.cs" />
     <Compile Include="Assets\Scripts\Core\UI\TipsUI\Main\ApplicationPartTimeJobTipUI.cs" />
-    <Compile Include="Assets\Scripts\Core\Tools\LoadABTools\LoadABRoleTools.cs" />
-    <Compile Include="Assets\Scripts\Core\FSM\RoleFSM\RoleFSM.cs" />
-    <Compile Include="Assets\Scripts\Core\FSM\RoleFSM\Data\RoleFSMData.cs" />
-    <Compile Include="Assets\Scripts\Core\FSM\RoleFSM\State\RoleIdleState.cs" />
-    <Compile Include="Assets\Scripts\Core\FSM\RoleFSM\State\RoleWalkState.cs" />
-    <Compile Include="Assets\Scripts\Core\FSM\RoleFSM\Data\RoleFSMStateID.cs" />
-    <Compile Include="Assets\Scripts\Core\MultiPlayer\ECS\Component\EntityAnimationComponent.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\HotBase.asmdef" />
@@ -807,9 +811,6 @@
     </Reference>
     <Reference Include="Unity.Plastic.Antlr3.Runtime">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@2.0.1\Lib\Editor\PlasticSCM\Unity.Plastic.Antlr3.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Aliyun.OSS">
-      <HintPath>Assets\Plugin\Aliyun\Aliyun.OSS.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Burst.Cecil.Mdb">
       <HintPath>Library\PackageCache\com.unity.burst@1.8.2\Unity.Burst.CodeGen\Unity.Burst.Cecil.Mdb.dll</HintPath>

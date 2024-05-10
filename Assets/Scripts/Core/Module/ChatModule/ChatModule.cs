@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using UnityEngine;
 using YFramework;
 using static YFramework.Utility;
 
@@ -6,7 +7,6 @@ namespace Game
 {
     public static class ChatModule
     {
-
         #region Chat
         /// <summary>
         /// 加载聊天数据
@@ -69,11 +69,9 @@ namespace Game
             string dir = ChatPathData.ChatMsgDetailDir(friendID);
             FileTools.Write(dir + "/" + chatData.id + ".txt", chatData.ToBytes());
             SaveChatMsgConfigToLocal(dir + "/Config.txt", chatData.id);
+
+
         }
-        #endregion
-        #region ChatList
-        private static long mLastMsgID = -1;
-        
         /// <summary>
         /// 保存聊天记录配置表到本地
         /// </summary>
@@ -85,6 +83,9 @@ namespace Game
             }
             FileTools.InsertToTailSubBytes(filePath, msgID.ToBytes());
         }
+        #endregion
+        #region ChatList
+        private static long mLastMsgID = -1;
         /// <summary>
         /// 获取聊天列表数据
         /// </summary>
@@ -131,31 +132,43 @@ namespace Game
         {
             if (chatDatas.IsNullOrEmpty()) return;
             SetLastMsgID(chatDatas[chatDatas.Count - 1].id);
+            long curChatPanelAccount = 0;
+            ChatPanel chatPanel = null;
+            if (GameCenter.Instance.curCanvas.curPanel != null && GameCenter.Instance.curCanvas.curPanel.uiName == "ChatPanel")
+            {
+                chatPanel = GameCenter.Instance.GetPanel<ChatPanel>();
+                curChatPanelAccount = chatPanel.friendAccount;
+            }
             for (int i = 0; i < chatDatas.list.Count; i++)
             {
-                long friendAccount = chatDatas.list[i].send_userid == AppVarData.Account ? chatDatas.list[i].receive_userid : chatDatas.list[i].send_userid;
-                SaveChatMsgToLocal(friendAccount, chatDatas.list[i]);
-                if (scrollView.Contains(chatDatas.list[i].send_userid))
+                long msgTargetAccount = chatDatas.list[i].send_userid == AppVarData.Account ? chatDatas.list[i].receive_userid : chatDatas.list[i].send_userid;
+                SaveChatMsgToLocal(msgTargetAccount, chatDatas.list[i]);
+                if (curChatPanelAccount != 0 && curChatPanelAccount == msgTargetAccount)
                 {
-                    ChatListScrollViewItem chatListItem = scrollView.Get(chatDatas.list[i].send_userid) as ChatListScrollViewItem;
+                    bool isMySendMsg = chatDatas.list[i].send_userid == AppVarData.Account;
+                    chatPanel.AddMsg(chatDatas.list[i], isMySendMsg, false);
+                }
+                if (scrollView.Contains(msgTargetAccount))
+                {
+                    ChatListScrollViewItem chatListItem = scrollView.Get(msgTargetAccount) as ChatListScrollViewItem;
                     ChatData chatData = chatDatas.list[i];
                     chatListItem.topMsg = chatData.chat_msg;
                     chatListItem.msgType = chatData.msg_type;
-                    chatListItem.time = chatData.msg_type;
+                    chatListItem.time = chatData.time;
                     chatListItem.unreadCount++;
                     SaveChatListToLocal(chatListItem);
-                    scrollView.Insert(chatListItem,0);
+                    chatListItem.UpdateData();
                 }
                 else
                 {
                     ChatListScrollViewItem chatListItemData = ClassPool<ChatListScrollViewItem>.Pop();
-                    ChatData chatData =  chatDatas.list[i];
+                    ChatData chatData = chatDatas.list[i];
                     chatListItemData.msgType = chatData.msg_type;
                     chatListItemData.topMsg = chatData.chat_msg;
-                    chatListItemData.account = chatData.send_userid;
+                    chatListItemData.account = msgTargetAccount;
                     chatListItemData.time = chatData.time;
                     chatListItemData.unreadCount++;
-                    chatListItemData.ViewItemID = chatData.send_userid;
+                    chatListItemData.ViewItemID = msgTargetAccount;
                     SaveChatListToLocal(chatListItemData);
                     scrollView.Insert(chatListItemData, 0);
                 }
@@ -329,7 +342,7 @@ namespace Game
                         scrollView.Insert(friendPairData, index);
                     });
                 }
-                else 
+                else
                 {
                     friendPairData.Recycle();
                 }
@@ -400,6 +413,5 @@ namespace Game
             FileTools.Write(path, friendPair.ToBytes());
         }
         #endregion
-
     }
 }

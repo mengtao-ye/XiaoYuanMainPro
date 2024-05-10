@@ -1,18 +1,31 @@
 ﻿using UnityEngine;
 using YFramework;
+using static YFramework.Utility;
 
 namespace Game
 {
-    public class MainScene : BaseCustomScene
+    public class MainScene : BaseTwoDScene
     {
+        private float mTimer;
+        private float mTime = 1;
+        private byte[] mGetMsgBytes;
         protected override string mSceneName =>SceneID.MainScene.ToString();
-        public override void Awake()
+        protected override void TwoDAwake()
         {
-            Application.targetFrameRate = 120;//设置刷新率
-            YFrameworkHelper.Instance.ScreenSize = new UnityEngine.Vector2(1080, 1920);
-            canvas = new MainCanvas(this,UIMapper.Instance);
+            base.TwoDAwake();
+            canvas = new MainCanvas(this, UIMapper.Instance);
             model = new MainModel(this, new GameObject("_Model"));
-            base.Awake();
+        }
+        public override void Update()
+        {
+            base.Update();
+            mTimer += Time.deltaTime;
+            if (mTimer > mTime)
+            {
+                mTimer = 0;
+                mGetMsgBytes = ByteTools.Concat(AppVarData.Account.ToBytes(), ChatModule.GetLastChatID().ToBytes());
+                AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.GetNewChatMsg, mGetMsgBytes); ;
+            }
         }
     }
 }

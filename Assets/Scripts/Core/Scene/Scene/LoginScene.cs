@@ -3,16 +3,14 @@ using YFramework;
 
 namespace Game
 {
-    public class LoginScene : BaseCustomScene
+    public class LoginScene : BaseTwoDScene
     {
         protected override string mSceneName => SceneID.LoginScene.ToString();
-        public override void Awake()
+        protected override void TwoDAwake()
         {
-            Application.targetFrameRate = 120;//…Ë÷√À¢–¬¬ 
-            YFrameworkHelper.Instance.ScreenSize = new UnityEngine.Vector2(1080, 1920);
-            canvas = new LoginCanvas(this,UIMapper.Instance);
+            base.TwoDAwake();
+            canvas = new LoginCanvas(this, UIMapper.Instance);
             model = new LoginModel(this, new GameObject("_Model"));
-            base.Awake();
         }
     }
 }

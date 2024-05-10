@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Game
 {
@@ -6,9 +7,7 @@ namespace Game
     {
         private void Awake()
         {
-            NormalVerticalScrollView normalScrollView = gameObject.AddComponent<NormalVerticalScrollView>();
-            normalScrollView.Init();
-            normalScrollView.SetSize(1498.456f);
+            
         }
     } 
 }

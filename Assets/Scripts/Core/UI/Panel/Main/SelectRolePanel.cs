@@ -20,8 +20,8 @@ namespace Game
             });
             transform.FindObject<Button>("EnterBtn").onClick.AddListener(() =>
             {
-                byte roleID = mTG.GetActiveToggle().name.ToByte();
-                AppTools.UdpSend( SubServerType.Login,(short)LoginUdpCode.SetMyMetaSchoolData,ByteTools.Concat(AppVarData.Account.ToBytes(), roleID));
+                int roleID = mTG.GetActiveToggle().name.ToInt();
+                AppTools.UdpSend( SubServerType.Login,(short)LoginUdpCode.SetMyMetaSchoolData,ByteTools.Concat(AppVarData.Account.ToBytes(), roleID.ToBytes()));
             });
             
         }
