@@ -114,6 +114,7 @@
     <type fullname="UnityEngine.EventSystems.IDragHandler" preserve="all" />
     <type fullname="UnityEngine.EventSystems.IEndDragHandler" preserve="all" />
     <type fullname="UnityEngine.EventSystems.IEventSystemHandler" preserve="all" />
+    <type fullname="UnityEngine.EventSystems.IPointerClickHandler" preserve="all" />
     <type fullname="UnityEngine.EventSystems.IPointerDownHandler" preserve="all" />
     <type fullname="UnityEngine.EventSystems.IPointerMoveHandler" preserve="all" />
     <type fullname="UnityEngine.EventSystems.IPointerUpHandler" preserve="all" />

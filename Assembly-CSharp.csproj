@@ -829,6 +829,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{EC0ACC91-AA52-5FCD-64A8-6C75D7EE00D3}</Project>
+      <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
+    <ProjectReference Include="Test.csproj">
+      <Project>{4ECAB1CD-451D-3819-1405-499A198ED802}</Project>
+      <Name>Test</Name>
+    </ProjectReference>
     <ProjectReference Include="HotBase.csproj">
       <Project>{DFC73F92-B46E-084A-01F0-A6459456A6FA}</Project>
       <Name>HotBase</Name>
