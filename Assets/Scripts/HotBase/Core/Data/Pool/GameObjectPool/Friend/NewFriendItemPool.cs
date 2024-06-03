@@ -32,7 +32,7 @@ namespace Game
                 return;
             }
             mSendBytes = ByteTools.Concat(AppVarData.Account.ToBytes(),mFriendAccount.ToBytes());
-            AppTools.UdpSend( SubServerType.Login,(short)LoginUdpCode.RefuseFriend, mSendBytes);
+            AppTools.TcpSend( TcpSubServerType.Login,(short)TcpLoginUdpCode.RefuseFriend, mSendBytes);
         }
 
         private void ClickListener()
@@ -43,7 +43,7 @@ namespace Game
                 return;
             }
             mSendBytes = ByteTools.Concat(AppVarData.Account.ToBytes(), mFriendAccount.ToBytes());
-            AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.ConfineFriend, mSendBytes);
+            AppTools.TcpSend(TcpSubServerType.Login, (short)TcpLoginUdpCode.ConfineFriend, mSendBytes);
         }
         public void SetNewFriendData(long account,string content)
         {

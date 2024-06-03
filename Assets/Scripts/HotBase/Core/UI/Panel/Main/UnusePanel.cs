@@ -19,8 +19,12 @@ namespace Game
         {
             base.Awake();
             Transform typeContent = transform.Find("TypeContent");
-            UnuseListSubUI = new UnuseListSubUI(typeContent.Find("UnuseList"));
-            UnuseMySubUI = new UnuseMySubUI(typeContent.Find("My"));
+            Image listIcon = transform.FindObject<Image>("ListIcon");
+            Text listText = transform.FindObject<Text>("ListText");
+            UnuseListSubUI = new UnuseListSubUI(typeContent.Find("UnuseList"), listIcon, listText);
+            Image myIcon = transform.FindObject<Image>("MyIcon");
+            Text myText = transform.FindObject<Text>("MyText");
+            UnuseMySubUI = new UnuseMySubUI(typeContent.Find("My"), myIcon, myText);
             AddSubUI(UnuseListSubUI);
             AddSubUI(UnuseMySubUI);
             mCur = UnuseListSubUI;
@@ -31,8 +35,14 @@ namespace Game
             type.FindObject<Button>("MyBtn").onClick.AddListener(MyBtnListener);
             type.FindObject<Button>("ReleaseBtn").onClick.AddListener(() => { GameCenter.Instance.ShowPanel<ReleaseUnusePanel>(); });
 
-            transform.FindObject<Button>("BackBtn").onClick.AddListener(() => { GameCenter.Instance.ShowPanel<MainPanel>(); });
+            transform.FindObject<Button>("BackBtn").onClick.AddListener(BackBtnListener);
         }
+
+        private void BackBtnListener() {
+            UnuseListSubUI.BackBtnCallback();
+            GameCenter.Instance.ShowPanel<MainPanel>();
+        }
+
         private void UnuseListBtnListener()
         {
             if (mCur.uiName == UnuseListSubUI.uiName) return;

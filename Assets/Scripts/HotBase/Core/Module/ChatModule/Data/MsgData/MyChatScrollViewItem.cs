@@ -5,6 +5,7 @@ namespace Game
 {
     public class MyChatScrollViewItem : MsgScrollViewItem, IPool
     {
+        public override float anchoredPositionX => -30;
         public override void ParentRecycle()
         {
             ClassPool<MyChatScrollViewItem>.Push(this);

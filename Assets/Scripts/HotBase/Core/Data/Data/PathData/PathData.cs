@@ -84,6 +84,6 @@ namespace Game
         /// <summary>
         ///  项目目录地址
         /// </summary>
-        public static string ProjectDir { get; private set; } = Application.dataPath.Replace("/Assets","");
+        public static string ProjectDir { get; private set; } = Application.dataPath.Replace("/Assets",string.Empty);
     }
 }

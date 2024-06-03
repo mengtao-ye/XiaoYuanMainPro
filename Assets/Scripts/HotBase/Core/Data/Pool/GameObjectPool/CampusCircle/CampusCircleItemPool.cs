@@ -17,30 +17,41 @@ namespace Game
         private Text mTime;
         private long mCampusCircleID;
         private long mAccount;
-        private GameObject mLoading;
         private GameObject mData;
         public RectTransform rectTransform;
         private List<IGameObjectPoolTarget> mPopTarget;
         private Vector2 mImageOriginalPos;
-        private Text mLikeCount;
-        private Text mCommitCount;
-        private GameObject mIsLikeGo;
-        public bool mIsLike;
+        private Text mLikeCountText;
+        private Text mCommitCountText;
+        private Button mLikeBtn;
+        public bool isLike
+        {
+            get
+            {
+                return mIsLike;
+            }
+            set
+            {
+                mIsLike = value;
+                mLikeBtn.targetGraphic.color = mIsLike ? Color.red : ColorConstData.BottomNormalColor;
+            }
+        }
+        private bool mIsLike;
         private IListData<SelectImageData> mSelectImageDatas;
+        private bool mIsFriendCampusCircle;//是否是好友朋友圈
+        private int mLikeCount;
+        private int mCommitCount;
         public override void Init(GameObject target)
         {
             base.Init(target);
             mPopTarget = new List<IGameObjectPoolTarget>();
             mCampusCircleID = 0;
             mAccount = 0;
-            mIsLikeGo = transform.FindObject("IsLike");
-            mIsLikeGo.SetActive(false);
-            mLikeCount = transform.FindObject<Text>("LikeCount");
-            mCommitCount = transform.FindObject<Text>("CommitCount");
+
+            mLikeCountText = transform.FindObject<Text>("LikeCount");
+            mCommitCountText = transform.FindObject<Text>("CommitCount");
             rectTransform = transform.GetComponent<RectTransform>();
             mData = transform.Find("Data").gameObject;
-            mLoading = transform.Find("Loading").gameObject;
-            mLoading.SetAvtiveExtend(true);
             mData.SetAvtiveExtend(false);
             mHead = transform.FindObject<Image>("Head");
             mName = transform.FindObject<Text>("Name");
@@ -49,18 +60,20 @@ namespace Game
             mImageOriginalPos = mImages.anchoredPosition;
             mTime = transform.FindObject<Text>("Time");
             transform.FindObject<Button>("MoreBtn").onClick.AddListener(MoreBtnListener);
-            transform.FindObject<Button>("LikeBtn").onClick.AddListener(LikeBtnListener);
+            mLikeBtn = transform.FindObject<Button>("LikeBtn");
+            mLikeBtn.onClick.AddListener(LikeBtnListener);
             transform.FindObject<Button>("CommitBtn").onClick.AddListener(CommitBtnListener);
         }
         private void CommitBtnListener()
         {
-            if (mCampusCircleID ==0 || mAccount ==0)
+            if (mCampusCircleID == 0 || mAccount == 0)
             {
                 AppTools.ToastError("校友圈对象异常");
                 return;
             }
-            GameCenter.Instance.ShowTipsUI<CommitTipUI>((ui)=> {
-                ui.SetCampusCircleID(mCampusCircleID);
+            GameCenter.Instance.ShowTipsUI<CommitTipUI>((ui) =>
+            {
+                ui.ShowContent(mCampusCircleID);
             });
         }
         private void LikeBtnListener()
@@ -70,7 +83,7 @@ namespace Game
                 AppTools.ToastError("校友圈对象异常");
                 return;
             }
-            AppTools.UdpSend( SubServerType.Login,(short)LoginUdpCode.LikeCampusCircleItem,ByteTools.ConcatParam(AppVarData.Account.ToBytes(), mCampusCircleID.ToBytes(),mIsLike.ToBytes()));
+            AppTools.TcpSend(TcpSubServerType.Login, (short)TcpLoginUdpCode.LikeCampusCircleItem, ByteTools.ConcatParam(AppVarData.Account.ToBytes(), mCampusCircleID.ToBytes(), mIsFriendCampusCircle.ToBytes()));
         }
 
         private void MoreBtnListener()
@@ -82,9 +95,10 @@ namespace Game
             }
         }
 
-        public float SetData(long id, long account, string content, IListData<SelectImageData> images, long time,bool isAnonymous,int likeCount,int commitCount,bool isLike)
+        public float SetData(long id, long account, string content, IListData<SelectImageData> images, long time, bool isAnonymous,bool isLike,bool isFriendCampusCircle)
         {
-            mLoading.SetAvtiveExtend(false);
+            transform.name =typeof(CampusCircleItemPool).Name +":"+id;
+            mIsFriendCampusCircle = isFriendCampusCircle;
             mData.SetAvtiveExtend(true);
             mCampusCircleID = id;
             mAccount = account;
@@ -93,12 +107,10 @@ namespace Game
                 DefaultSpriteValue.SetValue(DefaultSpriteValue.DEFAULT_ANONYMOUS_HEAD, mHead);
                 mName.text = "匿名用户";
             }
-            else 
+            else
             {
                 UserDataModule.MapUserData(account, mHead, mName);
             }
-            SetLikeCount(likeCount);
-            mCommitCount.text = StringTools.ConverterCount(commitCount);
             float len = 0;
             if (!content.IsNullOrEmpty())
             {
@@ -159,12 +171,13 @@ namespace Game
         {
             mPopTarget.Add(imagePool);
             float maxWidth = YFrameworkHelper.Instance.ScreenSize.x * 0.7f * 0.3f;
-            imagePool.SetData(OssPathData.GetCampusCircleImage(data.imagePath) + OssPathData.GetSize(data.size.x * 0.5f, data.size.y * 0.5f) , Vector2.one * maxWidth, data.size);
+            imagePool.SetData(OssPathData.GetCampusCircleImage(data.imagePath) + OssPathData.GetSize(data.size.x * 0.5f, data.size.y * 0.5f), Vector2.one * maxWidth, data.size);
             imagePool.rectTransform.anchoredPosition = data.pos;
             IListData<SelectImageData> listData = data.listData;
-            imagePool.SetClickCallBack(()=>
+            imagePool.SetClickCallBack(() =>
             {
-                GameCenter.Instance.ShowTipsUI<ShowMultiImageTipUI>((ui)=> {
+                GameCenter.Instance.ShowTipsUI<ShowMultiImageTipUI>((ui) =>
+                {
                     ui.SetData(listData);
                 });
             });
@@ -180,7 +193,8 @@ namespace Game
             IListData<SelectImageData> listData = data.listData;
             imagePool.SetClickCallBack(() =>
             {
-                GameCenter.Instance.ShowTipsUI<ShowMultiImageTipUI>((ui) => {
+                GameCenter.Instance.ShowTipsUI<ShowMultiImageTipUI>((ui) =>
+                {
                     ui.SetData(listData);
                 });
             });
@@ -188,7 +202,6 @@ namespace Game
         }
         public void SetLoading()
         {
-            mLoading.SetAvtiveExtend(true);
             mData.SetAvtiveExtend(false);
         }
         public override void Recycle()
@@ -202,12 +215,26 @@ namespace Game
         }
         public void SetIsLike(bool isLike)
         {
-            mIsLike = isLike;
-            mIsLikeGo.SetAvtiveExtend(isLike);
+            this.isLike = isLike;
+            if (isLike)
+            {
+                SetLikeCount(mLikeCount+1);
+            }
+            else 
+            { 
+                SetLikeCount(mLikeCount-1);
+            }
         }
+
         public void SetLikeCount(int likeCount)
         {
-            mLikeCount.text = StringTools.ConverterCount(likeCount);
+            mLikeCount = likeCount;
+            mLikeCountText.text = StringTools.ConverterCount(likeCount);
+        }
+        public void SetCommitCount(int count)
+        {
+            mCommitCount = count;
+            mCommitCountText.text = StringTools.ConverterCount(count);
         }
     }
 

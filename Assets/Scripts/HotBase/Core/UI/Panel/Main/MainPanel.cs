@@ -5,28 +5,34 @@ using static YFramework.Utility;
 
 namespace Game
 {
-    public enum PageType 
-    { 
+    public enum PageType
+    {
         Main,
         Msg,
         Menu,
         Mine
     }
-    public class MainPageData 
+    public class MainPageData
     {
         public ISubUI subUI;
         public MainPanel panel;
         public PageType pageType;
         private float mPreClickTime;
+        private Text mBtnText;
+        private Image mBtnImage;
         public MainPageData(MainPanel main, ISubUI subUI, Button button, PageType pageType)
         {
             this.pageType = pageType;
             this.subUI = subUI;
             panel = main;
             button.onClick.AddListener(ClickListener);
+            mBtnImage = button.transform.FindObject<Image>("Icon");
+            mBtnText = button.transform.FindObject<Text>("T");
             main.AddSubUI(subUI);
+            mBtnImage.color = ColorConstData.BottomNormalColor;
+            mBtnText.color = ColorConstData.BottomNormalColor;
         }
-        private void ClickListener() 
+        private void ClickListener()
         {
             panel.ShowPage(pageType);
             if (Time.time - mPreClickTime < 0.2f)
@@ -34,6 +40,19 @@ namespace Game
                 subUI.Refresh();
             }
             mPreClickTime = Time.time;
+        }
+
+        public void Hide()
+        {
+            mBtnImage.color = ColorConstData.BottomNormalColor;
+            mBtnText.color = ColorConstData.BottomNormalColor;
+            subUI.Hide();
+        }
+        public void Show()
+        {
+            mBtnImage.color = ColorConstData.BottomSelectColor;
+            mBtnText.color = ColorConstData.BottomSelectColor;
+            subUI.Show();
         }
     }
 
@@ -53,9 +72,12 @@ namespace Game
         public MinePageSubUI mineSubUI { get; private set; }
 
         private MainPageData mCurPage;
+
+
+
         public MainPanel()
         {
-            
+
         }
         public override void Awake()
         {
@@ -65,12 +87,12 @@ namespace Game
             msgSubUI = new MsgPageSubUI(transform.FindObject<Transform>("MsgArea"), this);
             menuSubUI = new MenuPageSubUI(transform.FindObject<Transform>("MenuArea"), this);
             mineSubUI = new MinePageSubUI(transform.FindObject<Transform>("MineArea"), this);
-           
+
             mMainPage = new MainPageData(this, mainSubUI, transform.FindObject<Button>("MainBtn"), PageType.Main);
             mMsgPage = new MainPageData(this, msgSubUI, transform.FindObject<Button>("MsgBtn"), PageType.Msg);
             mMenuPage = new MainPageData(this, menuSubUI, transform.FindObject<Button>("MenuBtn"), PageType.Menu);
             mMinePage = new MainPageData(this, mineSubUI, transform.FindObject<Button>("MineBtn"), PageType.Mine);
-            
+
             mCurPage = mMainPage;
             mGetAddFriendRequestUpdateLife = GameCenter.Instance.AddUpdate(1f, GetAddFriendRequestCallBack);
         }
@@ -79,19 +101,19 @@ namespace Game
         private void GetAddFriendRequestCallBack()
         {
             mSendBytes = ByteTools.Concat(AppVarData.Account.ToBytes(), ChatModule.GetLastAddFriendID().ToBytes());
-            AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.GetAddFriendRequest, mSendBytes);
+            AppTools.TcpSend(TcpSubServerType.Login, (short)TcpLoginUdpCode.GetAddFriendRequest, mSendBytes);
         }
         public override void FirstShow()
         {
             base.FirstShow();
-            mCurPage.subUI.Show();
+            mCurPage.Show();
         }
 
         public void ShowPage(PageType pageType)
         {
             if (pageType == mCurPage.pageType) return;
-            GetPageData(pageType).subUI.Show();
-            mCurPage.subUI.Hide();
+            GetPageData(pageType).Show();
+            mCurPage.Hide();
             mCurPage = GetPageData(pageType);
         }
         public MainPageData GetPageData(PageType pageType)
@@ -108,5 +130,5 @@ namespace Game
             base.OnDestory();
             GameCenter.Instance.RemoveLife(mGetAddFriendRequestUpdateLife);
         }
-    } 
+    }
 }

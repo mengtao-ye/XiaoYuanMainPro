@@ -15,14 +15,17 @@ namespace Game
         private int mCount;
         private ToggleGroup mTypeTG;
         private byte mCurType;
-        public UnuseListSubUI(Transform trans) : base(trans)
+        private Image mBottomImage;
+        private Text mBottomText;
+        public UnuseListSubUI(Transform trans, Image image, Text text) : base(trans)
         {
-
+            mBottomImage = image;
+            mBottomText = text;
         }
         public override void Awake()
         {
             base.Awake();
-            mScrollView = transform.Find("ScrollView").AddComponent<PoolScrollView>();
+            mScrollView = transform.Find("ScrollView").AddComponent<RecyclePoolScrollView>();
             mScrollView.Init();
             mScrollView.SetSpace(10, 10, 10);
             mScrollView.SetDownFrashState(true);
@@ -33,6 +36,11 @@ namespace Game
             InitType(normalHorizontalScrollView);
             mLastID = int.MaxValue;
             mCurType = 0;
+            transform.FindObject<Button>("SearchBtn").onClick.AddListener(SearchBtnListener);
+        }
+
+        private void SearchBtnListener() {
+            GameCenter.Instance.ShowPanel<SearchUnusePanel>();
         }
 
         private void InitType(NormalHorizontalScrollView normalHorizontalScrollView)
@@ -80,7 +88,17 @@ namespace Game
             base.Show();
             mCount = 5;
             mScrollView.SetDownFrashState(true);
+            mBottomImage.color = ColorConstData.BottomSelectColor;
+            mBottomText.color = ColorConstData.BottomSelectColor;
         }
+        public override void Hide()
+        {
+            base.Hide();
+            mBottomImage.color = ColorConstData.BottomNormalColor;
+            mBottomText.color = ColorConstData.BottomNormalColor;
+        }
+
+
         public override void FirstShow()
         {
             base.FirstShow();
@@ -89,19 +107,17 @@ namespace Game
 
         private void SendRequest()
         { 
-            AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.GetUnuseList, ByteTools.ConcatParam(AppVarData.Account.ToBytes(), mLastID.ToBytes(),mCurType.ToBytes()));
+            AppTools.TcpSend(TcpSubServerType.Login, (short)TcpLoginUdpCode.GetUnuseList, ByteTools.ConcatParam(AppVarData.Account.ToBytes(), mLastID.ToBytes(),mCurType.ToBytes()));
         }
-        public override void Hide()
+        public void BackBtnCallback()
         {
-            base.Hide();
-            mScrollView.ClearItems();
+
         }
         public void SetData(UnuseData data)
         {
             if (data == null)
             {
                 //到底了   
-                Debug.Log("到底了");
                 mScrollView.SetDownFrashState(false);
             }
             else

@@ -28,12 +28,16 @@ namespace Game
         private NormalVerticalScrollView mScrollView;
         private VerticalLayoutGroup mReleaseVerticalLayoutGroup;
         private ToggleGroup mTypeTG;
+        private InputField mContactIF;
+        private Dropdown mContactType;
         public ReleaseUnusePanel()
         {
         }
         public override void Awake()
         {
             base.Awake();
+            mContactIF = transform.FindObject<InputField>("ContactIF");
+            mContactType = transform.FindObject<Dropdown>("ContactType");
             mReleaseVerticalLayoutGroup = transform.FindObject<VerticalLayoutGroup>("ReleaseContent");
             mSelectImageList = new List<SelectImage>();
             transform.FindObject<Button>("BackBtn").onClick.AddListener(()=> 
@@ -124,6 +128,11 @@ namespace Game
                 AppTools.ToastNotify("请输入价格");
                 return;
             }
+            if (mContactIF.text.IsNullOrEmpty())
+            {
+                AppTools.ToastNotify("请输入联系方式");
+                return;
+            }
             IListData<byte[]> list = ClassPool<ListData<byte[]>>.Pop();
             list.Add(mContentIF.text.ToBytes());
             IList<SelectImageData> selectImageDatas = new List<SelectImageData>();
@@ -137,9 +146,13 @@ namespace Game
             list.Add(mPriceIF.text.ToInt().ToBytes());
             list.Add(DateTimeTools.GetCurUnixTime().ToBytes());
             list.Add(AppVarData.Account.ToBytes());
+            list.Add(((byte)mContactType.value).ToBytes());
+            list.Add(mContactIF.text.ToBytes());
+            list.Add(SchoolGlobalVarData.SchoolCode.ToBytes());
+
             byte[] sendBytes = list.list.ToBytes();
             list.Recycle();
-            AppTools.UdpSend( SubServerType.Login,(short)LoginUdpCode.ReleaseUnuse,sendBytes);
+            AppTools.TcpSend(TcpSubServerType.Login,(short)TcpLoginUdpCode.ReleaseUnuse,sendBytes);
         }
         private void InitType(NormalHorizontalScrollView normalHorizontalScrollView)
         {

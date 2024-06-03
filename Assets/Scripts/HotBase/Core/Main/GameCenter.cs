@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text;
 using UnityEngine;
 using YFramework;
@@ -18,10 +18,11 @@ namespace Game
 #endif
         #region Public 
         public PlatformType platformType;
+        public Center center { get; private set; } = null;
         #endregion
         #region Field
-        public Center center { get; private set; } = null;
         private UdpModule mUdpModule;
+        private TcpModule mTcpModule;
         private XiaoYuanSceneManager mSceneManager;
         public CommonManager commonManager { get; private set; }
         //private BridgeManager mBridgeManager;
@@ -71,16 +72,19 @@ namespace Game
             mProcessController = new ProcessController();
             center = new Center();
             mUdpModule = new UdpModule(center);
+            mTcpModule = new TcpModule(center);
             commonManager = new CommonManager(center);
             mLiveManager = new LiveManager(center);
             //mBridgeManager = new BridgeManager(center);
             mSceneManager = new XiaoYuanSceneManager(center, new SceneMapper());
             ConfigSceneManager();
             center.AddGame(mUdpModule);
+            center.AddGame(mTcpModule);
             center.AddGame(commonManager);
             center.AddGame(mLiveManager);
             //center.AddGame(mBridgeManager);
             center.AddGame(mSceneManager);
+
             center.Awake();
             center.Start();
         }
@@ -147,10 +151,20 @@ namespace Game
         /// 显示LogUI
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public void ShowLogUI<T>(Action<T> action) where T : BaseCustomLogUI, new()
+        public void ShowLogUI<T>(Action<T> action = null) where T : BaseCustomLogUI, new()
         {
             curCanvas.logUIManager.ShowLogUI<T>(action);
         }
+
+        /// <summary>
+        /// 显示LogUI
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        public void HideLogUI<T>() where T : BaseCustomLogUI, new()
+        {
+            curCanvas.logUIManager.HideLogUI<T>();
+        }
+
         /// <summary>
         /// 显示提示UI
         /// </summary>
@@ -179,10 +193,16 @@ namespace Game
         /// 获取提示UI
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public void GetTipsUI<T>(Action<T> action) where T : BaseCustomTipsUI, new()
+        public T GetTipsUI<T>() where T : BaseCustomTipsUI, new()
         {
-            curCanvas.showTipsPanel.GetTipsUI<T>(action);
+            return curCanvas.showTipsPanel.FindTipsPanel<T>();
         }
+
+        public void CloseTopPanel() 
+        {
+            curCanvas.CloseTopPanel();
+        }
+
         /// <summary>
         /// 显示提示Panel
         /// </summary>
@@ -270,7 +290,7 @@ namespace Game
         /// 接收到心跳包
         /// </summary>
         /// <param name="subServerType"></param>
-        public void UdpHeart(SubServerType subServerType)
+        public void UdpHeart(UdpSubServerType subServerType)
         {
             mUdpModule.Heart(subServerType);
         }
@@ -299,7 +319,7 @@ namespace Game
         /// </summary>
         /// <param name="ipAddress"></param>
         /// <param name="port"></param>
-        public void AddUdpServer(SubServerType subServerType, string ipAddress, int port, short heartBeatID, string name)
+        public void AddUdpServer(UdpSubServerType subServerType, string ipAddress, int port, short heartBeatID, string name)
         {
             mUdpModule.AddUdpServer(subServerType, ipAddress, port, heartBeatID, name);
         }
@@ -307,7 +327,7 @@ namespace Game
         /// 移除udpServer
         /// </summary>
         /// <param name="subServerType"></param>
-        public void RemoveUdpServer(SubServerType subServerType)
+        public void RemoveUdpServer(UdpSubServerType subServerType)
         {
             mUdpModule.RemoveUdpServer(subServerType);
         }
@@ -317,7 +337,7 @@ namespace Game
         /// <param name="type">服务器类型</param>
         /// <param name="udpCode"></param>
         /// <param name="data"></param>
-        public void UdpSend(SubServerType type, short udpCode, byte[] data)
+        public void UdpSend(UdpSubServerType type, short udpCode, byte[] data)
         {
             if (mUdpModule.udpDict.ContainsKey(type))
             {
@@ -348,6 +368,28 @@ namespace Game
             if (!mUdpModule.isRun) return;
 
             mUdpModule.centerUdpServer.ReceiveCallBack(udpCode, index, isReceive);
+        }
+        #endregion
+        #region TcpManager
+        public bool TcpSubServerIsContains(TcpSubServerType type) 
+        {
+            return mTcpModule.tcpDict.ContainsKey(type);
+        }
+        public void TcpSend(TcpSubServerType type, short udpCode, byte[] data)
+        {
+            if (mTcpModule.tcpDict.ContainsKey(type))
+            {
+                mTcpModule.tcpDict[type].TcpSend(udpCode, data);
+            }
+        }
+        /// <summary>
+        /// 添加Tcp服务器
+        /// </summary>
+        /// <param name="ipAddress"></param>
+        /// <param name="port"></param>
+        public void AddTcpServer(TcpSubServerType subServerType, string ipAddress, int port, string name)
+        {
+            mTcpModule.AddTcpServer(subServerType, ipAddress, port, name);
         }
         #endregion
         #region TcpMangaer

@@ -27,7 +27,7 @@ namespace Game
             base.Show();
             mProcessText.text = "0%";
             mProcessSlider.fillAmount = 0;
-            mLoadText.text = "";
+            mLoadText.text = string.Empty;
             LoadABSceneTools.LoadABScene(MetaSchoolGlobalVarData.schoolData.assetBundleName, SetLoadText, SetProcess, LoadError, LoadSceneSuccess);
         }
         private void LoadError(string error)

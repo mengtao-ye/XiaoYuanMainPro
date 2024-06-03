@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using YFramework;
 using static YFramework.Utility;
 
@@ -12,14 +13,17 @@ namespace Game
         private IScrollView mScrollView;
         private int mLastID;
         private int mCount;
-        public RecruitSubUI(Transform trans) : base(trans)
+        private Image mBottomImage;
+        private Text mBottomText;
+        public RecruitSubUI(Transform trans, Image image, Text text) : base(trans)
         {
-
+            mBottomImage = image;
+            mBottomText = text;
         }
         public override void Awake()
         {
             base.Awake();
-            mScrollView = transform.Find("ScrollView").AddComponent<PoolScrollView>();
+            mScrollView = transform.Find("ScrollView").AddComponent<RecyclePoolScrollView>();
             mScrollView.Init();
             mScrollView.SetSpace(10, 10, 10);
             mScrollView.SetDownFrashState(true);
@@ -29,7 +33,7 @@ namespace Game
         private void DownFrashCallback()
         {
             mCount = 5;
-            AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.GetMyReleasePartTimeJob, ByteTools.Concat(AppVarData.Account.ToBytes(), mLastID.ToBytes()));
+            AppTools.TcpSend(TcpSubServerType.Login, (short)TcpLoginUdpCode.GetMyReleasePartTimeJob, ByteTools.Concat(AppVarData.Account.ToBytes(), mLastID.ToBytes()));
         }
 
         public override void Show()
@@ -38,14 +42,19 @@ namespace Game
             mCount = 5;
             mLastID = int.MaxValue;
             mScrollView.SetDownFrashState(true);
-            AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.GetMyReleasePartTimeJob, ByteTools.Concat(AppVarData.Account.ToBytes(), mLastID.ToBytes()));
+            AppTools.TcpSend(TcpSubServerType.Login, (short)TcpLoginUdpCode.GetMyReleasePartTimeJob, ByteTools.Concat(AppVarData.Account.ToBytes(), mLastID.ToBytes()));
+            mBottomImage.color = ColorConstData.BottomSelectColor;
+            mBottomText.color = ColorConstData.BottomSelectColor;
         }
+
         public override void Hide()
         {
             base.Hide();
             mScrollView.ClearItems();
+            mBottomImage.color = ColorConstData.BottomNormalColor;
+            mBottomText.color = ColorConstData.BottomNormalColor;
         }
-        public void SetData(MyReleasePartTimeJobData data)
+        public void SetData(PartTimeJobData data)
         {
             if (data == null)
             {
@@ -67,7 +76,7 @@ namespace Game
                 mCount--;
                 if (mCount > 0)
                 {
-                    AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.GetMyReleasePartTimeJob, ByteTools.Concat(AppVarData.Account.ToBytes(), mLastID.ToBytes()));
+                    AppTools.TcpSend(TcpSubServerType.Login, (short)TcpLoginUdpCode.GetMyReleasePartTimeJob, ByteTools.Concat(AppVarData.Account.ToBytes(), mLastID.ToBytes()));
                 }
             }
         }

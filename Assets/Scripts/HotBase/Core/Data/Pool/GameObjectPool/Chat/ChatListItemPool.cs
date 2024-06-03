@@ -22,7 +22,7 @@ namespace Game
             mUnreadBG.SetAvtiveExtend(false);
             mUnreadCountText = transform.FindObject<Text>("UnreadCountText");
             mIcon = target.transform.FindObject<Image>("Head");
-            mName =  target.transform.FindObject<Text>("Name");
+            mName = target.transform.FindObject<Text>("Name");
             mTopMsg = target.transform.FindObject<Text>("TopMsg");
             mTime = target.transform.FindObject<Text>("Time");
             UIPressEvent uIEvent = target.AddComponent<UIPressEvent>();
@@ -30,9 +30,9 @@ namespace Game
             uIEvent.SetPressAction(PressCallBack);
         }
 
-        private void PressCallBack() 
+        private void PressCallBack()
         {
-            GameCenter.Instance.ShowTipsUI<ChatListItemTipUI>((ui)=>
+            GameCenter.Instance.ShowTipsUI<ChatListItemTipUI>((ui) =>
             {
                 ui.SetID(mFriendAccount);
             });
@@ -42,7 +42,7 @@ namespace Game
         {
             ClearUnreadMsg();
             ChatListScrollViewItem data = GameCenter.Instance.GetPanel<MainPanel>().msgSubUI.scrollView.Get(ID) as ChatListScrollViewItem;
-            if (data != null) 
+            if (data != null)
             {
                 data.unreadCount = 0;
                 ChatModule.UpdateChatListItem(data);
@@ -50,22 +50,37 @@ namespace Game
             if (mFriendAccount == UserAccountConstData.NEW_FRIEND_ACCOUNT)
             {
                 GameCenter.Instance.ShowPanel<AddFriendRequestViewPanel>();
-                return;    
+                return;
             }
-            GameCenter.Instance.ShowPanel<ChatPanel>((item)=> { item.SetChatData(mFriendAccount); });
+            GameCenter.Instance.ShowPanel<ChatPanel>((item) => { item.SetChatData(mFriendAccount); });
         }
 
-        public void SetFriendAccount(long friendAccount ) 
+        public void SetFriendAccount(long friendAccount)
         {
             mFriendAccount = friendAccount;
             if (friendAccount == UserAccountConstData.NEW_FRIEND_ACCOUNT)
             {
                 mName.text = "新好友";
-                DefaultSpriteValue.SetValue(DefaultSpriteValue .DEFAULT_NEWFRIEND_HEAD, mIcon);
+                DefaultSpriteValue.SetValue(DefaultSpriteValue.DEFAULT_NEWFRIEND_HEAD, mIcon);
             }
             else
             {
-                UserDataModule.MapUserData(friendAccount, mIcon, mName);
+                UserDataModule.MapUserData(friendAccount, UserDataCallback);
+            }
+        }
+
+        private void UserDataCallback(UnityUserData unityUserData)
+        {
+            mIcon.sprite = unityUserData.headSprite;
+            FriendScrollViewItem friendScrollViewItem = ChatModule.GetFriendData(mFriendAccount);
+            if (friendScrollViewItem == null)
+            {
+                mName.text = unityUserData.userName;
+            }
+            else
+            {
+                mName.text = friendScrollViewItem.notes;
+                friendScrollViewItem.Recycle();
             }
         }
 
@@ -74,7 +89,7 @@ namespace Game
             mTime.text = DateTimeTools.UnixTimeToShowTimeStr(time);
         }
 
-        public void SetTopMsg(byte msgType,string topMsg)
+        public void SetTopMsg(byte msgType, string topMsg)
         {
             ChatMsgType chatMsgType = (ChatMsgType)msgType;
             switch (chatMsgType)
@@ -121,7 +136,7 @@ namespace Game
         /// <summary>
         /// 清除未读消息
         /// </summary>
-        public void ClearUnreadMsg() 
+        public void ClearUnreadMsg()
         {
             mUnreadBG.SetAvtiveExtend(false);
         }

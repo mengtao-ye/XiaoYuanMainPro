@@ -15,7 +15,7 @@ namespace Game
         public override void Awake()
         {
             base.Awake();
-            mScrollView = transform.FindObject("SchoolView").AddComponent<PoolScrollView>();
+            mScrollView = transform.FindObject("SchoolView").AddComponent<RecyclePoolScrollView>();
             mScrollView.Init();
             mScrollView.SetSpace(10,10,10);
 
@@ -27,7 +27,7 @@ namespace Game
         {
             base.Hide();
             mScrollView.ClearItems();
-            mSchoolNameIF.text = "";
+            mSchoolNameIF.text = string.Empty;
         }
 
         private void SearchBtnListener()
@@ -38,7 +38,7 @@ namespace Game
                 return;
             }
             mScrollView.ClearItems();
-            AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.SearchSchool, mSchoolNameIF.text.ToBytes());
+            AppTools.TcpSend(TcpSubServerType.Login, (short)TcpLoginUdpCode.SearchSchool, mSchoolNameIF.text.ToBytes());
         }
         public void ShowSchoolItem(IListData<SchoolData> datas)
         {

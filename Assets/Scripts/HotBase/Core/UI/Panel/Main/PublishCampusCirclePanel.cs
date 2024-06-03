@@ -116,7 +116,7 @@ namespace Game
             list.Add(mIsAnonymous.isOn.ToBytes());
             byte[] sendBytes = list.list.ToBytes();
             list.Recycle();
-            AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.PublishCampusCircle, sendBytes);
+            AppTools.TcpSend(TcpSubServerType.Login, (short)TcpLoginUdpCode.PublishCampusCircle, sendBytes);
         }
     }
 }

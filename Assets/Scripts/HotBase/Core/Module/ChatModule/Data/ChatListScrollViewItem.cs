@@ -6,7 +6,7 @@ namespace Game
     public class ChatListScrollViewItem : BaseScrollViewItem,IDataConverter
     {
         public long account;
-        public string topMsg = "";
+        public string topMsg = string.Empty;
         public byte msgType;
         public long time;//时间戳
         public int unreadCount = 0;//未读的信息数量

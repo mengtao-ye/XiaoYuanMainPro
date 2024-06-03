@@ -24,7 +24,7 @@ namespace Game
         {
             while (!IsGetRoleID)
             {
-                AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.GetMyMetaSchoolData, ByteTools.Concat(mGetMetaSchoolBoardCastID.ToBytes(), AppVarData.Account.ToBytes()));
+                AppTools.TcpSend(TcpSubServerType.Login, (short)TcpLoginUdpCode.GetMyMetaSchoolData, ByteTools.Concat(mGetMetaSchoolBoardCastID.ToBytes(), AppVarData.Account.ToBytes()));
                 yield return Yielders.GetSeconds(0.2f);
             }
         }

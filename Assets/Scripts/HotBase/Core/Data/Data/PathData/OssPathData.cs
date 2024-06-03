@@ -69,6 +69,10 @@
         {
             return GetOssBucketDir() + "/Images/SchoolDataImages/" + schoolCode + "/BG.jpg" ;
         }
+        public static string GetFoundImage(string imageCode)
+        {
+            return GetOssBucketDir() + "/Images/FoundImages/" + imageCode + ".jpg";
+        }
         public static string GetLostImage(string imageCode)
         {
             return GetOssBucketDir() + "/Images/LostImages/" + imageCode + ".jpg";

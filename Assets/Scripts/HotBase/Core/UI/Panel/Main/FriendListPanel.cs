@@ -8,16 +8,17 @@ namespace Game
 {
     public class FriendListPanel : BaseCustomPanel
     {
-        private IScrollView mScrollView;
+        private IRecycleScrollView mScrollView;
         private Dictionary<char, Text> mCharDict;
         private char mCurPinYin;
         public FriendListPanel()
         {
+
         }
         public override void Awake()
         {
             base.Awake();
-            mCurPinYin =PinYinConstData.PinYinArray[PinYinConstData.LEN-1];
+            mCurPinYin = PinYinConstData.PinYinArray[PinYinConstData.LEN - 1];
             mCharDict = new Dictionary<char, Text>();
             Transform pinYinArea = transform.Find("PinYinSortArea");
             for (int i = 0; i < pinYinArea.childCount; i++)
@@ -31,11 +32,10 @@ namespace Game
                 mCharDict.Add(ch, pinYin.Find("T").GetComponent<Text>());
             }
 
-            mScrollView = transform.FindObject("FriendScrollView").AddComponent<PoolScrollView>() ;
+            mScrollView = transform.FindObject("FriendScrollView").AddComponent<RecyclePoolScrollView>();
             mScrollView.Init();
-            mScrollView.SetSpace(10,10,10);
+            mScrollView.SetSpace(10, 10, 10);
             transform.FindObject<Button>("BackBtn").onClick.AddListener(() => { GameCenter.Instance.ShowPanel<MainPanel>(); });
-            transform.FindObject<Button>("SetBtn").onClick.AddListener(() => { });
             mScrollView.SetDragCallBack(DragScrollViewCallBack);
         }
 
@@ -56,18 +56,25 @@ namespace Game
             base.Hide();
             mScrollView.ClearItems();
         }
-        private void SetCurPinYin() 
+        private void SetCurPinYin()
         {
-            if (mScrollView.listData.IsNullOrEmpty()) return; 
+            if (mScrollView.listData.IsNullOrEmpty()) return;
             IScrollViewItem scrollViewItem = mScrollView.topScrollViewItem;
             if (scrollViewItem == null) return;
             FriendScrollViewItem friendScrollViewItem = scrollViewItem as FriendScrollViewItem;
-            if (mCurPinYin != friendScrollViewItem.pinYinChar) 
+            if (mCurPinYin != friendScrollViewItem.pinYinChar)
             {
                 mCharDict[mCurPinYin].fontStyle = FontStyle.Normal;
                 mCharDict[friendScrollViewItem.pinYinChar].fontStyle = FontStyle.Bold;
                 mCurPinYin = friendScrollViewItem.pinYinChar;
-            }  
+            }
+        }
+        public void DeleteFriend(long friendAccount)
+        {
+            if (mScrollView.Contains(friendAccount))
+            {
+                mScrollView.Delete(friendAccount);
+            }
         }
     }
 }

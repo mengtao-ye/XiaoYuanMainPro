@@ -20,8 +20,6 @@ namespace Game
             mNotifyArea = transform.FindObject<RectTransform>("NotifyArea");
             transform.FindObject<Button>("AddFriend").onClick.AddListener(() => { GameCenter.Instance.ShowPanel<FindFriendPanel>();Hide(); });
             transform.FindObject<Button>("NewFriend").onClick.AddListener(() => { GameCenter.Instance.ShowPanel<AddFriendRequestViewPanel>(); Hide(); });
-            transform.FindObject<Button>("News").onClick.AddListener(() => { Hide(); });
-            transform.FindObject<Button>("System").onClick.AddListener(() => { Hide(); });
             GetComponent<Button>().onClick.AddListener(Hide);
         }
         /// <summary>

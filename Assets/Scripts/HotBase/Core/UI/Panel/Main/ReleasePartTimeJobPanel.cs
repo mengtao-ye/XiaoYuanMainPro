@@ -64,7 +64,7 @@ namespace Game
             listData.Add(AppVarData.Account.ToBytes());
             byte[] bytes = listData.list.ToBytes();
             listData.Recycle();
-            AppTools.UdpSend( SubServerType.Login,(short)LoginUdpCode.ReleasePartTimeJob,bytes);
+            AppTools.TcpSend(TcpSubServerType.Login,(short)TcpLoginUdpCode.ReleasePartTimeJob,bytes);
         }
     }
 }

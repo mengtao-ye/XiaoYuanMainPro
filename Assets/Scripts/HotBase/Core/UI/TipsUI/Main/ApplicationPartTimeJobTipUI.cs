@@ -51,7 +51,7 @@ namespace Game
             listData.Add(mCallIF.text.ToBytes());
             byte[] sendBytes = listData.list.ToBytes();
             listData.Recycle();
-            AppTools.UdpSend( SubServerType.Login,(short) LoginUdpCode.ApplicationPartTimeJob, sendBytes);
+            AppTools.TcpSend(TcpSubServerType.Login,(short)TcpLoginUdpCode.ApplicationPartTimeJob, sendBytes);
         }
         public void SetPartTimeJobID(int id) 
         {

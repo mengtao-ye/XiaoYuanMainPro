@@ -288,6 +288,7 @@
     <type fullname="System.StringSplitOptions" preserve="all" />
     <type fullname="System.Text.Encoding" preserve="all" />
     <type fullname="System.Text.StringBuilder" preserve="all" />
+    <type fullname="System.Threading.Interlocked" preserve="all" />
     <type fullname="System.Threading.Thread" preserve="all" />
     <type fullname="System.Threading.ThreadStart" preserve="all" />
     <type fullname="System.TimeSpan" preserve="all" />

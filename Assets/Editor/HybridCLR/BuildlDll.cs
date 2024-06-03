@@ -91,22 +91,22 @@ namespace ABFW
             string filePath = BuildAssetBundle.CurrentPath + "/" + BuildAssetBundle.NameSpace + ".asmdef";
 
             //    // 定义文件内容
-            // string fileContent = @""
+            // string fileContent = @string.Empty
             string fileContent = @"{
-""name"": ""Assembly_Name"",
-""rootNamespace"": """",
-""references"": [
-""YooAsset""
+string.Emptynamestring.Empty: string.EmptyAssembly_Namestring.Empty,
+string.EmptyrootNamespacestring.Empty: string.Emptystring.Empty,
+string.Emptyreferencesstring.Empty: [
+string.EmptyYooAssetstring.Empty
 ],
-""includePlatforms"": [],
-""excludePlatforms"": [],
-""allowUnsafeCode"": false,
-""overrideReferences"": false,
-""precompiledReferences"": [],
-""autoReferenced"": true,
-""defineConstraints"": [],
-""versionDefines"": [],
-""noEngineReferences"": false
+string.EmptyincludePlatformsstring.Empty: [],
+string.EmptyexcludePlatformsstring.Empty: [],
+string.EmptyallowUnsafeCodestring.Empty: false,
+string.EmptyoverrideReferencesstring.Empty: false,
+string.EmptyprecompiledReferencesstring.Empty: [],
+string.EmptyautoReferencedstring.Empty: true,
+string.EmptydefineConstraintsstring.Empty: [],
+string.EmptyversionDefinesstring.Empty: [],
+string.EmptynoEngineReferencesstring.Empty: false
             }";
 
             fileContent = fileContent.Replace("Assembly_Name", BuildAssetBundle.NameSpace);
@@ -305,12 +305,12 @@ namespace ABFW
             List<string> HotUpdateSettingsNameList= HybridCLRSettings.Instance.hotUpdateAssemblies.ToList();
             for (int i = 0; i < files.Length; i++)
             {
-                if (files[i].Name.EndsWith(".bytes")&& !AOTMetaAssemblyNames.Contains(files[i].Name.Replace(".dll.bytes","")) && !HybridCLRSettings.Instance.patchAOTAssemblies.Contains(files[i].Name.Replace(".dll.bytes", "")))  //dll统计文件
+                if (files[i].Name.EndsWith(".bytes")&& !AOTMetaAssemblyNames.Contains(files[i].Name.Replace(".dll.bytes",string.Empty)) && !HybridCLRSettings.Instance.patchAOTAssemblies.Contains(files[i].Name.Replace(".dll.bytes", string.Empty)))  //dll统计文件
                 {
                    
-                    tempHotRenewalAssemblyMap.Add(HotUpdateSettingsNameList.FindIndex(x=> x .Equals(files[i].Name.Replace(".dll.bytes", "")) ), files[i].Name);
+                    tempHotRenewalAssemblyMap.Add(HotUpdateSettingsNameList.FindIndex(x=> x .Equals(files[i].Name.Replace(".dll.bytes", string.Empty)) ), files[i].Name);
                 }
-                if (AOTMetaAssemblyNames.Contains(files[i].Name.Replace(".dll.bytes", "")) || HybridCLRSettings.Instance.patchAOTAssemblies.Contains(files[i].Name.Replace(".dll.bytes", ""))) //AOTl统计文件
+                if (AOTMetaAssemblyNames.Contains(files[i].Name.Replace(".dll.bytes", string.Empty)) || HybridCLRSettings.Instance.patchAOTAssemblies.Contains(files[i].Name.Replace(".dll.bytes", string.Empty))) //AOTl统计文件
                 {
                     
                     mainfests.AotAssembly.Add(files[i].Name);
@@ -398,8 +398,8 @@ namespace ABFW
     {
        string name;
        public TextAsset text;
-        private string filePath = "";
-        private string fileContent = "";
+        private string filePath = string.Empty;
+        private string fileContent = string.Empty;
         private void Awake()
         {
             //窗口弹出时候调用
@@ -479,7 +479,7 @@ namespace ABFW
 
                 string[] parhs=  filePath.Split("/");
                 string classname = parhs[parhs.Length - 1];
-                classname = classname.Replace(".cs","");
+                classname = classname.Replace(".cs",string.Empty);
                 if (!str.Contains("namespace"))
                 {              
                     if (str.Contains(classname+ ":"))
@@ -590,22 +590,22 @@ namespace ABFW
                string filePath = BuildAssetBundle.CurrentPath +"/"+ BuildAssetBundle.NameSpace+ ".asmdef";
 
             //    // 定义文件内容
-            // string fileContent = @""
+            // string fileContent = @string.Empty
             string fileContent = @"{
-""name"": ""Assembly_Name"",
-""rootNamespace"": """",
-""references"": [
-""YooAsset""
+string.Emptynamestring.Empty: string.EmptyAssembly_Namestring.Empty,
+string.EmptyrootNamespacestring.Empty: string.Emptystring.Empty,
+string.Emptyreferencesstring.Empty: [
+string.EmptyYooAssetstring.Empty
 ],
-""includePlatforms"": [],
-""excludePlatforms"": [],
-""allowUnsafeCode"": false,
-""overrideReferences"": false,
-""precompiledReferences"": [],
-""autoReferenced"": true,
-""defineConstraints"": [],
-""versionDefines"": [],
-""noEngineReferences"": false
+string.EmptyincludePlatformsstring.Empty: [],
+string.EmptyexcludePlatformsstring.Empty: [],
+string.EmptyallowUnsafeCodestring.Empty: false,
+string.EmptyoverrideReferencesstring.Empty: false,
+string.EmptyprecompiledReferencesstring.Empty: [],
+string.EmptyautoReferencedstring.Empty: true,
+string.EmptydefineConstraintsstring.Empty: [],
+string.EmptyversionDefinesstring.Empty: [],
+string.EmptynoEngineReferencesstring.Empty: false
             }";
 
             fileContent= fileContent.Replace("Assembly_Name", BuildAssetBundle.NameSpace);
@@ -655,7 +655,7 @@ namespace ABFW
                 originalString = oldstr.Insert(startIndex + 1, replacement);
                 return originalString;
             }
-            return "";
+            return string.Empty;
         }     
     }
 }

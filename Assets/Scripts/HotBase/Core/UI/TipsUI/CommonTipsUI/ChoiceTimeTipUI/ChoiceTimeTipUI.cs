@@ -32,8 +32,6 @@ namespace Game
         public ChoiceTimeTipUI()
         {
         }
-
-
         public override void Awake()
         {
             base.Awake();

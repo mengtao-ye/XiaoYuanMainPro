@@ -19,7 +19,7 @@ namespace Game
             hotFixEditor.Show();
         }
         OpenFileName ofn = null;
-        string md5Path = "";
+        string md5Path = string.Empty;
         string version = "1";
         string introduce = "新资源";
         private void OnGUI()

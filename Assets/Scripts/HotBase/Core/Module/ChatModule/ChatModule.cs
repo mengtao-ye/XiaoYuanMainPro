@@ -93,6 +93,8 @@ namespace Game
         #endregion
         #region ChatList
         private static long mLastMsgID = -1;
+
+
         /// <summary>
         /// 获取聊天列表数据
         /// </summary>
@@ -326,6 +328,21 @@ namespace Game
         private static int mLastFriendID = -1;
         private static FriendGroupData[] mFriendListGroupList = new FriendGroupData[PinYinConstData.LEN];
         /// <summary>
+        /// 删除好友
+        /// </summary>
+        /// <param name="account"></param>
+        public static void DeleteFriend(long account)
+        {
+            if (Directory.Exists(ChatPathData.FriendListDir()))
+            {
+                string path = ChatPathData.FriendListDir() + "/" + account + ".txt";
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
+            }
+        }
+        /// <summary>
         /// 加载好友数据
         /// </summary>
         /// <returns></returns>
@@ -338,6 +355,7 @@ namespace Game
             {
                 byte[] chatBytes = File.ReadAllBytes(files[i]);
                 FriendScrollViewItem friendPairData = ConverterDataTools.ToPoolObject<FriendScrollViewItem>(chatBytes);
+                friendPairData.ViewItemID = friendPairData.friendAccount;
                 if (!scrollView.Contains(friendPairData.friendAccount))
                 {
                         char showName = default(char);
@@ -370,6 +388,25 @@ namespace Game
                 }
             }
         }
+        /// <summary>
+        /// 获取好友数据
+        /// </summary>
+        /// <param name="account"></param>
+        /// <returns></returns>
+        public static FriendScrollViewItem GetFriendData(long account)
+        {
+            if (Directory.Exists(ChatPathData.FriendListDir())) {
+                string path = ChatPathData.FriendListDir() + "/" + account+".txt";
+                if (File.Exists(path))
+                {
+                    byte[] data = File.ReadAllBytes(path);
+                    FriendScrollViewItem friendPairData = ConverterDataTools.ToPoolObject<FriendScrollViewItem>(data);
+                    return friendPairData;
+                }
+            }
+            return null;
+        }
+
         private static int GetIndex(int codeIndex)
         {
             int index = 0;
@@ -434,6 +471,21 @@ namespace Game
             string path = ChatPathData.FriendListDir() + "/" + friendPair.friendAccount + ".txt";
             FileTools.Write(path, friendPair.ToBytes());
         }
+
+        /// <summary>
+        /// 修改好友备注倒本地
+        /// </summary>
+        /// <param name="chatListItemData"></param>
+        public static bool ChangeFriendNotesToLocal(long friendAccount,string notes)
+        {
+            FriendScrollViewItem friendScrollViewItem = GetFriendData(friendAccount);
+            if (friendScrollViewItem == null) return false;
+            friendScrollViewItem.notes = notes;
+            SaveFriendListToLocal(friendScrollViewItem);
+            friendScrollViewItem.Recycle();
+            return true;
+        }
+
         #endregion
     }
 }

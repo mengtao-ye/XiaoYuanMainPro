@@ -15,15 +15,20 @@ namespace Game
         private long mLastUpdateTime;
         private InputField mSearchIF;
         private string mSearchKey;
+        private GameObject mCententArea;
+        private GameObject mNotFindTip;
         public SearchLostPanel()
         {
         }
         public override void Awake()
         {
             base.Awake();
+            mCententArea = transform.Find("CententArea").gameObject;
+            mNotFindTip = transform.Find("NotFindTip").gameObject;
+          
             mSearchIF = transform.FindObject<InputField>("SearchIF");
             transform.FindObject<Button>("BackBtn").onClick.AddListener(BackBtnListener);
-            mScrollView = transform.FindObject("ScrollView").AddComponent<PoolScrollView>();
+            mScrollView = transform.FindObject("ScrollView").AddComponent<RecyclePoolScrollView>();
             mScrollView.Init();
             mScrollView.SetSpace(10, 10, 10);
             mScrollView.SetDownFrashCallBack(DownFrashCallback);
@@ -43,7 +48,7 @@ namespace Game
                 AppTools.ToastNotify("请输入查找内容");
                 return;
             }
-            mLastUpdateTime = DateTimeTools.GetValueByDateTime(DateTime.MaxValue);
+            mLastUpdateTime = DateTimeTools.MaxValueTime;
             mSearchKey = mSearchIF.text;
             mScrollView.ClearItems();
             mScrollView.SetDownFrashState(false);
@@ -60,9 +65,11 @@ namespace Game
             base.Show();
             mSearchIF.Select();
             mSearchIF.ActivateInputField();
-            mLastUpdateTime = DateTimeTools.GetValueByDateTime(DateTime.MaxValue);
+            mLastUpdateTime =  DateTimeTools.MaxValueTime;
             //GetLostList();
             mScrollView.SetDownFrashState(false);
+            mCententArea.SetActive(false);
+            mNotFindTip.SetActive(false);
         }
         private void GetLostList()
         {
@@ -72,7 +79,7 @@ namespace Game
             listData.Add(mSearchKey.ToBytes());
             byte[] sendBytes = listData.list.ToBytes();
             listData.Recycle();
-            AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.SearchLostList, sendBytes);
+            AppTools.TcpSend(TcpSubServerType.Login, (short)TcpLoginUdpCode.SearchLostList, sendBytes);
         }
 
         public void SetData(IListData<LostData> data)
@@ -80,9 +87,16 @@ namespace Game
             if (data.IsNullOrEmpty())
             {
                 mScrollView.SetDownFrashState(false);
+                if (mLastUpdateTime == DateTimeTools.MaxValueTime) 
+                {
+                    mCententArea.SetAvtiveExtend(false);
+                    mNotFindTip.SetAvtiveExtend(true);
+                }
             }
             else
             {
+                mCententArea.SetAvtiveExtend(true);
+                mNotFindTip.SetAvtiveExtend(false);
                 mLastUpdateTime = data.list.GetLastData().updateTime;
                 if (data.Count != 3)
                 {
@@ -96,6 +110,7 @@ namespace Game
                 {
                     LostScrollViewItem lostScrollViewItem = ClassPool<LostScrollViewItem>.Pop();
                     lostScrollViewItem.lostData = data[i];
+                    lostScrollViewItem.isMy = false;
                     mScrollView.Add(lostScrollViewItem);
                 }
             }

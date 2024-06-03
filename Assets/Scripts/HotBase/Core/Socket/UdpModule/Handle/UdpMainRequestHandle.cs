@@ -9,8 +9,8 @@ namespace Game
         protected override short mRequestCode => (short)UdpRequestCode.MainServer;
         protected override void ComfigActionCode()
         {
-            Add((short)MainUdpCode.GetLoginServerPoint, GetBaseServerPoint);
             Add((short)MainUdpCode.MainServerHeartBeat, MainServerHeartBeat);
+            Add((short)MainUdpCode.GetLoginServerPoint, GetLoginServerPoint);
             Add((short)MainUdpCode.GetMetaSchoolServerPoint, GetMetaSchoolServerPoint);
         }
 
@@ -19,21 +19,21 @@ namespace Game
             if (data.IsNullOrEmpty()) return;
             EndPointData endPointData = EndPointTools.GetPointData(data, 0);
             if (endPointData == null) return;
-            GameCenter.Instance.AddUdpServer(SubServerType.MetaSchool,SocketVarData.MetaSchoolIPAddress, endPointData.port, (short)MetaSchoolUdpCode.MetaSchoolHeartBeat, "校园分布式服务器");
+            GameCenter.Instance.AddUdpServer(UdpSubServerType.MetaSchool,SocketVarData.MetaSchoolIPAddress, endPointData.port, (short)MetaSchoolUdpCode.MetaSchoolHeartBeat, "校园分布式服务器");
             GetMetaSchoolServerPointProcess.IsGetData = true;
         }
         private void MainServerHeartBeat(byte[] data)
         {
             if (data.IsNullOrEmpty()) return;
-            GameCenter.Instance.UdpHeart(SubServerType.Center);
+            GameCenter.Instance.UdpHeart(UdpSubServerType.Center);
         }
 
-        private void GetBaseServerPoint(byte[] data)
+        private void GetLoginServerPoint(byte[] data)
         {
             if (data.IsNullOrEmpty()) return;
             EndPointData endPointData = EndPointTools.GetPointData(data, 0);
             if (endPointData == null) return;
-            GameCenter.Instance.AddUdpServer(SubServerType.Login,SocketVarData.LoginIPAddress, endPointData.port, (short)LoginUdpCode.LoginHeartBeat,"登录分布式服务器");
+            GameCenter.Instance.AddTcpServer(TcpSubServerType.Login, endPointData.ipAddress, endPointData.port, "登录分布式服务器");
             GetLoginServerPointProcess.IsGetData = true;
         }
     }

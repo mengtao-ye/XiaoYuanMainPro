@@ -17,8 +17,12 @@ namespace Game
         {
             base.Awake();
             Transform typeContent = transform.Find("TypeContent");
-            PartTimeListSubUI = new PartTimeListSubUI(typeContent.Find("PartTimeList"));
-            PartTimeMySubUI = new PartTimeMySubUI(typeContent.Find("My"));
+            Image listIcon = transform.FindObject<Image>("PartTimeListIcon");
+            Text listText = transform.FindObject<Text>("PartTimeListText");
+            PartTimeListSubUI = new PartTimeListSubUI(typeContent.Find("PartTimeList"), listIcon, listText);
+            Image myIcon = transform.FindObject<Image>("MyIcon");
+            Text myText = transform.FindObject<Text>("MyText");
+            PartTimeMySubUI = new PartTimeMySubUI(typeContent.Find("My"), myIcon, myText);
             AddSubUI(PartTimeListSubUI);
             AddSubUI(PartTimeMySubUI);
             mCur = PartTimeListSubUI;
@@ -29,7 +33,7 @@ namespace Game
             type.FindObject<Button>("My").onClick.AddListener(PartTimeMyBtnListener);
 
             transform.FindObject<Button>("BackBtn").onClick.AddListener(()=> { GameCenter.Instance.ShowPanel<MainPanel>(); });
-            transform.FindObject<Button>("BusinessBtn").onClick.AddListener(()=> { GameCenter.Instance.ShowPanel<BusinessPartTimeJobPanel>(); });
+          
         }
         private void PartTimeListBtnListener()
         {

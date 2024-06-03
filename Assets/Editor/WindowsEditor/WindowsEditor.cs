@@ -15,10 +15,10 @@ public static class WindowsEditor
         string path2 = @"C:\UnityProject\XiaoYuanMainPro2\Assets";
         DirectoryTools.Copy(path1, path2);
         string loginPath2 = @"C:\UnityProject\XiaoYuanMainPro\Assets\Editor\WindowsEditor\LoginPanel.txt";
-        string targetLoginPath2 = @"C:\UnityProject\XiaoYuanMainPro2\Assets\Scripts\Core\UI\Panel\Login\LoginPanel.cs";
+        string targetLoginPath2 = @"C:\UnityProject\XiaoYuanMainPro2\Assets\Scripts\HotBase\Core\UI\Panel\Login\LoginPanel.cs";
         File.WriteAllText(targetLoginPath2, File.ReadAllText(loginPath2));
         string gameCenterPath2 = @"C:\UnityProject\XiaoYuanMainPro\Assets\Editor\WindowsEditor\GameCenter.txt";
-        string targetGmaeCenterPath2 = @"C:\UnityProject\XiaoYuanMainPro2\Assets\Scripts\Core\Main\GameCenter.cs";
+        string targetGmaeCenterPath2 = @"C:\UnityProject\XiaoYuanMainPro2\Assets\Scripts\HotBase\Core\Main\GameCenter.cs";
         File.WriteAllText(targetGmaeCenterPath2, File.ReadAllText(gameCenterPath2));
     }
 

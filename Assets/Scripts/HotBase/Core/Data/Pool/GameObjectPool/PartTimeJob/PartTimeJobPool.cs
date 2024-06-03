@@ -18,6 +18,7 @@ namespace Game
         private string mPosition;
         private int mPrice;
         private byte mPriceType;
+        private bool mIsMyApplication;//是否是我的报名列表
         public override void Init(GameObject target)
         {
             base.Init(target);
@@ -28,31 +29,32 @@ namespace Game
             transform.GetComponent<Button>().onClick.AddListener(ClickBtnListener);
         }
 
-        private void ClickBtnListener() 
+        private void ClickBtnListener()
         {
-            if (ID == 0) 
+            if (ID == 0)
             {
                 AppTools.ToastError("未找到该兼职对象");
                 return;
             }
-            GameCenter.Instance.ShowPanel<PartTimeJobDetailPanel>((ui)=> {
-                ui.SetData(mTitle,mPrice,mPriceType,mTime,mPosition,mDetail,(int)ID);
+            GameCenter.Instance.ShowPanel<PartTimeJobDetailPanel>((ui) =>
+            {
+                ui.SetData(mTitle, mPrice, mPriceType, mTime, mPosition, mDetail, (int)ID, mIsMyApplication);
             });
         }
-        public void SetData(string title,string time,string pos,int price,byte priceType,string detail) 
+        public void SetData(string title, string time, string pos, int price, byte priceType, string detail, bool isMyApplication)
         {
+            mIsMyApplication = isMyApplication;
             mTitle = title;
             mTime = time;
             mPosition = pos;
             mPrice = price;
             mPriceType = priceType;
             mDetail = detail;
-
             mTitleText.text = title;
             mTimeText.text = time;
             mPositionText.text = pos;
-            mPriceText.text = price +"/" +PartTimeJobTools.GetPriceType(priceType);
-           
+            mPriceText.text = price + "/" + PartTimeJobTools.GetPriceType(priceType);
+
         }
         public override void Recycle()
         {

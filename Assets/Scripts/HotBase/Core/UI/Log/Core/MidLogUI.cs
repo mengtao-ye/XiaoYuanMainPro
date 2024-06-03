@@ -54,7 +54,7 @@ namespace Game
         }
         private IEnumerator IEAudoClose()
         {
-            yield return Yielders.GetSeconds(2) ;
+            yield return Yielders.GetSeconds(2);
             Hide();
         }
     }

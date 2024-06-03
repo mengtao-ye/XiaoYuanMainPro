@@ -6,7 +6,8 @@ namespace Game
     {
         protected override void Config()
         {
-           
+            AddRequestHandler(new TcpMainServerHandler());
+            AddRequestHandler(new TcpLoginRequestHandle());
         }
         private void AddRequestHandler(ITcpRequestHandle handler) {
             Add(handler.requestCode,handler);

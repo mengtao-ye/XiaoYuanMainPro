@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using YFramework;
+using static YFramework.Utility;
 
 namespace Game
 {
@@ -13,26 +14,66 @@ namespace Game
         private int mCurMsgIndex;
         private int mReadCount = 10;
         private IScrollView mScrollView;
+        private Button mAddFriendBtn;
         public override void Awake()
         {
             base.Awake();
-            mScrollView = transform.FindObject("ChatScrollView").AddComponent<PoolScrollView>();
+            mScrollView = transform.FindObject("ChatScrollView").AddComponent<RecyclePoolScrollView>();
             mScrollView.Init();
             mScrollView.SetSpace(10, 10, 10);
             mName = transform.FindObject<Text>("Name");
             transform.FindObject<Button>("BackBtn").onClick.AddListener(BackBtnListener);
-            transform.FindObject<Button>("SetBtn").onClick.AddListener(() => { });
+            transform.FindObject<Button>("SetBtn").onClick.AddListener(SetBtnListener);
 
             mContentIF = transform.FindObject<InputField>("ContentIF");
             transform.FindObject<Button>("SendBtn").onClick.AddListener(SendBtnListener);
             mScrollView.SetUpFrashCallBack(UpFrashCallBack);
+            mAddFriendBtn = transform.FindObject<Button>("AddFriendBtn");
+            mAddFriendBtn.onClick.AddListener(AddFriendBtnListener);
+            IsFriend(true);
+        }
+
+        private void AddFriendBtnListener()
+        {
+            GameCenter.Instance.ShowPanel<SendAddFriendPanel>((ui)=> 
+            {
+                ui.SetFriendAccount(friendAccount);
+            });
+        }
+
+        public void IsFriend(bool isFriend)
+        { 
+            mAddFriendBtn.gameObject.SetAvtiveExtend(!isFriend);
+        }
+        /// <summary>
+        /// 验证是否是好友
+        /// </summary>
+        /// <param name="isFriend"></param>
+        /// <param name="friendAccount"></param>
+        public void ConfineIsFriend(bool isFriend,long friendAccount)
+        {
+            if (friendAccount == this.friendAccount) 
+            {
+                IsFriend(isFriend);
+            }
+            else 
+            {
+                IsFriend(true);
+            }
+        }
+        private void SetBtnListener()
+        {
+            GameCenter.Instance.ShowPanel<UserMainPagePanel>((ui) =>
+            {
+                ui.ShowContent(friendAccount);
+            });
         }
 
         private void BackBtnListener()
         {
-            GameCenter.Instance.ShowPanel<MainPanel>((ui)=> 
-            { 
-                ChatListScrollViewItem data =ui.msgSubUI.scrollView.Get(friendAccount) as ChatListScrollViewItem;
+            GameCenter.Instance.ShowPanel<MainPanel>((ui) =>
+            {
+                ChatListScrollViewItem data = ui.msgSubUI.scrollView.Get(friendAccount) as ChatListScrollViewItem;
                 if (data != null)
                 {
                     data.unreadCount = 0;
@@ -40,6 +81,8 @@ namespace Game
                     data.UpdateData();
                 }
             });
+            mScrollView.ClearItems();
+            IsFriend(true);
         }
 
         private void UpFrashCallBack()
@@ -51,12 +94,13 @@ namespace Game
         {
             base.Show();
             mScrollView.SetUpFrashState(true);
+          
+           
         }
 
         public override void Hide()
         {
             base.Hide();
-            mScrollView.ClearItems();
             mCurMsgIndex = 0;
         }
 
@@ -68,7 +112,7 @@ namespace Game
                 return;
             }
             SendMsgToServer((byte)ChatMsgType.Text, mContentIF.text, friendAccount);
-            mContentIF.text = "";
+            mContentIF.text = string.Empty;
         }
         /// <summary>
         /// 发送消息到服务器端
@@ -83,7 +127,7 @@ namespace Game
             datas.Add(DateTimeOffset.Now.ToUnixTimeSeconds().ToBytes());
             byte[] returnBytes = datas.list.ToBytes();
             datas.Recycle();
-            AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.SendChatMsg, returnBytes);
+            AppTools.TcpSend(TcpSubServerType.Login, (short)TcpLoginUdpCode.SendChatMsg, returnBytes);
         }
 
         /// <summary>
@@ -93,9 +137,20 @@ namespace Game
         public void SetChatData(long account)
         {
             friendAccount = account;
-            UserDataModule.MapUserData(account, mName);
+            FriendScrollViewItem friendScrollViewItem = ChatModule.GetFriendData(account);
+            if (friendScrollViewItem != null)
+            {
+                mName.text = friendScrollViewItem.notes;
+                friendScrollViewItem?.Recycle();
+            }
+            else
+            {
+                UserDataModule.MapUserData(account, mName);
+            }
             mCurMsgIndex = 0;
             LoadChatData(friendAccount, false);
+            byte[] sendBytes = ByteTools.Concat(AppVarData.Account.ToBytes(), friendAccount.ToBytes());
+            GameCenter.Instance.TcpSend(TcpSubServerType.Login, (short)TcpLoginUdpCode.IsFriend, sendBytes);
         }
 
         private void LoadChatData(long friendAccount, bool isLoadData)

@@ -48,9 +48,11 @@ namespace Game
         private const string UI_Main_TIPUI_DIR = UI_TIPUI_DIR + "/Main";
         protected override void Config()
         {
-            //Panel
+            #region Panel
+            //Login
             AddUI<LoginPanel>(UI_LOGIN_DIR);
             AddUI<RegisterPanel>(UI_LOGIN_DIR);
+            //Main
             AddUI<MainPanel>(UI_MAIN_DIR);
             AddUI<SelectSchoolPanel>(UI_MAIN_DIR);
             AddUI<ChatPanel>(UI_MAIN_DIR);
@@ -74,25 +76,48 @@ namespace Game
             AddUI<SelectRolePanel>(UI_MAIN_DIR);
             AddUI<LostDetailPanel>(UI_MAIN_DIR);
             AddUI<SearchLostPanel>(UI_MAIN_DIR);
-            
-
+            AddUI<MyLostListPanel>(UI_MAIN_DIR);
+            AddUI<MyLostDetailPanel>(UI_MAIN_DIR);
+            AddUI<FoundPanel>(UI_MAIN_DIR);
+            AddUI<PublishFoundPanel>(UI_MAIN_DIR);
+            AddUI<MyFoundListPanel>(UI_MAIN_DIR);
+            AddUI<FoundDetailPanel>(UI_MAIN_DIR);
+            AddUI<SearchFoundPanel>(UI_MAIN_DIR);
+            AddUI<MyApplicationPartTimeJobListPanel>(UI_MAIN_DIR);
+            AddUI<MyCollectionPartTimeJobListPanel>(UI_MAIN_DIR);
+            AddUI<MyReleaseUnuseListPanel>(UI_MAIN_DIR);
+            AddUI<MyCollectionUnuseListPanel>(UI_MAIN_DIR);
+            AddUI<SearchUnusePanel>(UI_MAIN_DIR);
+            AddUI<SearchPartTimeJobPanel>(UI_MAIN_DIR);
+            AddUI<UserMainPagePanel>(UI_MAIN_DIR);
+            AddUI<FriendCampusCirclePanel>(UI_MAIN_DIR);
+            //MetaSchool
             AddUI<MetaSchoolMainPanel>(UI_METASCHOOL_DIR);
             AddUI<LoadMetaSchoolSceneDataPanel>(UI_METASCHOOL_DIR);
-            AddUI<MetaSchoolSetPanel>(UI_METASCHOOL_DIR);
-            //Log
+            AddUI<MetaSchoolSetPanel>(UI_METASCHOOL_DIR); 
+            #endregion
+            #region Log
             AddUI<MidLogUI>(UI_LOG_DIR);
-            //Tip
+            AddUI<LoadingLogUI>(UI_LOG_DIR); 
+            #endregion
+
+            #region TipUI
+            //Common
             AddUI<CommonOneTipsUI>(UI_COMMON_TIPUI_DIR);
             AddUI<CommonTwoTipsUI>(UI_COMMON_TIPUI_DIR);
             AddUI<ChoiceTimeTipUI>(UI_COMMON_TIPUI_DIR);
             AddUI<ShowMultiImageTipUI>(UI_COMMON_TIPUI_DIR);
-
+            AddUI<CommonInputFieldTipUI>(UI_COMMON_TIPUI_DIR);
+            //Main
             AddUI<NotifyTipUI>(UI_Main_TIPUI_DIR);
             AddUI<CommitTipUI>(UI_Main_TIPUI_DIR);
             AddUI<ApplicationPartTimeJobTipUI>(UI_Main_TIPUI_DIR);
             AddUI<LostScreenTipUI>(UI_Main_TIPUI_DIR);
             AddUI<ChatListItemTipUI>(UI_Main_TIPUI_DIR);
-            AddUI<LostContactTipUI>(UI_Main_TIPUI_DIR);
+            AddUI<ContactTipUI>(UI_Main_TIPUI_DIR);
+            AddUI<FoundQuestTipUI>(UI_Main_TIPUI_DIR);
+            AddUI<ReplayCommitTipUI>(UI_Main_TIPUI_DIR);  
+            #endregion
 
         }
         /// <summary>

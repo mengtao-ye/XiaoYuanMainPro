@@ -42,8 +42,8 @@ namespace Game
             transform.FindObject<Button>("ContactBtn").onClick.AddListener(ContactBtnListener);
         }
         private void ContactBtnListener() {
-            GameCenter.Instance.ShowTipsUI<LostContactTipUI>((ui)=> {
-                ui.SetData(mLostData.contactType,mLostData.contact,mLostData.account);
+            GameCenter.Instance.ShowTipsUI<ContactTipUI>((ui)=> {
+                ui.SetData(mLostData.contactType,mLostData.contact);
             });
         }
         private void ShowImages(IListData<SelectImageData> listData)

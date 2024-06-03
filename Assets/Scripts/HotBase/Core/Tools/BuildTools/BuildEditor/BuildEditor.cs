@@ -71,7 +71,7 @@ namespace Game.Editor
                         Debug.Log("取消打包->Android");
                         break;
                     case BuildResult.Failed:
-                        string msg = "";
+                        string msg = string.Empty;
                         foreach (var file in report.files)
                         {
                             msg += file.path + "\n";

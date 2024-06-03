@@ -5,9 +5,9 @@ namespace Game
 {
     public class UdpModule : BaseModule
     {
-        private Dictionary<SubServerType, XiaoYuanUDPScoketManager> mUdpDict;
+        private Dictionary<UdpSubServerType, XiaoYuanUDPScoketManager> mUdpDict;
         private List<XiaoYuanUDPScoketManager> mUdpList;
-        public Dictionary<SubServerType, XiaoYuanUDPScoketManager> udpDict { get { return mUdpDict; } }
+        public Dictionary<UdpSubServerType, XiaoYuanUDPScoketManager> udpDict { get { return mUdpDict; } }
         private UdpHandleMapper mMapper;
         public XiaoYuanUDPScoketManager centerUdpServer { get; private set; }
         public UdpModule(Center center) : base(center)
@@ -19,9 +19,9 @@ namespace Game
             base.Awake();
             isRun = true;
             mUdpList = new List<XiaoYuanUDPScoketManager>();
-            mUdpDict = new Dictionary<SubServerType, XiaoYuanUDPScoketManager>();
+            mUdpDict = new Dictionary<UdpSubServerType, XiaoYuanUDPScoketManager>();
             mMapper = new UdpHandleMapper();
-            centerUdpServer =  AddUdpServer( SubServerType.Center, SocketVarData.IPAddress ,SocketVarData.UdpServerPort, (short)MainUdpCode.MainServerHeartBeat,"主服务器");
+            centerUdpServer =  AddUdpServer( UdpSubServerType.Center, SocketVarData.IPAddress ,SocketVarData.UdpServerPort, (short)MainUdpCode.MainServerHeartBeat,"Udp主服务器");
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace Game
         /// </summary>
         /// <param name="ipAddress"></param>
         /// <param name="port"></param>
-        public XiaoYuanUDPScoketManager AddUdpServer(SubServerType subServerType, string ipAddress, int port, short heartBeatID,string name)
+        public XiaoYuanUDPScoketManager AddUdpServer(UdpSubServerType subServerType, string ipAddress, int port, short heartBeatID,string name)
         {
             if (mUdpDict.ContainsKey(subServerType))
             {
@@ -39,13 +39,13 @@ namespace Game
             XiaoYuanUDPScoketManager socket = null;
             switch (subServerType)
             {
-                case SubServerType.Center:
+                case UdpSubServerType.Center:
                     socket = new XiaoYuanUDPScoketManager(center, mMapper, subServerType, name);
                     break;
-                case SubServerType.Login:
+                case UdpSubServerType.Login:
                     socket = new XiaoYuanLoginUDPSocketManager(center, mMapper, subServerType, name);
                     break;
-                case SubServerType.MetaSchool:
+                case UdpSubServerType.MetaSchool:
                     socket = new XiaoYuanMetaSchoolUDPSocketManager(center, mMapper, subServerType, name);
                     break;
             }
@@ -58,7 +58,7 @@ namespace Game
         /// 移除udpserver
         /// </summary>
         /// <param name="subServerType"></param>
-        public void RemoveUdpServer(SubServerType subServerType)
+        public void RemoveUdpServer(UdpSubServerType subServerType)
         {
             if (mUdpDict.ContainsKey(subServerType)) 
             {
@@ -81,7 +81,7 @@ namespace Game
                 mUdpList[i].Update();
             }
         }
-        public bool IsConnect(SubServerType type)
+        public bool IsConnect(UdpSubServerType type)
         {
             if (!udpDict.ContainsKey(type))
             {
@@ -93,7 +93,7 @@ namespace Game
         /// 接收到心跳包
         /// </summary>
         /// <param name="type"></param>
-        public void Heart(SubServerType type) 
+        public void Heart(UdpSubServerType type) 
         {
             if (udpDict.ContainsKey(type))
             {

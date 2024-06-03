@@ -14,11 +14,12 @@ namespace Game
         public byte priceType;
         public int id;
         public string detail;
+        public bool isMyApplication;//是否是我的报名列表
         public override void LoadData(IGameObjectPoolTarget gameObjectPoolTarget)
         {
             PartTimeJobPool pool = gameObjectPoolTarget as PartTimeJobPool;
             pool.ID = id;
-            pool.SetData(title,time,position,price,priceType, detail);
+            pool.SetData(title,time,position,price,priceType, detail, isMyApplication);
         }
 
         public override void Recycle()

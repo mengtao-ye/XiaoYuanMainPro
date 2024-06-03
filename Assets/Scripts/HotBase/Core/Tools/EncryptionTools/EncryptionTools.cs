@@ -37,14 +37,15 @@ namespace Game
         /// 数据加密
         /// </summary>
         /// <param name="data"></param>
-        public static void Encryption(byte[] data) 
+        public static byte[] Encryption(byte[] data) 
         {
-            if (data.IsNullOrEmpty()) return;
+            if (data.IsNullOrEmpty()) return null;
             int min = Math.Min(data.Length, EncryptionCode.Length);
             for (int i = 0; i < min; i++)
             {
                 data[i] = GetEncryptionCode(data[i], EncryptionCode[i]);
             }
+            return data;
         }
 
         /// <summary>
@@ -63,14 +64,15 @@ namespace Game
         /// 数据解密
         /// </summary>
         /// <param name="data"></param>
-        public static void Decryption(byte[] data)
+        public static byte[] Decryption(byte[] data)
         {
-            if (data.IsNullOrEmpty()) return;
+            if (data.IsNullOrEmpty()) return null;
             int min = Math.Min(data.Length, EncryptionCode.Length);
             for (int i = 0; i < min; i++)
             {
                 data[i] = GetDecryptionCode(data[i], EncryptionCode[i]);
             }
+            return data;
         }
         /// <summary>
         /// 数据全部解密

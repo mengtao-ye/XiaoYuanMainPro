@@ -6,13 +6,13 @@ using YFramework;
 
 namespace Game
 {
-    public interface IScrollView: IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler
+    public interface IScrollView: IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler,IPointerUpHandler
     {
         IList<IScrollViewItem> listData { get; }
         int Count { get; }
+        GameObject gameObject { get; }
         RectTransform viewPort { get; }//显示窗口
         RectTransform content { get; }//内容
-        IScrollViewItem topScrollViewItem { get; }
         void Add(IScrollViewItem scrollViewItem);
         void Delete(IScrollViewItem scrollViewItem);
         void Delete(long itemID);

@@ -24,7 +24,7 @@ namespace Game
             {
                 mTimer = 0;
                 mGetMsgBytes = ByteTools.Concat(AppVarData.Account.ToBytes(), ChatModule.GetLastChatID().ToBytes());
-                AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.GetNewChatMsg, mGetMsgBytes); ;
+                AppTools.TcpSend(TcpSubServerType.Login, (short)TcpLoginUdpCode.GetNewChatMsg, mGetMsgBytes); ;
             }
         }
     }

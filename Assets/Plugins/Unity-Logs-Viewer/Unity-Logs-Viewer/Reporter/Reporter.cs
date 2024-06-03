@@ -114,8 +114,8 @@ public class Reporter : MonoBehaviour
 		public string condition;
 		public string stacktrace;
 		public int sampleId;
-		//public string   objectName="" ;//object who send error
-		//public string   rootName =""; //root of object send error
+		//public string   objectName=string.Empty ;//object who send error
+		//public string   rootName =string.Empty; //root of object send error
 
 		public Log CreateCopy()
 		{
@@ -205,7 +205,7 @@ public class Reporter : MonoBehaviour
 		}
 	}
 	float gcTotalMemory;
-	public string UserData = "";
+	public string UserData = string.Empty;
 	//frame rate per second
 	public float fps;
 	public string fpsText;
@@ -287,7 +287,7 @@ public class Reporter : MonoBehaviour
 	public int numOfCircleToShow = 1;
 	static string[] scenes;
 	string currentScene;
-	string filterText = "";
+	string filterText = string.Empty;
 
 	string deviceModel;
 	string deviceType;
@@ -380,32 +380,32 @@ public class Reporter : MonoBehaviour
 
 		//initialize gui and styles for gui purpose
 
-		clearContent = new GUIContent("", images.clearImage, "Clear logs");
-		collapseContent = new GUIContent("", images.collapseImage, "Collapse logs");
-		clearOnNewSceneContent = new GUIContent("", images.clearOnNewSceneImage, "Clear logs on new scene loaded");
-		showTimeContent = new GUIContent("", images.showTimeImage, "Show Hide Time");
-		showSceneContent = new GUIContent("", images.showSceneImage, "Show Hide Scene");
-		showMemoryContent = new GUIContent("", images.showMemoryImage, "Show Hide Memory");
-		softwareContent = new GUIContent("", images.softwareImage, "Software");
-		dateContent = new GUIContent("", images.dateImage, "Date");
-		showFpsContent = new GUIContent("", images.showFpsImage, "Show Hide fps");
-		infoContent = new GUIContent("", images.infoImage, "Information about application");
-        saveLogsContent = new GUIContent("", images.saveLogsImage, "Save logs to device");
-        searchContent = new GUIContent("", images.searchImage, "Search for logs");
-        copyContent = new GUIContent("", images.copyImage, "Copy log to clipboard");
-        closeContent = new GUIContent("", images.closeImage, "Hide logs");
-		userContent = new GUIContent("", images.userImage, "User");
+		clearContent = new GUIContent(string.Empty, images.clearImage, "Clear logs");
+		collapseContent = new GUIContent(string.Empty, images.collapseImage, "Collapse logs");
+		clearOnNewSceneContent = new GUIContent(string.Empty, images.clearOnNewSceneImage, "Clear logs on new scene loaded");
+		showTimeContent = new GUIContent(string.Empty, images.showTimeImage, "Show Hide Time");
+		showSceneContent = new GUIContent(string.Empty, images.showSceneImage, "Show Hide Scene");
+		showMemoryContent = new GUIContent(string.Empty, images.showMemoryImage, "Show Hide Memory");
+		softwareContent = new GUIContent(string.Empty, images.softwareImage, "Software");
+		dateContent = new GUIContent(string.Empty, images.dateImage, "Date");
+		showFpsContent = new GUIContent(string.Empty, images.showFpsImage, "Show Hide fps");
+		infoContent = new GUIContent(string.Empty, images.infoImage, "Information about application");
+        saveLogsContent = new GUIContent(string.Empty, images.saveLogsImage, "Save logs to device");
+        searchContent = new GUIContent(string.Empty, images.searchImage, "Search for logs");
+        copyContent = new GUIContent(string.Empty, images.copyImage, "Copy log to clipboard");
+        closeContent = new GUIContent(string.Empty, images.closeImage, "Hide logs");
+		userContent = new GUIContent(string.Empty, images.userImage, "User");
 
-		buildFromContent = new GUIContent("", images.buildFromImage, "Build From");
-		systemInfoContent = new GUIContent("", images.systemInfoImage, "System Info");
-		graphicsInfoContent = new GUIContent("", images.graphicsInfoImage, "Graphics Info");
-		backContent = new GUIContent("", images.backImage, "Back");
+		buildFromContent = new GUIContent(string.Empty, images.buildFromImage, "Build From");
+		systemInfoContent = new GUIContent(string.Empty, images.systemInfoImage, "System Info");
+		graphicsInfoContent = new GUIContent(string.Empty, images.graphicsInfoImage, "Graphics Info");
+		backContent = new GUIContent(string.Empty, images.backImage, "Back");
 
 
-		//snapshotContent = new GUIContent("",images.cameraImage,"show or hide logs");
-		logContent = new GUIContent("", images.logImage, "show or hide logs");
-		warningContent = new GUIContent("", images.warningImage, "show or hide warnings");
-		errorContent = new GUIContent("", images.errorImage, "show or hide errors");
+		//snapshotContent = new GUIContent(string.Empty,images.cameraImage,"show or hide logs");
+		logContent = new GUIContent(string.Empty, images.logImage, "show or hide logs");
+		warningContent = new GUIContent(string.Empty, images.warningImage, "show or hide warnings");
+		errorContent = new GUIContent(string.Empty, images.errorImage, "show or hide errors");
 
 
 		currentView = (ReportView)PlayerPrefs.GetInt("Reporter_currentView", 1);
@@ -649,7 +649,7 @@ public class Reporter : MonoBehaviour
 	void calculateCurrentLog()
 	{
 		bool filter = !string.IsNullOrEmpty(filterText);
-		string _filterText = "";
+		string _filterText = string.Empty;
 		if (filter)
 			_filterText = filterText.ToLower();
 		currentLog.Clear();
@@ -1900,7 +1900,7 @@ public class Reporter : MonoBehaviour
 	void AddLog(string condition, string stacktrace, LogType type)
 	{
 		float memUsage = 0f;
-		string _condition = "";
+		string _condition = string.Empty;
 		if (cachedString.ContainsKey(condition)) {
 			_condition = cachedString[condition];
 		}
@@ -1910,7 +1910,7 @@ public class Reporter : MonoBehaviour
 			memUsage += (string.IsNullOrEmpty(_condition) ? 0 : _condition.Length * sizeof(char));
 			memUsage += System.IntPtr.Size;
 		}
-		string _stacktrace = "";
+		string _stacktrace = string.Empty;
 		if (cachedString.ContainsKey(stacktrace)) {
 			_stacktrace = cachedString[stacktrace];
 		}
@@ -2072,7 +2072,7 @@ public class Reporter : MonoBehaviour
 
 		if (prefFile.IndexOf("://") == -1) {
 			string streamingAssetsPath = Application.streamingAssetsPath;
-			if (streamingAssetsPath == "")
+			if (streamingAssetsPath == string.Empty)
 				streamingAssetsPath = Application.dataPath + "/StreamingAssets/";
 			url = System.IO.Path.Combine(streamingAssetsPath, prefFile);
 		}

@@ -85,7 +85,7 @@ namespace Game
             if (appName.IsNullOrEmpty() )
                 return null;
 #if UNITY_EDITOR
-            return Application.dataPath.Replace("Assets","")+ "AssetBundle/" + appName + "/" + AppData.RunPlatformName ;
+            return Application.dataPath.Replace("Assets",string.Empty)+ "AssetBundle/" + appName + "/" + AppData.RunPlatformName ;
 #else
             return Application.persistentDataPath + "/AssetBundle/" + appName + "/" + AppData.RunPlatformName ;
 #endif

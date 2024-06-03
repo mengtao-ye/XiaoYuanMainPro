@@ -17,17 +17,30 @@ namespace Game
         private UnuseData mUnuseData;
         private List<Image> mImageList;
         private NormalVerticalScrollView mScrollView;
+        private bool mIsCollection;
+        public bool isCollection
+        {
+            get { return mIsCollection; }
+            set
+            {
+                mIsCollection = value;
+                mCollectionBtn.targetGraphic.color = mIsCollection ? Color.red : Color.white;
+            }
+        }
+        private Button mCollectionBtn;
         public UnuseDetailPanel()
         {
         }
         public override void Awake()
         {
             base.Awake();
+            mCollectionBtn = transform.FindObject<Button>("CollectionBtn");
+            mCollectionBtn.onClick.AddListener(CollectionBtnListener);
             mImageList = new List<Image>();
             mScrollView = transform.FindObject("ScrollView").AddComponent<NormalVerticalScrollView>();
             mScrollView.Init();
             transform.FindObject<Button>("BackBtn").onClick.AddListener(() => { GameCenter.Instance.ShowPanel<UnusePanel>(); });
-            
+
             mTime = transform.FindObject<Text>("Time");
             mPrice = transform.FindObject<Text>("Price");
             mHead = transform.FindObject<Image>("Head");
@@ -38,30 +51,53 @@ namespace Game
             {
                 mImageList.Add(mScrollView.content.Find("Images" + i).GetComponent<Image>());
             }
+            transform.FindObject<Button>("ContactBtn").onClick.AddListener(ContactBtnListener);
         }
+        public override void Show()
+        {
+            base.Show();
+            isCollection = false;
+        }
+
+        private void CollectionBtnListener() 
+        {
+            byte[] sendBytes = ByteTools.ConcatParam(AppVarData.Account.ToBytes(), mUnuseData.id.ToBytes(),mIsCollection.ToBytes());
+            AppTools.TcpSend( TcpSubServerType.Login,(short)TcpLoginUdpCode.CollectionUnuse, sendBytes);
+        }
+
+        private void ContactBtnListener()
+        {
+            GameCenter.Instance.ShowTipsUI<ContactTipUI>((ui) =>
+            {
+                ui.SetData(mUnuseData.contactType, mUnuseData.contact);
+            });
+        }
+
         private void ShowImages(IListData<SelectImageData> listData)
         {
             int startIndex = 0;
-            if (!listData.IsNullOrEmpty()) 
+            if (!listData.IsNullOrEmpty())
             {
                 startIndex = listData.Count;
                 for (int i = 0; i < listData.Count; i++)
                 {
-                    float ratio = YFrameworkHelper.Instance.ScreenSize.x/ Mathf.Min(listData[i].sizeX,listData[i].sizeY);
+                    float ratio = YFrameworkHelper.Instance.ScreenSize.x / Mathf.Min(listData[i].sizeX, listData[i].sizeY);
                     mImageList[i].gameObject.SetActive(true);
                     mImageList[i].rectTransform.sizeDelta = new Vector2(listData[i].sizeX * ratio, listData[i].sizeY * ratio);
                     string path = OssPathData.GetUnuseImage(listData[i].name.ToString());
                     Image image = mImageList[i];
-                    HttpTools.LoadSprite(path,(sprite)=> 
-                    {
-                        image.sprite = sprite;
-                    });
+                    HttpTools.LoadSprite(path, (sprite) =>
+                     {
+                         image.sprite = sprite;
+                     });
                 }
             }
             for (int i = startIndex; i < 9; i++)
             {
                 mImageList[i].gameObject.SetActive(false);
             }
+            byte[] sendBytes = ByteTools.Concat(AppVarData.Account.ToBytes(),mUnuseData.id.ToBytes());
+            AppTools.TcpSend( TcpSubServerType.Login,(short)TcpLoginUdpCode.IsCollectionUnuse, sendBytes);
         }
 
 
@@ -77,6 +113,6 @@ namespace Game
             LayoutRebuilder.ForceRebuildLayoutImmediate(mScrollView.content);
             mScrollView.SetSize(mScrollView.content.rect.size.y);
         }
-        
+
     }
 }

@@ -4,6 +4,7 @@ namespace Game
 {
     public static class DateTimeTools
     {
+        public static long MaxValueTime { get; private set; } = GetValueByDateTime(DateTime.MaxValue);
         public static long GetCurUnixTime() 
         {
             return DateTimeOffset.Now.ToUnixTimeSeconds();

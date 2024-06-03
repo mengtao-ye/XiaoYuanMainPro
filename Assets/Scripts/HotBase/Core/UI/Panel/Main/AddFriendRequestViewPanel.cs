@@ -13,7 +13,7 @@ namespace Game
         public override void Awake()
         {
             base.Awake();
-            scrollView = transform.FindObject("NewFriendScrollView").AddComponent<PoolScrollView>();
+            scrollView = transform.FindObject("NewFriendScrollView").AddComponent<RecyclePoolScrollView>();
             scrollView.Init();
             scrollView.SetSpace(10,10,10);
             transform.FindObject<Button>("BackBtn").onClick.AddListener(() => { GameCenter.Instance.ShowPanel<MainPanel>(); });

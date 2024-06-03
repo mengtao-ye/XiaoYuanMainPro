@@ -11,6 +11,8 @@ namespace Game
         public byte[] images;
         public byte type;
         public int price;
+        public byte contactType;
+        public string contact;
         public bool isPop { get ; set ; }
         public void PopPool(){}
         public void PushPool(){}
@@ -31,6 +33,8 @@ namespace Game
             bytes.Add(images);
             bytes.Add(type.ToBytes());
             bytes.Add(price.ToBytes());
+            bytes.Add(contactType.ToBytes());
+            bytes.Add(contact.ToBytes());
             byte[] returnBytes = bytes.list.ToBytes();
             bytes.Recycle();
             return returnBytes;
@@ -47,6 +51,8 @@ namespace Game
             imageTargets = SelectImageDataTools.GetData(images);
             type = bytes[5].ToByte();
             price = bytes[6].ToInt();
+            contactType = bytes[7].ToByte();
+            contact = bytes[8].ToStr();
             bytes.Recycle();
         }
     }

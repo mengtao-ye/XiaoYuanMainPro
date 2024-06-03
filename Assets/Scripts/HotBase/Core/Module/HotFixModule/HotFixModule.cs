@@ -28,7 +28,7 @@ namespace Game
             }
             Dictionary<string, byte[]> data = new Dictionary<string, byte[]>();
             data.Add("Version", BinaryMapper.GetBytes(mVersion.ToString()));
-            string patchesVersion = "";
+            string patchesVersion = string.Empty;
             if (File.Exists(HotFixData.LocalPatchesPath))
             {
                 patchesVersion = File.ReadAllText(HotFixData.LocalPatchesPath).Split('|')[1];

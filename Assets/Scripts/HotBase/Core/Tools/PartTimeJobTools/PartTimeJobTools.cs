@@ -15,7 +15,7 @@
                 case 3:
                     return "月";
             }
-            return "";
+            return string.Empty;
         }
     }
 }

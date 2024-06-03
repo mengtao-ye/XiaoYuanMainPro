@@ -30,7 +30,7 @@ namespace Game
         [MenuItem("EditorTools/AssetBundle/NormalPackageAssetBundle")]
         private static void NormalPackageAssetBundle()
         {
-            PackageAssetBundle(false,null,"0.0.0","");
+            PackageAssetBundle(false,null,"0.0.0",string.Empty);
         }
         public static void PackageAssetBundle(bool isHotFix,string hotFixPath,string hotFixVersion,string introduce)
         {
@@ -176,7 +176,7 @@ namespace Game
             }
             Directory.Move(AssetBundlePathData.ASSETBUNDLE_CONFIG_DATA_PATH_EDITOR, mTempPath);
             AssetDatabase.Refresh();
-            mTempPath = mTempPath.Replace(Application.dataPath, "");
+            mTempPath = mTempPath.Replace(Application.dataPath, string.Empty);
             mTempPath = "Assets" + mTempPath;
             SetABName("config", mTempPath);
             if (DirectoryTools.CheckFileIsIn(AssetBundlePathData.ASSETBUNDLE_PATH_EDITOR, "config"))
@@ -277,7 +277,7 @@ namespace Game
             //写入Byte
             for (int i = 0; i < assetBundleConfigData.ABList.Count; i++)
             {
-                assetBundleConfigData.ABList[i].Path = "";
+                assetBundleConfigData.ABList[i].Path = string.Empty;
             }
             FileTools.Write(AssetBundlePathData.ASSETBUNDLE_BINARY_CONFIG_EDITOR, assetBundleConfigData.ToBytes());
         }
@@ -329,7 +329,7 @@ namespace Game
         {
             for (int i = 0; i < mAllFileList.Count; i++)
             {
-                if (mAllFileList[i] == path || (path.Contains(mAllFileList[i]) && path.Replace(mAllFileList[i], "")[0] == '/'))
+                if (mAllFileList[i] == path || (path.Contains(mAllFileList[i]) && path.Replace(mAllFileList[i], string.Empty)[0] == '/'))
                 {
                     return true;
                 }

@@ -16,6 +16,7 @@ namespace Game
         private Image mImages;
         private List<IGameObjectPoolTarget> mPoolList;
         private LostData mLostData;
+        private bool mIsMy;
         public override void Init(GameObject target)
         {
             base.Init(target);
@@ -29,14 +30,24 @@ namespace Game
 
         private void ClickListener()
         {
-            GameCenter.Instance.ShowPanel<LostDetailPanel>((ui) =>
+            if (mIsMy)
             {
-                ui.SetData(mLostData);
-            });
+                GameCenter.Instance.ShowPanel<MyLostDetailPanel>((ui) =>
+                {
+                    ui.SetData(mLostData);
+                });
+            }
+            else {
+                GameCenter.Instance.ShowPanel<LostDetailPanel>((ui) =>
+                {
+                    ui.SetData(mLostData);
+                });
+            }
         }
 
-        public void SetData(LostData lostData)
+        public void SetData(LostData lostData,bool isMy)
         {
+            mIsMy = isMy;
             mLostData = lostData;
             mNameText.text = "名称:" + lostData.name;
             mPosText.text = "地点:" + lostData.pos;

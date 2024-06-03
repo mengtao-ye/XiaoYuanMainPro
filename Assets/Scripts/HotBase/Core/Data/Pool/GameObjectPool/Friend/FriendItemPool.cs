@@ -16,7 +16,7 @@ namespace Game
             base.Init(target);
             mHead = transform.FindObject<Image>("Head");
             mName = transform.FindObject<Text>("Name");
-            transform.GetComponent<Button>().onClick.AddListener(ClickListener);
+            transform.FindObject<Button>("Item").onClick.AddListener(ClickListener);
         }
 
         private void ClickListener()

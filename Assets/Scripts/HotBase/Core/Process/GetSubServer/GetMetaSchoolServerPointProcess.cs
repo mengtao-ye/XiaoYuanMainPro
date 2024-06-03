@@ -29,8 +29,8 @@ namespace Game
             if (mTimer > mTime) 
             {
                 mTimer = 0;
-                byte[] sendBytes = ByteTools.Concat((byte)SubServerType.MetaSchool,SchoolGlobalVarData.SchoolCode.ToBytes());
-                AppTools.UdpSend( SubServerType.Center,(short) MainUdpCode.GetMetaSchoolServerPoint, sendBytes);
+                byte[] sendBytes = ByteTools.Concat((byte)UdpSubServerType.MetaSchool,SchoolGlobalVarData.SchoolCode.ToBytes());
+                AppTools.UdpSend( UdpSubServerType.Center,(short) MainUdpCode.GetMetaSchoolServerPoint, sendBytes);
             }
             if (IsGetData)
             {

@@ -17,7 +17,7 @@ namespace Game
             }
             else
             {
-                EdtUtil.RunBat(batFile, "", workingDir);
+                EdtUtil.RunBat(batFile, string.Empty, workingDir);
             }
         }
         

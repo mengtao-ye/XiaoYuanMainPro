@@ -15,7 +15,7 @@ namespace Game
         {
             base.Awake();
             mAddContentIF = transform.FindObject<InputField>("AddContentIF");
-            transform.FindObject<Button>("BackBtn").onClick.AddListener(()=> { GameCenter.Instance.ShowPanel<FindFriendPanel>(); });
+            transform.FindObject<Button>("BackBtn").onClick.AddListener(()=> { mUICanvas.CloseTopPanel(); });
             transform.FindObject<Button>("SendBtn").onClick.AddListener(SendBtnListener);
         }
         private void SendBtnListener()
@@ -36,7 +36,7 @@ namespace Game
             lists.Add(addContent.ToBytes());
             byte[] sendBytes = lists.list.ToBytes();
             lists.Recycle();
-            AppTools.UdpSend( SubServerType.Login,(short)LoginUdpCode.SendAddFriendRequest, sendBytes);
+            AppTools.TcpSend(TcpSubServerType.Login,(short)TcpLoginUdpCode.SendAddFriendRequest, sendBytes);
         }
         public void SetFriendAccount(long account)
         {

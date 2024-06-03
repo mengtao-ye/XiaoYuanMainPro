@@ -9,6 +9,8 @@ namespace Game
     {
         private IScrollView mScrollView;
         private long mLastID;
+        private GameObject mNotFindTip;
+
         public CampusCirclePanel()
         {
 
@@ -16,6 +18,7 @@ namespace Game
         public override void Awake()
         {
             base.Awake();
+            mNotFindTip = transform.FindObject("NotFindTip");
 
             mScrollView = transform.FindObject("CampusCircleScrollView").AddComponent<PoolScrollView>();
             mScrollView.Init();
@@ -30,9 +33,12 @@ namespace Game
                 GameCenter.Instance.ShowPanel<PublishCampusCirclePanel>();
             });
         }
+
         public override void FirstShow()
         {
             base.FirstShow();
+            mNotFindTip.SetAvtiveExtend(false);
+            mScrollView.gameObject.SetAvtiveExtend(false);
             mLastID = long.MaxValue;
             mScrollView.ClearItems();
             IListData<byte[]> list = ClassPool<ListData<byte[]>>.Pop();
@@ -41,40 +47,83 @@ namespace Game
             list.Add(SchoolGlobalVarData.SchoolCode.ToBytes());
             byte[] sendBytes = list.list.ToBytes();
             list.Recycle();
-            AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.GetCampusCircle, sendBytes);
+            AppTools.TcpSend(TcpSubServerType.Login, (short)TcpLoginUdpCode.GetCampusCircle, sendBytes);
         }
 
-        public void GetCampusCircle(IListData<long> listData)
+
+        public void SetData(IListData<CampusCircleData> listData)
         {
-            mLastID = listData[0];
-            for (int i = 0; i < listData.Count; i++)
+            if (listData.IsNullOrEmpty())
             {
-                CampusCircleScrollViewItem campusCircleScrollViewItem = ClassPool<CampusCircleScrollViewItem>.Pop();
-                campusCircleScrollViewItem.id = listData[i];
-                campusCircleScrollViewItem.ViewItemID = listData[i];
-                AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.GetCampusCircleItemDetail, listData[i].ToBytes());
-                AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.HasLikeCampusCircleItem, ByteTools.Concat(AppVarData.Account.ToBytes(), listData[i].ToBytes()));
-                mScrollView.Add(campusCircleScrollViewItem);
+                mScrollView.SetDownFrashState(false);
+                mNotFindTip.SetAvtiveExtend(true);
+                mScrollView.gameObject.SetAvtiveExtend(false);
+            }
+            else
+            {
+                mNotFindTip.SetAvtiveExtend(false);
+                mScrollView.gameObject.SetAvtiveExtend(true);
+                mLastID = listData[0].ID;
+                for (int i = 0; i < listData.Count; i++)
+                {
+                    CampusCircleData data = listData[i];
+                    CampusCircleScrollViewItem scrollViewItem = ClassPool<CampusCircleScrollViewItem>.Pop();
+                    scrollViewItem.hasData = true;
+                    scrollViewItem.id = data.ID;
+                    scrollViewItem.ViewItemID = data.ID;
+                    scrollViewItem.account = data.Account;
+                    scrollViewItem.content = data.Content;
+                    scrollViewItem.imageTargets = SelectImageDataTools.GetData(data.Images);
+                    scrollViewItem.time = data.Time;
+                    scrollViewItem.isAnonymous = data.IsAnonymous;
+                    scrollViewItem.isFriendCampusCircle = false;
+                    mScrollView.Add(scrollViewItem);
+                    AppTools.TcpSend(TcpSubServerType.Login, (short)TcpLoginUdpCode.HasLikeCampusCircleItem, ByteTools.ConcatParam(AppVarData.Account.ToBytes(), data.ID.ToBytes(), ((byte)1).ToBytes()));
+                    AppTools.TcpSend(TcpSubServerType.Login, (short)TcpLoginUdpCode.GetCampusCircleLikeCount, ByteTools.ConcatParam(data.ID.ToBytes(), ((byte)1).ToBytes()));
+                    AppTools.TcpSend(TcpSubServerType.Login, (short)TcpLoginUdpCode.GetCampusCircleCommitCount, ByteTools.ConcatParam(data.ID.ToBytes(), ((byte)1).ToBytes()));
+                }
             }
         }
-        public void GetDetailData(CampusCircleData data)
+        /// <summary>
+        /// 设置喜欢数量
+        /// </summary>
+        /// <param name="campusCircleID"></param>
+        /// <param name="count"></param>
+        public void SetLikeCount(long campusCircleID, int count)
         {
-            CampusCircleScrollViewItem scrollViewItem = mScrollView.Get(data.ID) as CampusCircleScrollViewItem;
-            scrollViewItem.hasData = true;
-            scrollViewItem.id = data.ID;
-            scrollViewItem.account = data.Account;
-            scrollViewItem.content = data.Content;
-            scrollViewItem. imageTargets = SelectImageDataTools.GetData(data.Images);
-            scrollViewItem.time = data.Time;
-            scrollViewItem.isAnonymous = data.IsAnonymous;
-            scrollViewItem.likeCount = data.LikeCount;
-            scrollViewItem.commitCount = data.CommitCount;
-            scrollViewItem.SetData();
+            CampusCircleScrollViewItem scrollViewItem = mScrollView.Get(campusCircleID) as CampusCircleScrollViewItem;
+            scrollViewItem.SetLikeCount(count);
         }
-        public void SetLike(long id,bool isLike,bool needUpdate)
+        /// <summary>
+        /// 设置评论数量
+        /// </summary>
+        /// <param name="campusCircleID"></param>
+        /// <param name="count"></param>
+        public void SetCommitCount(long campusCircleID, int count)
+        {
+            CampusCircleScrollViewItem scrollViewItem = mScrollView.Get(campusCircleID) as CampusCircleScrollViewItem;
+            scrollViewItem.SetCommitCount(count);
+        }
+        /// <summary>
+        /// 设置是否喜欢（操作层面）
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="isLike"></param>
+        public void SetIsLike(long id,bool isLike)
         {
             CampusCircleScrollViewItem scrollViewItem = mScrollView.Get(id) as CampusCircleScrollViewItem;
-            scrollViewItem.SetIsLike(isLike, needUpdate);
+            scrollViewItem.SetIsLike(isLike);
         }
+        /// <summary>
+        /// 是否喜欢（显示层面）
+        /// </summary>
+        /// <param name="campusCircleID"></param>
+        /// <param name="like"></param>
+        public void IsLike(long campusCircleID, bool like)
+        {
+            CampusCircleScrollViewItem scrollViewItem = mScrollView.Get(campusCircleID) as CampusCircleScrollViewItem;
+            scrollViewItem.IsLike(like);
+        }
+
     }
 }

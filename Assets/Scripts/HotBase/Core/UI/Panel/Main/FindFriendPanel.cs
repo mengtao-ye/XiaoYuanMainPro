@@ -67,7 +67,7 @@ namespace Game
             mNotFindTip.SetAvtiveExtend(false);
             mUserDataGo.SetAvtiveExtend(false);
             mSendBytes = ByteTools.Concat(AppVarData.Account.ToBytes(), mFriendMsgIF.text.ToLong().ToBytes());
-            AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.SearchFriendData, mSendBytes);
+            AppTools.TcpSend(TcpSubServerType.Login, (short)TcpLoginUdpCode.SearchFriendData, mSendBytes);
         }
         /// <summary>
         /// 显示查找到的好友信息

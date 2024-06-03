@@ -40,7 +40,7 @@ namespace Game
                 list.Add(mRotationComponent.GetData());
                 byte[] bytes = list.list.ToBytes();
                 list.Recycle();
-                AppTools.UdpSend( SubServerType.MetaSchool,(short)MetaSchoolUdpCode.SendPlayerData,ByteTools.ConcatParam(AppVarData.Account.ToBytes(),SchoolGlobalVarData.SchoolCode.ToBytes(),bytes));
+                AppTools.UdpSend( UdpSubServerType.MetaSchool,(short)MetaSchoolUdpCode.SendPlayerData,ByteTools.ConcatParam(AppVarData.Account.ToBytes(),SchoolGlobalVarData.SchoolCode.ToBytes(),bytes));
             }
         }
     }

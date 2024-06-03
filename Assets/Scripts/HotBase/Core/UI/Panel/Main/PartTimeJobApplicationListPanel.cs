@@ -7,7 +7,7 @@ namespace Game
 {
     public class PartTimeJobApplicationListPanel : BaseCustomPanel
     {
-        private PoolScrollView mScrollView;
+        private RecyclePoolScrollView mScrollView;
         private int mLastID;
         private int mPartTimeJobID;
         public PartTimeJobApplicationListPanel()
@@ -17,7 +17,7 @@ namespace Game
         {
             base.Awake();
             transform.FindObject<Button>("BackBtn").onClick.AddListener(() => { GameCenter.Instance.ShowPanel<MyReleasePartTimeJobDetailPanel>(); });
-            mScrollView = transform.Find("ScrollView").AddComponent<PoolScrollView>();
+            mScrollView = transform.Find("ScrollView").AddComponent<RecyclePoolScrollView>();
             mScrollView.Init();
             mScrollView.SetSpace(10, 10, 10);
             mScrollView.SetDownFrashCallBack(DownCallBack);
@@ -26,7 +26,7 @@ namespace Game
 
         private void DownCallBack() 
         { 
-            AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.GetApplicationPartTimeJob, ByteTools.Concat(mPartTimeJobID.ToBytes(), mLastID.ToBytes()));
+            AppTools.TcpSend(TcpSubServerType.Login, (short)TcpLoginUdpCode.GetApplicationPartTimeJob, ByteTools.Concat(mPartTimeJobID.ToBytes(), mLastID.ToBytes()));
         }
 
         public override void Hide()
@@ -43,7 +43,7 @@ namespace Game
         {
             mPartTimeJobID = id;
             mLastID = int.MaxValue;
-            AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.GetApplicationPartTimeJob, ByteTools.Concat(mPartTimeJobID.ToBytes(), mLastID.ToBytes()));
+            AppTools.TcpSend(TcpSubServerType.Login, (short)TcpLoginUdpCode.GetApplicationPartTimeJob, ByteTools.Concat(mPartTimeJobID.ToBytes(), mLastID.ToBytes()));
         }
         public void SetData(IListData<PartTimeJobApplicationData> data)
         {

@@ -37,7 +37,7 @@ namespace Game
         private void MetaSchoolHeartBeat(byte[] data)
         {
             if (data.IsNullOrEmpty()) return;
-            GameCenter.Instance.UdpHeart(SubServerType.MetaSchool);
+            GameCenter.Instance.UdpHeart(UdpSubServerType.MetaSchool);
         }
     }
 }

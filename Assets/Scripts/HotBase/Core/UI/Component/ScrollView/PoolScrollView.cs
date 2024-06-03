@@ -9,22 +9,11 @@ namespace Game
     /// <summary>
     /// 自制滑动模块
     /// </summary>
-    public class PoolScrollView : MonoBehaviour, IScrollView
+    public class PoolScrollView : MonoBehaviour ,IScrollView
     {
         public RectTransform viewPort { get; private set; }//显示窗口
         public RectTransform content { get; private set; }//内容
         public IList<IScrollViewItem> listData { get; private set; }//内容接口对象
-        public IScrollViewItem topScrollViewItem
-        {
-            get
-            {
-                if (listData.CheckIndex(mTopIndex))
-                {
-                    return listData[mTopIndex];
-                }
-                return null;
-            }
-        }
         public int Count => listData.Count;
         private float mTopSpace;//距离最上边的距离
         private float mBottomSpace;//距离最下边的距离
@@ -33,8 +22,6 @@ namespace Game
         private float mVerticcalValue;//当前滑倒的地方
         private bool mIsToBottom;//是否滑到底部了
         private bool mIsToTop;//是否滑到顶部了
-        private int mTopIndex;//显示层最上面的下标
-        private int mBottomIndex;//显示层最下面的下标
         private bool mIsFull;//子对象是否填满屏幕了
         private float mBottomValue;//底部值
         private float mDragStartPos;//开始滑动的位置
@@ -54,6 +41,7 @@ namespace Game
         private float mDownFrashValue = 20;//向上拉动刷新阈值
         private Action mDownFrashCallBack;//向上拉动刷新回调
         private Action mDragCallBack;//滑动时的回调
+        private GameObject Mask;
         public void Init(RectTransform viewPort = null, RectTransform content = null)
         {
             mVerticcalValue = 0;
@@ -61,9 +49,10 @@ namespace Game
             if (viewPort == null) this.viewPort = transform.Find("Viewport").GetComponent<RectTransform>();
             if (content == null) this.content = this.viewPort.Find("Content").GetComponent<RectTransform>();
             listData = new List<IScrollViewItem>();
-            mTopIndex = mBottomIndex = 0;
             mDragPosList = new float[mDragPosCount];
             mVerticalSize = 0;
+            Mask = transform.Find("Mask").gameObject;
+            Mask.SetAvtiveExtend(false);
         }
         /// <summary>
         ///设置间隔
@@ -105,51 +94,6 @@ namespace Game
         }
 
         /// <summary>
-        /// 计算滑动区域
-        /// </summary>
-        private void CalcScrollView()
-        {
-            mBottomIndex = 0;
-            mTopIndex = 0;
-            for (int i = 0; i < listData.Count; i++)
-            {
-                if (listData[i].IsShow(new Vector2(0, mVerticcalValue), viewPort.rect.size))
-                {
-                    mBottomIndex++;
-                }
-                else
-                {
-                    if (mBottomIndex > mTopIndex)
-                    {
-                        break;
-                    }
-                    mTopIndex++;
-                    mBottomIndex++;
-                }
-            }
-            for (int i = 0; i < listData.Count; i++)
-            {
-                if (i < mTopIndex || i >= mBottomIndex)
-                {
-                    if (listData[i].isInstantiate)
-                    {
-                        listData[i].RecycleItem();
-                    }
-                }
-                else
-                {
-                    if (!listData[i].isInstantiate)
-                    {
-                        listData[i].LoadGameObject();
-                    }
-                    else
-                    {
-                        listData[i].LoadToOriginalPos();
-                    }
-                }
-            }
-        }
-        /// <summary>
         /// 计算是否填满屏幕了
         /// </summary>
         private void CheckIsFull()
@@ -182,7 +126,7 @@ namespace Game
             scrollViewItem.index = listData.Count;
             scrollViewItem.scrollViewTarget = this;
             listData.Add(scrollViewItem);
-            CalcScrollView();
+            scrollViewItem.LoadGameObject();
             CheckIsFull();
         }
         /// <summary>
@@ -216,7 +160,6 @@ namespace Game
             }
             scrollViewItem.scrollViewTarget = this;
             listData.Insert(index, scrollViewItem);
-            CalcScrollView();
             CheckIsFull();
         }
         /// <summary>
@@ -243,7 +186,6 @@ namespace Game
             mVerticalSize -= offectLen;
             content.sizeDelta = new Vector2(content.sizeDelta.x, mVerticalSize);
             listData.Remove(scrollViewItem);
-            CalcScrollView();
             CheckIsFull();
             if (mIsFull)
             {
@@ -284,7 +226,6 @@ namespace Game
             }
             mVerticalSize += offect.y;
             content.sizeDelta = new Vector2(content.sizeDelta.x, mVerticalSize);
-            CalcScrollView();
             CheckIsFull();
             if (mIsFull)
             {
@@ -340,7 +281,6 @@ namespace Game
             listData[moveTargetIndex].RecycleItem();
             listData[exchangeIndex].RecycleItem();
 
-            CalcScrollView();
         }
         /// <summary>
         /// 开始拖动
@@ -353,6 +293,7 @@ namespace Game
             mDragStartPos = eventData.position.y;
             mIsToBottom = false;
             mIsToTop = false;
+
         }
         /// <summary>
         /// 拖动中
@@ -471,87 +412,9 @@ namespace Game
         private void MoveDelta(Vector2 vector)
         {
             content.anchoredPosition += vector;
-            //是否是向下滑动
-            bool isToBottom = vector.y < 0;
-            if (isToBottom)
-            {
-                //下层检查是否需要回收
-                CheckBottomRecycle();
-                //上层检查是否需要生成
-                CheckTopInstantiate();
-            }
-            else
-            {
-                //下层检查是否需要生成
-                CheckBottomInstantiate();
-                //上层检查是否需要回收
-                CheckTopRecycle();
-            }
-            CalcScrollView();
             mDragCallBack?.Invoke();
         }
-        /// <summary>
-        /// 检查顶部是否回收
-        /// </summary>
-        public void CheckTopRecycle()
-        {
-            if (CheckIndex(mTopIndex) && listData[mTopIndex].isInstantiate)
-            {
-                bool res = listData[mTopIndex].CheckTopRecycle(new Vector2(0, mVerticcalValue));
-                if (res)
-                {
-                    //最上一层回收了
-                    mTopIndex++;
-                    CheckTopRecycle();
-                }
-            }
-        }
-        public void CheckBottomInstantiate()
-        {
-            if (CheckIndex(mBottomIndex) && !listData[mBottomIndex].isInstantiate)
-            {
-                bool res = listData[mBottomIndex].CheckBottomInstantiate(new Vector2(0, mVerticcalValue), viewPort.rect.size);
-                
-                if (res)
-                {
-                    //最下一层需要生成
-                    mBottomIndex++;
-                    CheckBottomInstantiate();
-                }
-            }
-        }
-        private void CheckBottomRecycle()
-        {
-            if (CheckIndex(mBottomIndex - 1) && listData[mBottomIndex - 1].isInstantiate)
-            {
-                bool res = listData[mBottomIndex - 1].CheckBottomRecycle(new Vector2(0, mVerticcalValue), viewPort.rect.size);
-                if (res)
-                {
-                    //最下一层回收了
-                    mBottomIndex--;
-                    CheckBottomRecycle();
-                }
-            }
-        }
-        public void CheckTopInstantiate()
-        {
-            if (CheckIndex(mTopIndex - 1))//第一层时不需要生成 
-            {
-                bool res = listData[mTopIndex - 1].CheckTopInstantiate(new Vector2(0, mVerticcalValue), viewPort.rect.size);
-                if (res)
-                {
-                    //最上一层需要生成
-                    mTopIndex--;
-                    if (mTopIndex < 0) 
-                    {
-                        mTopIndex = 0;
-                        return;
-
-                    }
-                    CheckTopInstantiate();
-                }
-            }
-        }
+     
         /// <summary>
         /// 检查下标是否越界
         /// </summary>
@@ -588,6 +451,7 @@ Input.touches[0].position.y;
 
             if (mIsToBottom)
             {
+                Mask.SetAvtiveExtend(true);
                 float offect = Mathf.Lerp(mVerticcalValue, mBottomValue, Time.deltaTime * 10);
                 float delta = mVerticcalValue - offect;
                 mVerticcalValue = offect;
@@ -596,6 +460,7 @@ Input.touches[0].position.y;
                     content.anchoredPosition = new Vector2(0, mBottomValue);
                     mVerticcalValue = mBottomValue;
                     mIsToBottom = false;
+                    Mask.SetAvtiveExtend(false);
                     return;
                 }
                 MoveDelta(new Vector2(0, -delta));
@@ -603,6 +468,8 @@ Input.touches[0].position.y;
             }
             if (mIsToTop)
             {
+                Mask.SetAvtiveExtend(true);
+
                 float offect = Mathf.Lerp(0, mVerticcalValue, Time.deltaTime * 10);
                 mVerticcalValue -= offect;
                 if (mVerticcalValue > -5f)
@@ -610,6 +477,7 @@ Input.touches[0].position.y;
                     content.anchoredPosition = Vector2.zero;
                     mVerticcalValue = 0;
                     mIsToTop = false;
+                    Mask.SetAvtiveExtend(false);
                     return;
                 }
                 MoveDelta(new Vector2(0, -offect));
@@ -649,10 +517,13 @@ Input.touches[0].position.y;
                 }
                 float offect = Mathf.Lerp(0, mDragLen, Time.deltaTime * 5);
                 mDragLen -= offect;
+                Mask.SetAvtiveExtend(true);
                 if (mIsUpDir)
                 {
                     if (mDragLen < 5)
                     {
+                        Mask.SetAvtiveExtend(false);
+
                         mIsSlidering = false;
                         mVerticcalValue += mDragLen;
                         MoveDelta(new Vector2(0, mDragLen));
@@ -664,6 +535,7 @@ Input.touches[0].position.y;
                 {
                     if (mDragLen > -5)
                     {
+                        Mask.SetAvtiveExtend(false);
                         mVerticcalValue += mDragLen;
                         mIsSlidering = false;
                         MoveDelta(new Vector2(0, mDragLen));
@@ -682,6 +554,7 @@ Input.touches[0].position.y;
         public void OnPointerDown(PointerEventData eventData)
         {
             mIsSlidering = false;
+            Mask.SetAvtiveExtend(false);
         }
         /// <summary>
         /// 获取对象
@@ -718,9 +591,13 @@ Input.touches[0].position.y;
             listData.Clear();
             mVerticcalValue = 0;
             mVerticalSize = mTopSpace + mBottomSpace;
-            mTopIndex = mBottomIndex = 0;
             content.sizeDelta = new Vector2(content.sizeDelta.x,0);
             content.anchoredPosition = new Vector2(content.anchoredPosition.x,0);
+        }
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            
         }
     }
 

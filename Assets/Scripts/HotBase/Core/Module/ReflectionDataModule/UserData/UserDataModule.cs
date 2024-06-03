@@ -94,12 +94,13 @@ namespace Game
             mUserDataQueueCallBackDict[account].Enqueue(callBack);
             SendGetUserDataRequest(account);
         }
+
         /// <summary>
         /// 发送获取用户数据请求
         /// </summary>
         private static void SendGetUserDataRequest(long account)
         {
-            AppTools.UdpSend( SubServerType.Login,(short)LoginUdpCode.GetUserData, account.ToBytes());
+            AppTools.TcpSend(TcpSubServerType.Login,(short)TcpLoginUdpCode.GetUserData, account.ToBytes());
         }
         /// <summary>
         /// 接收到了玩家的数据

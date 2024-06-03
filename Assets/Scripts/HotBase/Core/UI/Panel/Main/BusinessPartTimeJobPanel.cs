@@ -19,8 +19,12 @@ namespace Game
         {
             base.Awake();
             Transform typeContent = transform.Find("TypeContent");
-            RecruitSubUI = new RecruitSubUI(typeContent.Find("Recruit"));
-            BusinessPartTimeMySubUI = new BusinessPartTimeMySubUI(typeContent.Find("My"));
+            Image listIcon = transform.FindObject<Image>("ListIcon");
+            Text listText = transform.FindObject<Text>("ListText");
+            RecruitSubUI = new RecruitSubUI(typeContent.Find("Recruit"), listIcon, listText);
+            Image myIcon = transform.FindObject<Image>("MyIcon");
+            Text myText = transform.FindObject<Text>("MyText");
+            BusinessPartTimeMySubUI = new BusinessPartTimeMySubUI(typeContent.Find("My"), myIcon, myText);
             AddSubUI(RecruitSubUI);
             AddSubUI(BusinessPartTimeMySubUI);
             mCur = RecruitSubUI;

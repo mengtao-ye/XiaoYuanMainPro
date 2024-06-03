@@ -13,9 +13,9 @@ namespace Game
         private float mTimer;
         private float mTime = 1;
         private int mHeartBeatCount;
-        public SubServerType subServerType { get; private set; }
+        public UdpSubServerType subServerType { get; private set; }
         private string mName;
-        public XiaoYuanUDPScoketManager(Center center, IMap<short, IUdpRequestHandle> map, SubServerType subServerType, string name) : base(center, map)
+        public XiaoYuanUDPScoketManager(Center center, IMap<short, IUdpRequestHandle> map, UdpSubServerType subServerType, string name) : base(center, map)
         {
             this.subServerType = subServerType;
             if (name.IsNullOrEmpty())

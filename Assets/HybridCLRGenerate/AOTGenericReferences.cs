@@ -18,12 +18,12 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 
 	// {{ AOT generic types
 	// System.Action<Game.AssetBundleConfig.AssetBundleFileDir>
+	// System.Action<System.DateTime>
 	// System.Action<UnityEngine.Vector2>
 	// System.Action<UnityEngine.Vector3>
 	// System.Action<byte>
 	// System.Action<float>
 	// System.Action<int>
-	// System.Action<long>
 	// System.Action<object,object,object,object>
 	// System.Action<object,object,object>
 	// System.Action<object,object>
@@ -281,6 +281,9 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.Linq.IOrderedEnumerable<object> System.Linq.Enumerable.OrderBy<object,ushort>(System.Collections.Generic.IEnumerable<object>,System.Func<object,ushort>)
 		// int[] System.Linq.Enumerable.ToArray<int>(System.Collections.Generic.IEnumerable<int>)
 		// System.Collections.Generic.List<object> System.Linq.Enumerable.ToList<object>(System.Collections.Generic.IEnumerable<object>)
+		// object& System.Runtime.CompilerServices.Unsafe.As<object,object>(object&)
+		// System.Void* System.Runtime.CompilerServices.Unsafe.AsPointer<object>(object&)
+		// object System.Threading.Interlocked.CompareExchange<object>(object&,object,object)
 		// object UnityEngine.AndroidJNIHelper.ConvertFromJNIArray<object>(System.IntPtr)
 		// System.IntPtr UnityEngine.AndroidJNIHelper.GetMethodID<object>(System.IntPtr,string,object[],bool)
 		// object UnityEngine.AndroidJavaObject.Call<object>(string,object[])

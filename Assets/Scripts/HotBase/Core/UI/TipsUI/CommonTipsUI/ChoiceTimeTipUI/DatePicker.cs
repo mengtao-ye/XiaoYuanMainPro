@@ -46,16 +46,12 @@ namespace Game
         /// 当选择日期的委托事件
         /// </summary>
         public event OnDateUpdate _onDateUpdate;
-        void Awake()
+        public void InitData(DateType dateType, ChoiceTimeTipUI datePickerGroup)
         {
             _itemObj = transform.Find("Item").gameObject;
             _itemParent = transform.Find("Content");
             _itemObj.SetActive(false);
             _updateLength = _itemObj.GetComponent<RectTransform>().sizeDelta.y;
-        }
-
-        public void InitData(DateType dateType, ChoiceTimeTipUI datePickerGroup)
-        {
             _dateType = dateType;
             myGroup = datePickerGroup;
         }
@@ -88,7 +84,7 @@ namespace Game
             _item.transform.localEulerAngles = Vector3.zero;
             if (real_i != 0)
             {
-                _item.GetComponent<Text>().color = new Color(1, 1, 1, 1 - 0.2f - (Mathf.Abs(real_i) / (_itemNum / 2 + 1)));
+                _item.GetComponent<Text>().color = new Color(0, 0, 0, 1 - 0.2f - (Mathf.Abs(real_i) / (_itemNum / 2 + 1)));
             }
             return _item;
         }
@@ -203,7 +199,7 @@ namespace Game
                         _data = myGroup._selectDate.AddSeconds(real_i);
                         break;
                 }
-                string str = "";
+                string str = string.Empty;
                 if (IsInDate(_data, myGroup.minDateTime, myGroup.maxDateTime))
                 {
                     switch (_dateType)

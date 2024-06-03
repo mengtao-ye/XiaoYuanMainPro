@@ -11,7 +11,7 @@ namespace Game
         public string chat_msg;
         public long time;
         public override Vector2 size { get; set; } = new Vector2(100,60);
-        public override float anchoredPositionX => 0;
+        public  override float anchoredPositionX { get; }
         public override void LoadData(IGameObjectPoolTarget gameObjectPoolTarget)
         {
                 

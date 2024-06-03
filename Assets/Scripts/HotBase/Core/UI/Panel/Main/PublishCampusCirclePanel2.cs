@@ -108,7 +108,7 @@ namespace Game
             returnList.Add(isSchool.ToBytes());
             byte[] returnBytes = returnList.list.ToBytes();
             returnList?.Recycle();
-            AppTools.UdpSend( SubServerType.Login,(short)LoginUdpCode.PublishCampusCircle, returnBytes);
+            AppTools.TcpSend(TcpSubServerType.Login,(short)TcpLoginUdpCode.PublishCampusCircle, returnBytes);
         }
 
     }

@@ -161,7 +161,7 @@ namespace Game
 
             byte[] sendBytes = dictionaryData.data.ToBytes();
             dictionaryData.Recycle();
-            AppTools.UdpSend(SubServerType.Login, (short)LoginUdpCode.PublishLostData, sendBytes);
+            AppTools.TcpSend(TcpSubServerType.Login, (short)TcpLoginUdpCode.PublishLostData, sendBytes);
         }
 
         private void StartTimeListener()

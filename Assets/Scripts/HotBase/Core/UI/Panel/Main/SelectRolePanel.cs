@@ -21,7 +21,7 @@ namespace Game
             transform.FindObject<Button>("EnterBtn").onClick.AddListener(() =>
             {
                 int roleID = mTG.GetActiveToggle().name.ToInt();
-                AppTools.UdpSend( SubServerType.Login,(short)LoginUdpCode.SetMyMetaSchoolData,ByteTools.Concat(AppVarData.Account.ToBytes(), roleID.ToBytes()));
+                AppTools.TcpSend(TcpSubServerType.Login,(short)TcpLoginUdpCode.SetMyMetaSchoolData,ByteTools.Concat(AppVarData.Account.ToBytes(), roleID.ToBytes()));
             });
         }
     }
