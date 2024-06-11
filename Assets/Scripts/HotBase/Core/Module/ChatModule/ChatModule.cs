@@ -99,12 +99,12 @@ namespace Game
         /// 获取聊天列表数据
         /// </summary>
         /// <returns></returns>
-        public static void LoadChatList(IScrollView scrollView)
+        public static bool LoadChatList(IScrollView scrollView)
         {
             string path = ChatPathData.ChatListDir();
-            if (!Directory.Exists(path)) return;
+            if (!Directory.Exists(path)) return false;
             string[] files = Directory.GetFiles(ChatPathData.ChatListDir());
-            if (files.IsNullOrEmpty()) return;
+            if (files.IsNullOrEmpty()) return false;
             for (int i = 0; i < files.Length; i++)
             {
                 byte[] chatBytes = File.ReadAllBytes(files[i]);
@@ -112,6 +112,7 @@ namespace Game
                 chatListItemData.ViewItemID = chatListItemData.account;
                 scrollView.Add(chatListItemData);
             }
+            return true;
         }
         /// <summary>
         /// 获取最近的聊天ID
@@ -232,11 +233,11 @@ namespace Game
         /// 加载好友申请数据
         /// </summary>
         /// <returns></returns>
-        public static void LoadAddFriendList(IScrollView scrollView)
+        public static bool LoadAddFriendList(IScrollView scrollView)
         {
-            if (!Directory.Exists(ChatPathData.AddFriendListDir())) return;
+            if (!Directory.Exists(ChatPathData.AddFriendListDir())) return false;
             string[] files = Directory.GetFiles(ChatPathData.AddFriendListDir());
-            if (files.IsNullOrEmpty()) return;
+            if (files.IsNullOrEmpty()) return false;
             for (int i = 0; i < files.Length; i++)
             {
                 byte[] chatBytes = File.ReadAllBytes(files[i]);
@@ -251,6 +252,7 @@ namespace Game
                     friendPairData.Recycle();
                 }
             }
+            return true;
         }
         /// <summary>
         /// 获取最近的添加好友ID
@@ -346,11 +348,11 @@ namespace Game
         /// 加载好友数据
         /// </summary>
         /// <returns></returns>
-        public static void LoadFriendList(IScrollView scrollView)
+        public static bool LoadFriendList(IScrollView scrollView)
         {
-            if (!Directory.Exists(ChatPathData.FriendListDir())) return;
+            if (!Directory.Exists(ChatPathData.FriendListDir())) return false;
             string[] files = Directory.GetFiles(ChatPathData.FriendListDir());
-            if (files.IsNullOrEmpty()) return;
+            if (files.IsNullOrEmpty()) return false;
             for (int i = 0; i < files.Length; i++)
             {
                 byte[] chatBytes = File.ReadAllBytes(files[i]);
@@ -387,6 +389,7 @@ namespace Game
                     friendPairData.Recycle();
                 }
             }
+            return true;
         }
         /// <summary>
         /// 获取好友数据

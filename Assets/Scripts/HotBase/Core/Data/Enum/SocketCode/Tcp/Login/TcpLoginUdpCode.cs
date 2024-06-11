@@ -3,7 +3,7 @@
 
     public enum TcpLoginUdpCode : short
     {
-        //目前到了  52  
+        //目前到了  62
 
         //Base
         LoginHeartBeat = TcpRequestCode.LoginServer +1,//心跳包
@@ -14,6 +14,10 @@
         GetSchoolData = TcpRequestCode.LoginServer + 6,//获取学校数据
         SearchSchool = TcpRequestCode.LoginServer + 7,//查找学校    
         JoinSchool = TcpRequestCode.LoginServer + 8,//加入学校
+        ModifyName = TcpRequestCode.LoginServer + 63,//修改名称
+        ModifySex = TcpRequestCode.LoginServer + 64,//修改性别
+        ModifyBrithday = TcpRequestCode.LoginServer + 65,//修改生日
+        ExitSchool = TcpRequestCode.LoginServer + 66,//退出学校
         //Chat
         GetNewChatMsg = TcpRequestCode.LoginServer + 9,//获取最新的聊天信息
         SendChatMsg = TcpRequestCode.LoginServer + 10,//发送聊天消息

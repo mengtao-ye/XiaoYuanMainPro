@@ -27,17 +27,23 @@ namespace Game
             }
             return new Vector2(x - Screen.width/2 ,y - Screen.height/2);
         }
-
+        /// <summary>
+        /// 获取垂直布局的高度
+        /// </summary>
+        /// <param name="verticalLayoutGroup"></param>
+        /// <returns></returns>
         public static float GetVerticalSize(VerticalLayoutGroup verticalLayoutGroup) 
         {
             if (verticalLayoutGroup == null) return 0;
-            
             float len = 0;
             for (int i = 0; i < verticalLayoutGroup.transform.childCount; i++)
             {
                 len += verticalLayoutGroup.transform.GetChild(i).GetComponent<RectTransform>().sizeDelta.y;
             }
-            len += (verticalLayoutGroup.transform.childCount - 1) * verticalLayoutGroup.spacing;
+            if (verticalLayoutGroup.transform.childCount != 0)
+            {
+                len += (verticalLayoutGroup.transform.childCount - 1) * verticalLayoutGroup.spacing;
+            }
             return len;
         }
     }

@@ -9,7 +9,7 @@ namespace Game
         private float mTimer;
         private float mTime = 1;
         private byte[] mGetMsgBytes;
-        protected override string mSceneName =>SceneID.MainScene.ToString();
+        protected override string mSceneName => SceneID.MainScene.ToString();
         protected override void TwoDAwake()
         {
             base.TwoDAwake();

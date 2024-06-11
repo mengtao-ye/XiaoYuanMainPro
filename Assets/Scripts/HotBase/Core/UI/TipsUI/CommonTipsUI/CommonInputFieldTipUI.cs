@@ -41,11 +41,13 @@ namespace Game
             mSureCallBack?.Invoke(mIF.text);
             Hide();
         }
-        public void ShowContent(string title,string sureText,Action<string> sureCallBack)
+        public void ShowContent(string title,string sureText,Action<string> sureCallBack,int characterLimitCount,string defaultValue = "")
         {
             mTitle.text = title;
             mSureCallBack = sureCallBack;
             mSureText.text = sureText;
+            mIF.characterLimit = characterLimitCount;
+            mIF.text = defaultValue;
         }
     }
 }

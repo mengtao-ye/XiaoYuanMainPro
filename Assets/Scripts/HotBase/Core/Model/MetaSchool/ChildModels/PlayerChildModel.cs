@@ -38,8 +38,11 @@ namespace Game
             metaSchoolMainPanel.move.SetCallBack(Move);
             metaSchoolMainPanel.move.SetMoveSpeedBack(MoveSpeed);
             metaSchoolMainPanel.rotate.SetCallBack(Rotate);
-            string roleName = MetaSchoolGlobalVarData.myMetaSchoolData.RoleID.ToString();
-
+            MetaSchoolDataMapper.Map(AppVarData.Account, MetaSchoolDataCallBack);
+        }
+        private void MetaSchoolDataCallBack(MetaSchoolMapperData metaSchoolMapperData) 
+        {
+            string roleName = metaSchoolMapperData.RoleID.ToString();
             LoadABRoleTools.LoadABRole(
                 roleName,
                 null,
@@ -50,6 +53,7 @@ namespace Game
                 InitRole
                 );
         }
+        
 
 
         private void MoveSpeed(float value) 

@@ -70,7 +70,6 @@ namespace Game
         public static long GetValueByDateTime(DateTime dateTime)
         {
             return GetValueByDateTime(dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Hour, dateTime.Minute ,dateTime.Second);
-          
         }
         public static long GetValueByDateTime(int year, int month, int day, int hour, int minute, int second)
         {

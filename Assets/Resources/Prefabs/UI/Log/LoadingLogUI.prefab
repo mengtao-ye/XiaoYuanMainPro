@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6077006169417220771}
   - component: {fileID: 6077006169417220770}
   - component: {fileID: 6077006169417220772}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LoadingLogUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 6077006169451501600}
   - component: {fileID: 6077006169451501602}
   - component: {fileID: 6077006169451501601}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 1555928199305468620}
   - component: {fileID: 1408212942449935841}
   - component: {fileID: 7046388129266233764}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Loading
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -9,6 +9,8 @@ namespace Game
         public string Username;
         public string Password;
         public bool IsSetHead;
+        public byte sex;
+        public int brithday;
         private byte[] mDatas;
         public bool isPop { get ; set ; }
         public void PopPool()
@@ -34,6 +36,8 @@ namespace Game
                 bytes.Add(Username.ToBytes());
                 bytes.Add(Password.ToBytes());
                 bytes.Add(IsSetHead.ToBytes());
+                bytes.Add(sex.ToBytes());
+                bytes.Add(brithday.ToBytes());
                 mDatas = bytes.list.ToBytes();
                 bytes.Recycle();
             }
@@ -48,6 +52,8 @@ namespace Game
             Username = bytes[2].ToStr();
             Password = bytes[3].ToStr();
             IsSetHead = bytes[4].ToBool();
+            sex = bytes[5].ToByte();
+            brithday = bytes[6].ToInt();
             bytes.Recycle();
         }
     }

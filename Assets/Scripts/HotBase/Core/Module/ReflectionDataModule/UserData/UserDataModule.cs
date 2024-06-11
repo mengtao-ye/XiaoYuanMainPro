@@ -10,15 +10,21 @@ namespace Game
     /// </summary>
     public static class UserDataModule
     {
-        private static Dictionary<long, Queue<IUnityUserDataCallBack>> mUserDataQueueCallBackDict  = new Dictionary<long, Queue<IUnityUserDataCallBack>>();
+        private static Dictionary<long, Queue<IUnityUserDataCallBack>> mUserDataQueueCallBackDict = new Dictionary<long, Queue<IUnityUserDataCallBack>>();
         private static Dictionary<long, UnityUserData> mUserDataDict = new Dictionary<long, UnityUserData>();
+
+        public static UnityUserData Get(long account)
+        {
+            return mUserDataDict[account];
+        }
+
         /// <summary>
         /// 映射用户信息
         /// </summary>
         /// <param name="account"></param>
         /// <param name="image"></param>
         /// <param name="name"></param>
-        public static void MapUserDataCallBack<T>(long account, Action<UnityUserData,T> call,T data)
+        public static void MapUserDataCallBack<T>(long account, Action<UnityUserData, T> call, T data)
         {
             if (mUserDataDict.ContainsKey(account))
             {
@@ -65,9 +71,9 @@ namespace Game
         /// <param name="account"></param>
         /// <param name="image"></param>
         /// <param name="name"></param>
-        public static void MapUserData(long account,Text name)
+        public static void MapUserData(long account, Text name)
         {
-            MapUserData(account,null,name);
+            MapUserData(account, null, name);
         }
 
         /// <summary>
@@ -100,23 +106,25 @@ namespace Game
         /// </summary>
         private static void SendGetUserDataRequest(long account)
         {
-            AppTools.TcpSend(TcpSubServerType.Login,(short)TcpLoginUdpCode.GetUserData, account.ToBytes());
+            byte[] sendBytes =  SocketTools.GetSendServerData(account.ToBytes());
+            AppTools.TcpSend(TcpSubServerType.Login, (short)TcpLoginUdpCode.GetUserData, sendBytes);
         }
         /// <summary>
         /// 接收到了玩家的数据
         /// </summary>
         /// <param name="account"></param>
         /// <param name="userData"></param>
-        public static void ReceiveUserDataCallBack(long account,UnityUserData userData) 
+        public static void ReceiveUserDataCallBack(long account, UnityUserData userData)
         {
-            if (!mUserDataDict.ContainsKey(account)) 
+            if (!mUserDataDict.ContainsKey(account))
             {
-                mUserDataDict.Add(account,userData);
+                mUserDataDict.Add(account, userData);
             }
             if (mUserDataQueueCallBackDict.ContainsKey(account))
             {
                 Queue<IUnityUserDataCallBack> unityUserDataCallBacks = mUserDataQueueCallBackDict[account];
-                while (unityUserDataCallBacks.Count!=0) {
+                while (unityUserDataCallBacks.Count != 0)
+                {
                     IUnityUserDataCallBack unityUserDataCallBack = unityUserDataCallBacks.Dequeue();
                     unityUserDataCallBack.SetData(userData);
                 }

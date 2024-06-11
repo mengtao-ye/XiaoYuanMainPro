@@ -12,6 +12,7 @@ namespace Game
         private ILive mGetFriendListLive;
         private byte[] mSendGetFriendListBytes;
         public IScrollView scrollView;
+        private GameObject mNotFindTip;
         public MsgPageSubUI(Transform trans, MainPanel mainPanel) : base(trans)
         {
             mMainPanel = mainPanel;
@@ -22,6 +23,9 @@ namespace Game
             scrollView = transform.FindObject("MsgScrollView").AddComponent<RecyclePoolScrollView>();
             scrollView.Init();
             scrollView.SetSpace(10,10,10);
+            mNotFindTip = transform.FindObject("NotFindTip");
+            mNotFindTip.SetAvtiveExtend(false);
+            scrollView.gameObject.SetAvtiveExtend(false);
             transform.FindObject<Button>("FriendBtn").onClick.AddListener(FriendBtnListener);
             transform.FindObject<Button>("SearchBtn").onClick.AddListener(SearchBtnListener);
             mNofityBtnRect = transform.FindObject<RectTransform>("NotifyBtn");
@@ -31,7 +35,9 @@ namespace Game
         public override void FirstShow()
         {
             base.FirstShow();
-            ChatModule.LoadChatList(scrollView);
+            bool res = ChatModule.LoadChatList(scrollView);
+            mNotFindTip.SetAvtiveExtend(!res);
+            scrollView.gameObject.SetAvtiveExtend(res);
         }
 
         public override void Show()

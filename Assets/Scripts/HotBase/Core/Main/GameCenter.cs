@@ -36,6 +36,14 @@ namespace Game
         #endregion
         #region Init
 
+#if UNITY_EDITOR
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void EditorLauncher()
+        {
+            Resources.Load<GameObject>("Prefabs/Main/MainLauncher").InstantiateGameObject(); ;
+            Resources.Load<GameObject>("Prefabs/Main/LauncherBridge").InstantiateGameObject(); ;
+        }
+#endif
         /// <summary>
         /// 最先执行的方法
         /// </summary>
@@ -45,18 +53,18 @@ namespace Game
             Instance = this;
             YFrameworkHelper.Instance = new XiaoYuanYFrameworkHelper();
             LogHelper.Instance = new UnityLogHelper();
+            TotweenModule.Init();
 #if UNITY_EDITOR
             ResourceHelper.Instance = new ResourcesLoadHelper();
 #else
             ResourceHelper.Instance = new XiaoYuanABLoadHelper();
 #endif
 #if UNITY_EDITOR
-
             AppVarData.userData = new UserData();
             AppVarData.userData.Account = 18379366314;
             SchoolGlobalVarData.SchoolCode = 4136014839;
-            MetaSchoolGlobalVarData.SetMyMetaSchoolData(new MyMetaSchoolData() { RoleID = 10000001 });
-            MetaSchoolGlobalVarData.SetSchoolData(new SchoolData() { assetBundleName = "default_scene" });
+            //MetaSchoolGlobalVarData.SetMyMetaSchoolData(new MyMetaSchoolData() { RoleID = 10000001 });
+            //MetaSchoolGlobalVarData.SetSchoolData(new SchoolData() { assetBundleName = "default_scene" });
 #endif
             AppData.platformType = platformType;
             Debug.Log("platformType:" + AppData.platformType.ToString());
@@ -87,7 +95,11 @@ namespace Game
 
             center.Awake();
             center.Start();
+
+            
         }
+
+
 
         private void Update()
         {

@@ -1,7 +1,6 @@
 ﻿using YFramework;
 using static YFramework.Utility;
 using UnityEngine;
-using System;
 
 namespace Game
 {
@@ -19,6 +18,10 @@ namespace Game
             Add((short)TcpLoginUdpCode.GetSchoolData, GetSchoolData);
             Add((short)TcpLoginUdpCode.SearchSchool, SearchSchool);
             Add((short)TcpLoginUdpCode.JoinSchool, JoinSchool);
+            Add((short)TcpLoginUdpCode.ModifyName, ModifyName);
+            Add((short)TcpLoginUdpCode.ModifySex, ModifySex);
+            Add((short)TcpLoginUdpCode.ModifyBrithday, ModifyBrithday);
+            Add((short)TcpLoginUdpCode.ExitSchool, ExitSchool);
             //Chat
             Add((short)TcpLoginUdpCode.GetNewChatMsg, GetNewChatMsg);
             Add((short)TcpLoginUdpCode.GetFriendList, GetFriendList);
@@ -84,6 +87,105 @@ namespace Game
             Add((short)TcpLoginUdpCode.DeleteFound, DeleteFound);
             Add((short)TcpLoginUdpCode.SearchFoundList, SearchFoundList);
         }
+
+        /// <summary>
+        /// 退出学校
+        /// </summary>
+        /// <param name="data"></param>
+        private void ExitSchool(byte[] data)
+        {
+            if (data.IsNullOrEmpty()) return;
+            SocketReturnMsg socketReturnMsg = ConverterDataTools.ToPoolObject<SocketReturnMsg>(data);
+            if (socketReturnMsg.isSuccess)
+            {
+                AppTools.Toast("学校退出成功");
+                SchoolDataMapper.Remove(SchoolGlobalVarData.SchoolCode);
+                SchoolGlobalVarData.SchoolCode = 0;
+                GameCenter.Instance.GetPanel<SchoolSettingPanel>().ExitSchool();
+            }
+            else
+            {
+                AppTools.ToastError(socketReturnMsg.msg);
+            }
+            socketReturnMsg.Recycle();
+        }
+
+        /// <summary>
+        /// 修改生日
+        /// </summary>
+        /// <param name="data"></param>
+        private void ModifyBrithday(byte[] data)
+        {
+            if (data.IsNullOrEmpty()) return;
+            SocketReturnMsg socketReturnMsg = ConverterDataTools.ToPoolObject<SocketReturnMsg>(data);
+            if (socketReturnMsg.isSuccess)
+            {
+                int brithday = socketReturnMsg.datas.ToInt();
+                AppTools.Toast("生日修改成功");
+                UnityUserData unityUserData = UserDataModule.Get(AppVarData.Account);
+                if (unityUserData != null)
+                {
+                    unityUserData.birthday = brithday;
+                }
+                GameCenter.Instance.GetPanel<AccountSettingPanel>().UpdateAccount();
+            }
+            else
+            {
+                AppTools.ToastError(socketReturnMsg.msg);
+            }
+            socketReturnMsg.Recycle();
+        }
+        /// <summary>
+        /// 修改性别
+        /// </summary>
+        /// <param name="data"></param>
+        private void ModifySex(byte[] data)
+        {
+            if (data.IsNullOrEmpty()) return;
+            SocketReturnMsg socketReturnMsg = ConverterDataTools.ToPoolObject<SocketReturnMsg>(data);
+            if (socketReturnMsg.isSuccess)
+            {
+                byte sex = socketReturnMsg.datas.ToByte();
+                AppTools.Toast("性别修改成功");
+                UnityUserData unityUserData = UserDataModule.Get(AppVarData.Account);
+                if (unityUserData != null)
+                {
+                    unityUserData.sex = sex;
+                }
+                GameCenter.Instance.GetPanel<AccountSettingPanel>().UpdateAccount();
+            }
+            else
+            {
+                AppTools.ToastError(socketReturnMsg.msg);
+            }
+            socketReturnMsg.Recycle();
+        }
+        /// <summary>
+        /// 修改名称
+        /// </summary>
+        /// <param name="data"></param>
+        private void ModifyName(byte[] data)
+        {
+            if (data.IsNullOrEmpty()) return;
+            SocketReturnMsg socketReturnMsg = ConverterDataTools.ToPoolObject<SocketReturnMsg>(data);
+            if (socketReturnMsg.isSuccess)
+            {
+                string name = socketReturnMsg.datas.ToStr();
+                AppTools.Toast("名称修改成功");
+                UnityUserData unityUserData = UserDataModule.Get(AppVarData.Account);
+                if (unityUserData != null)
+                {
+                    unityUserData.userName = name;
+                }
+                GameCenter.Instance.GetPanel<AccountSettingPanel>().UpdateAccount();
+            }
+            else
+            {
+                AppTools.ToastError(socketReturnMsg.msg);
+            }
+            socketReturnMsg.Recycle();
+        }
+
         /// <summary>
         /// 是否是好友
         /// </summary>
@@ -650,7 +752,8 @@ namespace Game
             else
             {
                 MyMetaSchoolData myMetaSchoolData = ConverterDataTools.ToPoolObject<MyMetaSchoolData>(data);
-                MetaSchoolGlobalVarData.SetMyMetaSchoolData(myMetaSchoolData);
+                MetaSchoolDataMapper.ReceiveData(myMetaSchoolData.Account, data);
+                myMetaSchoolData.Recycle();
                 GameCenter.Instance.LoadScene(SceneID.MetaSchoolScene, ABTagEnum.Main);
             }
         }
@@ -661,10 +764,19 @@ namespace Game
         private void GetMyMetaSchoolData(byte[] data)
         {
             if (data.IsNullOrEmpty()) return;
-            int code = data.ToInt();
-            byte[] datas = ByteTools.SubBytes(data, 4);
-            BoardCastModule.Broadcast(code, datas);
-
+            SocketReturnMsg socketReturnMsg = ConverterDataTools.ToPoolObject<SocketReturnMsg>(data);
+            if (socketReturnMsg.resultCode == (byte)SocketResultCode.Success)
+            {
+                IListData<byte[]> bytes = socketReturnMsg.datas.ToListBytes();
+                long account = bytes[0].ToLong();
+                bytes.Recycle();
+                MetaSchoolDataMapper.ReceiveData(account, socketReturnMsg.datas);
+            }
+            else
+            {
+                AppTools.ToastNotify(socketReturnMsg.msg);
+            }
+            socketReturnMsg?.Recycle();
         }
 
         /// <summary>
@@ -1243,9 +1355,8 @@ namespace Game
         {
             if (data.IsNullOrEmpty()) return;
             SchoolData schoolData = ConverterDataTools.ToPoolObject<SchoolData>(data);
-            MetaSchoolGlobalVarData.SetSchoolData(schoolData);
-            GameCenter.Instance.GetPanel<MainPanel>().mainSubUI.SetSchoolData(schoolData);
-
+            SchoolDataMapper.ReceiveData(schoolData.schoolCode, data);
+            schoolData.Recycle();
         }
 
         /// <summary>
@@ -1265,20 +1376,29 @@ namespace Game
         /// <param name="data"></param>
         private void GetUserData(byte[] data)
         {
-            if (data.IsNullOrEmpty()) return;
-            UserData userData = ConverterDataTools.ToPoolObject<UserData>(data);
-            if (userData.IsSetHead)
+            if (data.IsNullOrEmpty())
             {
-                string headUrl = OssPathData.GetMiniHeadPath(userData.Account);
-                HttpTools.LoadSprite<UserData>(headUrl, SpriteRequestCallBack, SpriteRequestErrorCallBack, userData);
+                AppTools.ToastError("服务器请求异常");
+                return;
             }
-            else
+            SocketReturnMsg socketReturnMsg = SocketTools.GetSocketData(data);
+            if (socketReturnMsg.isSuccess)
             {
-                DefaultSpriteValue.SetValue(DefaultSpriteValue.DEFAULT_HEAD, (defaultHead) =>
+                UserData userData = ConverterDataTools.ToPoolObject<UserData>(socketReturnMsg.datas);
+                if (userData.IsSetHead)
                 {
-                    SpriteRequestCallBack(defaultHead, userData);
-                });
+                    string headUrl = OssPathData.GetMiniHeadPath(userData.Account);
+                    HttpTools.LoadSprite<UserData>(headUrl, SpriteRequestCallBack, SpriteRequestErrorCallBack, userData);
+                }
+                else
+                {
+                    DefaultSpriteValue.SetValue(DefaultSpriteValue.DEFAULT_HEAD, (defaultHead) =>
+                    {
+                        SpriteRequestCallBack(defaultHead, userData);
+                    });
+                }
             }
+            socketReturnMsg.Recycle();
         }
         /// <summary>
         /// 获取用户数据成功回调
@@ -1287,7 +1407,7 @@ namespace Game
         /// <param name="userData"></param>
         private void SpriteRequestCallBack(Sprite sprite, UserData userData)
         {
-            UnityUserData unityUserData = new UnityUserData(userData.ID, userData.Account, userData.Username, userData.IsSetHead, sprite);
+            UnityUserData unityUserData = new UnityUserData(userData.ID, userData.Account, userData.Username, userData.IsSetHead, sprite, userData.sex, userData.brithday);
             UserDataModule.ReceiveUserDataCallBack(userData.Account, unityUserData);
             userData?.Recycle();
         }
@@ -1320,29 +1440,29 @@ namespace Game
 
         private void LoginServerHeartBeat(byte[] data)
         {
-            if (data.IsNullOrEmpty()) return;
+            if (data.IsNullOrEmpty())
+            {
+                AppTools.ToastError("服务器请求异常");
+                return;
+            }
             GameCenter.Instance.UdpHeart(UdpSubServerType.Login);
         }
         private void LoginAccount(byte[] data)
         {
-            if (data.IsNullOrEmpty()) return;
-            IDictionaryData<byte, byte[]> dict = data.ToBytesDictionary();
-            byte loginResultEnum = dict[0][0];// 0 为失败 1为成功  2为账号或密码错误  
-            switch (loginResultEnum)
+            if (data.IsNullOrEmpty())
             {
-                case 0:
-                    AppTools.ToastError("登录失败");
-                    break;
-                case 1:
-                    AppTools.Toast("登录成功");
-                    AppVarData.userData = ConverterDataTools.ToObject<UserData>(dict[1]);
-                    PlayerPrefsTools.SaveLoginAccount(AppVarData.userData.Account.ToString(), AppVarData.userData.Password);
-                    GameCenter.Instance.LoadScene(SceneID.MainScene, ABTagEnum.Main);
-                    break;
-                case 2:
-                    AppTools.ToastError("账号或密码错误");
-                    break;
+                AppTools.ToastError("服务器请求异常");
+                return;
             }
+            SocketReturnMsg socketReturnMsg = SocketTools.GetSocketData(data);
+            if (socketReturnMsg.isSuccess)
+            {
+                AppVarData.Token = socketReturnMsg.datas.ToLong();
+                AppVarData.userData = ConverterDataTools.ToObject<UserData>(socketReturnMsg.datas, 8);
+                PlayerPrefsTools.SaveLoginAccount(AppVarData.userData.Account.ToString(), AppVarData.userData.Password);
+                GameCenter.Instance.LoadScene(SceneID.MainScene, ABTagEnum.Main);
+            }
+            socketReturnMsg.Recycle();
         }
     }
 }

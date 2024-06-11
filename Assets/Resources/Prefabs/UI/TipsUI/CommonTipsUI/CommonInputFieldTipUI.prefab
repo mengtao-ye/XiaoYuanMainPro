@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4557240519837195699}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4557240520106840479}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TopArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 4557240520371186695}
   - component: {fileID: 4557240520371186692}
   - component: {fileID: 4557240520371186693}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: IF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -234,7 +234,7 @@ GameObject:
   - component: {fileID: 4557240520522328513}
   - component: {fileID: 4557240520522328515}
   - component: {fileID: 4557240520522328512}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -314,7 +314,7 @@ GameObject:
   - component: {fileID: 4557240520942207698}
   - component: {fileID: 4557240520942207708}
   - component: {fileID: 4557240520942207709}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -394,7 +394,7 @@ GameObject:
   - component: {fileID: 4557240521208389188}
   - component: {fileID: 4557240521208389190}
   - component: {fileID: 4557240521208389191}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Placeholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -475,7 +475,7 @@ GameObject:
   - component: {fileID: 4557240521378880279}
   - component: {fileID: 4557240521378880276}
   - component: {fileID: 5851970288676596693}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CommonInputFieldTipUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -598,7 +598,7 @@ GameObject:
   - component: {fileID: 4557240521548147982}
   - component: {fileID: 4557240521548147983}
   - component: {fileID: 4557240521548147980}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CloseBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -719,7 +719,7 @@ GameObject:
   - component: {fileID: 4557240521583353860}
   - component: {fileID: 4557240521583353861}
   - component: {fileID: 4557240521583353882}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SureBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -840,7 +840,7 @@ GameObject:
   - component: {fileID: 4557240521705336266}
   - component: {fileID: 4557240521705336244}
   - component: {fileID: 4557240521705336245}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SureText
   m_TagString: Untagged
   m_Icon: {fileID: 0}

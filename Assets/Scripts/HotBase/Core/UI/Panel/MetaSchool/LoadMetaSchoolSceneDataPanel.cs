@@ -28,8 +28,14 @@ namespace Game
             mProcessText.text = "0%";
             mProcessSlider.fillAmount = 0;
             mLoadText.text = string.Empty;
-            LoadABSceneTools.LoadABScene(MetaSchoolGlobalVarData.schoolData.assetBundleName, SetLoadText, SetProcess, LoadError, LoadSceneSuccess);
+            SchoolDataMapper.Map(SchoolGlobalVarData.SchoolCode, SchoolDataMapperCallBack);
         }
+
+        private void SchoolDataMapperCallBack(SchoolMapperData schoolMapperData)
+        {
+            LoadABSceneTools.LoadABScene(schoolMapperData.assetBundleName, SetLoadText, SetProcess, LoadError, LoadSceneSuccess);
+        }
+
         private void LoadError(string error)
         {
             LogHelper.LogError(error);    

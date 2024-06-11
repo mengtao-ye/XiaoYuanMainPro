@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7074243598934042676}
   - component: {fileID: 9083088932931838356}
   - component: {fileID: 1918345425846256815}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Phone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 4192538567638388566}
   - component: {fileID: 5858169095203870294}
   - component: {fileID: 6643774792924169622}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: QQ
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,7 +164,7 @@ GameObject:
   - component: {fileID: 7536671589953956325}
   - component: {fileID: 7536671589953956346}
   - component: {fileID: 7536671589953956347}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CloseBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,7 +285,7 @@ GameObject:
   - component: {fileID: 7536671590219893737}
   - component: {fileID: 7536671590219893742}
   - component: {fileID: 1694064028142670276}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ContactText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -380,7 +380,7 @@ GameObject:
   - component: {fileID: 7536671590321397753}
   - component: {fileID: 7536671590321397755}
   - component: {fileID: 7536671590321397752}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Tip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -460,13 +460,13 @@ GameObject:
   - component: {fileID: 7536671590367171840}
   - component: {fileID: 7536671590367171842}
   - component: {fileID: 7536671590367171843}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ContactTipUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7536671590367171840
 RectTransform:
   m_ObjectHideFlags: 0
@@ -537,7 +537,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1642651667074321186}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Icons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -578,7 +578,7 @@ GameObject:
   - component: {fileID: 7802594733845997265}
   - component: {fileID: 756012286276966463}
   - component: {fileID: 1634016615440106142}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: WeChat
   m_TagString: Untagged
   m_Icon: {fileID: 0}

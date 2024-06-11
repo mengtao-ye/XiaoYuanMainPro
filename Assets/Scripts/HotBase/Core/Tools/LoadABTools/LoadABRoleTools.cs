@@ -8,7 +8,6 @@ using static YFramework.Utility;
 
 namespace Game
 {
-
     public class LoadRoleData 
     {
         public string roleABName;

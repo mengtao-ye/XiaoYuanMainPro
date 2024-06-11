@@ -22,7 +22,7 @@ namespace Game
         }
 
         private void BackBtnListener() {
-            GameCenter.Instance.ShowPanel<LoginPanel>();
+            mUICanvas.CloseTopPanel();
         }
 
         public override void Show()

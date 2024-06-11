@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4597594241795203022}
   - component: {fileID: 4597594241795203008}
   - component: {fileID: 4597594241795203023}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FoundQuestTipUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 4597594241951463566}
   - component: {fileID: 4597594241951463552}
   - component: {fileID: 4597594241951463567}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 4597594242164279298}
   - component: {fileID: 4597594242164279297}
   - component: {fileID: 4597594242164279296}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: QuestIF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -319,7 +319,7 @@ GameObject:
   - component: {fileID: 4597594242197957889}
   - component: {fileID: 4597594242197957891}
   - component: {fileID: 4597594242197957890}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Placeholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -400,7 +400,7 @@ GameObject:
   - component: {fileID: 4597594243011255207}
   - component: {fileID: 4597594243011255206}
   - component: {fileID: 4597594243011255205}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ComfineBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -522,7 +522,7 @@ GameObject:
   - component: {fileID: 4597594243145735541}
   - component: {fileID: 4597594243145735540}
   - component: {fileID: 4597594243145735539}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CloseBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -643,7 +643,7 @@ GameObject:
   - component: {fileID: 4597594243336944017}
   - component: {fileID: 4597594243336944019}
   - component: {fileID: 4597594243336944018}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -723,7 +723,7 @@ GameObject:
   - component: {fileID: 4597594243502165820}
   - component: {fileID: 4597594243502165822}
   - component: {fileID: 4597594243502165821}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -803,7 +803,7 @@ GameObject:
   - component: {fileID: 4597594243519084908}
   - component: {fileID: 4597594243519084910}
   - component: {fileID: 4597594243519084909}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -883,7 +883,7 @@ GameObject:
   - component: {fileID: 4597594243530840625}
   - component: {fileID: 4597594243530840627}
   - component: {fileID: 4597594243530840626}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Quest
   m_TagString: Untagged
   m_Icon: {fileID: 0}

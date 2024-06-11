@@ -27,36 +27,28 @@ namespace Game
             mJoinSchoolBtn.gameObject.SetAvtiveExtend(false);
             mSchoolBG.gameObject.SetAvtiveExtend(false);
             transform.FindObject<Button>("EnterMetaSchoolBtn").onClick.AddListener(EnterMetaSchoolBtnListener);
-            BoardCastModule.AddListener<byte[]>(BoardCastID.GetMetaSchoolData, MetaSchoolDataCallBack);
         }
-        private void MetaSchoolDataCallBack(byte[] data)
+        private void EnterMetaSchoolBtnListener()
         {
-            if (ByteTools.IsCompare(data, BytesConst.FALSE_BYTES))
+            MetaSchoolDataMapper.Map(AppVarData.Account, MetaSchoolDataMapperCallBack);
+        }
+
+        private void MetaSchoolDataMapperCallBack(MetaSchoolMapperData schoolMapperData)
+        {
+            if (schoolMapperData.RoleID == 0)
             {
                 GameCenter.Instance.ShowPanel<SelectRolePanel>();
             }
             else
             {
-                MyMetaSchoolData myMetaSchoolData = ConverterDataTools.ToPoolObject<MyMetaSchoolData>(data);
-                MetaSchoolGlobalVarData.SetMyMetaSchoolData(myMetaSchoolData);
                 GameCenter.Instance.LoadScene(SceneID.MetaSchoolScene, ABTagEnum.Main);
             }
         }
-        public override void OnDestory()
-        {
-            base.OnDestory();
-            BoardCastModule.RemoveListener<byte[]>(BoardCastID.GetMetaSchoolData, MetaSchoolDataCallBack);
-        }
 
-
-        private void EnterMetaSchoolBtnListener() 
-        {
-            AppTools.TcpSend(TcpSubServerType.Login,(short)TcpLoginUdpCode.GetMyMetaSchoolData, ByteTools.Concat(BoardCastID.GetMetaSchoolData.ToBytes(),  AppVarData.Account.ToBytes()));
-        }
         /// <summary>
         /// 加入学校按钮
         /// </summary>
-        private void JoinSchoolBtnListener() 
+        private void JoinSchoolBtnListener()
         {
             GameCenter.Instance.ShowPanel<SelectSchoolPanel>();
         }
@@ -78,21 +70,21 @@ namespace Game
             if (schoolCode != 0)
             {
                 //加入了学校
-                AppTools.TcpSend(TcpSubServerType.Login, (short)TcpLoginUdpCode.GetSchoolData, schoolCode.ToBytes());
+                SchoolDataMapper.Map(schoolCode, SchoolDataCallback);
             }
         }
-        public void SetSchoolData(SchoolData data)
+
+        private void SchoolDataCallback(SchoolMapperData data)
         {
             mJoinSchoolBtn.gameObject.SetAvtiveExtend(false);
             mSchoolBG.gameObject.SetAvtiveExtend(true);
-            string bgUrl =  OssPathData.GetSchoolBG(data.schoolCode);
+            string bgUrl = OssPathData.GetSchoolBG(data.schoolCode);
             HttpTools.LoadSprite(bgUrl, LoadSchoolBGCallBack);
             mSchoolName.text = data.name;
         }
-
-        private void LoadSchoolBGCallBack(Sprite sprite ) {
+        private void LoadSchoolBGCallBack(Sprite sprite)
+        {
             mSchoolBG.sprite = sprite;
         }
-
     }
 }

@@ -26,6 +26,9 @@ namespace Game
                 AppTools.ToastError("好友对象异常");
                 return;
             }
+            GameCenter.Instance.ShowPanel<UserMainPagePanel>((ui)=> {
+                ui.ShowContent(mFriendAccount);
+            });
         }
         public void SetFriendData(long account,string name)
         {

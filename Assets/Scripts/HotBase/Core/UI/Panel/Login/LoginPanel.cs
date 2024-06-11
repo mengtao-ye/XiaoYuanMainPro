@@ -14,6 +14,7 @@ namespace Game
         public string password { get { return mPassword.text; } }
         private Button mLoginBtn;
         private Coroutine mAutoLoginCor;
+        private static bool mIsFirstOpen;
         public LoginPanel()
         {
 
@@ -22,22 +23,17 @@ namespace Game
         {
             base.Awake();
             Init();
-            IProcess process = GameCenter.Instance.processController.Create()
+            if (!mIsFirstOpen)
+            {
+                IProcess process = GameCenter.Instance.processController.Create()
                  .Concat(new CheckMainServerIsInitProcess())
-              .Concat(new GetLoginServerPointProcess())
-              ;
-            process.processManager.Launcher();
+                 .Concat(new GetLoginServerPointProcess())
+                  ;
+                process.processManager.Launcher();
+                mAutoLoginCor = IEnumeratorModule.StartCoroutine(IEAutoLogin());
+                mIsFirstOpen = true;
+            }
         }
-
-        public override void Start()
-        {
-            base.Start();
-            //#if UNITY_EDITOR
-            //            AudoLogin(18379366315, "528099tt...");
-            //#endif
-            mAutoLoginCor = IEnumeratorModule.StartCoroutine(IEAutoLogin());
-        }
-
         public override void Hide()
         {
             base.Hide();

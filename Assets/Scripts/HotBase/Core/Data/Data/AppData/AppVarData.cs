@@ -23,7 +23,9 @@ namespace Game
         /// 用户数据
         /// </summary>
         public static UserData userData { get; set; }
-
-
+        /// <summary>
+        /// 用户Token
+        /// </summary>
+        public static long Token { get; set; }
     }
 }

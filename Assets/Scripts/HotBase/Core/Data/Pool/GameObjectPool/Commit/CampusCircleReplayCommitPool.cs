@@ -49,7 +49,7 @@ namespace Game
         {
             GameCenter.Instance.ShowTipsUI<CommonInputFieldTipUI>((ui) =>
             {
-                ui.ShowContent("回复:"+ mName.text,"发送", SendReplayCommit);
+                ui.ShowContent("回复:"+ mName.text,"发送", SendReplayCommit,100);
             });
         }
 
