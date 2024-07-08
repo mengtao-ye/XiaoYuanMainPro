@@ -43,7 +43,7 @@ namespace Game
 
         public void IsFriend(bool isFriend)
         { 
-            mAddFriendBtn.gameObject.SetAvtiveExtend(!isFriend);
+            mAddFriendBtn.gameObject.SetActiveExtend(!isFriend);
         }
         /// <summary>
         /// 验证是否是好友

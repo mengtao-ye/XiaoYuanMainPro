@@ -66,8 +66,8 @@ namespace Game
             mSearchIF.ActivateInputField();
             mLastUpdateTime =  DateTimeTools.MaxValueTime;
             mScrollView.SetDownFrashState(false);
-            mCenterArea.SetAvtiveExtend(false);
-            mNotFindTip.SetAvtiveExtend(false);
+            mCenterArea.SetActiveExtend(false);
+            mNotFindTip.SetActiveExtend(false);
         }
         private void GetFoundList()
         {
@@ -86,14 +86,14 @@ namespace Game
             {
                 if (mLastUpdateTime == DateTimeTools.MaxValueTime) 
                 {
-                    mNotFindTip.SetAvtiveExtend(true);
+                    mNotFindTip.SetActiveExtend(true);
                 }
                 mScrollView.SetDownFrashState(false);
             }
             else
             {
-                mCenterArea.SetAvtiveExtend(true);
-                mNotFindTip.SetAvtiveExtend(false);
+                mCenterArea.SetActiveExtend(true);
+                mNotFindTip.SetActiveExtend(false);
                 mLastUpdateTime = data.list.GetLastData().updateTime;
                 if (data.Count != 3)
                 {

@@ -52,7 +52,7 @@ namespace Game
             mDragPosList = new float[mDragPosCount];
             mVerticalSize = 0;
             Mask = transform.Find("Mask").gameObject;
-            Mask.SetAvtiveExtend(false);
+            Mask.SetActiveExtend(false);
         }
         /// <summary>
         ///设置间隔
@@ -451,7 +451,7 @@ Input.touches[0].position.y;
 
             if (mIsToBottom)
             {
-                Mask.SetAvtiveExtend(true);
+                Mask.SetActiveExtend(true);
                 float offect = Mathf.Lerp(mVerticcalValue, mBottomValue, Time.deltaTime * 10);
                 float delta = mVerticcalValue - offect;
                 mVerticcalValue = offect;
@@ -460,7 +460,7 @@ Input.touches[0].position.y;
                     content.anchoredPosition = new Vector2(0, mBottomValue);
                     mVerticcalValue = mBottomValue;
                     mIsToBottom = false;
-                    Mask.SetAvtiveExtend(false);
+                    Mask.SetActiveExtend(false);
                     return;
                 }
                 MoveDelta(new Vector2(0, -delta));
@@ -468,7 +468,7 @@ Input.touches[0].position.y;
             }
             if (mIsToTop)
             {
-                Mask.SetAvtiveExtend(true);
+                Mask.SetActiveExtend(true);
 
                 float offect = Mathf.Lerp(0, mVerticcalValue, Time.deltaTime * 10);
                 mVerticcalValue -= offect;
@@ -477,7 +477,7 @@ Input.touches[0].position.y;
                     content.anchoredPosition = Vector2.zero;
                     mVerticcalValue = 0;
                     mIsToTop = false;
-                    Mask.SetAvtiveExtend(false);
+                    Mask.SetActiveExtend(false);
                     return;
                 }
                 MoveDelta(new Vector2(0, -offect));
@@ -517,12 +517,12 @@ Input.touches[0].position.y;
                 }
                 float offect = Mathf.Lerp(0, mDragLen, Time.deltaTime * 5);
                 mDragLen -= offect;
-                Mask.SetAvtiveExtend(true);
+                Mask.SetActiveExtend(true);
                 if (mIsUpDir)
                 {
                     if (mDragLen < 5)
                     {
-                        Mask.SetAvtiveExtend(false);
+                        Mask.SetActiveExtend(false);
 
                         mIsSlidering = false;
                         mVerticcalValue += mDragLen;
@@ -535,7 +535,7 @@ Input.touches[0].position.y;
                 {
                     if (mDragLen > -5)
                     {
-                        Mask.SetAvtiveExtend(false);
+                        Mask.SetActiveExtend(false);
                         mVerticcalValue += mDragLen;
                         mIsSlidering = false;
                         MoveDelta(new Vector2(0, mDragLen));
@@ -554,7 +554,7 @@ Input.touches[0].position.y;
         public void OnPointerDown(PointerEventData eventData)
         {
             mIsSlidering = false;
-            Mask.SetAvtiveExtend(false);
+            Mask.SetActiveExtend(false);
         }
         /// <summary>
         /// 获取对象

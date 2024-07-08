@@ -46,5 +46,31 @@ namespace Game
             }
             return len;
         }
+
+        /// <summary>
+        /// 获取GridLayoutGroup组件的高度
+        /// </summary>
+        /// <param name="layout"></param>
+        /// <returns></returns>
+        public static float GetGridLayoutGroupHeight(GridLayoutGroup layout)
+        {
+            if (layout == null) return 0;
+            if (layout.transform.childCount == 0) return 0;
+            float len = 0;
+            int constraintCount = layout.constraintCount;
+            int  rawCount = layout.transform.childCount / constraintCount;
+            if (layout.transform.childCount % 2 != 0)
+            {
+                rawCount++;
+            }
+            float targetHeight = layout.cellSize.y;
+            len = rawCount * targetHeight
+                + (rawCount - 1) * layout.spacing.y
+                + layout.padding.top
+                + layout.padding.bottom
+                ;
+            return len;
+        }
+
     }
 }

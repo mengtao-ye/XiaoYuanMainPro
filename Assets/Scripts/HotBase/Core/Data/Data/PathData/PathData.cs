@@ -34,7 +34,7 @@ namespace Game
         /// <returns></returns>
         public static string GetRoleDir(string roleName)
         {
-            return ProjectDataPath + "/Roles/" + roleName;
+            return ProjectDataDir + "/Roles/" + roleName;
         }
         #endregion
         #region Scene
@@ -65,13 +65,13 @@ namespace Game
         /// <returns></returns>
         public static string GetSceneDir(string sceneName)
         {
-            return ProjectDataPath + "/SceneDatas/" + sceneName;
+            return ProjectDataDir + "/SceneDatas/" + sceneName;
         } 
         #endregion
         /// <summary>
         /// 项目资源根地址
         /// </summary>
-        public static string ProjectDataPath {
+        public static string ProjectDataDir {
             get {
 #if UNITY_EDITOR
                 return ProjectDir + "/XiaoYuanData";

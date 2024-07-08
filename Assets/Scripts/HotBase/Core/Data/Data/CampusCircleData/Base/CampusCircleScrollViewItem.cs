@@ -75,7 +75,7 @@ namespace Game
 
         protected override void StartPopTarget()
         {
-            GameObjectPoolModule.AsyncPop<CampusCircleItemPool>(mParent, PopTarget);
+            GameObjectPoolModule.  AsyncPop<CampusCircleItemPool>(mParent, PopTarget);
         }
     }
 }

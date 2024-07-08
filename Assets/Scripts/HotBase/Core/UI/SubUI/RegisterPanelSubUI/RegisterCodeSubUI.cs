@@ -30,14 +30,14 @@ namespace Game
             transform.FindObject<Button>("NextBtn").onClick.AddListener(NextBtn);
             mVarifyBtnBtn = transform.FindObject<Button>("VarifyCodeBtn");
             mVarifyBtnBtn.onClick.AddListener(VarifyCodeBtnListener);
-            mVarifyBtnBtn.gameObject.SetAvtiveExtend(true);
+            mVarifyBtnBtn.gameObject.SetActiveExtend(true);
         }
 
         public override void Show()
         {
             base.Show();
-            mVarifyTime.gameObject.SetAvtiveExtend(false);
-            mVarifyBtnBtn.gameObject.SetAvtiveExtend(true);
+            mVarifyTime.gameObject.SetActiveExtend(false);
+            mVarifyBtnBtn.gameObject.SetActiveExtend(true);
         }
 
         public override void Hide()
@@ -52,8 +52,8 @@ namespace Game
 
         private void VarifyCodeBtnListener() 
         {
-            mVarifyTime.gameObject.SetAvtiveExtend(true);
-            mVarifyBtnBtn.gameObject.SetAvtiveExtend(false);
+            mVarifyTime.gameObject.SetActiveExtend(true);
+            mVarifyBtnBtn.gameObject.SetActiveExtend(false);
             mCountDown = 60;
             mCountDownCor =  IEnumeratorModule.StartCoroutine(VarifyCodeCountDown());
         }
@@ -66,8 +66,8 @@ namespace Game
                 mCountDown--;
                 yield return Yielders.GetSeconds(1);
             }
-            mVarifyTime.gameObject.SetAvtiveExtend(false);
-            mVarifyBtnBtn.gameObject.SetAvtiveExtend(true);
+            mVarifyTime.gameObject.SetActiveExtend(false);
+            mVarifyBtnBtn.gameObject.SetActiveExtend(true);
             mCountDownCor = null;
         }
 

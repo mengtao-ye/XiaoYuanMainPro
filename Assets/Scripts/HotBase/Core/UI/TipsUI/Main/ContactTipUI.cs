@@ -27,9 +27,9 @@ namespace Game
         public override void Show()
         {
             base.Show();
-            mQQ.SetAvtiveExtend(false);
-            mWeChat.SetAvtiveExtend(false);
-            mPhone.SetAvtiveExtend(false);
+            mQQ.SetActiveExtend(false);
+            mWeChat.SetActiveExtend(false);
+            mPhone.SetActiveExtend(false);
         }
 
         public void SetData(byte contactType,string contact)
@@ -37,13 +37,13 @@ namespace Game
             switch (contactType)
             {
                 case 0:
-                    mPhone.SetAvtiveExtend(true);
+                    mPhone.SetActiveExtend(true);
                     break;
                 case 1:
-                    mWeChat.SetAvtiveExtend(true);
+                    mWeChat.SetActiveExtend(true);
                     break;
                 case 2:
-                    mQQ.SetAvtiveExtend(true);
+                    mQQ.SetActiveExtend(true);
                     break;
             }
             mContactText.text = contact;

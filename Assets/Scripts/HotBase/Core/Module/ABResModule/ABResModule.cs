@@ -64,6 +64,7 @@ namespace Game
             }
             if (mGameObjectActionDict.ContainsKey(abName))
             {
+                mGameObjectActionDict[abName] = null;
                 mGameObjectActionDict.Remove(abName);
             }
         }

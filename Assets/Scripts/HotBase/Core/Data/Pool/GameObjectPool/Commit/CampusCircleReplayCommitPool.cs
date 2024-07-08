@@ -27,7 +27,7 @@ namespace Game
             transform.GetComponent<Button>().onClick.AddListener(ClickCommitCallBack);
             mDeleteBtn = transform.FindObject<Button>("DeleteBtn");
             mDeleteBtn.onClick.AddListener(DeleteBtnListener);
-            mDeleteBtn.gameObject.SetAvtiveExtend(false);
+            mDeleteBtn.gameObject.SetActiveExtend(false);
         }
 
         private void DeleteBtnListener()
@@ -72,7 +72,7 @@ namespace Game
 
         public float SetData(long account, long replayID, string content,long replayCommitID,string replayContent)
         {
-            mDeleteBtn.gameObject.SetAvtiveExtend(account == AppVarData.Account);
+            mDeleteBtn.gameObject.SetActiveExtend(account == AppVarData.Account);
             mReplayCommitID = replayCommitID;
             mReplayID = replayID;
             UserDataModule.MapUserData(account, mHead, mName);

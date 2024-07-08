@@ -35,6 +35,7 @@ namespace Game
         private bool mDownFrash = false;//是否可以向上拉动刷新
         private float mDownFrashValue = 100;//向上拉动刷新阈值
         private Action mDownFrashCallBack;//向上拉动刷新回调
+        private GameObject Mask;
         public void Init(RectTransform viewPort = null, RectTransform content = null)
         {
             mVerticcalValue = 0;
@@ -44,9 +45,11 @@ namespace Game
             if (content == null) this.content = this.viewPort.GetChild(0).GetComponent<RectTransform>();
             else this.content = content;
             mDragPosList = new float[mDragPosCount];
-            mVerticalSize = 0;
+            mVerticalSize = 0; 
             mIsFull = this.content.rect.size.y > this.viewPort.rect.size.y;
             mVerticalSize = this.content.sizeDelta.y;
+            Mask = transform.Find("Mask").gameObject;
+            Mask.SetActiveExtend(false);
         }
 
         public void SetSize(float sizeY)
@@ -237,6 +240,7 @@ Input.touches[0].position.y;
 
             if (mIsToBottom)
             {
+                Mask.SetActiveExtend(true);
                 float offect = Mathf.Lerp(mVerticcalValue, mBottomValue, Time.deltaTime * 10);
                 float delta = mVerticcalValue - offect;
                 mVerticcalValue = offect;
@@ -245,6 +249,7 @@ Input.touches[0].position.y;
                     content.anchoredPosition = new Vector2(0, mBottomValue);
                     mVerticcalValue = mBottomValue;
                     mIsToBottom = false;
+                    Mask.SetActiveExtend(false);
                     return;
                 }
                 MoveDelta(new Vector2(0, -delta));
@@ -252,6 +257,7 @@ Input.touches[0].position.y;
             }
             if (mIsToTop)
             {
+                Mask.SetActiveExtend(true);
                 float offect = Mathf.Lerp(0, mVerticcalValue, Time.deltaTime * 10);
                 mVerticcalValue -= offect;
                 if (mVerticcalValue > -5f)
@@ -259,6 +265,7 @@ Input.touches[0].position.y;
                     content.anchoredPosition = Vector2.zero;
                     mVerticcalValue = 0;
                     mIsToTop = false;
+                    Mask.SetActiveExtend(false);
                     return;
                 }
                 MoveDelta(new Vector2(0, -offect));
@@ -298,10 +305,12 @@ Input.touches[0].position.y;
                 }
                 float offect = Mathf.Lerp(0, mDragLen, Time.deltaTime * 5);
                 mDragLen -= offect;
+                Mask.SetActiveExtend(true);
                 if (mIsUpDir)
                 {
                     if (mDragLen < 5)
                     {
+                        Mask.SetActiveExtend(false);
                         mIsSlidering = false;
                         mVerticcalValue += mDragLen;
                         MoveDelta(new Vector2(0, mDragLen));
@@ -313,6 +322,7 @@ Input.touches[0].position.y;
                 {
                     if (mDragLen > -5)
                     {
+                        Mask.SetActiveExtend(false);
                         mVerticcalValue += mDragLen;
                         mIsSlidering = false;
                         MoveDelta(new Vector2(0, mDragLen));
@@ -331,6 +341,7 @@ Input.touches[0].position.y;
         public void OnPointerDown(PointerEventData eventData)
         {
             mIsSlidering = false;
+            Mask.SetActiveExtend(false);
         }
     }
 }

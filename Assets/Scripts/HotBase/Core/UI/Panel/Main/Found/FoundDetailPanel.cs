@@ -51,8 +51,8 @@ namespace Game
         public override void Show()
         {
             base.Show();
-            mContact.SetAvtiveExtend(false);
-            mDeleteBtn.SetAvtiveExtend(false);
+            mContact.SetActiveExtend(false);
+            mDeleteBtn.SetActiveExtend(false);
         }
         private void DeleteBtnListener()
         {
@@ -108,8 +108,8 @@ namespace Game
 
         public void SetData(FoundData foundData,bool isMy)
         {
-            mContact.SetAvtiveExtend(!isMy);
-            mDeleteBtn.SetAvtiveExtend(isMy);
+            mContact.SetActiveExtend(!isMy);
+            mDeleteBtn.SetActiveExtend(isMy);
             mFoundData = foundData;
             mTipName.text = "名称:"+ foundData.name;
             mPos.text = "地点:"+ foundData.pos;

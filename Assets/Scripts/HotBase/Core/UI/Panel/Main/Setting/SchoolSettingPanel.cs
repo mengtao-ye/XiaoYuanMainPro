@@ -68,8 +68,8 @@ namespace Game
         }
         private void  IsJoinSchool(bool isJoin)
         {
-            mScrollView.SetAvtiveExtend(isJoin);
-            mJoinSchoolBtn.SetAvtiveExtend(!isJoin);
+            mScrollView.SetActiveExtend(isJoin);
+            mJoinSchoolBtn.SetActiveExtend(!isJoin);
         }
         public void ExitSchool() 
         {

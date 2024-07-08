@@ -156,6 +156,7 @@ namespace Game
             AddUI<MetaSchoolMainPanel>(UI_METASCHOOL_DIR);
             AddUI<LoadMetaSchoolSceneDataPanel>(UI_METASCHOOL_DIR);
             AddUI<MetaSchoolSetPanel>(UI_METASCHOOL_DIR);  
+            AddUI<ChangeSkinPanel>(UI_METASCHOOL_DIR);
             #endregion
             #endregion
             #region Log

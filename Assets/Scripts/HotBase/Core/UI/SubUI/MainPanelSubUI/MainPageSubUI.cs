@@ -24,8 +24,8 @@ namespace Game
             mSchoolName = transform.FindObject<Text>("SchoolName");
             mJoinSchoolBtn = transform.FindObject<Button>("JoinSchoolBtn");
             mJoinSchoolBtn.onClick.AddListener(JoinSchoolBtnListener);
-            mJoinSchoolBtn.gameObject.SetAvtiveExtend(false);
-            mSchoolBG.gameObject.SetAvtiveExtend(false);
+            mJoinSchoolBtn.gameObject.SetActiveExtend(false);
+            mSchoolBG.gameObject.SetActiveExtend(false);
             transform.FindObject<Button>("EnterMetaSchoolBtn").onClick.AddListener(EnterMetaSchoolBtnListener);
         }
         private void EnterMetaSchoolBtnListener()
@@ -65,8 +65,8 @@ namespace Game
         }
         public void SetMySchoolID(long schoolCode)
         {
-            mJoinSchoolBtn.gameObject.SetAvtiveExtend(schoolCode == 0);
-            mSchoolBG.gameObject.SetAvtiveExtend(schoolCode != 0);
+            mJoinSchoolBtn.gameObject.SetActiveExtend(schoolCode == 0);
+            mSchoolBG.gameObject.SetActiveExtend(schoolCode != 0);
             if (schoolCode != 0)
             {
                 //加入了学校
@@ -76,8 +76,8 @@ namespace Game
 
         private void SchoolDataCallback(SchoolMapperData data)
         {
-            mJoinSchoolBtn.gameObject.SetAvtiveExtend(false);
-            mSchoolBG.gameObject.SetAvtiveExtend(true);
+            mJoinSchoolBtn.gameObject.SetActiveExtend(false);
+            mSchoolBG.gameObject.SetActiveExtend(true);
             string bgUrl = OssPathData.GetSchoolBG(data.schoolCode);
             HttpTools.LoadSprite(bgUrl, LoadSchoolBGCallBack);
             mSchoolName.text = data.name;

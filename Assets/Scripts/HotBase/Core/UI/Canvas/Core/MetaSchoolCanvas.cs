@@ -11,7 +11,8 @@ namespace Game
         public override void Awake()
         {
             base.Awake();
-            GameCenter.Instance.ShowPanel<LoadMetaSchoolSceneDataPanel>();
+            //GameCenter.Instance.ShowPanel<LoadMetaSchoolSceneDataPanel>();
+            GameCenter.Instance.ShowPanel<ChangeSkinPanel>();
         }
     }
 }

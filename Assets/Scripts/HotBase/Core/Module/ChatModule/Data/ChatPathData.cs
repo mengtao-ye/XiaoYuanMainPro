@@ -90,7 +90,7 @@ namespace Game
             get 
             {
 #if UNITY_EDITOR
-                return PathData.ProjectDataPath + "/ChatData/" + AppVarData.Account.ToString();
+                return PathData.ProjectDataDir + "/ChatData/" + AppVarData.Account.ToString();
 #else
                 return Application.persistentDataPath + "/ChatData";
 #endif

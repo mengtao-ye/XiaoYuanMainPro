@@ -41,8 +41,8 @@ namespace Game
         public override void Show()
         {
             base.Show();
-            mNotFindTip.SetAvtiveExtend(false);
-            mScrollView.gameObject.SetAvtiveExtend(false);
+            mNotFindTip.SetActiveExtend(false);
+            mScrollView.gameObject.SetActiveExtend(false);
             mScrollView.SetDownFrashState(true);
         }
 
@@ -58,8 +58,8 @@ namespace Game
             if (listData.IsNullOrEmpty())
             {
                 mScrollView.SetDownFrashState(false);
-                mNotFindTip.SetAvtiveExtend(true);
-                mScrollView.gameObject.SetAvtiveExtend(false);
+                mNotFindTip.SetActiveExtend(true);
+                mScrollView.gameObject.SetActiveExtend(false);
             }
             else 
             {
@@ -72,8 +72,8 @@ namespace Game
                 { 
                     mScrollView.SetDownFrashState(true);
                 }
-                mNotFindTip.SetAvtiveExtend(false);
-                mScrollView.gameObject.SetAvtiveExtend(true);
+                mNotFindTip.SetActiveExtend(false);
+                mScrollView.gameObject.SetActiveExtend(true);
                 mLastID = listData.list.GetLastData().ID;
                 for (int i = 0; i < listData.Count; i++)
                 {

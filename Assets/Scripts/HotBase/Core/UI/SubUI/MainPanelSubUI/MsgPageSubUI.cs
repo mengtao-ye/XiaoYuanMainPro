@@ -24,8 +24,8 @@ namespace Game
             scrollView.Init();
             scrollView.SetSpace(10,10,10);
             mNotFindTip = transform.FindObject("NotFindTip");
-            mNotFindTip.SetAvtiveExtend(false);
-            scrollView.gameObject.SetAvtiveExtend(false);
+            mNotFindTip.SetActiveExtend(false);
+            scrollView.gameObject.SetActiveExtend(false);
             transform.FindObject<Button>("FriendBtn").onClick.AddListener(FriendBtnListener);
             transform.FindObject<Button>("SearchBtn").onClick.AddListener(SearchBtnListener);
             mNofityBtnRect = transform.FindObject<RectTransform>("NotifyBtn");
@@ -36,8 +36,8 @@ namespace Game
         {
             base.FirstShow();
             bool res = ChatModule.LoadChatList(scrollView);
-            mNotFindTip.SetAvtiveExtend(!res);
-            scrollView.gameObject.SetAvtiveExtend(res);
+            mNotFindTip.SetActiveExtend(!res);
+            scrollView.gameObject.SetActiveExtend(res);
         }
 
         public override void Show()

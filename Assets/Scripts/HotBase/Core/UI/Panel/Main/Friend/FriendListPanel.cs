@@ -22,8 +22,8 @@ namespace Game
             base.Awake();
             mFriendScrollView =  transform.FindObject("FriendScrollView");
             mNotFindTip =  transform.FindObject("NotFindTip");
-            mFriendScrollView.SetAvtiveExtend(false);
-            mNotFindTip.SetAvtiveExtend(false);
+            mFriendScrollView.SetActiveExtend(false);
+            mNotFindTip.SetActiveExtend(false);
             mCurPinYin = PinYinConstData.PinYinArray[PinYinConstData.LEN - 1];
             mCharDict = new Dictionary<char, Text>();
             Transform pinYinArea = transform.Find("PinYinSortArea");
@@ -54,8 +54,8 @@ namespace Game
         {
             base.Show();
             bool res = ChatModule.LoadFriendList(mScrollView);
-            mFriendScrollView.SetAvtiveExtend(res);
-            mNotFindTip.SetAvtiveExtend(!res);
+            mFriendScrollView.SetActiveExtend(res);
+            mNotFindTip.SetActiveExtend(!res);
         }
 
         public override void Hide()

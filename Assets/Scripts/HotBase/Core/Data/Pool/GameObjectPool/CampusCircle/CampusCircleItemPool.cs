@@ -52,7 +52,7 @@ namespace Game
             mCommitCountText = transform.FindObject<Text>("CommitCount");
             rectTransform = transform.GetComponent<RectTransform>();
             mData = transform.Find("Data").gameObject;
-            mData.SetAvtiveExtend(false);
+            mData.SetActiveExtend(false);
             mHead = transform.FindObject<Image>("Head");
             mName = transform.FindObject<Text>("Name");
             mContent = transform.FindObject<Text>("Content");
@@ -99,7 +99,7 @@ namespace Game
         {
             transform.name =typeof(CampusCircleItemPool).Name +":"+id;
             mIsFriendCampusCircle = isFriendCampusCircle;
-            mData.SetAvtiveExtend(true);
+            mData.SetActiveExtend(true);
             mCampusCircleID = id;
             mAccount = account;
             if (isAnonymous)
@@ -202,7 +202,7 @@ namespace Game
         }
         public void SetLoading()
         {
-            mData.SetAvtiveExtend(false);
+            mData.SetActiveExtend(false);
         }
         public override void Recycle()
         {

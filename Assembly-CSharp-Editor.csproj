@@ -60,6 +60,7 @@
     <Compile Include="Assets\Editor\WindowsEditor\WindowsEditor.cs" />
     <Compile Include="Assets\Editor\Scripts\UI\SimpleRoundedImageEditor.cs" />
     <Compile Include="Assets\Editor\HybridCLR\BuildPlayerCommand.cs" />
+    <Compile Include="Assets\Editor\Editors\ChangeName.cs" />
     <Compile Include="Assets\Editor\HybridCLR\BuildlDll.cs" />
   </ItemGroup>
   <ItemGroup>

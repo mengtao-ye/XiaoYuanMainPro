@@ -10,6 +10,7 @@ namespace Game
         {
             T value = UnityEngine.Resources.Load<T>(assetPath);
             callBack?.Invoke(value);
+            callBack = null;
         }
 
         protected override T Load<T>(string assetPath)

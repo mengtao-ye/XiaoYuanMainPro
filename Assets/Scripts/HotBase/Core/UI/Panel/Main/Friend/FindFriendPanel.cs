@@ -38,10 +38,10 @@ namespace Game
         public override void Show()
         {
             base.Show();
-            mNotFindTip.SetAvtiveExtend(false);
-            mUserDataGo.SetAvtiveExtend(false);
-            mAddFriendBtn.gameObject.SetAvtiveExtend(false);
-            mViewBtn.gameObject.SetAvtiveExtend(false);
+            mNotFindTip.SetActiveExtend(false);
+            mUserDataGo.SetActiveExtend(false);
+            mAddFriendBtn.gameObject.SetActiveExtend(false);
+            mViewBtn.gameObject.SetActiveExtend(false);
         }
 
 
@@ -64,8 +64,8 @@ namespace Game
                 AppTools.Toast("请输入账号/ID");
                 return;
             }
-            mNotFindTip.SetAvtiveExtend(false);
-            mUserDataGo.SetAvtiveExtend(false);
+            mNotFindTip.SetActiveExtend(false);
+            mUserDataGo.SetActiveExtend(false);
             mSendBytes = ByteTools.Concat(AppVarData.Account.ToBytes(), mFriendMsgIF.text.ToLong().ToBytes());
             AppTools.TcpSend(TcpSubServerType.Login, (short)TcpLoginUdpCode.SearchFriendData, mSendBytes);
         }
@@ -75,26 +75,26 @@ namespace Game
         /// <param name="account"></param>
         public void ShowFriendData(bool isFriend,long account)
         {
-            mUserDataGo.SetAvtiveExtend(true);
+            mUserDataGo.SetActiveExtend(true);
             if (account == AppVarData.Account)
             {
                 //搜索的是自己的账号
-                mAddFriendBtn.gameObject.SetAvtiveExtend(false);
-                mViewBtn.gameObject.SetAvtiveExtend(false);
+                mAddFriendBtn.gameObject.SetActiveExtend(false);
+                mViewBtn.gameObject.SetActiveExtend(false);
             }
             else 
             {
-                mAddFriendBtn.gameObject.SetAvtiveExtend(!isFriend);
-                mViewBtn.gameObject.SetAvtiveExtend(isFriend);
+                mAddFriendBtn.gameObject.SetActiveExtend(!isFriend);
+                mViewBtn.gameObject.SetActiveExtend(isFriend);
             }
-            mNotFindTip.SetAvtiveExtend(false);
+            mNotFindTip.SetActiveExtend(false);
             mAccount = account;
             UserDataModule.MapUserData(account,mHead,mName);
         }
         public void NotFindFriendData()
         {
-            mNotFindTip.SetAvtiveExtend(true);
-            mUserDataGo.SetAvtiveExtend(false);
+            mNotFindTip.SetActiveExtend(true);
+            mUserDataGo.SetActiveExtend(false);
         }
 
     }

@@ -19,7 +19,7 @@ namespace Game
         {
             base.Init(target);
             mUnreadBG = transform.FindObject("UnreadBG");
-            mUnreadBG.SetAvtiveExtend(false);
+            mUnreadBG.SetActiveExtend(false);
             mUnreadCountText = transform.FindObject<Text>("UnreadCountText");
             mIcon = target.transform.FindObject<Image>("Head");
             mName = target.transform.FindObject<Text>("Name");
@@ -116,7 +116,7 @@ namespace Game
         {
             if (count != 0)
             {
-                mUnreadBG.SetAvtiveExtend(true);
+                mUnreadBG.SetActiveExtend(true);
                 string countText = null;
                 if (count > 99)
                 {
@@ -130,7 +130,7 @@ namespace Game
             }
             else
             {
-                mUnreadBG.SetAvtiveExtend(false);
+                mUnreadBG.SetActiveExtend(false);
             }
         }
         /// <summary>
@@ -138,7 +138,7 @@ namespace Game
         /// </summary>
         public void ClearUnreadMsg()
         {
-            mUnreadBG.SetAvtiveExtend(false);
+            mUnreadBG.SetActiveExtend(false);
         }
         /// <summary>
         /// 回收

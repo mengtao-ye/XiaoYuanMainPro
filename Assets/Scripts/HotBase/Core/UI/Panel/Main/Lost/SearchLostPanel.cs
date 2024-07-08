@@ -89,14 +89,14 @@ namespace Game
                 mScrollView.SetDownFrashState(false);
                 if (mLastUpdateTime == DateTimeTools.MaxValueTime) 
                 {
-                    mCententArea.SetAvtiveExtend(false);
-                    mNotFindTip.SetAvtiveExtend(true);
+                    mCententArea.SetActiveExtend(false);
+                    mNotFindTip.SetActiveExtend(true);
                 }
             }
             else
             {
-                mCententArea.SetAvtiveExtend(true);
-                mNotFindTip.SetAvtiveExtend(false);
+                mCententArea.SetActiveExtend(true);
+                mNotFindTip.SetActiveExtend(false);
                 mLastUpdateTime = data.list.GetLastData().updateTime;
                 if (data.Count != 3)
                 {

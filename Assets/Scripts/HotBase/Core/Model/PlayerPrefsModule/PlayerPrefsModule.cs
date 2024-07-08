@@ -7,7 +7,7 @@ namespace Game
 {
     public static class PlayerPrefsModule
     {
-        private static string LocalPath = PathData.ProjectDataPath + "/PlayerPrefsData/";
+        private static string LocalPath = PathData.ProjectDataDir + "/PlayerPrefsData/";
 
         public static void Set(string key, byte[] value)
         {

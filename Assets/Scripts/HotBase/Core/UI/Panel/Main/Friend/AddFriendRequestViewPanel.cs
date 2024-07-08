@@ -18,8 +18,8 @@ namespace Game
             base.Awake();
             mNewFriendScrollView = transform.FindObject("NewFriendScrollView");
             mNotFindTip = transform.FindObject("NotFindTip");
-            mNewFriendScrollView.SetAvtiveExtend(false);
-            mNotFindTip.SetAvtiveExtend(false);
+            mNewFriendScrollView.SetActiveExtend(false);
+            mNotFindTip.SetActiveExtend(false);
             scrollView = transform.FindObject("NewFriendScrollView").AddComponent<RecyclePoolScrollView>();
             scrollView.Init();
             scrollView.SetSpace(10,10,10);
@@ -29,8 +29,8 @@ namespace Game
         {
             base.Show();
             bool res = ChatModule.LoadAddFriendList(scrollView);
-            mNewFriendScrollView.SetAvtiveExtend(res);
-            mNotFindTip.SetAvtiveExtend(!res);
+            mNewFriendScrollView.SetActiveExtend(res);
+            mNotFindTip.SetActiveExtend(!res);
         }
     }
 }
