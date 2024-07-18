@@ -11,19 +11,19 @@ namespace Game
         public SkinData()
         {
             mSkinDataDict =null;
-            //mSkinDataDict = ClassPool<DictionaryData<byte, byte[]>>.Pop();
-            //mSkinDataDict.Add(1, new byte[] { 1, 1 });
-            //mSkinDataDict.Add(2, new byte[] { 1, 1 });
-            //mSkinDataDict.Add(3, new byte[] { 0, 1 });
-            //mSkinDataDict.Add(4, new byte[] { 0, 1 });
-            //mSkinDataDict.Add(5, new byte[] { 0, 1 });
-            //mSkinDataDict.Add(6, new byte[] { 0, 1 });
-            //mSkinDataDict.Add(8, new byte[] { 0, 1 });
-            //mSkinDataDict.Add(7, new byte[] { 1, 1 });
-            //mSkinDataDict.Add(9, new byte[] { 0, 1 });
-            //mSkinDataDict.Add(10, new byte[] { 1, 1 });
-            //mSkinDataDict.Add(11, new byte[] { 1, 1 });
-            //mSkinDataDict.Add(13, new byte[] { 1, 1 });
+            mSkinDataDict = ClassPool<DictionaryData<byte, byte[]>>.Pop();
+            mSkinDataDict.Add(5, new byte[] { 0, 1 });
+            mSkinDataDict.Add(8, new byte[] { 0, 1 });
+            mSkinDataDict.Add(1, new byte[] { 1, 1 });
+            mSkinDataDict.Add(2, new byte[] { 1, 1 });
+            mSkinDataDict.Add(3, new byte[] { 0, 1 });
+            mSkinDataDict.Add(4, new byte[] { 0, 1 });
+            mSkinDataDict.Add(6, new byte[] { 0, 1 });
+            mSkinDataDict.Add(7, new byte[] { 1, 1 });
+            mSkinDataDict.Add(9, new byte[] { 0, 1 });
+            mSkinDataDict.Add(10, new byte[] { 1, 1 });
+            mSkinDataDict.Add(13, new byte[] { 1, 1 });
+            mSkinDataDict.Add(11, new byte[] { 1, 1 });
         }
         public byte[] GetData(byte type) 
         {
@@ -44,6 +44,21 @@ namespace Game
         {
             mSkinDataDict =  data.ToBytesDictionary();
         }
+
+        public IDictionary<byte, byte[]> Clone()
+        {
+            if (skinDict.IsNullOrEmpty())
+            {
+                return null;
+            }
+            IDictionary<byte, byte[]> dict = new Dictionary<byte, byte[]>();
+            foreach (var item in skinDict)
+            {
+                dict.Add(item.Key,item.Value);
+            }
+            return dict;
+        }
+
         //public override string ToString()
         //{
         //    if (mSkinDataDict == null || mSkinDataDict.data.IsNullOrEmpty()) return "";

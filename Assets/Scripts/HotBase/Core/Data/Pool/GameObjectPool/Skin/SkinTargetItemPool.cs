@@ -34,6 +34,7 @@ namespace Game
                 mChangeSkinPanel.curSelectType2 = type2;
                 mChangeSkinPanel.playerBuilder.Rebuild(mType1,type2,mType3);
                 mChangeSkinPanel.SelectColor(mType1,type2,mType3);
+                mChangeSkinPanel.SetCurSelectType(mType1,type2,mType3);
             }
         }
 

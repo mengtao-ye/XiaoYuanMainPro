@@ -107,7 +107,6 @@
     <Compile Include="Assets\Scripts\HotBase\YFramework\Core\MVC\Controller\Controller\BaseController.cs" />
     <Compile Include="Assets\Scripts\HotBase\Core\DataMapper\School\SchoolDataMapper.cs" />
     <Compile Include="Assets\Scripts\HotBase\Core\UI\SubUI\LostPanelSubUI\LostPanelMySubUI.cs" />
-    <Compile Include="Assets\Scripts\HotBase\Core\Player\Builder\Data\Base\BaseChangeHeadPlayerBuild.cs" />
     <Compile Include="Assets\Scripts\HotBase\Core\Data\Pool\GameObjectPool\Common\ImagePool.cs" />
     <Compile Include="Assets\Scripts\HotBase\YFramework\Core\Module\FSM\FSM\BaseFSM.cs" />
     <Compile Include="Assets\Scripts\HotBase\Core\Data\Data\FriendData\FriendScrollViewItem.cs" />
@@ -266,8 +265,10 @@
     <Compile Include="Assets\Scripts\HotBase\Core\UI\Panel\Main\Lost\MyLostDetailPanel.cs" />
     <Compile Include="Assets\Scripts\HotBase\YFramework\Core\Manager\SocketManager\Data\CommonData.cs" />
     <Compile Include="Assets\Scripts\HotBase\Core\UI\TipsUI\CommonTipsUI\ChoiceTimeTipUI\ChoiceTimeTipUI.cs" />
+    <Compile Include="Assets\Scripts\HotBase\Core\Player\Builder\Data\Base\Core\BaseInstantiateTargetPlayerBuild.cs" />
     <Compile Include="Assets\Scripts\HotBase\YFramework\Core\Module\ToTween\Base\FatherBase\Interface\ITransformToTween.cs" />
     <Compile Include="Assets\Scripts\HotBase\Core\Data\Pool\GameObjectPool\Common\ShowImagePool.cs" />
+    <Compile Include="Assets\Scripts\HotBase\Core\Player\Builder\Data\Base\Core\BaseChangeTargetPlayerBuild.cs" />
     <Compile Include="Assets\Scripts\HotBase\Core\Module\AssetBundleModule\AssetBundleData\AssetBundleFileData.cs" />
     <Compile Include="Assets\Scripts\HotBase\Core\UI\Panel\MetaSchool\ChangeSkinPanel\Data\SkinTarget\Entity\TopsSkinTarget.cs" />
     <Compile Include="Assets\Scripts\HotBase\Core\Data\Data\CampusCircleData\CampusCircleData.cs" />
@@ -300,6 +301,7 @@
     <Compile Include="Assets\Scripts\HotBase\Core\Data\Data\MetaSchoolData\MyMetaSchoolData.cs" />
     <Compile Include="Assets\Scripts\HotBase\YFramework\Core\Module\LockStepModule\FixedData\Fix32\Fix32Vector2.cs" />
     <Compile Include="Assets\Scripts\HotBase\Core\UI\Panel\Main\School\SelectSchoolPanel.cs" />
+    <Compile Include="Assets\Scripts\HotBase\Core\UI\Panel\MetaSchool\ChangeSkinPanel\Data\SkinTarget\Data\CommonSkinColorMapper.cs" />
     <Compile Include="Assets\Scripts\HotBase\Core\Socket\UdpModule\SocketManager\XiaoYuanUDPScoketManager.cs" />
     <Compile Include="Assets\Scripts\HotBase\YFramework\Core\Utility\Utility.HttpTools.cs" />
     <Compile Include="Assets\Scripts\HotBase\Core\UI\Panel\MetaSchool\ChangeSkinPanel\Data\SkinTarget\Entity\EyesSkinTarget.cs" />
@@ -337,6 +339,7 @@
     <Compile Include="Assets\Scripts\HotBase\Core\Player\Builder\Data\Entity\InstantiateTarget\GlassesBuild.cs" />
     <Compile Include="Assets\Scripts\HotBase\YFramework\Core\Utility\Utility.CRC32Tool.cs" />
     <Compile Include="Assets\Scripts\HotBase\Core\Tools\UITools\UITools.cs" />
+    <Compile Include="Assets\Scripts\HotBase\Core\Player\Builder\Data\Base\Core\BaseChangeHeadPlayerBuild.cs" />
     <Compile Include="Assets\Scripts\HotBase\Core\UI\Panel\Main\Setting\SettingPanel.cs" />
     <Compile Include="Assets\Scripts\HotBase\YFramework\Core\Module\ECSModule\Entity\BaseECSEntity.cs" />
     <Compile Include="Assets\Scripts\HotBase\Core\Module\PhysicsModule\PhysicsModule.cs" />
@@ -609,7 +612,6 @@
     <Compile Include="Assets\Scripts\HotBase\Core\UI\Panel\Main\PartTimeJob\MyCollectionPartTimeJobListPanel.cs" />
     <Compile Include="Assets\Scripts\HotBase\Core\Player\Builder\Data\Entity\ChangeTarget\EyeBrownBuild.cs" />
     <Compile Include="Assets\Scripts\HotBase\YFramework\Core\UI\Log\LogUIManager\ILogUIManager.cs" />
-    <Compile Include="Assets\Scripts\HotBase\Core\Player\Builder\Data\Base\BaseInstantiateTargetPlayerBuild.cs" />
     <Compile Include="Assets\Scripts\HotBase\YFramework\Core\Module\ProcessModule\Process\BaseProcess.cs" />
     <Compile Include="Assets\Scripts\HotBase\YFramework\Core\Manager\SocketManager\Udp\BigData\UdpMsgType.cs" />
     <Compile Include="Assets\Scripts\HotBase\YFramework\Core\Module\ECSModule\Entity\IECSEntity.cs" />
@@ -642,7 +644,6 @@
     <Compile Include="Assets\Scripts\HotBase\YFramework\Core\Module\PoolModule\GameObjectPoolModule\Base\BaseGameObjectPoolTarget.cs" />
     <Compile Include="Assets\Scripts\HotBase\Core\Manager\LiveManager\Live\Data\LiveType.cs" />
     <Compile Include="Assets\Scripts\HotBase\YFramework\Core\DesignPattern\SinglePattern\SingletonMono.cs" />
-    <Compile Include="Assets\Scripts\HotBase\Core\Player\Builder\Data\Base\BaseChangeTargetPlayerBuild.cs" />
     <Compile Include="Assets\Scripts\HotBase\Core\UI\SubUI\UnusePanelSubUI\UnuseMySubUI.cs" />
     <Compile Include="Assets\Scripts\HotBase\Core\UI\TipsUI\CommonTipsUI\ChoiceTimeTipUI\DatePicker.cs" />
     <Compile Include="Assets\Scripts\HotBase\Core\Module\HotFixModule\Data\Patch.cs" />

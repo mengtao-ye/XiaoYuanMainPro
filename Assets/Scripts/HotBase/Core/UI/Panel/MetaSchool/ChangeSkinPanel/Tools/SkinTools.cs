@@ -6,6 +6,10 @@
         private const string TEXTURE_PARENT_PATH = "Textures/Skin";
         private const string MATERIAL_PARENT_PATH = "Materials/Skin";
         private const string MODEL_PARENT_PATH = "Prefabs/Skin";
+        public static string GetSkinMatPath() 
+        {
+            return MATERIAL_PARENT_PATH + "/11/BodySkin@Mat";
+        }
         /// <summary>
         /// 获取皮肤贴图地址
         /// </summary>
@@ -51,7 +55,7 @@
         public static string GetSkinHairModelPath(byte type, byte type2, byte type3,bool hasHat)
         {
             string hasHatStr = hasHat ? "Headless":"Normal";
-            return $"{MODEL_PARENT_PATH}/{type}/{type2}/Skin_{type}.{type2}.{type3}_{hasHatStr}@Model";
+            return $"{MODEL_PARENT_PATH}/{type}/{type2}/Skin_{type}.{type2}.1_{hasHatStr}@Model";
         }
 
         /// <summary>

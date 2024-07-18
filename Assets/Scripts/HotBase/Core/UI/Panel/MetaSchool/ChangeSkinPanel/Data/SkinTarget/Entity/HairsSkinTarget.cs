@@ -10,14 +10,14 @@
         }
         protected override void ConfigSkinTargetDic()
         {
-            AddSkinTarget(1, null);
-            AddSkinTarget(2, null);
-            AddSkinTarget(3, null);
-            AddSkinTarget(4, null);
-            AddSkinTarget(5, null);
-            AddSkinTarget(6, null);
-            AddSkinTarget(7, null);
-            AddSkinTarget(8, null);
+            AddSkinTarget(1, CommonSkinColorMapper.Instance.data);
+            AddSkinTarget(2, CommonSkinColorMapper.Instance.data);
+            AddSkinTarget(3, CommonSkinColorMapper.Instance.data);
+            AddSkinTarget(4, CommonSkinColorMapper.Instance.data);
+            AddSkinTarget(5, CommonSkinColorMapper.Instance.data);
+            AddSkinTarget(6, CommonSkinColorMapper.Instance.data);
+            AddSkinTarget(7, CommonSkinColorMapper.Instance.data);
+            AddSkinTarget(8, CommonSkinColorMapper.Instance.data);
         }
     }
 }

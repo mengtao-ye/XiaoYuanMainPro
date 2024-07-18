@@ -18,5 +18,6 @@ namespace Game
         }
         protected abstract void Init();
         public abstract void Build(byte[] data);
+        public virtual void SetSkinMat(Material material) { }
     }
 }

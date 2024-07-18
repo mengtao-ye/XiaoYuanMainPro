@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8361447879747142630}
   - component: {fileID: 6047529192140404524}
   m_Layer: 0
-  m_Name: Skin_7.8.1_Handless@Model
+  m_Name: Skin_7.8.1_Headless@Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

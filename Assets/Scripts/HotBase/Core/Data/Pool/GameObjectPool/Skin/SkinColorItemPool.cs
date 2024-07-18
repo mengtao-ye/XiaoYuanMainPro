@@ -32,6 +32,7 @@ namespace Game
             if (b && canInteractive && mChangeSkinPanel.curSelectType3 != type3)
             {
                 mChangeSkinPanel.curSelectType3= type3;
+                mChangeSkinPanel.RecordTempColor(type1,type2,type3);
                 mChangeSkinPanel.playerBuilder.Rebuild(type1,type2,type3);
             }
         }
@@ -53,6 +54,7 @@ namespace Game
         public void Select(bool isSelect)
         {
             mToggle.isOn = isSelect;
+            mChangeSkinPanel.playerBuilder.Rebuild(type1, type2, type3);
         }
 
         public override void Push()

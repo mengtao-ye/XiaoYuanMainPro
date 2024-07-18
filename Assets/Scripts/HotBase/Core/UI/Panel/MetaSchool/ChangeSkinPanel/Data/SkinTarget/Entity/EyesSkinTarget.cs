@@ -10,7 +10,7 @@
         }
         protected override void ConfigSkinTargetDic()
         {
-            AddSkinTarget(1, null);
+            AddSkinTarget(1,null);
             AddSkinTarget(2, null);
             AddSkinTarget(3, null);
             AddSkinTarget(4, null);
